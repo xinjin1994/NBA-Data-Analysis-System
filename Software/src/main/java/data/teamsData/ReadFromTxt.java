@@ -15,6 +15,7 @@ public class ReadFromTxt implements ReadTeams {
 		if(file.exists()){
 			try{
 				teamList = new ArrayList<TeamPO>();
+				
 				BufferedReader br = new BufferedReader(new InputStreamReader(  
 		                new FileInputStream(file), "utf-8")); 
 				br.readLine();
@@ -41,6 +42,8 @@ public class ReadFromTxt implements ReadTeams {
 		return teamList;
 	}
 	
+	
+	//简单测试
 	public static void main(String[] args){
 		ReadFromTxt reader = new ReadFromTxt();
 		ArrayList<TeamPO> teamList = reader.readAllTeams();

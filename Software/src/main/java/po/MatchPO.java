@@ -37,11 +37,27 @@ public class MatchPO {
 		//String[]：见PlayersStatsPO构造函数
 		team1Players = new ArrayList<PlayerStatsPO>();
 		team2Players = new ArrayList<PlayerStatsPO>();
+		
 		for(int i=0; i<team1.size(); i++){
 			PlayerStatsPO player1 = new PlayerStatsPO(team1.get(i));
-			PlayerStatsPO player2 = new PlayerStatsPO(team2.get(i));
 			team1Players.add(player1);
+		}
+		for(int i=0; i<team2.size(); i++){
+			PlayerStatsPO player2 = new PlayerStatsPO(team2.get(i));
 			team2Players.add(player2);
+		}
+	}
+	
+	public void print(){
+		System.out.println(season + ';' + date + '\n' +
+				           homeTeam + '-' + guestTeam + '\n' +
+				           score + '\n' +
+				           score1 + ';' + score2 + ';' + score3 + ';' + score4);
+		for(int i=0; i<team1Players.size(); i++){
+			team1Players.get(i).print();
+		}
+		for(int i=0; i<team2Players.size(); i++){
+			team2Players.get(i).print();
 		}
 	}
 	

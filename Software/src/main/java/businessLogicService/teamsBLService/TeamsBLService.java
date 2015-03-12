@@ -15,6 +15,6 @@ public interface TeamsBLService {
 	
 	//获取球队具体统计数据
 	public TeamStatsVO getTeamStats(Teams team);
-	public ArrayList<TeamStatsVO> getTeamsStats();
+	public ArrayList<TeamStatsVO> getTeamsStats(Conference conference, Division division);
 	
 }

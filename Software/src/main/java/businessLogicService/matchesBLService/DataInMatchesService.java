@@ -1,7 +1,8 @@
 package businessLogicService.matchesBLService;
 
 import java.util.ArrayList;
-import businessLogic.machesBL.Match;
+
+import businessLogic.matchesBL.Match;
 import enums.Teams;
 
 public interface DataInMatchesService {
