@@ -75,6 +75,25 @@ public class ReadFromTxt implements ReadMatches{
 		
 		System.out.println("Time:" + (time2-time1));
 		
-		matchList.get(0).print();
+		
+		time1 = System.currentTimeMillis();
+		
+		for(int i=0; i<matchList.size(); i++){
+			MatchPO match = matchList.get(i);
+			for(int j=0; j<match.team1Players().size(); j++){
+				if(match.team1Players().get(j).points() == null){
+					System.out.println(match.date());
+				}
+			}
+			for(int j=0; j<match.team2Players().size(); j++){
+				if(match.team2Players().get(j).points() == null){
+					System.out.println(match.date());
+				}
+			}
+		}
+		
+		time2 = System.currentTimeMillis();
+		
+		System.out.println("Time:" + (time2-time1));
 	}
 }

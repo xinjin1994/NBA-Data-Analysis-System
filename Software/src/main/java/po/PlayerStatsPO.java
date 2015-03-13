@@ -6,8 +6,8 @@ import helper.ReaderHelper;
 public class PlayerStatsPO {
 	//单场比赛球员的基本数据，一般包含在MatchPO中
 	String name;
-	Position position;                   //位置
-	String minutes;                      //在场时间
+	Position position;                       //位置
+	String minutes;                          //在场时间
 	Integer fieldGoalsMade;                  //投篮命中数
 	Integer fieldGoalsAttempted;             //投篮出手数
 	Integer threePointFieldGoalsMade;        //三分命中数
@@ -22,7 +22,7 @@ public class PlayerStatsPO {
 	Integer blocks;                          //盖帽数
 	Integer turnovers;                       //失误数
 	Integer personalFouls;                   //犯规数
-	Integer points;                      //个人得分
+	Integer points;                          //个人得分
 	
 	public PlayerStatsPO(String[] arr) {
 		//arr大小为18，依次为此类所有成员变量
@@ -48,13 +48,83 @@ public class PlayerStatsPO {
 		this.personalFouls = helper.str_to_int(arr[16]);
 		this.points = helper.str_to_int(arr[17]);
 		
-		try{                                                   //此数据可能为"null"
-			this.points = Integer.parseInt(arr[17]);
-		}catch(Exception e){
-			this.points = null;
+		if(points == null){                          //points可能为null
+			points = this.fieldGoalsMade*2 + this.threePointFieldGoalsMade*3
+					 + this.freeThrowsMade;
 		}
-		
 
+	}
+	
+	public String name(){
+		return name;
+	}
+	
+	public Position position(){
+		return position;
+	}
+	
+	public String minutes(){
+		return minutes;
+	}
+	
+	public Integer fieldGoalsMade(){
+		return fieldGoalsMade;
+	}
+	
+	public Integer fieldGoalsAttempted(){
+		return fieldGoalsAttempted;
+	}
+	
+	public Integer threePointFieldGoalsAttempted(){
+		return threePointFieldGoalsAttempted;
+	}
+	
+	public Integer threePointFieldGoalsMade(){
+		return threePointFieldGoalsMade;
+	}
+	
+	public Integer freeThrowsMade(){
+		return freeThrowsMade;
+	}
+	
+	public Integer freeThrowsAttempted(){
+		return freeThrowsAttempted;
+	}
+	
+	public Integer offensiveRebounds(){
+		return offensiveRebounds;
+	}
+	
+	public Integer defensiveRebounds(){
+		return defensiveRebounds;
+	}
+	
+	public Integer rebounds(){
+		return rebounds;
+	}
+	
+	public Integer assists(){
+		return assists;
+	}
+	
+	public Integer steals(){
+		return steals;
+	}
+	
+	public Integer blocks(){
+		return blocks;
+	}
+	
+	public Integer turnovers(){
+		return turnovers;
+	}
+	
+	public Integer personalFouls(){
+		return personalFouls;
+	}
+	
+	public Integer points(){
+		return points;
 	}
 	
 	public void print(){

@@ -48,6 +48,50 @@ public class MatchPO {
 		}
 	}
 	
+	public String season(){
+		return season;
+	}
+	
+	public String date(){
+		return date;
+	}
+	
+	public Teams homeTeam(){
+		return homeTeam;
+	}
+	
+	public Teams guestTeam(){
+		return guestTeam;
+	}
+	
+	public String score(){
+		return score;
+	}
+	
+	public String score1(){
+		return score1;
+	}
+	
+	public String score2(){
+		return score2;
+	}
+	
+	public String score3(){
+		return score3;
+	}
+	
+	public String score4(){
+		return score4;
+	}
+	
+	public ArrayList<PlayerStatsPO> team1Players(){
+		return team1Players;
+	}
+	
+	public ArrayList<PlayerStatsPO> team2Players(){
+		return team2Players;
+	}
+	
 	public void print(){
 		System.out.println(season + ';' + date + '\n' +
 				           homeTeam + '-' + guestTeam + '\n' +

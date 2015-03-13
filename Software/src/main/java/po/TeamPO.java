@@ -35,6 +35,34 @@ public class TeamPO {
 		yearOfEstablishment = arr[6];
 	}
 	
+	public Teams name(){
+		return name;
+	}
+	
+	public String abbreviationOfName(){
+		return abbreviationOfName;
+	}
+	
+	public String location(){
+		return location;
+	}
+	
+	public Conference conference(){
+		return conference;
+	}
+	
+	public Division division(){
+		return division;
+	}
+	
+	public String homeCourt(){
+		return homeCourt;
+	}
+	
+	public String yearOfEstablishment(){
+		return yearOfEstablishment;
+	}
+	
 	public void print(){
 		System.out.println(name.toString()+'\n'+
 				           abbreviationOfName+'\n'+
