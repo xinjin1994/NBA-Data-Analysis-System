@@ -35,6 +35,48 @@ public class PlayerPO {
 		this.school = arr[8];
 	}
 	
+	
+	
+	public String name() {
+		return name;
+	}
+
+	public String number() {
+		return number;
+	}
+
+	public Position position() {
+		return position;
+	}
+
+	public double height_Foot() {
+		return height_Foot;
+	}
+
+	public double height_Inch() {
+		return height_Inch;
+	}
+
+	public double weight_Pounds() {
+		return weight_Pounds;
+	}
+
+	public String birthday() {
+		return birthday;
+	}
+	
+	public int age() {
+		return age;
+	}
+
+	public int exp() {
+		return exp;
+	}
+
+	public String school() {
+		return school;
+	}
+
 	public void print(){
 		System.out.println(name + '\n' +
 				           number + '\n' +

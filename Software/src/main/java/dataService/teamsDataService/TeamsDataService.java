@@ -5,9 +5,10 @@ import enums.Conference;
 import enums.Division;
 import po.TeamPO;
 import java.util.ArrayList;
+import exceptions.TeamNotFound;
 
 public interface TeamsDataService {
-	TeamPO getTeam(Teams team);
-	ArrayList<TeamPO> getTeams(Conference conference, Division division);
-	ArrayList<TeamPO> getAllTeams();
+	TeamPO getTeam(Teams team) throws TeamNotFound;
+	ArrayList<TeamPO> getTeams(Conference conference, Division division) throws TeamNotFound;
+	ArrayList<TeamPO> getAllTeams() throws TeamNotFound;
 }
