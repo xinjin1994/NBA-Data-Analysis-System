@@ -3,8 +3,8 @@ package enums;
 public enum Division {
 	//分区
 	NATIONAL("National","全部"),
-	ATLANTIC("Atlantic","亚特兰大"), CENTRAL("Central","中部"), SOUTHEAST("Southeast","东南"),                 //东部
-	SOUTHWEST("Southwest","西南"), NORTHWEST("Northwest","西北"), PACIFIC("Pacific","近太平洋");              //西部
+	ATLANTIC("Atlantic","大西洋"), CENTRAL("Central","中部"), SOUTHEAST("Southeast","东南"),                 //东部
+	SOUTHWEST("Southwest","西南"), NORTHWEST("Northwest","西北"), PACIFIC("Pacific","太平洋");              //西部
 	
 	String division;
 	private String chinese;
@@ -28,5 +28,12 @@ public enum Division {
 		case "Pacific": return PACIFIC;
 		default: return null;
 		}
+	}
+	
+	static public Division[] getEasternDivision(){
+		return new Division[]{NATIONAL, ATLANTIC, CENTRAL, SOUTHEAST};
+	}
+	static public Division[] getWestternDivision(){
+		return new Division[]{NATIONAL, SOUTHWEST, NORTHWEST, PACIFIC};
 	}
 }

@@ -31,68 +31,35 @@ public enum Teams {
 	}
 	
 	public static Teams toEnum(String n){
-		switch(n){
-		case "Hawks": return ATL;
-		case "ATL": return ATL;
-		case "Nets": return BKN;
-		case "BKN": return BKN;
-		case "Celtics": return BOS;
-		case "BOS": return BOS;
-		case "Hornets": return CHA;
-		case "CHA": return CHA;
-		case "Bulls": return CHI;
-		case "CHI": return CHI;
-		case "Cavaliers": return CLE;
-		case "CLE": return CLE;
-		case "Mavericks": return DAL;
-		case "DAL": return DAL;
-		case "Nuggets": return DEN;
-		case "DEN": return DEN;
-		case "Pistons": return DET;
-		case "DET": return DET;
-		case "Warriors": return GSW;
-		case "GSW": return GSW;
-		case "Rockets": return HOU;
-		case "HOU": return HOU;
-		case "Pacers": return IND;
-		case "IND": return IND;
-		case "Clippers": return LAC;
-		case "LAC": return LAC;
-		case "Lakers": return LAL;
-		case "LAL": return LAL;
-		case "Grizzlies": return MEM;
-		case "MEM": return MEM;
-		case "Heat": return MIA;
-		case "MIA": return MIA;
-		case "Bucks": return MIL;
-		case "MIL": return MIL;
-		case "Timberwolves": return MIN;
-		case "MIN": return MIN;
-		case "Pelicans": return NOP;
-		case "NOP": return NOP;
-		case "Knicks": return NYK;
-		case "NYK": return NYK;
-		case "Thunder": return OKC;
-		case "OKC": return OKC;
-		case "Magic": return ORL;
-		case "ORL": return ORL;
-		case "76ers": return PHI;
-		case "PHI": return PHI;
-		case "Suns": return PHX;
-		case "PHX": return PHX;
-		case "Trail Blazers": return POR;
-		case "POR": return POR;
-		case "Kings": return SAC;
-		case "SAC": return SAC;
-		case "Spurs": return SAS;
-		case "SAS": return SAS;
-		case "Raptors": return TOR;
-		case "TOR": return TOR;
-		case "Jazz": return UTA;
-		case "UTA": return UTA;
-		case "Wizards": return WAS;
-		case "WAS": return WAS;
-		default: return null;
-		}
+		for(Teams t : values())
+			if(n.equals(t.toAbbr()))
+				return t;
+		return null;
+	}
+	
+	static public Teams[] getEasternTeams(){
+		return new Teams[]{BOS,BKN,NYK,PHI,TOR,ATL,MIA,ORL,CHA,WAS,CHI,CLE,DET,IND,MIL};
+	}
+	static public Teams[] getAtlanticTeams(){
+		return new Teams[]{BOS,BKN,NYK,PHI,TOR};
+	}
+	static public Teams[] getSouthEastTeams(){
+		return new Teams[]{ATL,MIA,ORL,CHA,WAS};
+	}
+	static public Teams[] getCentralTeams(){
+		return new Teams[]{CHI,CLE,DET,IND,MIL};
+	}
+	
+	static public Teams[] getWesternTeams(){
+		return new Teams[]{DAL,HOU,MEM,NOP,SAS,DEN,MIN,OKC,POR,UTA,GSW,LAC,LAL,PHX,SAC};
+	}
+	static public Teams[] getSouthWestTeams(){
+		return new Teams[]{DAL,HOU,MEM,NOP,SAS};
+	}
+	static public Teams[] getNouthWestTeams(){
+		return new Teams[]{DEN,MIN,OKC,POR,UTA};
+	}
+	static public Teams[] getPacificTeams(){
+		return new Teams[]{GSW,LAC,LAL,PHX,SAC};
 	}
 }

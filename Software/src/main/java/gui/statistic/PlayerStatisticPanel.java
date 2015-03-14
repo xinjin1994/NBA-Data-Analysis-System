@@ -1,16 +1,17 @@
-package gui.player;
+package gui.statistic;
 
 import gui.SelfAdjustPanel;
+import gui.player.SearchPlayerPanel;
 import gui.util.ReturnButton;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-public class PlayerPanel extends SelfAdjustPanel {
+public class PlayerStatisticPanel extends SelfAdjustPanel {
 
 	private static final long serialVersionUID = 9090035509234357424L;
 
-	public PlayerPanel() {
+	public PlayerStatisticPanel() {
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
 		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, pWidth/(10/8), pWidth/10};
 		gbl_pnl_menu.rowHeights = new int[]{pHeight/10, pHeight/5, pHeight/10, pHeight/2, pHeight/10};

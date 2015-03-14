@@ -91,9 +91,9 @@ public class GUIUtility {
 	}
 	
 	public static String formatDouble(double d){
-		DecimalFormat nf = new DecimalFormat("##0.00");
+		DecimalFormat nf = new DecimalFormat("##0.0");
 		nf.setDecimalSeparatorAlwaysShown(false);
-		nf.setMaximumFractionDigits(2);
+		nf.setMaximumFractionDigits(1);
 		return nf.format(d);
 	}
 }
