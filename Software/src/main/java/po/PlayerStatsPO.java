@@ -6,6 +6,7 @@ import helper.ReaderHelper;
 public class PlayerStatsPO {
 	//单场比赛球员的基本数据，一般包含在MatchPO中
 	String name;
+	boolean isGameStarting = false;          //是否先发
 	Position position;                       //位置
 	String minutes;                          //在场时间
 	Integer fieldGoalsMade;                  //投篮命中数
@@ -55,8 +56,16 @@ public class PlayerStatsPO {
 
 	}
 	
+	public void setGameStarting(boolean bool){
+		isGameStarting = bool;
+	}
+	
 	public String name(){
 		return name;
+	}
+	
+	public boolean isGameStarting(){
+		return isGameStarting;
 	}
 	
 	public Position position(){
@@ -129,6 +138,7 @@ public class PlayerStatsPO {
 	
 	public void print(){
 		System.out.println(this.name + ';' +
+				           this.isGameStarting + ";" +
 				           this.position + ';' +
 				           this.minutes + ';' +
 				           this.fieldGoalsMade + ';' +

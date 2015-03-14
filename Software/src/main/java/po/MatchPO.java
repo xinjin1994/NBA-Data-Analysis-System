@@ -40,10 +40,16 @@ public class MatchPO {
 		
 		for(int i=0; i<team1.size(); i++){
 			PlayerStatsPO player1 = new PlayerStatsPO(team1.get(i));
+			if(i<5){
+				player1.setGameStarting(true);
+			}
 			team1Players.add(player1);
 		}
 		for(int i=0; i<team2.size(); i++){
 			PlayerStatsPO player2 = new PlayerStatsPO(team2.get(i));
+			if(i<5){
+				player2.setGameStarting(true);
+			}
 			team2Players.add(player2);
 		}
 	}

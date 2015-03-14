@@ -5,8 +5,9 @@ import enums.Teams;
 import enums.Position;
 import enums.Conference;
 import enums.Division;
-import vo.PlayerStatsVO;
+import vo.PlayerBasicStatsVO;
 import vo.PlayerVO;
+import vo.PlayerAdvancedStatsVO;
 
 public interface PlayersBLService {
 	//获取球员名单
@@ -19,8 +20,9 @@ public interface PlayersBLService {
 	public PlayerVO getPlayerInfo(String name);
 	
 	//获取统计数据
-	public PlayerStatsVO getPlayerStats(String name);
-	public ArrayList<PlayerStatsVO> getPlayersStats(Conference con, Division div, Position pos);
-	public ArrayList<PlayerStatsVO> getPlayersStats(String season, Teams team);
+	public PlayerBasicStatsVO getBasicPlayerStats(String name);
+	public PlayerAdvancedStatsVO getAdvancedPlayerStats(String name);
+	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStats(Conference con, Division div, Position pos);
+	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStats(Conference con, Division div, Position pos);
 	
 }
