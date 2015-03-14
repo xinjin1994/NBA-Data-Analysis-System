@@ -1,26 +1,29 @@
 package enums;
 
 public enum Teams {
-	ATL("Hawks", "ATL"), BKN("Nets", "BKN"), BOS("Celtics", "BOS"), CHA("Hornets", "CHA"), 
-	CHI("Bulls", "CHI"), CLE("Cavaliers", "CLE"), DAL("Mavericks", "DAL"), 
-	DEN("Nuggets", "DEN"), DET("Pistons", "DET"), GSW("Warriors", "GSW"), 
-	HOU("Rockets", "HOU"), IND("Pacers", "IND"), LAC("Clippers", "LAC"), 
-	LAL("Lakers", "LAL"), MEM("Grizzlies", "MEM"), MIA("Heat", "MIA"), MIL("Bucks", "MIL"), 
-	MIN("Timberwolves", "MIN"), NOP("Pelicans", "NOP"), NYK("Knicks", "NYK"), 
-	OKC("Thunder", "OKC"), ORL("Magic", "ORL"), PHI("76ers", "PHI"), PHX("Suns", "PHX"), 
-	POR("Trail Blazers", "POR"), SAC("Kings", "SAC"), SAS("Spurs", "SAS"), 
-	TOR("Raptors", "TOR"), UTA("Jazz", "UTA"), WAS("Wizards", "WAS");
+	ALL("All","ALL","全部"),
+	ATL("Hawks", "ATL","老鹰"), BKN("Nets", "BKN","篮网"), BOS("Celtics", "BOS","凯尔特人"), CHA("Hornets", "CHA","黄蜂"), 
+	CHI("Bulls", "CHI","公牛"), CLE("Cavaliers", "CLE","骑士"), DAL("Mavericks", "DAL","小牛"), 
+	DEN("Nuggets", "DEN","掘金"), DET("Pistons", "DET","活塞"), GSW("Warriors", "GSW,","勇士"), 
+	HOU("Rockets", "HOU","火箭"), IND("Pacers", "IND","步行者"), LAC("Clippers", "LAC","快船"), 
+	LAL("Lakers", "LAL","湖人"), MEM("Grizzlies", "MEM","鹈鹕"), MIA("Heat", "MIA","热火"), MIL("Bucks", "MIL","雄鹿"), 
+	MIN("Timberwolves", "MIN","森林狼"), NOP("Pelicans", "NOP","灰熊"), NYK("Knicks", "NYK","尼克斯"), 
+	OKC("Thunder", "OKC","雷霆"), ORL("Magic", "ORL","魔术"), PHI("76ers", "PHI","76人"), PHX("Suns", "PHX","太阳"), 
+	POR("Trail Blazers", "POR","开拓者"), SAC("Kings", "SAC","国王"), SAS("Spurs", "SAS","马刺"), 
+	TOR("Raptors", "TOR","猛龙"), UTA("Jazz", "UTA","爵士"), WAS("Wizards", "WAS","奇才");
 	
 	String name;
 	String abbreviation;
+	String chinese;
 	
-	Teams(String n, String a){
+	Teams(String n, String a, String c){
 		name = n;
 		abbreviation = a;
+		chinese = c;
 	}
 	
 	public String toString(){           //返回缩写
-		return name;
+		return chinese;
 	}
 	
 	public String toAbbr(){             //返回全名
