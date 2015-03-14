@@ -2,6 +2,7 @@ package enums;
 
 public enum Position {
 	//球员位置
+	ALL("全部"),
 	FORWARD("前锋"), SF("小前锋"), PF("大前锋"),
 	CENTER("中锋"),
 	GUARD("后卫"), SG("得分后卫"), PG("控球后卫"),

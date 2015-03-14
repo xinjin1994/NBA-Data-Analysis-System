@@ -1,6 +1,7 @@
 package gui;
 
 import gui.enums.PanelType;
+import gui.player.PlayerPanel;
 import gui.statistic.StatisticPanel;
 import gui.util.GUIUtility;
 
@@ -61,8 +62,9 @@ public class MainFrame extends JFrame {
 		
 		setTitle("NBA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(800, 640));
 		GUIUtility.setCenter(this);
-		this.setResizable(false);
+		this.setResizable(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -80,6 +82,7 @@ public class MainFrame extends JFrame {
 	}
 
 	//通过枚举类型来切换版面的集中式控制
+	//新的配对在这里添加
 	public void gotoPanel(PanelType type){
 		if(!panels.containsKey(type)){
 			JPanel panel = null;
@@ -90,12 +93,24 @@ public class MainFrame extends JFrame {
 			case MENU:
 				panel = new MenuPanel();
 				break;
-			default:
+			case GAME:
+				break;
+			case PLAYER:
+				panel = new PlayerPanel();
+				break;
+			case TEAM:
 				break;
 			}
 			panels.put(type, panel);
 			pnl_main.add(panel, type.toString());
 		}
 		cardlayout.show(pnl_main, type.toString());
+	}
+	
+	static public int getPanelWidth(){
+		return mf.getWidth();
+	}
+	static public int getPanelHeight(){
+		return mf.getHeight();
 	}
 }

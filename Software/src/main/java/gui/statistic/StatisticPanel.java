@@ -1,6 +1,7 @@
 package gui.statistic;
 
 import gui.MainFrame;
+import gui.SelfAdjustPanel;
 import gui.enums.PanelType;
 import gui.util.ReturnButton;
 
@@ -8,13 +9,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class StatisticPanel extends JPanel {
+public class StatisticPanel extends SelfAdjustPanel {
 
 	private static final long serialVersionUID = 8475751505006519027L;
 
@@ -22,12 +21,11 @@ public class StatisticPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public StatisticPanel() {
-		MainFrame mf = MainFrame.mf;
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
-		gbl_pnl_menu.columnWidths = new int[]{mf.getWidth()/4, mf.getWidth()/4, mf.getWidth()/4,mf.getWidth()/4};
-		gbl_pnl_menu.rowHeights = new int[]{mf.getHeight()/4, mf.getHeight()/2, mf.getHeight()/4};
-		gbl_pnl_menu.columnWeights = new double[]{Double.MIN_VALUE, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_pnl_menu.rowWeights = new double[]{Double.MIN_VALUE, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnl_menu.columnWidths = new int[]{pWidth/4, pWidth/4, pWidth/4,pWidth/4};
+		gbl_pnl_menu.rowHeights = new int[]{pHeight/4, pHeight/2, pHeight/4};
+		gbl_pnl_menu.columnWeights = new double[]{1, 0.0, 0.0, 1};
+		gbl_pnl_menu.rowWeights = new double[]{1, 0.0, 0.0, 1};
 		setLayout(gbl_pnl_menu);
 		
 		JButton btn_player = new JButton("球员数据分析");
