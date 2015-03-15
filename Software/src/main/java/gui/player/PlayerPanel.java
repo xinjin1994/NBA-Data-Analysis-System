@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -21,6 +22,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
+
 
 
 
@@ -39,7 +41,7 @@ public class PlayerPanel extends SelfAdjustPanel {
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
 		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, pWidth/(10/8), pWidth/10};
 		gbl_pnl_menu.rowHeights = new int[]{pHeight/10, pHeight/5, pHeight/10, pHeight/2, pHeight/10};
-		gbl_pnl_menu.columnWeights = new double[]{0,0,0};
+		gbl_pnl_menu.columnWeights = new double[]{1,1,1};
 		gbl_pnl_menu.rowWeights = new double[]{1,0,1,0,1};
 		setLayout(gbl_pnl_menu);
 		
@@ -72,8 +74,10 @@ public class PlayerPanel extends SelfAdjustPanel {
 		add(pane_list, gbc_pane_list);
 		*/
 		
-		JScrollPane pane_list = new JScrollPane();
-		JList<PortraitPanel> list = new JList<PortraitPanel>();
+		
+		PortraitPanel[] plist = new PortraitPanel[10];
+		Arrays.fill(plist, new PortraitPanel());
+		JList<PortraitPanel> list = new JList<PortraitPanel>(plist);
 		list.setCellRenderer(new ListCellRenderer<PortraitPanel>(){
 			@Override
 			public Component getListCellRendererComponent(
@@ -83,7 +87,8 @@ public class PlayerPanel extends SelfAdjustPanel {
 			}
 		});
 		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		pane_list.add(list);
+		list.setVisibleRowCount(-1);
+		JScrollPane pane_list = new JScrollPane(list);
 		GridBagConstraints gbc_pane_list = new GridBagConstraints();
 		gbc_pane_list.gridx = 1;
 		gbc_pane_list.gridy = 3;
