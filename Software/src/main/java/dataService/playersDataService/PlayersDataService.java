@@ -13,4 +13,5 @@ public interface PlayersDataService {
 	public PlayerPO getPlayer(String name) throws PlayerNotFound;
 	public ArrayList<PlayerPO> getPlayers(Conference conference, Division division,
 			Position position) throws PlayerNotFound;
+	public ArrayList<PlayerPO> getAllPlayers() throws PlayerNotFound;
 }

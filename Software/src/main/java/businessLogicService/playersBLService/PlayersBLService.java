@@ -20,6 +20,7 @@ public interface PlayersBLService {
 	
 	//获取基本信息
 	public PlayerVO getPlayerInfo(String name) throws PlayerNotFound;
+	public ArrayList<PlayerVO> getAllPlayersInfo() throws PlayerNotFound;
 	
 	//获取统计数据
 	//基本数据

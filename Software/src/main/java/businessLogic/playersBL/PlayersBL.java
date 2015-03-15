@@ -37,8 +37,20 @@ public class PlayersBL implements PlayersBLService {
 	@Override
 	public PlayerVO getPlayerInfo(String name) throws PlayerNotFound {
 		PlayerPO po = playersService.getPlayer(name);
-		PlayerInfoVO player = new PlayerInfoVO(po);
+		Player player = new Player(po);
 		return player.toVO();
+	}
+	
+	@Override
+	public ArrayList<PlayerVO> getAllPlayersInfo() throws PlayerNotFound {
+		ArrayList<PlayerVO> voList = new ArrayList<PlayerVO>();
+		ArrayList<PlayerPO> poList = playersService.getAllPlayers();
+		for(PlayerPO po: poList){
+			Player player = new Player(po);
+			voList.add(player.toVO());
+		}
+		
+		return voList;
 	}
 	
 	@Override

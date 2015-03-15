@@ -44,6 +44,7 @@ public class PlayerTableModel_Simple extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		PlayerVO pl = data.get(row);
+		Player pl = data.get(row);
 		Object result = null;
 		switch(col){
 		case 0:
