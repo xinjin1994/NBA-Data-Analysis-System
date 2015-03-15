@@ -22,4 +22,78 @@ public class PlayerBasicStatsVO {
 	double personFouls;                              //犯规数
 	double points;                                   //个人得分
 	
+	public PlayerBasicStatsVO(){
+		
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Teams getTeam() {
+		return team;
+	}
+
+	public double getGames() {
+		return games;
+	}
+
+	public double getGamesStarting() {
+		return gamesStarting;
+	}
+
+	public double getRebounds() {
+		return rebounds;
+	}
+
+	public double getAssists() {
+		return assists;
+	}
+
+	public String getMinutes() {
+		return minutes;
+	}
+
+	public double getFieldGoalPercentage() {
+		return fieldGoalPercentage;
+	}
+
+	public double getThreePointFieldGoalPercentage() {
+		return threePointFieldGoalPercentage;
+	}
+
+	public double getFreeThrowPercentage() {
+		return freeThrowPercentage;
+	}
+
+	public double getOffensiveRebounds() {
+		return offensiveRebounds;
+	}
+
+	public double getDefensiveRebounds() {
+		return defensiveRebounds;
+	}
+
+	public double getSteals() {
+		return steals;
+	}
+
+	public double getBlocks() {
+		return blocks;
+	}
+
+	public double getTurnovers() {
+		return turnovers;
+	}
+
+	public double getPersonFouls() {
+		return personFouls;
+	}
+
+	public double getPoints() {
+		return points;
+	}
+	
+	
+	
 }

@@ -19,4 +19,65 @@ public class PlayerAdvancedStatsVO {
 	double turnoversPercent;                        //失误率
 	double usagePercent;                            //使用率
 	
+	public PlayerAdvancedStatsVO(){
+		
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Teams getTeam() {
+		return team;
+	}
+
+	public double getEfficiency() {
+		return efficiency;
+	}
+
+	public double getGmSc() {
+		return GmSc;
+	}
+
+	public double getTrueScorePercent() {
+		return trueScorePercent;
+	}
+
+	public double getFieldGoalEfficiency() {
+		return fieldGoalEfficiency;
+	}
+
+	public double getReboundsPercent() {
+		return reboundsPercent;
+	}
+
+	public double getOffensiveReboundsPercent() {
+		return offensiveReboundsPercent;
+	}
+
+	public double getDefensiveReboundsPercent() {
+		return defensiveReboundsPercent;
+	}
+
+	public double getAssistsPercent() {
+		return assistsPercent;
+	}
+
+	public double getStealsPercent() {
+		return stealsPercent;
+	}
+
+	public double getBlocksPercent() {
+		return blocksPercent;
+	}
+
+	public double getTurnoversPercent() {
+		return turnoversPercent;
+	}
+
+	public double getUsagePercent() {
+		return usagePercent;
+	}
+	
+	
 }
