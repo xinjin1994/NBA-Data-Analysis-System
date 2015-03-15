@@ -39,4 +39,9 @@ public class PlayersData implements PlayersDataService {
 		return null;
 	}
 
+	@Override
+	public ArrayList<PlayerPO> getAllPlayers() throws PlayerNotFound {
+		return playerList;
+	}
+
 }
