@@ -11,4 +11,6 @@ public interface MatchesDataService {
 			Teams guestTeam) throws MatchNotFound;
 	public ArrayList<MatchPO> getMatches(String season, String date, 
 			Teams homeTeam, Teams guestTeam) throws MatchNotFound;
+	
+	public ArrayList<MatchPO> getMatches(String name) throws MatchNotFound;
 }

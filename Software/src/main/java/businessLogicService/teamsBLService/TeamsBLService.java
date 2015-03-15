@@ -18,10 +18,20 @@ public interface TeamsBLService {
 	
 	
 	//获取球队具体统计数据
-	public TeamGeneralStatsVO getTeamStats(Teams team);            //目前不用
-	public ArrayList<TeamGeneralStatsVO> getTeamsStats(Conference conference, Division division);
-	public ArrayList<TeamOffensiveStatsVO> getTeamsOffensiveStats(Conference conference, Division division);
-	public ArrayList<TeamDefensiveStatsVO> getTeamsDefensiveStats(Conference conference, Division division);
-	public ArrayList<TeamFoulsStatsVO> getTeamsFoulsStats(Conference conference, Division division);
-	public ArrayList<TeamRatioStatsVO> getTeamsRatioStats(Conference conference, Division division);
+	//总数
+	public ArrayList<TeamGeneralStatsVO> getTeamsStatsTotal(Conference conference, Division division);
+	public ArrayList<TeamOffensiveStatsVO> getTeamsOffensiveStatsTotal(Conference conference, Division division);
+	public ArrayList<TeamDefensiveStatsVO> getTeamsDefensiveStatsTotal(Conference conference, Division division);
+	public ArrayList<TeamFoulsStatsVO> getTeamsFoulsStatsTotal(Conference conference, Division division);
+	public ArrayList<TeamRatioStatsVO> getTeamsRatioStatsTotal(Conference conference, Division division);
+	
+	//场均
+	public ArrayList<TeamGeneralStatsVO> getTeamsStatsAverage(Conference conference, Division division);
+	public ArrayList<TeamOffensiveStatsVO> getTeamsOffensiveStatsAverage(Conference conference, Division division);
+	public ArrayList<TeamDefensiveStatsVO> getTeamsDefensiveStatsAverage(Conference conference, Division division);
+	public ArrayList<TeamFoulsStatsVO> getTeamsFoulsStatsAverage(Conference conference, Division division);
+	public ArrayList<TeamRatioStatsVO> getTeamsRatioStatsAverage(Conference conference, Division division);
+	
+	//迭代一不需要
+	public TeamGeneralStatsVO getTeamStats(Teams team);
 }

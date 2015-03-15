@@ -1,7 +1,9 @@
 package data.matchesData;
 
 import java.util.ArrayList;
+
 import po.MatchPO;
+import po.PlayerStatsPO;
 import dataService.matchesDataService.MatchesDataService;
 import enums.Teams;
 import exceptions.MatchNotFound;
@@ -33,15 +35,15 @@ public class MatchesData implements MatchesDataService {
 
 	@Override
 	public ArrayList<MatchPO> getMatches(String season, String date,
-			Teams homeTeam, Teams guestTeam) throws MatchNotFound {
+			Teams team1, Teams team2) throws MatchNotFound {
 		ArrayList<MatchPO> list = new ArrayList<MatchPO>();
 		
 		for(int i=0; i<matchList.size(); i++){
 			MatchPO match = matchList.get(i);
 			boolean seasonOK = (season == null || match.season().equals(season));
 			boolean dateOK = (date == null || match.date().equals(date));
-			boolean homeTeamOK = (homeTeam == null || match.homeTeam() == homeTeam);
-			boolean guestTeamOK = (guestTeam == null || match.guestTeam() == guestTeam);
+			boolean homeTeamOK = (team1 == null || match.homeTeam() == team1 || match.guestTeam() == team1);
+			boolean guestTeamOK = (team2 == null || match.guestTeam() == team2 || match.guestTeam() == team2);
 			
 			if(seasonOK && dateOK && homeTeamOK && guestTeamOK){
 				list.add(match);
@@ -53,6 +55,41 @@ public class MatchesData implements MatchesDataService {
 		}else{
 			throw new MatchNotFound("");
 		}
+	}
+
+	@Override
+	public ArrayList<MatchPO> getMatches(String name) throws MatchNotFound {
+		ArrayList<MatchPO> list = new ArrayList<MatchPO>();
+		for(int i=0; i<matchList.size(); i++){
+			MatchPO match = matchList.get(i);
+			if(hasPlayer(match, name)){
+				list.add(match);
+			}
+		}
+		
+		if(list.size() != 0){
+			return list;
+		}else{
+			throw new MatchNotFound("");
+		}
+	}
+	
+	private boolean hasPlayer(MatchPO match, String name){
+		ArrayList<PlayerStatsPO> list = match.team1Players();
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).name().equals(name)){
+				return true;
+			}
+		}
+		
+		list = match.team2Players();
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).name().equals(name)){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }

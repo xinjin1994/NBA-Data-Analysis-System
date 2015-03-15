@@ -1,7 +1,8 @@
 package businessLogic.playersBL;
 
-import enums.Position;
 import po.PlayerPO;
+import vo.PlayerVO;
+import enums.Position;
 
 public class Player {
 	//球员基本信息
@@ -16,8 +17,12 @@ public class Player {
 	Integer age;                        //年龄
 	Integer exp;                        //球龄
 	String school;                      //毕业学校
-	
+
 	public Player(PlayerPO po){
 		
+	}
+	
+	public PlayerVO toVO(){
+		return null;
 	}
 }

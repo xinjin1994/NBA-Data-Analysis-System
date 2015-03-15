@@ -2,7 +2,7 @@ package businessLogic.playersBL;
 
 public class AdvancedPlayerStats {
 	//球员的一些需要根据基础数据计算得到的高级统计数据
-	Integer twoDoubles;                                //两双数
+	Integer doubleDouble;                              //两双数
 	BasicPlayerStats average;                          //平均数据
 	Double hitRate;                                    //命中率
 	Double rebounds;                                   //总篮板数
