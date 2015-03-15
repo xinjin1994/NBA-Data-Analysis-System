@@ -33,7 +33,7 @@ public enum Division {
 	static public Division[] getEasternDivision(){
 		return new Division[]{NATIONAL, ATLANTIC, CENTRAL, SOUTHEAST};
 	}
-	static public Division[] getWestternDivision(){
+	static public Division[] getWesternDivision(){
 		return new Division[]{NATIONAL, SOUTHWEST, NORTHWEST, PACIFIC};
 	}
 }

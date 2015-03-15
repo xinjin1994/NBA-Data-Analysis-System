@@ -4,7 +4,7 @@ import po.PlayerPO;
 import vo.PlayerVO;
 import enums.Position;
 
-public class Player {
+public class PlayerInfoVO {
 	//球员基本信息
 	//不包含具体比赛数据
 	String name;                        //姓名
@@ -18,7 +18,7 @@ public class Player {
 	Integer exp;                        //球龄
 	String school;                      //毕业学校
 
-	public Player(PlayerPO po){
+	public PlayerInfoVO(PlayerPO po){
 		
 	}
 	
