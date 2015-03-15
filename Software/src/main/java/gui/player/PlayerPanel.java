@@ -5,6 +5,17 @@ import gui.util.ReturnButton;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableRowSorter;
 
 public class PlayerPanel extends SelfAdjustPanel {
 
@@ -18,8 +29,28 @@ public class PlayerPanel extends SelfAdjustPanel {
 		gbl_pnl_menu.rowWeights = new double[]{1,0,1,0,1};
 		setLayout(gbl_pnl_menu);
 		
+		JScrollPane pane_list = new JScrollPane();
+		pane_list.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JTable tbl_list = new JTable(new PlayerTableModel_Simple(null));// TODO
+		tbl_list.setFillsViewportHeight(true);
+		tbl_list.setRowSorter(new TableRowSorter<PlayerTableModel_Simple>());
+		tbl_list.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbl_list.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent me) {
+				if(me.getClickCount() == 2 && me.getButton() == MouseEvent.BUTTON1){
+					
+				}
+			}
+		});
+		pane_list.add(tbl_list);
+		GridBagConstraints gbc_pane_list = new GridBagConstraints();
+		gbc_pane_list.gridx = 1;
+		gbc_pane_list.gridy = 3;
+		gbc_pane_list.fill = GridBagConstraints.BOTH;
+		add(pane_list, gbc_pane_list);
 		
-		SearchPlayerPanel pnl_search = new SearchPlayerPanel();
+		SearchPlayerPanel pnl_search = new SearchPlayerPanel(tbl_list);
 		GridBagConstraints gbc_pnl_search = new GridBagConstraints();
 		gbc_pnl_search.gridx = 1;
 		gbc_pnl_search.gridy = 1;
