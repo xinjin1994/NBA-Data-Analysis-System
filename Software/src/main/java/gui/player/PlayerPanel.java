@@ -33,7 +33,7 @@ public class PlayerPanel extends SelfAdjustPanel {
 		gbl_pnl_menu.rowWeights = new double[]{1,0,1,0,1};
 		setLayout(gbl_pnl_menu);
 		
-		ArrayList<PlayerInfoVO> list = new PlayersBL().
+		ArrayList<PlayerVO> list = new PlayersBL().
 		
 		JScrollPane pane_list = new JScrollPane();
 		pane_list.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
