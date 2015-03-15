@@ -2,7 +2,7 @@ package enums;
 
 public enum Conference {
 	//赛区
-	ESTERN("Eastern", "东部"), WESTERN("Western", "西部");
+	NATIONAL("National","全国"),ESTERN("Eastern", "东部"), WESTERN("Western", "西部");
 	
 	String conference;
 	String conference_CHN;
@@ -13,7 +13,7 @@ public enum Conference {
 	}
 	
 	public String toString(){
-		return conference;
+		return conference_CHN;
 	}
 	
 	public String toString_CHN(){

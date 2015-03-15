@@ -1,5 +1,8 @@
 package gui;
 
+import gui.enums.PanelType;
+import gui.player.PlayerPanel;
+import gui.statistic.StatisticPanel;
 import gui.util.GUIUtility;
 
 import java.awt.BorderLayout;
@@ -13,17 +16,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.CardLayout;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 2292455670620751734L;
 	private JPanel contentPane;
 	
+	//用来保存屏幕的大小
 	public static Dimension screen;
+	//保留cardlayout中panel与对应字符串的配对关系
+	private static Map<PanelType,JPanel> panels = new EnumMap<PanelType,JPanel>(PanelType.class);
+	//未来可能有有新的窗口
 	public static Frame currentFrame;
+	public static MainFrame mf;
+	private JPanel pnl_main;
+	private CardLayout cardlayout;
 
 	/**
 	 * Launch the application.
@@ -45,56 +54,63 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
-		currentFrame = this;
+		currentFrame = mf = this;
 		screen = Toolkit.getDefaultToolkit().getScreenSize();
 
+		//和屏幕一样大
 		this.setSize(screen);
 		
 		setTitle("NBA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(800, 640));
 		GUIUtility.setCenter(this);
-		this.setResizable(false);
+		this.setResizable(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JPanel pnl_main = new JPanel();
+		pnl_main = new JPanel();
 		contentPane.add(pnl_main, BorderLayout.CENTER);
-		pnl_main.setLayout(new CardLayout(0, 0));
+		//cardlayout用来切换不同的版面
+		cardlayout = new CardLayout(0, 0);
+		pnl_main.setLayout(cardlayout);
 		
-		JPanel pnl_menu = new JPanel();
-		pnl_main.add(pnl_menu);
-		GridBagLayout gbl_pnl_menu = new GridBagLayout();
-		gbl_pnl_menu.columnWidths = new int[]{getWidth()/6, getWidth()/3, getWidth()/3,getWidth()/6};
-		gbl_pnl_menu.rowHeights = new int[]{getHeight()/6, getHeight()/3, getHeight()/3,getHeight()/6};
-		gbl_pnl_menu.columnWeights = new double[]{Double.MIN_VALUE, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_pnl_menu.rowWeights = new double[]{Double.MIN_VALUE, 0.0, 0.0, Double.MIN_VALUE};
-		pnl_menu.setLayout(gbl_pnl_menu);
+		JPanel pnl_menu = new MenuPanel();
+		pnl_main.add(pnl_menu,PanelType.MENU.toString());
 		
-		JButton btn_player = new JButton("球员");
-		GridBagConstraints gbc_btn_player = new GridBagConstraints();
-		gbc_btn_player.gridx = 1;
-		gbc_btn_player.gridy = 1;
-		pnl_menu.add(btn_player, gbc_btn_player);
-		
-		JButton btn_team = new JButton("球队");
-		GridBagConstraints gbc_btn_team = new GridBagConstraints();
-		gbc_btn_team.gridx = 2;
-		gbc_btn_team.gridy = 1;
-		pnl_menu.add(btn_team, gbc_btn_team);
-		
-		JButton btn_game = new JButton("比赛");
-		GridBagConstraints gbc_btn_game = new GridBagConstraints();
-		gbc_btn_game.gridx = 1;
-		gbc_btn_game.gridy = 2;
-		pnl_menu.add(btn_game, gbc_btn_game);
-		
-		JButton btn_statistic = new JButton("统计");
-		GridBagConstraints gbc_btn_statistic = new GridBagConstraints();
-		gbc_btn_statistic.gridx = 2;
-		gbc_btn_statistic.gridy = 2;
-		pnl_menu.add(btn_statistic, gbc_btn_statistic);
 	}
 
+	//通过枚举类型来切换版面的集中式控制
+	//新的配对在这里添加
+	public void gotoPanel(PanelType type){
+		if(!panels.containsKey(type)){
+			JPanel panel = null;
+			switch(type){
+			case STATISTIC:
+				panel = new StatisticPanel();
+				break;
+			case MENU:
+				panel = new MenuPanel();
+				break;
+			case GAME:
+				break;
+			case PLAYER:
+				panel = new PlayerPanel();
+				break;
+			case TEAM:
+				break;
+			}
+			panels.put(type, panel);
+			pnl_main.add(panel, type.toString());
+		}
+		cardlayout.show(pnl_main, type.toString());
+	}
+	
+	static public int getPanelWidth(){
+		return mf.getWidth();
+	}
+	static public int getPanelHeight(){
+		return mf.getHeight();
+	}
 }

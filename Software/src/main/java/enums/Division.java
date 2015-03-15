@@ -2,17 +2,20 @@ package enums;
 
 public enum Division {
 	//分区
-	ATLANTIC("Atlantic"), CENTRAL("Central"), SOUTHEAST("Southeast"),                 //东部
-	SOUTHWEST("Southwest"), NORTHWEST("Northwest"), PACIFIC("Pacific");              //西部
+	NATIONAL("National","全部"),
+	ATLANTIC("Atlantic","大西洋"), CENTRAL("Central","中部"), SOUTHEAST("Southeast","东南"),                 //东部
+	SOUTHWEST("Southwest","西南"), NORTHWEST("Northwest","西北"), PACIFIC("Pacific","太平洋");              //西部
 	
 	String division;
+	private String chinese;
 	
-	Division(String d){
+	Division(String d,String str){
 		division = d;
+		chinese = str;
 	}
 	
 	public String toString(){
-		return division;
+		return chinese;
 	}
 	
 	public static Division toEnum(String d){
@@ -25,5 +28,12 @@ public enum Division {
 		case "Pacific": return PACIFIC;
 		default: return null;
 		}
+	}
+	
+	static public Division[] getEasternDivision(){
+		return new Division[]{NATIONAL, ATLANTIC, CENTRAL, SOUTHEAST};
+	}
+	static public Division[] getWestternDivision(){
+		return new Division[]{NATIONAL, SOUTHWEST, NORTHWEST, PACIFIC};
 	}
 }
