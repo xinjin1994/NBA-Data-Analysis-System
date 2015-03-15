@@ -14,6 +14,8 @@ public class PlayerStatsForCalculation {
 	Integer fieldGoalsMade_teammate;
 	Integer fieldGoalsAttempted_teammate;
 	Integer fieldGoalsAttempted_opponent;
+	Integer freeThrowsAttempted_teammate;
+	Integer turnovers_teammate;
 	Double offensiveRounds_opponent;
 	
 	public PlayerStatsForCalculation(BasicPlayerStats player, Double minutes_teammate,
@@ -31,6 +33,8 @@ public class PlayerStatsForCalculation {
 		this.fieldGoalsAttempted_teammate = fieldGoalsAttempted_teammate;
 		this.fieldGoalsAttempted_opponent = fieldGoalsAttempted_opponent;
 		this.offensiveRounds_opponent = offensiveRounds_opponent;
+		this.turnovers_teammate=turnovers_teammate;
+		this.freeThrowsAttempted_teammate=freeThrowsAttempted_teammate;
 	}
 
 	public BasicPlayerStats player() {
@@ -73,6 +77,12 @@ public class PlayerStatsForCalculation {
 		return offensiveRounds_opponent;
 	}
 	
+	public Integer freeThrowsAttempted_teammate() {
+		return freeThrowsAttempted_teammate;
+	}
 	
+	public Integer turnovers_teammate() {
+		return turnovers_teammate;
+	}
 	
 }

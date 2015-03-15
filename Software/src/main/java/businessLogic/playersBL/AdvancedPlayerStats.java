@@ -2,7 +2,7 @@ package businessLogic.playersBL;
 
 public class AdvancedPlayerStats {
 	//球员的一些需要根据基础数据计算得到的高级统计数据
-	Integer doubleDouble;                              //两双数
+	Double doubleDouble;                              //两双数
 	BasicPlayerStats average;                          //平均数据
 	Double hitRate;                                    //命中率
 	Double rebounds;                                   //总篮板数
@@ -20,7 +20,7 @@ public class AdvancedPlayerStats {
 	Double turnoversPercent;                           //失误率
 	Double usagePercent;                               //使用率
 
-	public Integer doubleDouble() {
+	public Double doubleDouble() {
 		return doubleDouble;
 	}
 
@@ -84,7 +84,7 @@ public class AdvancedPlayerStats {
 		return usagePercent;
 	}
 
-	public void setDoubleDouble(Integer doubleDouble) {
+	public void setDoubleDouble(Double doubleDouble) {
 		this.doubleDouble = doubleDouble;
 	}
 

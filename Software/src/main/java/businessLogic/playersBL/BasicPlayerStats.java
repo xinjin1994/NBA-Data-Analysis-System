@@ -26,6 +26,10 @@ public class BasicPlayerStats {
 	Double personalFouls;                    //犯规数
 	Double points;                           //个人得分
 
+	public BasicPlayerStats(){
+		
+	}
+	
 	public BasicPlayerStats(PlayerStatsPO po, int games, int gamesStarting){
 		this.name = po.name();
 		this.games = games;
@@ -110,6 +114,87 @@ public class BasicPlayerStats {
 
 	public Double points() {
 		return points;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setGames(Integer games) {
+		this.games = games;
+	}
+
+	public void setGamesStarting(Integer gamesStarting) {
+		this.gamesStarting = gamesStarting;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public void setMinutes(Double minutes) {
+		this.minutes = minutes;
+	}
+
+	public void setFieldGoalsMade(Double fieldGoalsMade) {
+		this.fieldGoalsMade = fieldGoalsMade;
+	}
+
+	public void setFieldGoalsAttempted(Double fieldGoalsAttempted) {
+		this.fieldGoalsAttempted = fieldGoalsAttempted;
+	}
+
+	public void setThreePointFieldGoalsMade(Double threePointFieldGoalsMade) {
+		this.threePointFieldGoalsMade = threePointFieldGoalsMade;
+	}
+
+	public void setThreePointFieldGoalsAttempted(
+			Double threePointFieldGoalsAttempted) {
+		this.threePointFieldGoalsAttempted = threePointFieldGoalsAttempted;
+	}
+
+	public void setFreeThrowsMade(Double freeThrowsMade) {
+		this.freeThrowsMade = freeThrowsMade;
+	}
+
+	public void setFreeThrowsAttempted(Double freeThrowsAttempted) {
+		this.freeThrowsAttempted = freeThrowsAttempted;
+	}
+
+	public void setOffensiveRebounds(Double offensiveRebounds) {
+		this.offensiveRebounds = offensiveRebounds;
+	}
+
+	public void setDefensiveRebounds(Double defensiveRebounds) {
+		this.defensiveRebounds = defensiveRebounds;
+	}
+
+	public void setRebounds(Double rebounds) {
+		this.rebounds = rebounds;
+	}
+
+	public void setAssists(Double assists) {
+		this.assists = assists;
+	}
+
+	public void setSteals(Double steals) {
+		this.steals = steals;
+	}
+
+	public void setBlocks(Double blocks) {
+		this.blocks = blocks;
+	}
+
+	public void setTurnovers(Double turnovers) {
+		this.turnovers = turnovers;
+	}
+
+	public void setPersonalFouls(Double personalFouls) {
+		this.personalFouls = personalFouls;
+	}
+
+	public void setPoints(Double points) {
+		this.points = points;
 	}
 	
 	
