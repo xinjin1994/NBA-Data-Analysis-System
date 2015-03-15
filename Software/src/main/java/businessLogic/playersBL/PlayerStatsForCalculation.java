@@ -6,7 +6,7 @@ public class PlayerStatsForCalculation {
 	//此类只用于计算
 	
 	BasicPlayerStats player;
-	Integer minutes_teammate;
+	Double minutes_teammate;
 	Integer offensiveRebounds_teammate;
 	Integer defensiveRebounds_teammate;
 	Integer offensiveRebounds_opponent;
@@ -14,13 +14,13 @@ public class PlayerStatsForCalculation {
 	Integer fieldGoalsMade_teammate;
 	Integer fieldGoalsAttempted_teammate;
 	Integer fieldGoalsAttempted_opponent;
-	Integer offensiveRounds_opponent;
+	Double offensiveRounds_opponent;
 	
-	public PlayerStatsForCalculation(BasicPlayerStats player, Integer minutes_teammate,
+	public PlayerStatsForCalculation(BasicPlayerStats player, Double minutes_teammate,
 			Integer offensiveRebounds_teammate, Integer defensiveRebounds_teammate, 
 			Integer offensiveRebounds_opponent, Integer defensiveRebounds_opponent, 
 			Integer fieldGoalsMade_teammate, Integer fieldGoalsAttempted_teammate,
-			Integer fieldGoalsAttempted_opponent, Integer offensiveRounds_opponent){
+			Integer fieldGoalsAttempted_opponent, Double offensiveRounds_opponent){
 		this.player = player;
 		this.minutes_teammate = minutes_teammate;
 		this.offensiveRebounds_teammate = offensiveRebounds_teammate;
@@ -37,7 +37,7 @@ public class PlayerStatsForCalculation {
 		return player;
 	}
 
-	public Integer minutes_teammate() {
+	public Double minutes_teammate() {
 		return minutes_teammate;
 	}
 
@@ -69,7 +69,7 @@ public class PlayerStatsForCalculation {
 		return fieldGoalsAttempted_opponent;
 	}
 
-	public Integer offensiveRounds_opponent() {
+	public Double offensiveRounds_opponent() {
 		return offensiveRounds_opponent;
 	}
 	

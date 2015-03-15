@@ -19,5 +19,136 @@ public class AdvancedPlayerStats {
 	Double blockPercent;                               //盖帽率
 	Double turnoversPercent;                           //失误率
 	Double usagePercent;                               //使用率
+
+	public Integer doubleDouble() {
+		return doubleDouble;
+	}
+
+	public BasicPlayerStats average() {
+		return average;
+	}
+
+	public Double hitRate() {
+		return hitRate;
+	}
+
+	public Double rebounds() {
+		return rebounds;
+	}
+
+	public Double playerEfficiencyRating() {
+		return playerEfficiencyRating;
+	}
+
+	public Double Gmsc() {
+		return Gmsc;
+	}
+
+	public Double trueScorePercent() {
+		return trueScorePercent;
+	}
+
+	public Double fieldGoalsPercent() {
+		return fieldGoalsPercent;
+	}
+
+	public Double reboundsPercent() {
+		return reboundsPercent;
+	}
+
+	public Double offensiveReboundsPercent() {
+		return offensiveReboundsPercent;
+	}
+
+	public Double defensiveReboundsPercent() {
+		return defensiveReboundsPercent;
+	}
+
+	public Double assistsPercent() {
+		return assistsPercent;
+	}
+
+	public Double stealsPercent() {
+		return stealsPercent;
+	}
+
+	public Double blockPercent() {
+		return blockPercent;
+	}
+
+	public Double turnoversPercent() {
+		return turnoversPercent;
+	}
+
+	public Double usagePercent() {
+		return usagePercent;
+	}
+
+	public void setDoubleDouble(Integer doubleDouble) {
+		this.doubleDouble = doubleDouble;
+	}
+
+	public void setAverage(BasicPlayerStats average) {
+		this.average = average;
+	}
+
+	public void setHitRate(Double hitRate) {
+		this.hitRate = hitRate;
+	}
+
+	public void setRebounds(Double rebounds) {
+		this.rebounds = rebounds;
+	}
+
+	public void setPlayerEfficiencyRating(Double playerEfficiencyRating) {
+		this.playerEfficiencyRating = playerEfficiencyRating;
+	}
+
+	public void setGmsc(Double gmsc) {
+		Gmsc = gmsc;
+	}
+
+	public void setTrueScorePercent(Double trueScorePercent) {
+		this.trueScorePercent = trueScorePercent;
+	}
+
+	public void setFieldGoalsPercent(Double fieldGoalsPercent) {
+		this.fieldGoalsPercent = fieldGoalsPercent;
+	}
+
+	public void setReboundsPercent(Double reboundsPercent) {
+		this.reboundsPercent = reboundsPercent;
+	}
+
+	public void setOffensiveReboundsPercent(Double offensiveReboundsPercent) {
+		this.offensiveReboundsPercent = offensiveReboundsPercent;
+	}
+
+	public void setDefensiveReboundsPercent(Double defensiveReboundsPercent) {
+		this.defensiveReboundsPercent = defensiveReboundsPercent;
+	}
+
+	public void setAssistsPercent(Double assistsPercent) {
+		this.assistsPercent = assistsPercent;
+	}
+
+	public void setStealsPercent(Double stealsPercent) {
+		this.stealsPercent = stealsPercent;
+	}
+
+	public void setBlockPercent(Double blockPercent) {
+		this.blockPercent = blockPercent;
+	}
+
+	public void setTurnoversPercent(Double turnoversPercent) {
+		this.turnoversPercent = turnoversPercent;
+	}
+
+	public void setUsagePercent(Double usagePercent) {
+		this.usagePercent = usagePercent;
+	}
+	
+	
+	
 	
 }

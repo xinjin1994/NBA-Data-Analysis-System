@@ -21,10 +21,84 @@ public class BasicTeamStats {
 	Double steals;                           //抢断数
 	Double blocks;                           //盖帽数
 	Double turnovers;                        //失误数
-	Double fouls;                    //犯规数
+	Double fouls;                            //犯规数
 	Double points;                           //得分
 	
 	public BasicTeamStats(int games, int wins, ArrayList<PlayerStatsPO> players){
 		
 	}
+
+	public String name() {
+		return name;
+	}
+
+	public Integer games() {
+		return games;
+	}
+
+	public Integer wins() {
+		return wins;
+	}
+
+	public Double fieldGoalsMade() {
+		return fieldGoalsMade;
+	}
+
+	public Double fieldGoalsAttempted() {
+		return fieldGoalsAttempted;
+	}
+
+	public Double threePointFieldGoalsMade() {
+		return threePointFieldGoalsMade;
+	}
+
+	public Double threePointFieldGoalsAttempted() {
+		return threePointFieldGoalsAttempted;
+	}
+
+	public Double freeThrowsMade() {
+		return freeThrowsMade;
+	}
+
+	public Double freeThrowsAttempted() {
+		return freeThrowsAttempted;
+	}
+
+	public Double offensiveRebounds() {
+		return offensiveRebounds;
+	}
+
+	public Double defensiveRebounds() {
+		return defensiveRebounds;
+	}
+
+	public Double rebounds() {
+		return rebounds;
+	}
+
+	public Double assists() {
+		return assists;
+	}
+
+	public Double steals() {
+		return steals;
+	}
+
+	public Double blocks() {
+		return blocks;
+	}
+
+	public Double turnovers() {
+		return turnovers;
+	}
+
+	public Double fouls() {
+		return fouls;
+	}
+
+	public Double points() {
+		return points;
+	}
+	
+	
 }

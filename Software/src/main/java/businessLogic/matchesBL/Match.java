@@ -62,58 +62,161 @@ public class Match {
 		return null;
 	}
 	
-	public boolean inTeam1(String name){
+	private ArrayList<PlayerStatsPO> teamStats(String name){
 		//队员是否在主队中
 		for(PlayerStatsPO po: match.team1Players()){
 			if(po.name().equals(name)){
-				return true;
+				return match.team1Players();
 			}
 		}
 		
-		return false;
+		return match.team2Players();
 	}
 	
-	public Integer minutes_teammate(String name) {
-		return null;
+	private ArrayList<PlayerStatsPO> opponentTeamStats(String name){
+		//队员是否在主队中
+		for(PlayerStatsPO po: match.team1Players()){
+			if(po.name().equals(name)){
+				return match.team2Players();
+			}
+		}
+		
+		return match.team1Players();
+	}
+	
+	private Double str_to_minutes(String s){
+		String[] arr = s.split(":");
+		Double minutes = Double.parseDouble(arr[0]) + Double.parseDouble(arr[1])/60;
+		return minutes;
+	}
+	
+	public Double minutes_teammate(String name) {
+		ArrayList<PlayerStatsPO> teamStats = this.teamStats(name);
+		Double minutes = 0.0;
+		for(PlayerStatsPO player: teamStats){
+			minutes += this.str_to_minutes(player.minutes());
+		}
+		
+		return minutes;
 	}
 
 	public Integer offensiveRebounds_teammate(String name) {
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.teamStats(name);
+		Integer rebounds = 0;
+		for(PlayerStatsPO player: teamStats){
+			rebounds += player.offensiveRebounds();
+		}
+		
+		return rebounds;
 	}
 
 	public Integer defensiveRebounds_teammate(String name) {
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.teamStats(name);
+		Integer rebounds = 0;
+		for(PlayerStatsPO player: teamStats){
+			rebounds += player.defensiveRebounds();
+		}
+		
+		return rebounds;
 	}
 
 	public Integer offensiveRebounds_opponent(String name) {
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(name);
+		Integer rebounds = 0;
+		for(PlayerStatsPO player: teamStats){
+			rebounds += player.offensiveRebounds();
+		}
+		
+		return rebounds;
 	}
 
 	public Integer defensiveRebounds_opponent(String name) {
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(name);
+		Integer rebounds = 0;
+		for(PlayerStatsPO player: teamStats){
+			rebounds += player.defensiveRebounds();
+		}
+		
+		return rebounds;
 	}
 
 	public Integer fieldGoalsMade_teammate(String name) {
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.teamStats(name);
+		Integer fieldGoalsMade = 0;
+		for(PlayerStatsPO player: teamStats){
+			fieldGoalsMade += player.fieldGoalsMade();
+		}
+		
+		return fieldGoalsMade;
 	}
 
 	public Integer fieldGoalsAttempted_teammate(String name) {
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.teamStats(name);
+		Integer fieldGoalsAttempted = 0;
+		for(PlayerStatsPO player: teamStats){
+			fieldGoalsAttempted += player.fieldGoalsAttempted();
+		}
+		
+		return fieldGoalsAttempted;
 	}
 
 	public Integer fieldGoalsAttempted_opponent(String name) {
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(name);
+		Integer fieldGoalsAttempted = 0;
+		for(PlayerStatsPO player: teamStats){
+			fieldGoalsAttempted += player.fieldGoalsAttempted();
+		}
+		
+		return fieldGoalsAttempted;
 	}
 
-	public Integer offensiveRounds_opponent(String name) {
-		return null;
+	public Double offensiveRounds_opponent(String name) {
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(name);
+		Integer fieldGoalsMade = 0;
+		Integer fieldGoalsAttempted = 0;
+		Integer freeThrows = 0;
+		Integer offensiveRebounds = 0;
+		Integer turnovers = 0;
+		
+		for(PlayerStatsPO player: teamStats){
+			fieldGoalsMade += player.fieldGoalsMade();
+			fieldGoalsAttempted += player.fieldGoalsAttempted();
+			freeThrows += player.freeThrowsMade();
+			turnovers += player.turnovers();
+		}
+		
+		Double rounds = fieldGoalsMade + 0.4*freeThrows - 1.07*(offensiveRebounds + 
+				this.defensiveRebounds_opponent(name)*(fieldGoalsAttempted - fieldGoalsMade))
+				+ 1.07*turnovers;
+		
+		return rounds;
+	}
+	
+	private ArrayList<PlayerStatsPO> opponentTeamStats(Teams team){
+		if(team == match.homeTeam()){
+			return match.team2Players();
+		}else{
+			return match.team1Players();
+		}
 	}
 	
 	public Integer offensiveRebounds_opponent(Teams team){
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(team);
+		Integer rebounds = 0;
+		for(PlayerStatsPO player: teamStats){
+			rebounds += player.offensiveRebounds();
+		}
+		
+		return rebounds;
 	}
 	
 	public Integer defensiveRebounds_opponent(Teams team){
-		return null;
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(team);
+		Integer rebounds = 0;
+		for(PlayerStatsPO player: teamStats){
+			rebounds += player.defensiveRebounds();
+		}
+		
+		return rebounds;
 	}
 }
