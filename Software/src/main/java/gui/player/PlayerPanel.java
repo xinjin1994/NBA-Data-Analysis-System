@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,6 +17,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
+
+
+import businessLogic.playersBL.PlayersBL;
 
 public class PlayerPanel extends SelfAdjustPanel {
 
@@ -28,6 +32,8 @@ public class PlayerPanel extends SelfAdjustPanel {
 		gbl_pnl_menu.columnWeights = new double[]{0,0,0};
 		gbl_pnl_menu.rowWeights = new double[]{1,0,1,0,1};
 		setLayout(gbl_pnl_menu);
+		
+		ArrayList<PlayerInfoVO> list = new PlayersBL().
 		
 		JScrollPane pane_list = new JScrollPane();
 		pane_list.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);

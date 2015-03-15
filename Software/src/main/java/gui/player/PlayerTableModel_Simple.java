@@ -7,15 +7,16 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import businessLogic.playersBL.PlayerInfoVO;
+import vo.PlayerVO;
+
 
 public class PlayerTableModel_Simple extends AbstractTableModel {
 
 	private static final long serialVersionUID = 6864903079434462186L;
 	private String[] header = new String[]{"头像","姓名","编号","位置","身高（英尺/英寸）","体重（磅）","生日","年龄","球龄","毕业学校"};
-	private ArrayList<PlayerInfoVO> data;
+	private ArrayList<PlayerVO> data;
 
-	public PlayerTableModel_Simple(ArrayList<PlayerInfoVO> data) {
+	public PlayerTableModel_Simple(ArrayList<PlayerVO> data) {
 		this.data = data;
 	}
 
@@ -42,7 +43,7 @@ public class PlayerTableModel_Simple extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		PlayerInfoVO pl = data.get(row);
+		PlayerVO pl = data.get(row);
 		Object result = null;
 		switch(col){
 		case 0:

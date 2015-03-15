@@ -20,7 +20,7 @@ public class PlayerStatisticPanel extends SelfAdjustPanel {
 		setLayout(gbl_pnl_menu);
 		
 		
-		SearchPlayerPanel pnl_search = new SearchPlayerPanel();
+		SearchPlayerPanel pnl_search = new SearchPlayerPanel(null);
 		GridBagConstraints gbc_pnl_search = new GridBagConstraints();
 		gbc_pnl_search.gridx = 1;
 		gbc_pnl_search.gridy = 1;
