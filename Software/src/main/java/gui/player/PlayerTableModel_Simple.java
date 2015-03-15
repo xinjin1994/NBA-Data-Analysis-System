@@ -9,7 +9,6 @@ import javax.swing.table.AbstractTableModel;
 
 import vo.PlayerVO;
 
-
 public class PlayerTableModel_Simple extends AbstractTableModel {
 
 	private static final long serialVersionUID = 6864903079434462186L;
@@ -44,37 +43,37 @@ public class PlayerTableModel_Simple extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		PlayerVO pl = data.get(row);
-		Player pl = data.get(row);
+
 		Object result = null;
 		switch(col){
 		case 0:
 			break;
 		case 1:
-			result = pl.name;
+			result = pl.getName();
 			break;
 		case 2:
-			result = pl.number;
+			result = pl.getNumber();
 			break;
 		case 3:
-			result = pl.position.toString();
+			result = pl.getPosition().toString();
 			break;
 		case 4:
-			result = GUIUtility.formatDouble(pl.height_Foot)+"/"+GUIUtility.formatDouble(pl.height_Inch);
+			result = GUIUtility.formatDouble(pl.getHeight_Foot())+"/"+GUIUtility.formatDouble(pl.getHeight_Inch());
 			break;
 		case 5:
-			result = GUIUtility.formatDouble(pl.weight_Pounds);
+			result = GUIUtility.formatDouble(pl.getWeight_Pounds());
 			break;
 		case 6:
-			result = pl.birthday;
+			result = pl.getBirthday();
 			break;
 		case 7:
-			result = String.valueOf(pl.age);
+			result = String.valueOf(pl.getAge());
 			break;
 		case 8:
-			result = String.valueOf(pl.exp);
+			result = String.valueOf(pl.getExp());
 			break;
 		case 9:
-			result = pl.school;
+			result = pl.getSchool();
 			break;
 		}
 		if(result == null)

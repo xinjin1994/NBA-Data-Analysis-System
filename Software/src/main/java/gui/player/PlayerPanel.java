@@ -1,8 +1,10 @@
 package gui.player;
 
+import exceptions.PlayerNotFound;
 import gui.SelfAdjustPanel;
 import gui.util.ReturnButton;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
@@ -10,8 +12,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -19,6 +23,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 
 
+
+
+
+
+
+import vo.PlayerVO;
 import businessLogic.playersBL.PlayersBL;
 
 public class PlayerPanel extends SelfAdjustPanel {
@@ -33,7 +43,12 @@ public class PlayerPanel extends SelfAdjustPanel {
 		gbl_pnl_menu.rowWeights = new double[]{1,0,1,0,1};
 		setLayout(gbl_pnl_menu);
 		
-		ArrayList<PlayerVO> list = new PlayersBL().
+		/*
+		try {
+			ArrayList<PlayerVO> list = new PlayersBL().getAllPlayersInfo();
+		} catch (PlayerNotFound e) {
+			//TODO
+		}
 		
 		JScrollPane pane_list = new JScrollPane();
 		pane_list.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -55,8 +70,27 @@ public class PlayerPanel extends SelfAdjustPanel {
 		gbc_pane_list.gridy = 3;
 		gbc_pane_list.fill = GridBagConstraints.BOTH;
 		add(pane_list, gbc_pane_list);
+		*/
 		
-		SearchPlayerPanel pnl_search = new SearchPlayerPanel(tbl_list);
+		JScrollPane pane_list = new JScrollPane();
+		JList<PortraitPanel> list = new JList<PortraitPanel>();
+		list.setCellRenderer(new ListCellRenderer<PortraitPanel>(){
+			@Override
+			public Component getListCellRendererComponent(
+					JList<? extends PortraitPanel> list, PortraitPanel value,
+					int index, boolean isSelected, boolean cellHasFocus) {
+				return value;
+			}
+		});
+		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		pane_list.add(list);
+		GridBagConstraints gbc_pane_list = new GridBagConstraints();
+		gbc_pane_list.gridx = 1;
+		gbc_pane_list.gridy = 3;
+		gbc_pane_list.fill = GridBagConstraints.BOTH;
+		add(pane_list, gbc_pane_list);
+		
+		SearchPlayerPanel pnl_search = new SearchPlayerPanel(null);//TODO
 		GridBagConstraints gbc_pnl_search = new GridBagConstraints();
 		gbc_pnl_search.gridx = 1;
 		gbc_pnl_search.gridy = 1;
