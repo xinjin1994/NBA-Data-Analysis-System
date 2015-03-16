@@ -3,7 +3,6 @@ package gui.player;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import enums.Conference;
@@ -19,13 +18,15 @@ public class SearchPlayerPanel extends JPanel {
 
 	private static final long serialVersionUID = -6518841410199427697L;
 	private JTextField txf_name;
-	private JTable table;
+	//private JTable table;
+	private PlayerSearch playerPanel;
 	private JComboBox<Conference> cbbx_conference;
 	private JComboBox<Position> cbbx_position;
 	private JComboBox<Division> cbbx_division;
 
-	public SearchPlayerPanel(JTable table) {
-		this.table = table;
+	public SearchPlayerPanel(PlayerSearch playerPanel) {
+		this.playerPanel = playerPanel;
+		//this.table = table;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
@@ -129,7 +130,35 @@ public class SearchPlayerPanel extends JPanel {
 						cbbx_division.addItem(d);
 					break;
 				}
+				
+				search();
 			}
 		});
+		cbbx_division.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				search();
+			}
+		});
+		cbbx_position.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				search();
+			}
+		});
+		txf_name.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				search();
+			}
+		});
+	}
+
+	private void search() {
+		Conference c = cbbx_conference.getItemAt(cbbx_conference.getSelectedIndex());
+		Division d = cbbx_division.getItemAt(cbbx_division.getSelectedIndex());
+		Position p = cbbx_position.getItemAt(cbbx_position.getSelectedIndex());
+		String name = txf_name.getText().trim();
+		playerPanel.buildList(c,d,p,name);
 	}
 }

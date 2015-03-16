@@ -1,39 +1,21 @@
 package gui.player;
 
-import exceptions.PlayerNotFound;
+import enums.Conference;
+import enums.Division;
+import enums.Position;
 import gui.SelfAdjustPanel;
 import gui.util.ReturnButton;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.ListCellRenderer;
-import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.TableRowSorter;
 
-
-
-
-
-
-
-
-import vo.PlayerVO;
-import businessLogic.playersBL.PlayersBL;
-
-public class PlayerPanel extends SelfAdjustPanel {
+public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 
 	private static final long serialVersionUID = 9090035509234357424L;
 
@@ -75,13 +57,13 @@ public class PlayerPanel extends SelfAdjustPanel {
 		*/
 		
 		
-		PortraitPanel[] plist = new PortraitPanel[10];
-		Arrays.fill(plist, new PortraitPanel());
-		JList<PortraitPanel> list = new JList<PortraitPanel>(plist);
-		list.setCellRenderer(new ListCellRenderer<PortraitPanel>(){
+		PortraitPanel_Stub[] plist = new PortraitPanel_Stub[10];
+		Arrays.fill(plist, new PortraitPanel_Stub());
+		JList<PortraitPanel_Stub> list = new JList<PortraitPanel_Stub>(plist);
+		list.setCellRenderer(new ListCellRenderer<PortraitPanel_Stub>(){
 			@Override
 			public Component getListCellRendererComponent(
-					JList<? extends PortraitPanel> list, PortraitPanel value,
+					JList<? extends PortraitPanel_Stub> list, PortraitPanel_Stub value,
 					int index, boolean isSelected, boolean cellHasFocus) {
 				return value;
 			}
@@ -108,6 +90,13 @@ public class PlayerPanel extends SelfAdjustPanel {
 		gbc_btn_return.gridy = 4;
 		gbc_btn_return.anchor = GridBagConstraints.SOUTHWEST;
 		add(btn_return,gbc_btn_return);
+	}
+
+	public void buildList() {
+		// TODO Auto-generated method stub
+	}
+	public void buildList(Conference c, Division d, Position p, String name) {
+		// TODO Auto-generated method stub
 	}
 
 }
