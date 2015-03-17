@@ -22,17 +22,21 @@ public enum Teams {
 		chinese = c;
 	}
 	
-	public String toString(){           //返回缩写
+	public String toString(){
 		return chinese;
 	}
 	
-	public String toAbbr(){             //返回全名
+	public String toAbbr(){             //返回缩写
 		return abbreviation;
+	}
+	
+	public String toEnglish(){
+		return name;
 	}
 	
 	public static Teams toEnum(String n){
 		for(Teams t : values())
-			if(n.equals(t.toAbbr()))
+			if(n.equals(t.toAbbr()) || n.equals(t.toEnglish()))
 				return t;
 		return null;
 	}

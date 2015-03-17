@@ -1,5 +1,7 @@
 package businessLogic.matchesBL;
 
+import helper.TypeTransform;
+
 import java.util.ArrayList;
 
 import enums.Teams;
@@ -84,17 +86,11 @@ public class Match {
 		return match.team1Players();
 	}
 	
-	private Double str_to_minutes(String s){
-		String[] arr = s.split(":");
-		Double minutes = Double.parseDouble(arr[0]) + Double.parseDouble(arr[1])/60;
-		return minutes;
-	}
-	
 	public Double minutes_teammate(String name) {
 		ArrayList<PlayerStatsPO> teamStats = this.teamStats(name);
 		Double minutes = 0.0;
 		for(PlayerStatsPO player: teamStats){
-			minutes += this.str_to_minutes(player.minutes());
+			minutes += TypeTransform.str_to_minutes(player.minutes());
 		}
 		
 		return minutes;
@@ -169,6 +165,26 @@ public class Match {
 		
 		return fieldGoalsAttempted;
 	}
+	
+	public Integer freeThrowsAttempted_teammate(String name){
+		ArrayList<PlayerStatsPO> teamStats = this.teamStats(name);
+		Integer freeThrows = 0;
+		for(PlayerStatsPO player: teamStats){
+			freeThrows += player.freeThrowsAttempted();
+		}
+		
+		return freeThrows;
+	}
+	
+	public Integer turnovers_teammate(String name){
+		ArrayList<PlayerStatsPO> teamStats = this.teamStats(name);
+		Integer turnovers = 0;
+		for(PlayerStatsPO player: teamStats){
+			turnovers += player.turnovers();
+		}
+		
+		return turnovers;
+	}
 
 	public Double offensiveRounds_opponent(String name) {
 		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(name);
@@ -218,5 +234,45 @@ public class Match {
 		}
 		
 		return rebounds;
+	}
+	
+	public Integer fieldGoalsMade_opponent(Teams team) {
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(team);
+		Integer fieldGoalsMade = 0;
+		for(PlayerStatsPO player: teamStats){
+			fieldGoalsMade += player.fieldGoalsMade();
+		}
+		
+		return fieldGoalsMade;
+	}
+
+	public Integer freeThrowsMade_opponent(Teams team) {
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(team);
+		Integer freeThrowsMade = 0;
+		for(PlayerStatsPO player: teamStats){
+			freeThrowsMade += player.freeThrowsMade();
+		}
+		
+		return freeThrowsMade;
+	}
+
+	public Integer fumbles_opponent(Teams team) {
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(team);
+		Integer fumbles = 0;
+		for(PlayerStatsPO player: teamStats){
+			fumbles += player.fieldGoalsAttempted() - player.fieldGoalsMade();
+		}
+		
+		return fumbles;
+	}
+
+	public Integer turnovers_opponent(Teams team) {
+		ArrayList<PlayerStatsPO> teamStats = this.opponentTeamStats(team);
+		Integer turnovers = 0;
+		for(PlayerStatsPO player: teamStats){
+			turnovers += player.turnovers();
+		}
+		
+		return turnovers;
 	}
 }

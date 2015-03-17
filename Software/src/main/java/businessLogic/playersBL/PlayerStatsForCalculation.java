@@ -22,7 +22,8 @@ public class PlayerStatsForCalculation {
 			Integer offensiveRebounds_teammate, Integer defensiveRebounds_teammate, 
 			Integer offensiveRebounds_opponent, Integer defensiveRebounds_opponent, 
 			Integer fieldGoalsMade_teammate, Integer fieldGoalsAttempted_teammate,
-			Integer fieldGoalsAttempted_opponent, Double offensiveRounds_opponent){
+			Integer fieldGoalsAttempted_opponent, Integer freeThrowsAttempted_teammate,
+			Integer turnovers_teammate, Double offensiveRounds_opponent){
 		this.player = player;
 		this.minutes_teammate = minutes_teammate;
 		this.offensiveRebounds_teammate = offensiveRebounds_teammate;

@@ -6,7 +6,8 @@ public enum Position {
 	FORWARD("前锋"), SF("小前锋"), PF("大前锋"),
 	CENTER("中锋"),
 	GUARD("后卫"), SG("得分后卫"), PG("控球后卫"),
-	ALTERNATE("替补");
+	ALTERNATE("替补"),
+	NOTFIXED("不固定");
 	
 	String position;
 	
@@ -19,7 +20,11 @@ public enum Position {
 		case "F": return FORWARD;
 		case "C": return CENTER;
 		case "G": return GUARD;
-		default: return ALTERNATE;
+		default: if(p.contains("-")){
+			         return NOTFIXED;
+		         }else{
+			         return ALTERNATE;
+		         }
 		}
 	}
 	

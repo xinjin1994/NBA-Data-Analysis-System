@@ -28,7 +28,7 @@ public class ReadFromTxt implements ReadTeams {
 					}
 					arr[0] = arr[0].substring(1, arr[0].length());
 					int lastIndex = arr.length-1;
-					arr[lastIndex] = arr[lastIndex].substring(0, arr[lastIndex].length()-3);
+					arr[lastIndex] = arr[lastIndex].substring(0, arr[lastIndex].length()-1);
 					TeamPO team = new TeamPO(arr);
 					teamList.add(team);
 				}

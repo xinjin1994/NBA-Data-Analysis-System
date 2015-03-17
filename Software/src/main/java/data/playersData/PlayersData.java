@@ -3,9 +3,6 @@ package data.playersData;
 import java.util.ArrayList;
 import po.PlayerPO;
 import dataService.playersDataService.PlayersDataService;
-import enums.Conference;
-import enums.Division;
-import enums.Position;
 import factory.ObjectCreater;
 import exceptions.PlayerNotFound;
 
@@ -29,14 +26,6 @@ public class PlayersData implements PlayersDataService {
 		}
 		
 		throw new PlayerNotFound(name);
-	}
-
-	@Override
-	public ArrayList<PlayerPO> getPlayers(Conference conference,
-			Division division, Position position)  throws PlayerNotFound {
-		//此方法是否放在playersData模块还在考虑中
-		
-		return null;
 	}
 
 	@Override

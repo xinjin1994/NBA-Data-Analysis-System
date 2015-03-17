@@ -1,6 +1,7 @@
 package businessLogicService.playersBLService;
 
 import java.util.ArrayList;
+
 import enums.Teams;
 import enums.Position;
 import enums.Conference;
@@ -8,6 +9,7 @@ import enums.Division;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerVO;
 import vo.PlayerAdvancedStatsVO;
+import exceptions.MatchNotFound;
 import exceptions.PlayerNotFound;
 import exceptions.TeamNotFound;
 
@@ -25,9 +27,9 @@ public interface PlayersBLService {
 	//获取统计数据
 	//基本数据
 	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsTotal(Conference con, Division div, 
-			Position pos) throws PlayerNotFound;
+			Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound;
 	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsAverage(Conference con, Division div, 
-			Position pos) throws PlayerNotFound;
+			Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound;
 	
 	//高级数据
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(Conference con, 
@@ -38,8 +40,8 @@ public interface PlayersBLService {
 	
 	
 	//迭代一不需要
-	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws PlayerNotFound;
-	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name) throws PlayerNotFound;
+	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
+	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
 	
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name) throws PlayerNotFound;
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsAverage(String name) throws PlayerNotFound;

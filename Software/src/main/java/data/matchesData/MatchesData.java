@@ -7,6 +7,7 @@ import po.PlayerStatsPO;
 import dataService.matchesDataService.MatchesDataService;
 import enums.Teams;
 import exceptions.MatchNotFound;
+import exceptions.TeamNotFound;
 import factory.ObjectCreater;
 
 public class MatchesData implements MatchesDataService {
@@ -90,6 +91,36 @@ public class MatchesData implements MatchesDataService {
 		}
 		
 		return false;
+	}
+	
+	private Teams getTeam(MatchPO match, String player){
+		ArrayList<PlayerStatsPO> list = match.team1Players();
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).name().equals(player)){
+				return match.homeTeam();
+			}
+		}
+		
+		list = match.team2Players();
+		for(int i=0; i<list.size(); i++){
+			if(list.get(i).name().equals(player)){
+				return match.guestTeam();
+			}
+		}
+		
+		return null;
+	}
+
+	@Override
+	public Teams getTeam(String player) throws TeamNotFound {
+		for(int i=matchList.size()-1; i>=0; i--){
+			Teams team = getTeam(matchList.get(i), player);
+			if(team != null){
+				return team;
+			}
+		}
+		
+		throw new TeamNotFound("");
 	}
 
 }

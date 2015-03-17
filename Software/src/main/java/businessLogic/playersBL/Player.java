@@ -25,4 +25,6 @@ public class Player {
 	public PlayerVO toVO(){
 		return null;
 	}
+	
+	
 }
