@@ -6,10 +6,11 @@ public class AdvancedTeamStats {
 	Double offensiveRounds;
 	Double offensiveEfficiency;
 	Double defensiveRounds;
+	Double defensiveEfficiency;
 	Double offensiveReboudnsEfficiency;
 	Double defensiveReboundsEfficiency;
 	Double stealsEfficiency;
-	Double blocksEfficiency;
+	Double assistsEfficiency;
 	
 	public Double winningRate() {
 		return winningRate;
@@ -67,13 +68,19 @@ public class AdvancedTeamStats {
 		this.stealsEfficiency = stealsEfficiency;
 	}
 	
-	public Double blocksEfficiency() {
-		return blocksEfficiency;
+	public Double assistsEfficiency() {
+		return assistsEfficiency;
 	}
 	
-	public void setBlocksEfficiency(Double blocksEfficiency) {
-		this.blocksEfficiency = blocksEfficiency;
+	public void setAssistsEfficiency(Double assistsEfficiency) {
+		this.assistsEfficiency = assistsEfficiency;
 	}
 	
+	public Double defensiveEfficiency() {
+		return defensiveEfficiency;
+	}
 	
+	public void setDefensiveEfficiency(Double defensiveEfficiency) {
+		this.defensiveEfficiency=defensiveEfficiency;
+	}
 }

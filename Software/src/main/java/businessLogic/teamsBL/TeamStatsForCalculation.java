@@ -9,6 +9,7 @@ public class TeamStatsForCalculation {
 	Integer freeThrowsMade_opponent;
 	Integer fumbles_opponent;                       //失球数
 	Integer turnovers_opponent;
+	Integer point_opponent;
 	
 	public TeamStatsForCalculation(BasicTeamStats stats, int offensiveRebounds_opponent, 
 			int defensiveRebounds_opponent, int fieldGoalsMade_opponent, int freeThrowsMade_opponent, 
@@ -50,6 +51,8 @@ public class TeamStatsForCalculation {
 		return turnovers_opponent;
 	}
 	
-	
+	public Integer point_opponent(){
+		return point_opponent;
+	}
 	
 }
