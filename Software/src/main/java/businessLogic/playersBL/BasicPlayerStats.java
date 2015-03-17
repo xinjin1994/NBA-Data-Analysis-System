@@ -2,10 +2,12 @@ package businessLogic.playersBL;
 
 import po.PlayerStatsPO;
 import enums.Position;
+import enums.Teams;
 
 public class BasicPlayerStats {
 	//球员的直接统计数据
 	String name;
+	Teams team;
 	Integer games;                           //参赛场数
 	Integer gamesStarting;                   //先发场数
 	Position position;                       //位置
@@ -30,7 +32,7 @@ public class BasicPlayerStats {
 		
 	}
 	
-	public BasicPlayerStats(PlayerStatsPO po, int games, int gamesStarting){
+	public BasicPlayerStats(PlayerStatsPO po, int games, int gamesStarting, Teams team){
 		this.name = po.name();
 		this.games = games;
 		this.gamesStarting = gamesStarting;

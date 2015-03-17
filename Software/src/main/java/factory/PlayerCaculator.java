@@ -7,9 +7,9 @@ import businessLogic.playersBL.BasicPlayerStats;
 import businessLogic.playersBL.PlayerStatsForCalculation;
 
 public class PlayerCaculator {
-	public AdvancedPlayerStats calculate(ArrayList<PlayerStatsForCalculation> list){
+	public AdvancedPlayerStats getAdvancedStatsTotal(ArrayList<PlayerStatsForCalculation> list){
 		AdvancedPlayerStats advanced=new AdvancedPlayerStats();
-		advanced.setAverage(Average(list));
+		advanced.setAverage(getBasicStatsAverage(list));
 		advanced.setDoubleDouble(0.00);
 		advanced.setHitRate(0.00);
 		advanced.setRebounds(0.00);
@@ -89,7 +89,7 @@ public class PlayerCaculator {
 		return doubledoubles;
 	}
 	
-	public BasicPlayerStats Average(ArrayList<PlayerStatsForCalculation> list){
+	public BasicPlayerStats getBasicStatsAverage(ArrayList<PlayerStatsForCalculation> list){
 		Integer games=0;                        
 		Integer gamesStarting=0;                                          
 		Double minutes=0.00;                         

@@ -94,7 +94,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 
 	@Override
 	public ArrayList<PlayerStatsForCalculation> getPlayerDataForCalculation(
-			String name) throws MatchNotFound {
+			String name) throws MatchNotFound, TeamNotFound {
 		ArrayList<MatchPO> matchList = matchesService.getMatches(name);
 		int games = matchList.size();
 		int gameStarting = 0;
@@ -110,7 +110,8 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 		ArrayList<PlayerStatsForCalculation> stats = new ArrayList<PlayerStatsForCalculation>();
 		for(int i=0; i<games; i++){
 			Match match = new Match(matchList.get(i));
-			BasicPlayerStats basic = new BasicPlayerStats(match.getPlayerStats(name), games, gameStarting);
+			Teams team = this.getTeam(name);
+			BasicPlayerStats basic = new BasicPlayerStats(match.getPlayerStats(name), games, gameStarting, team);
 			PlayerStatsForCalculation s = new PlayerStatsForCalculation(basic, match.minutes_teammate(name),
 					match.offensiveRebounds_teammate(name), match.defensiveRebounds_teammate(name), 
 					match.offensiveRebounds_opponent(name), match.defensiveRebounds_opponent(name), 
@@ -128,7 +129,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 	}
 
 	@Override
-	public ArrayList<BasicPlayerStats> getBasicPlayerStats(String name) throws MatchNotFound {
+	public ArrayList<BasicPlayerStats> getBasicPlayerStats(String name) throws MatchNotFound, TeamNotFound {
 		ArrayList<MatchPO> matchList = matchesService.getMatches(name);
 		int games = matchList.size();
 		int gameStarting = 0;
@@ -144,7 +145,8 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 		ArrayList<BasicPlayerStats> stats = new ArrayList<BasicPlayerStats>();
 		for(int i=0; i<games; i++){
 			Match match = new Match(matchList.get(i));
-			BasicPlayerStats basic = new BasicPlayerStats(match.getPlayerStats(name), games, gameStarting);
+			Teams team = this.getTeam(name);
+			BasicPlayerStats basic = new BasicPlayerStats(match.getPlayerStats(name), games, gameStarting, team);
 			stats.add(basic);
 		}
 		

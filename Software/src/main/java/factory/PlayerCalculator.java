@@ -11,7 +11,7 @@ public class PlayerCalculator {
 	public PlayerCalculator(ArrayList<PlayerStatsForCalculation> list){
 		this.list=list;
 	}
-	public AdvancedPlayerStats calculate(){
+	public AdvancedPlayerStats getAdvancedStatsTotal(){
 		AdvancedPlayerStats advanced=new AdvancedPlayerStats();
 		advanced.setAverage(Average(list));
 		advanced.setDoubleDouble(0.00);

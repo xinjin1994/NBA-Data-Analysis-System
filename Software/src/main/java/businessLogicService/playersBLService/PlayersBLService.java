@@ -43,7 +43,7 @@ public interface PlayersBLService {
 	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
 	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
 	
-	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name) throws PlayerNotFound;
+	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsAverage(String name) throws PlayerNotFound;
 	
 }

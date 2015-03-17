@@ -1,6 +1,7 @@
 package vo;
 
 import enums.Teams;
+import businessLogic.playersBL.AdvancedPlayerStats;
 
 public class PlayerAdvancedStatsVO {
 	//
@@ -19,8 +20,21 @@ public class PlayerAdvancedStatsVO {
 	double turnoversPercent;                        //失误率
 	double usagePercent;                            //使用率
 	
-	public PlayerAdvancedStatsVO(){
-		
+	public PlayerAdvancedStatsVO(AdvancedPlayerStats stats){
+		this.name = stats.name();
+		this.team = stats.team();
+		this.efficiency = stats.playerEfficiencyRating();
+		this.GmSc = stats.Gmsc();
+		this.trueScorePercent = stats.trueScorePercent();
+		this.fieldGoalEfficiency = stats.fieldGoalsPercent();
+		this.reboundsPercent = stats.reboundsPercent();
+		this.offensiveReboundsPercent = stats.offensiveReboundsPercent();
+		this.defensiveReboundsPercent = stats.defensiveReboundsPercent();
+		this.assistsPercent = stats.assistsPercent();
+		this.stealsPercent = stats.stealsPercent();
+		this.blocksPercent = stats.blockPercent();
+		this.turnoversPercent = stats.turnoversPercent();
+		this.usagePercent = stats.usagePercent();
 	}
 
 	public String getName() {

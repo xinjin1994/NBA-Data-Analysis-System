@@ -1,7 +1,11 @@
 package businessLogic.playersBL;
 
+import enums.Teams;
+
 public class AdvancedPlayerStats {
 	//球员的一些需要根据基础数据计算得到的高级统计数据
+	String name;
+	Teams team;
 	Double doubleDouble;                              //两双数
 	BasicPlayerStats average;                          //平均数据
 	Double hitRate;                                    //命中率
@@ -20,6 +24,14 @@ public class AdvancedPlayerStats {
 	Double turnoversPercent;                           //失误率
 	Double usagePercent;                               //使用率
 
+	public String name(){
+		return name;
+	}
+	
+	public Teams team(){
+		return team;
+	}
+	
 	public Double doubleDouble() {
 		return doubleDouble;
 	}
@@ -82,6 +94,14 @@ public class AdvancedPlayerStats {
 
 	public Double usagePercent() {
 		return usagePercent;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public void setTeam(Teams team){
+		this.team = team;
 	}
 
 	public void setDoubleDouble(Double doubleDouble) {

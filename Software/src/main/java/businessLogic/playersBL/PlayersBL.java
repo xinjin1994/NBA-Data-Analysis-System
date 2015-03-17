@@ -20,12 +20,14 @@ import businessLogicService.matchesBLService.PlayerDataInMatchesService;
 import businessLogicService.playersBLService.PlayersBLService;
 import businessLogicService.teamsBLService.TeamInfoService;
 import factory.ObjectCreater;
+import factory.PlayerCalculator;
 
 public class PlayersBL implements PlayersBLService {
 	//
 	PlayersDataService playersService;
 	PlayerDataInMatchesService matchesService;
 	TeamInfoService teamsService;
+	PlayerCalculator calculator;
 	
 	public PlayersBL(){
 		playersService = new ObjectCreater().playersDataService();
@@ -153,9 +155,11 @@ public class PlayersBL implements PlayersBLService {
 
 	@Override
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name)
-			throws PlayerNotFound {
-		// TODO Auto-generated method stub
-				return null;
+			throws PlayerNotFound, MatchNotFound, TeamNotFound {
+		ArrayList<PlayerStatsForCalculation> stats = matchesService.getPlayerDataForCalculation(name);
+		calculator = new PlayerCalculator(stats);
+		AdvancedPlayerStats adv = calculator.getAdvancedStatsTotal();
+		return new PlayerAdvancedStatsVO(adv);
 	}
 	
 	@Override
