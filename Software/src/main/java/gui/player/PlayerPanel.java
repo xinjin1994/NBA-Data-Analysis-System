@@ -9,11 +9,14 @@ import gui.util.ReturnButton;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.ScrollPaneConstants;
 
 public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 
@@ -21,10 +24,10 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 
 	public PlayerPanel() {
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
-		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, pWidth/(10/8), pWidth/10};
-		gbl_pnl_menu.rowHeights = new int[]{pHeight/10, pHeight/5, pHeight/10, pHeight/2, pHeight/10};
+		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, (int) (pWidth/(10/8.0)), pWidth/10};
+		gbl_pnl_menu.rowHeights = new int[]{pHeight/10,pHeight/10, pHeight/10, (int) (pHeight*(6/10.0)), pHeight/10};
 		gbl_pnl_menu.columnWeights = new double[]{1,1,1};
-		gbl_pnl_menu.rowWeights = new double[]{1,0,1,0,1};
+		gbl_pnl_menu.rowWeights = new double[]{1,1,1,1,1};
 		setLayout(gbl_pnl_menu);
 		
 		/*
@@ -71,13 +74,14 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		list.setVisibleRowCount(-1);
 		JScrollPane pane_list = new JScrollPane(list);
+		pane_list.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_pane_list = new GridBagConstraints();
 		gbc_pane_list.gridx = 1;
 		gbc_pane_list.gridy = 3;
 		gbc_pane_list.fill = GridBagConstraints.BOTH;
 		add(pane_list, gbc_pane_list);
 		
-		SearchPlayerPanel pnl_search = new SearchPlayerPanel(null);//TODO
+		SearchPlayerPanel pnl_search = new SearchPlayerPanel(this);//TODO
 		GridBagConstraints gbc_pnl_search = new GridBagConstraints();
 		gbc_pnl_search.gridx = 1;
 		gbc_pnl_search.gridy = 1;
@@ -90,6 +94,14 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 		gbc_btn_return.gridy = 4;
 		gbc_btn_return.anchor = GridBagConstraints.SOUTHWEST;
 		add(btn_return,gbc_btn_return);
+		
+		list.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent me){
+				if(me.getClickCount() == 2 && me.getButton() == MouseEvent.BUTTON1)
+					new PlayerDetailDialog().setVisible(true);
+			}
+		});
 	}
 
 	public void buildList() {

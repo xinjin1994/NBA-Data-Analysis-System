@@ -5,8 +5,11 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Color;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Component;
 import javax.swing.border.CompoundBorder;
 

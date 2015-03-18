@@ -13,9 +13,12 @@ public class LabelPanel extends JPanel {
 	public LabelPanel(String name) {
 		this(name,"","");
 	}
-	public LabelPanel(String name,String value) {
-		this(name,value,"");
+	public LabelPanel(String name,String unit) {
+		this(name,"",unit);
 	}
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public LabelPanel(String name,String value,String unit) {
 		
 		JLabel lbl_name = new JLabel(name+":");
@@ -30,5 +33,8 @@ public class LabelPanel extends JPanel {
 	
 	public void setValue(String value){
 		lbl_value.setText(value);
+	}
+	public String getvalue() {
+		return lbl_value.getText();
 	}
 }
