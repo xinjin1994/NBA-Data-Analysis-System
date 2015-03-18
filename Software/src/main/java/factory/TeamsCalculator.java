@@ -66,6 +66,59 @@ public class TeamsCalculator {
 		return result;
 	}
 	
+	public BasicTeamStats Sum(ArrayList<BasicTeamStats> sum){
+		BasicTeamStats result=new BasicTeamStats();                         
+		Double fieldGoalsMade=0.00;                  
+		Double fieldGoalsAttempted=0.00;             
+		Double threePointFieldGoalsMade=0.00;        
+		Double threePointFieldGoalsAttempted=0.00;   
+		Double freeThrowsMade=0.00;                   
+		Double freeThrowsAttempted=0.00;              
+		Double offensiveRebounds=0.00;               
+		Double defensiveRebounds=0.00;               
+		Double rebounds=0.00;                        
+		Double assists=0.00;                         
+		Double steals=0.00;                           
+		Double blocks=0.00;                           
+		Double turnovers=0.00;                        
+		Double fouls=0.00;                            
+		Double points=0.00;                           
+		for(BasicTeamStats basic:sum){
+			result.setName(basic.name());
+			fieldGoalsMade=fieldGoalsMade+basic.fieldGoalsMade();
+			fieldGoalsAttempted=fieldGoalsAttempted+basic.fieldGoalsAttempted();
+			threePointFieldGoalsMade=threePointFieldGoalsMade+basic.threePointFieldGoalsMade();
+			threePointFieldGoalsAttempted=threePointFieldGoalsAttempted+basic.threePointFieldGoalsAttempted();
+			freeThrowsMade=freeThrowsMade+basic.freeThrowsMade();
+			freeThrowsAttempted=freeThrowsAttempted+basic.fieldGoalsAttempted();
+			offensiveRebounds=offensiveRebounds+basic.offensiveRebounds();
+			defensiveRebounds=defensiveRebounds+basic.defensiveRebounds();
+			rebounds=rebounds+basic.rebounds();
+			assists=assists+basic.assists();
+			steals=steals+basic.steals();
+			blocks=blocks+basic.blocks();
+			turnovers=turnovers+basic.turnovers();
+			fouls=fouls+basic.fouls();
+			points=points+basic.points();
+		}
+		result.setFieldGoalsMade(fieldGoalsMade);
+		result.setFieldGoalsAttempted(fieldGoalsAttempted);
+		result.setThreePointFieldGoalsMade(threePointFieldGoalsMade);
+		result.setThreePointFieldGoalsAttempted(threePointFieldGoalsAttempted);
+		result.setFreeThrowsMade(freeThrowsMade);
+		result.setFreeThrowsAttempted(freeThrowsAttempted);
+		result.setOffensiveRebounds(offensiveRebounds);
+		result.setDefensiveRebounds(defensiveRebounds);
+		result.setRebounds(rebounds);
+		result.setAssists(assists);
+		result.setSteals(steals);
+		result.setBlocks(blocks);
+		result.setTurnovers(turnovers);
+		result.setFouls(fouls);
+		result.setPoints(points);
+		return result;
+	}
+	
 	public AdvancedTeamStats calculate(){
 		AdvancedTeamStats advanced=new AdvancedTeamStats();
 		advanced.setWinningRate(WinningRate());

@@ -133,6 +133,68 @@ public class PlayerCalculator {
 			points=points+player.player().points();
 		}
 		BasicPlayerStats player=new BasicPlayerStats();
+		int size=list.size();
+		player.setGames(games/size);
+		player.setGamesStarting(gamesStarting/size);
+		player.setMinutes(minutes/size);
+		player.setFieldGoalsMade(fieldGoalsMade/size);
+		player.setFieldGoalsAttempted(fieldGoalsAttempted/size);
+		player.setThreePointFieldGoalsMade(threePointFieldGoalsMade/size);
+		player.setThreePointFieldGoalsAttempted(threePointFieldGoalsAttempted/size);
+		player.setFreeThrowsMade(freeThrowsMade/size);
+		player.setFreeThrowsAttempted(freeThrowsAttempted/size);
+		player.setOffensiveRebounds(offensiveRebounds/size);
+		player.setDefensiveRebounds(defensiveRebounds/size);
+		player.setRebounds(rebounds/size);
+		player.setAssists(assists/size);
+		player.setSteals(steals/size);
+		player.setBlocks(blocks/size);
+		player.setTurnovers(turnovers/size);
+		player.setPersonalFouls(personalFouls/size);
+		player.setPoints(points/size);
+		return player;
+	}
+	
+	public BasicPlayerStats Sum(ArrayList<PlayerStatsForCalculation> list){
+		Integer games=0;                        
+		Integer gamesStarting=0;                                          
+		Double minutes=0.00;                         
+		Double fieldGoalsMade=0.00;                  
+		Double fieldGoalsAttempted=0.00;             
+		Double threePointFieldGoalsMade=0.00;       
+		Double threePointFieldGoalsAttempted=0.00;   
+		Double freeThrowsMade=0.00;               
+		Double freeThrowsAttempted=0.00;         
+		Double offensiveRebounds=0.00;                
+		Double defensiveRebounds=0.00;         
+		Double rebounds=0.00;                      
+		Double assists=0.00;                        
+		Double steals=0.00;                         
+		Double blocks=0.00;                           
+		Double turnovers=0.00;                        
+		Double personalFouls=0.00;                    
+		Double points=0.00;
+		for(PlayerStatsForCalculation player:list){
+			games=games+player.player().games();
+			gamesStarting=gamesStarting+player.player().gamesStarting();
+			minutes=minutes+player.player().minutes();
+			fieldGoalsMade=fieldGoalsMade+player.player().fieldGoalsMade();
+			fieldGoalsAttempted=fieldGoalsAttempted+player.player().fieldGoalsAttempted();
+			threePointFieldGoalsMade=threePointFieldGoalsMade+player.player().threePointFieldGoalsMade();
+			threePointFieldGoalsAttempted=threePointFieldGoalsAttempted+player.player().threePointFieldGoalsAttempted();
+			freeThrowsMade=freeThrowsMade+player.player().freeThrowsMade();
+			freeThrowsAttempted=freeThrowsAttempted+player.player().freeThrowsAttempted();
+			offensiveRebounds=offensiveRebounds+player.player().offensiveRebounds();
+			defensiveRebounds=defensiveRebounds+player.player().defensiveRebounds();
+			rebounds=rebounds+player.player().rebounds();
+			assists=assists+player.player().assists();
+			steals=steals+player.player().steals();
+			blocks=blocks+player.player().blocks();
+			turnovers=turnovers+player.player().turnovers();
+			personalFouls=personalFouls+player.player().personalFouls();
+			points=points+player.player().points();
+		}
+		BasicPlayerStats player=new BasicPlayerStats();
 		player.setGames(games);
 		player.setGamesStarting(gamesStarting);
 		player.setMinutes(minutes);
