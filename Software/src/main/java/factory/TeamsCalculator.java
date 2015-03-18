@@ -8,6 +8,9 @@ import businessLogic.teamsBL.TeamStatsForCalculation;
 
 public class TeamsCalculator {
 	private ArrayList<TeamStatsForCalculation> list;
+	public TeamsCalculator(){
+		
+	}
 	public TeamsCalculator (ArrayList<TeamStatsForCalculation> list){
 		this.list=list;
 	}
@@ -133,7 +136,7 @@ public class TeamsCalculator {
 		return advanced;
 	}
 	
-	public Double WinningRate(){
+	private Double WinningRate(){
 		try{
 			Double winningRate=0.00;
 			for(TeamStatsForCalculation team:list){
@@ -147,7 +150,7 @@ public class TeamsCalculator {
 		}
 	}
 	
-	public Double Offensive(TeamStatsForCalculation team){
+	private Double Offensive(TeamStatsForCalculation team){
 		BasicTeamStats basic=team.basicTeamStats();
 		Double offensiveRounds=basic.fieldGoalsAttempted()+0.4*basic.freeThrowsAttempted()-
 				1.07*(basic.offensiveRebounds()/(basic.offensiveRebounds()+
@@ -156,7 +159,7 @@ public class TeamsCalculator {
 		return offensiveRounds;
 	}
 	
-	public Double Defensive(TeamStatsForCalculation team){
+	private Double Defensive(TeamStatsForCalculation team){
 		BasicTeamStats basic=team.basicTeamStats();
 		Double defensiveRounds=team.fieldGoalsMade_opponent()+0.4*team.freeThrowsMade_opponent()
 				-1.07*((double)team.offensiveRebounds_opponent()/(team.offensiveRebounds_opponent()
@@ -164,7 +167,7 @@ public class TeamsCalculator {
 		return defensiveRounds;
 	}
 	
-	public Double OffensiveRounds(){
+	private Double OffensiveRounds(){
 		try{
 			Double offensiveRounds=0.00;
 			for(TeamStatsForCalculation team:list){
@@ -178,7 +181,7 @@ public class TeamsCalculator {
 		}
 	}
 	
-	public Double DefensiveRounds(){
+	private Double DefensiveRounds(){
 		try{
 			Double defensiveRounds=0.00;
 			for(TeamStatsForCalculation team:list){
@@ -192,7 +195,7 @@ public class TeamsCalculator {
 		}
 	}
 	
-	public Double OffensiveEfficiency(){
+	private Double OffensiveEfficiency(){
 		Double offensiveEfficiency=0.00;
 		for(TeamStatsForCalculation team:list){
 			offensiveEfficiency=offensiveEfficiency+team.basicTeamStats().points()*100/Offensive(team);
@@ -201,7 +204,7 @@ public class TeamsCalculator {
 		return offensiveEfficiency;
 	}
 	
-	public Double DefensiveEfficiency(){
+	private Double DefensiveEfficiency(){
 		Double defensiveEfficiency=0.00;
 		for(TeamStatsForCalculation team:list){
 			defensiveEfficiency=defensiveEfficiency+team.point_opponent()*100/Defensive(team);
@@ -210,7 +213,7 @@ public class TeamsCalculator {
 		return defensiveEfficiency;
 	}
 	
-	public Double OffensiveReboudnsEfficiency(){
+	private Double OffensiveReboudnsEfficiency(){
 		Double offensiveReboudnsEfficiency=0.00;
 		for(TeamStatsForCalculation team:list){
 			offensiveReboudnsEfficiency=offensiveReboudnsEfficiency+team.basicTeamStats().offensiveRebounds()/(team.basicTeamStats().offensiveRebounds()+team.defensiveRebounds_opponent());
@@ -219,7 +222,7 @@ public class TeamsCalculator {
 		return offensiveReboudnsEfficiency;
 	}
 	
-	public Double DefensiveReboundsEfficiency(){
+	private Double DefensiveReboundsEfficiency(){
 		Double defensiveReboundsEfficiency=0.00;
 		for(TeamStatsForCalculation team:list){
 			defensiveReboundsEfficiency=defensiveReboundsEfficiency+team.basicTeamStats().defensiveRebounds()/(team.basicTeamStats().defensiveRebounds()+team.offensiveRebounds_opponent());
@@ -228,7 +231,7 @@ public class TeamsCalculator {
 		return defensiveReboundsEfficiency;
 	}
 	
-	public Double StealsEfficiency(){
+	private Double StealsEfficiency(){
 		Double stealsEfficiency=0.00;
 		for(TeamStatsForCalculation team:list){
 			stealsEfficiency=stealsEfficiency+team.basicTeamStats().steals()*100/Defensive(team);
@@ -237,7 +240,7 @@ public class TeamsCalculator {
 		return stealsEfficiency;
 	}
 	
-	public Double AssistsEfficiency(){
+	private Double AssistsEfficiency(){
 		Double assistsEfficiency=0.00;
 		for(TeamStatsForCalculation team:list){
 			assistsEfficiency=assistsEfficiency+team.basicTeamStats().assists()*100/Offensive(team);
