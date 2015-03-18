@@ -1,6 +1,7 @@
 package gui;
 
 import gui.enums.PanelType;
+import gui.game.GamePanel;
 import gui.player.PlayerPanel;
 import gui.statistic.StatisticPanel;
 import gui.util.GUIUtility;
@@ -94,6 +95,7 @@ public class MainFrame extends JFrame {
 				panel = new MenuPanel();
 				break;
 			case GAME:
+				panel=new GamePanel();
 				break;
 			case PLAYER:
 				panel = new PlayerPanel();
