@@ -1,7 +1,10 @@
 package businessLogic.teamsBL;
 
+import enums.Teams;
+
 public class AdvancedTeamStats {
 	//
+	Teams name;
 	Double winningRate;
 	Double offensiveRounds;
 	Double offensiveEfficiency;

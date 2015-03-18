@@ -33,9 +33,9 @@ public interface PlayersBLService {
 	
 	//高级数据
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(Conference con, 
-			Division div, Position pos) throws PlayerNotFound;
+			Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound;
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(Conference con, 
-			Division div, Position pos) throws PlayerNotFound;
+			Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound;
 	
 	
 	
@@ -44,6 +44,6 @@ public interface PlayersBLService {
 	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
 	
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
-	public PlayerAdvancedStatsVO getAdvancedPlayerStatsAverage(String name) throws PlayerNotFound;
+	public PlayerAdvancedStatsVO getAdvancedPlayerStatsAverage(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
 	
 }

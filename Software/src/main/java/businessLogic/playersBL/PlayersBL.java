@@ -19,7 +19,7 @@ import exceptions.TeamNotFound;
 import businessLogicService.matchesBLService.PlayerDataInMatchesService;
 import businessLogicService.playersBLService.PlayersBLService;
 import businessLogicService.teamsBLService.TeamInfoService;
-import factory.ObjectCreater;
+import factory.ObjectCreator;
 import factory.PlayerCalculator;
 
 public class PlayersBL implements PlayersBLService {
@@ -30,9 +30,9 @@ public class PlayersBL implements PlayersBLService {
 	PlayerCalculator calculator;
 	
 	public PlayersBL(){
-		playersService = new ObjectCreater().playersDataService();
-		matchesService = new ObjectCreater().dataInMatchesService();
-		teamsService = new ObjectCreater().teamInfoService();
+		playersService = new ObjectCreator().playersDataService();
+		matchesService = new ObjectCreator().dataInMatchesService();
+		teamsService = new ObjectCreator().teamInfoService();
 	}
 	
 	@Override
@@ -164,9 +164,9 @@ public class PlayersBL implements PlayersBLService {
 	
 	@Override
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsAverage(String name)
-			throws PlayerNotFound {
-		// TODO Auto-generated method stub
-				return null;
+			throws PlayerNotFound, MatchNotFound, TeamNotFound {
+		//高级数据没有平均与总和的区别
+		return getAdvancedPlayerStatsTotal(name);
 	}
 	
 	private ArrayList<String> getPlayers(Conference con, Division div, Position pos) throws PlayerNotFound, TeamNotFound{
@@ -216,18 +216,22 @@ public class PlayersBL implements PlayersBLService {
 
 	@Override
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(
-			Conference con, Division div, Position pos) throws PlayerNotFound {
-		// TODO Auto-generated method stub
+			Conference con, Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound {
+		ArrayList<String> names = this.getPlayers(con, div, pos);
+		ArrayList<PlayerAdvancedStatsVO> result = new ArrayList<PlayerAdvancedStatsVO>();
 		
-		return null;
+		for(String name: names){
+			result.add(this.getAdvancedPlayerStatsTotal(name));
+		}
+		
+		return result;
 	}
 	
 	@Override
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(
-			Conference con, Division div, Position pos) throws PlayerNotFound {
-		// TODO Auto-generated method stub
-		
-		return null;
+			Conference con, Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound {
+		//高级数据不区分平均和总和
+		return this.getAdvancedPlayersStatsTotal(con, div, pos);
 	}
 
 }

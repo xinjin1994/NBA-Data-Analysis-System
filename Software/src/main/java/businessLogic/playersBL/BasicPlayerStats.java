@@ -36,6 +36,7 @@ public class BasicPlayerStats {
 		this.name = po.name();
 		this.games = games;
 		this.gamesStarting = gamesStarting;
+		this.team = team;
 	}
 
 	public String name() {
@@ -48,6 +49,10 @@ public class BasicPlayerStats {
 
 	public Integer gamesStarting() {
 		return gamesStarting;
+	}
+	
+	public Teams team(){
+		return team;
 	}
 
 	public Position position() {
@@ -128,6 +133,10 @@ public class BasicPlayerStats {
 
 	public void setGamesStarting(Integer gamesStarting) {
 		this.gamesStarting = gamesStarting;
+	}
+	
+	public void setTeam(Teams team){
+		this.team = team;
 	}
 
 	public void setPosition(Position position) {

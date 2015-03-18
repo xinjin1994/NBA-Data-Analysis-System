@@ -6,7 +6,7 @@ import dataService.teamsDataService.TeamsDataService;
 import enums.Conference;
 import enums.Division;
 import enums.Teams;
-import factory.ObjectCreater;
+import factory.ObjectCreator;
 import exceptions.TeamNotFound;
 
 public class TeamsData implements TeamsDataService {
@@ -15,7 +15,7 @@ public class TeamsData implements TeamsDataService {
 	ArrayList<TeamPO> teamList;
 	
 	public TeamsData(){
-		reader = new ObjectCreater().teamsReader();
+		reader = new ObjectCreator().teamsReader();
 		teamList = reader.readAllTeams();
 	}
 
@@ -52,6 +52,25 @@ public class TeamsData implements TeamsDataService {
 	public ArrayList<TeamPO> getAllTeams() throws TeamNotFound {
 		if(teamList.size() != 0){
 			return teamList;
+		}else{
+			throw new TeamNotFound("");
+		}
+	}
+
+	@Override
+	public ArrayList<Teams> getTeamsName(Conference conference,
+			Division division) throws TeamNotFound {
+		ArrayList<Teams> teams = new ArrayList<Teams>();
+		for(TeamPO po: teamList){
+			if(conference == null || po.conference() == conference){
+				if(division == null || po.division() == division){
+					teams.add(po.name());
+				}
+			}
+		}
+		
+		if(teams.size() != 0){
+			return teams;
 		}else{
 			throw new TeamNotFound("");
 		}

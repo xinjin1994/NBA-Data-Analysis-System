@@ -9,7 +9,7 @@ import vo.MatchVO;
 import enums.Teams;
 import exceptions.MatchNotFound;
 import exceptions.TeamNotFound;
-import factory.ObjectCreater;
+import factory.ObjectCreator;
 import businessLogic.playersBL.BasicPlayerStats;
 import businessLogic.playersBL.PlayerStatsForCalculation;
 import businessLogic.teamsBL.BasicTeamStats;
@@ -23,7 +23,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 	MatchesDataService matchesService;
 	
 	public MatchesBL(){
-		matchesService = new ObjectCreater().matchesDataService();
+		matchesService = new ObjectCreator().matchesDataService();
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 		for(int i=0; i<matchList.size(); i++){
 			MatchPO po = matchList.get(i);
 			Match match = new Match(po);
-			BasicTeamStats basic = new BasicTeamStats(games, wins, match.getTeamStats(team));
+			BasicTeamStats basic = new BasicTeamStats(team, games, wins, match.getTeamStats(team));
 			TeamStatsForCalculation s = new TeamStatsForCalculation(basic, match.offensiveRebounds_opponent(team), 
 					match.defensiveRebounds_opponent(team), match.fieldGoalsMade_opponent(team), 
 					match.freeThrowsMade_opponent(team), match.fumbles_opponent(team), 
@@ -82,7 +82,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 		for(int i=0; i<matchList.size(); i++){
 			MatchPO po = matchList.get(i);
 			Match match = new Match(po);
-			stats.add(new BasicTeamStats(games, wins, match.getTeamStats(team)));
+			stats.add(new BasicTeamStats(team, games, wins, match.getTeamStats(team)));
 		}
 		
 		if(stats.size() != 0){

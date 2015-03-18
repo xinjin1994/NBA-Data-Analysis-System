@@ -8,7 +8,7 @@ import dataService.matchesDataService.MatchesDataService;
 import enums.Teams;
 import exceptions.MatchNotFound;
 import exceptions.TeamNotFound;
-import factory.ObjectCreater;
+import factory.ObjectCreator;
 
 public class MatchesData implements MatchesDataService {
 	ReadMatches reader;
@@ -16,7 +16,7 @@ public class MatchesData implements MatchesDataService {
 	ArrayList<MatchPO> matchList;
 	
 	public MatchesData(){
-		reader = new ObjectCreater().matchesReader();
+		reader = new ObjectCreator().matchesReader();
 		matchList = reader.readAllMatches();
 	}
 

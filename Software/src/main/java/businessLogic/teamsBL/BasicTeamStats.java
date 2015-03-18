@@ -1,38 +1,59 @@
 package businessLogic.teamsBL;
 
 import java.util.ArrayList;
+
+import enums.Teams;
 import po.PlayerStatsPO;
 
 public class BasicTeamStats {
 	//
-	String name;
+	Teams name;
 	Integer games;                           //参赛场数
 	Integer wins;                            //获胜场数
-	Double fieldGoalsMade;                   //投篮命中数
-	Double fieldGoalsAttempted;              //投篮出手数
-	Double threePointFieldGoalsMade;         //三分命中数
-	Double threePointFieldGoalsAttempted;    //三分出手数
-	Double freeThrowsMade;                   //罚球命中数
-	Double freeThrowsAttempted;              //罚球出手数
-	Double offensiveRebounds;                //进攻篮板数
-	Double defensiveRebounds;                //防守篮板数
-	Double rebounds;                         //总篮板数
-	Double assists;                          //助攻数
-	Double steals;                           //抢断数
-	Double blocks;                           //盖帽数
-	Double turnovers;                        //失误数
-	Double fouls;                            //犯规数
-	Double points;                           //得分
+	Double fieldGoalsMade = 0.0;                   //投篮命中数
+	Double fieldGoalsAttempted = 0.0;              //投篮出手数
+	Double threePointFieldGoalsMade = 0.0;         //三分命中数
+	Double threePointFieldGoalsAttempted = 0.0;    //三分出手数
+	Double freeThrowsMade = 0.0;                   //罚球命中数
+	Double freeThrowsAttempted = 0.0;              //罚球出手数
+	Double offensiveRebounds = 0.0;                //进攻篮板数
+	Double defensiveRebounds = 0.0;                //防守篮板数
+	Double rebounds = 0.0;                         //总篮板数
+	Double assists = 0.0;                          //助攻数
+	Double steals = 0.0;                           //抢断数
+	Double blocks = 0.0;                           //盖帽数
+	Double turnovers = 0.0;                        //失误数
+	Double fouls = 0.0;                            //犯规数
+	Double points = 0.0;                           //得分
 	
 	public BasicTeamStats(){
 		
 	}
 	
-	public BasicTeamStats(int games, int wins, ArrayList<PlayerStatsPO> players){
+	public BasicTeamStats(Teams team, int games, int wins, ArrayList<PlayerStatsPO> players){
+		this.name = team;
+		this.games = games;
+		this.wins = wins;
 		
+		for(PlayerStatsPO player: players){
+			this.fieldGoalsMade += (double)player.fieldGoalsMade();
+			this.fieldGoalsAttempted = (double)player.fieldGoalsAttempted();
+			this.threePointFieldGoalsMade = (double)player.threePointFieldGoalsMade();
+			this.freeThrowsMade += (double)player.freeThrowsMade();
+			this.freeThrowsAttempted = (double)player.freeThrowsAttempted();
+			this.offensiveRebounds += (double)player.offensiveRebounds();
+			this.defensiveRebounds += (double)player.defensiveRebounds();
+			this.rebounds += (double)player.rebounds();
+			this.assists += (double)player.assists();
+			this.steals += (double)player.steals();
+			this.blocks += (double)player.blocks();
+			this.turnovers += (double)player.turnovers();
+			this.fouls += (double)player.personalFouls();
+			this.points += (double)player.points();
+		}
 	}
 
-	public String name() {
+	public Teams name() {
 		return name;
 	}
 
@@ -104,7 +125,7 @@ public class BasicTeamStats {
 		return points;
 	}
 
-	public void setName(String name) {
+	public void setName(Teams name) {
 		this.name = name;
 	}
 

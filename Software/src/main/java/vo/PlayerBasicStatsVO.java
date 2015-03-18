@@ -75,15 +75,15 @@ public class PlayerBasicStatsVO {
 	}
 
 	public double getFieldGoalPercentage() {
-		return fieldGoalPercentage;
+		return fieldGoalPercentage*100;
 	}
 
 	public double getThreePointFieldGoalPercentage() {
-		return threePointFieldGoalPercentage;
+		return threePointFieldGoalPercentage*100;
 	}
 
 	public double getFreeThrowPercentage() {
-		return freeThrowPercentage;
+		return freeThrowPercentage*100;
 	}
 
 	public double getOffensiveRebounds() {

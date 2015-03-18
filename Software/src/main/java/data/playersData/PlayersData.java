@@ -3,7 +3,7 @@ package data.playersData;
 import java.util.ArrayList;
 import po.PlayerPO;
 import dataService.playersDataService.PlayersDataService;
-import factory.ObjectCreater;
+import factory.ObjectCreator;
 import exceptions.PlayerNotFound;
 
 public class PlayersData implements PlayersDataService {
@@ -12,7 +12,7 @@ public class PlayersData implements PlayersDataService {
 	ArrayList<PlayerPO> playerList;
 	
 	public PlayersData(){
-		reader = new ObjectCreater().playersReader();
+		reader = new ObjectCreator().playersReader();
 		playerList = reader.readAllPlayers();
 	}
 

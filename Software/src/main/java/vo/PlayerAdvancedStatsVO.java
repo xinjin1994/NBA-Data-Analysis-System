@@ -54,43 +54,43 @@ public class PlayerAdvancedStatsVO {
 	}
 
 	public double getTrueScorePercent() {
-		return trueScorePercent;
+		return trueScorePercent*100;
 	}
 
 	public double getFieldGoalEfficiency() {
-		return fieldGoalEfficiency;
+		return fieldGoalEfficiency*100;
 	}
 
 	public double getReboundsPercent() {
-		return reboundsPercent;
+		return reboundsPercent*100;
 	}
 
 	public double getOffensiveReboundsPercent() {
-		return offensiveReboundsPercent;
+		return offensiveReboundsPercent*100;
 	}
 
 	public double getDefensiveReboundsPercent() {
-		return defensiveReboundsPercent;
+		return defensiveReboundsPercent*100;
 	}
 
 	public double getAssistsPercent() {
-		return assistsPercent;
+		return assistsPercent*100;
 	}
 
 	public double getStealsPercent() {
-		return stealsPercent;
+		return stealsPercent*100;
 	}
 
 	public double getBlocksPercent() {
-		return blocksPercent;
+		return blocksPercent*100;
 	}
 
 	public double getTurnoversPercent() {
-		return turnoversPercent;
+		return turnoversPercent*100;
 	}
 
 	public double getUsagePercent() {
-		return usagePercent;
+		return usagePercent*100;
 	}
 	
 	
