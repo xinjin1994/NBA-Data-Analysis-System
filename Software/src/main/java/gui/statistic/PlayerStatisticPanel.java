@@ -3,37 +3,42 @@ package gui.statistic;
 import enums.Conference;
 import enums.Division;
 import enums.Position;
+import exceptions.MatchNotFound;
 import exceptions.PlayerNotFound;
+import exceptions.TeamNotFound;
 import gui.SelfAdjustPanel;
-import gui.player.PlayerDetailDialog;
 import gui.player.PlayerSearch;
-import gui.player.PlayerTableModel_Simple;
-import gui.player.PortraitPanel_Stub;
 import gui.player.SearchPlayerPanel;
 import gui.util.ReturnButton;
 
-import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import javax.swing.JList;
+import javax.swing.DefaultRowSorter;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.TableRowSorter;
 
 import businessLogic.playersBL.PlayersBL;
-import vo.PlayerVO;
+import vo.PlayerAdvancedStatsVO;
+import vo.PlayerBasicStatsVO;
 
 public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearch{
 
 	private static final long serialVersionUID = 9090035509234357424L;
+	private ArrayList<PlayerBasicStatsVO> basicList_average;
+	private ArrayList<PlayerBasicStatsVO> basicList_total;
+	private ArrayList<PlayerAdvancedStatsVO> advancedList_average;
+	private ArrayList<PlayerAdvancedStatsVO> advancedList_total;
+	private JTable tbl_advancedList;
+	private JTable tbl_basicList;
 
 	public PlayerStatisticPanel() {
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
@@ -43,21 +48,15 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		gbl_pnl_menu.rowWeights = new double[]{1,1,1,1,1};
 		setLayout(gbl_pnl_menu);
 		
-		ArrayList<PlayerVO> list;
-		try {
-			list = new PlayersBL().getAllPlayersInfo();
-		} catch (PlayerNotFound e) {
-			//TODO
-			list = new ArrayList<PlayerVO>();
-		}
-		
-		JScrollPane pane_list = new JScrollPane();
-		pane_list.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		JTable tbl_list = new JTable(new PlayerTableModel_Simple(null));// TODO
-		tbl_list.setFillsViewportHeight(true);
-		tbl_list.setRowSorter(new TableRowSorter<PlayerTableModel_Simple>());
-		tbl_list.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbl_list.addMouseListener(new MouseAdapter(){
+		buildList(Conference.NATIONAL,Division.NATIONAL,Position.ALL);
+
+		JScrollPane pane_basicList = new JScrollPane();
+		pane_basicList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		tbl_basicList = new JTable(new PlayerTableModel_Basic(basicList_average));
+		tbl_basicList.setFillsViewportHeight(true);
+		tbl_basicList.setAutoCreateRowSorter(true);
+		tbl_basicList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbl_basicList.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent me) {
 				if(me.getClickCount() == 2 && me.getButton() == MouseEvent.BUTTON1){
@@ -65,19 +64,46 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 				}
 			}
 		});
-		pane_list.add(tbl_list);
+		pane_basicList.add(tbl_basicList);
+		
+		JScrollPane pane_advancedList = new JScrollPane();
+		pane_advancedList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		tbl_advancedList = new JTable(new PlayerTableModel_Advanced(advancedList_average));
+		tbl_advancedList.setFillsViewportHeight(true);
+		tbl_advancedList.setAutoCreateRowSorter(true);
+		tbl_advancedList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbl_advancedList.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent me) {
+				if(me.getClickCount() == 2 && me.getButton() == MouseEvent.BUTTON1){
+					
+				}
+			}
+		});
+		pane_advancedList.add(tbl_advancedList);
+		
+		JTabbedPane pane_lists = new JTabbedPane();
 		GridBagConstraints gbc_pane_list = new GridBagConstraints();
 		gbc_pane_list.gridx = 1;
 		gbc_pane_list.gridy = 3;
 		gbc_pane_list.fill = GridBagConstraints.BOTH;
-		add(pane_list, gbc_pane_list);
+		pane_lists.add("球员基本数据",pane_basicList);
+		pane_lists.add("球员进阶数据",pane_advancedList);
+		add(pane_lists, gbc_pane_list);
 		
-		SearchPlayerPanel pnl_search = new SearchPlayerPanel(null);//TODO
+		SearchPlayerPanel pnl_search = new SearchPlayerPanel(this);
 		GridBagConstraints gbc_pnl_search = new GridBagConstraints();
 		gbc_pnl_search.gridx = 1;
 		gbc_pnl_search.gridy = 1;
 		gbc_pnl_search.fill = GridBagConstraints.HORIZONTAL;
 		add(pnl_search, gbc_pnl_search);
+		
+		JPanel pnl_selection = new JPanel();
+		GridBagConstraints gbc_pnl_selection = new GridBagConstraints();
+		gbc_pnl_selection.gridx = 1;
+		gbc_pnl_selection.gridy = 2;
+		//TODO
+		add(pnl_selection, gbc_pnl_selection);
 		
 		ReturnButton btn_return = new ReturnButton();
 		GridBagConstraints gbc_btn_return = new GridBagConstraints();
@@ -88,9 +114,36 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 	}
 
 	@Override
-	public void buildList(Conference c, Division d, Position p, String name) {
-		// TODO Auto-generated method stub
+	public void buildList(Conference c, Division d, Position p) {
+		try {
+			basicList_average = new PlayersBL().getBasicPlayersStatsAverage(c,d,p);
+			basicList_total = new PlayersBL().getBasicPlayersStatsTotal(c,d,p);
+		} catch (PlayerNotFound e) {
+			basicList_average = new ArrayList<PlayerBasicStatsVO>();
+			basicList_total = new ArrayList<PlayerBasicStatsVO>();
+		} catch (TeamNotFound e) {
+			e.printStackTrace();
+		} catch (MatchNotFound e) {
+			e.printStackTrace();
+		}
 		
+		try {
+			advancedList_average = new PlayersBL().getAdvancedPlayersStatsAverage(c,d,p);
+			advancedList_total = new PlayersBL().getAdvancedPlayersStatsTotal(c,d,p);
+		} catch (PlayerNotFound e) {
+			advancedList_average = new ArrayList<PlayerAdvancedStatsVO>();
+			advancedList_total = new ArrayList<PlayerAdvancedStatsVO>();
+		} catch (TeamNotFound e) {
+			e.printStackTrace();
+		} catch (MatchNotFound e) {
+			e.printStackTrace();
+		}
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public void filterList(String name) {
+		((DefaultRowSorter<PlayerTableModel_Basic,Object>)tbl_basicList.getRowSorter()).setRowFilter(RowFilter.regexFilter(name, 0));
+		((DefaultRowSorter<PlayerTableModel_Advanced,Object>)tbl_advancedList.getRowSorter()).setRowFilter(RowFilter.regexFilter(name, 0));
 	}
 
 }

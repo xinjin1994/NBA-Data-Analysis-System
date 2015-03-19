@@ -29,12 +29,22 @@ public class StatisticPanel extends SelfAdjustPanel {
 		setLayout(gbl_pnl_menu);
 		
 		JButton btn_player = new JButton("球员数据分析");
+		btn_player.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainFrame.mf.gotoPanel(PanelType.PLAYER_STATISTIC);
+			}
+		});
 		GridBagConstraints gbc_btn_player = new GridBagConstraints();
 		gbc_btn_player.gridx = 1;
 		gbc_btn_player.gridy = 1;
 		add(btn_player, gbc_btn_player);
 		
 		JButton btn_team = new JButton("球队数据分析");
+		btn_team.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainFrame.mf.gotoPanel(PanelType.TEAM_STATISTIC);
+			}
+		});
 		GridBagConstraints gbc_btn_team = new GridBagConstraints();
 		gbc_btn_team.gridx = 2;
 		gbc_btn_team.gridy = 1;

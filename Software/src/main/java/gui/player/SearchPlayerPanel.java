@@ -9,7 +9,6 @@ import enums.Conference;
 import enums.Division;
 import enums.Position;
 
-import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -151,7 +150,7 @@ public class SearchPlayerPanel extends JPanel {
 		txf_name.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				search();
+				filter(txf_name.getText().trim());
 			}
 		});
 	}
@@ -160,7 +159,9 @@ public class SearchPlayerPanel extends JPanel {
 		Conference c = cbbx_conference.getItemAt(cbbx_conference.getSelectedIndex());
 		Division d = cbbx_division.getItemAt(cbbx_division.getSelectedIndex());
 		Position p = cbbx_position.getItemAt(cbbx_position.getSelectedIndex());
-		String name = txf_name.getText().trim();
-		playerPanel.buildList(c,d,p,name);
+		playerPanel.buildList(c,d,p);
+	}
+	private void filter(String name){
+		playerPanel.filterList(name);
 	}
 }

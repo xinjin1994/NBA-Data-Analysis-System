@@ -3,6 +3,7 @@ package gui;
 import gui.enums.PanelType;
 import gui.game.GamePanel;
 import gui.player.PlayerPanel;
+import gui.statistic.PlayerStatisticPanel;
 import gui.statistic.StatisticPanel;
 import gui.util.GUIUtility;
 
@@ -101,6 +102,11 @@ public class MainFrame extends JFrame {
 				panel = new PlayerPanel();
 				break;
 			case TEAM:
+				break;
+			case PLAYER_STATISTIC:
+				panel = new PlayerStatisticPanel();
+				break;
+			case TEAM_STATISTIC:
 				break;
 			}
 			panels.put(type, panel);

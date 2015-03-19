@@ -153,8 +153,14 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 	public void buildList() {
 		// TODO Auto-generated method stub
 	}
-	public void buildList(Conference c, Division d, Position p, String name) {
+	@Override
+	public void buildList(Conference c, Division d, Position p) {
 		// TODO Auto-generated method stub
+	}
+	@Override
+	public void filterList(String name) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
