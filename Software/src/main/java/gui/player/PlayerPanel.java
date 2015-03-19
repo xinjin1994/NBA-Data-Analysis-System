@@ -8,9 +8,11 @@ import gui.util.ReturnButton;
 
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -33,9 +36,11 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 //	//这就是重写paint方法
 //	public void paint(Graphics g){
 //	    loadRecources();
+//	    
+//	    
 //
 //	    if(backgroundImage != null){
-//	        g.drawImage(backgroundImage, 0, 0, this);
+//	        g.drawImage(backgroundImage, 0, 0, this.pWidth, this.pHeight,this);
 //	    }
 //	}
 //
@@ -50,6 +55,16 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 //	        }
 //	    }
 //	}
+	 public void paintComponent(Graphics gs) {  
+	        Graphics2D g = (Graphics2D) gs;  
+	        super.paintComponent(g);  
+	        //画背景图片  
+	        String imagePath="image\\background01.jpg";
+//	        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+	        ImageIcon img = new ImageIcon(imagePath);
+	        img.setImage(img.getImage().getScaledInstance(pWidth,pHeight,Image.SCALE_DEFAULT));
+	        g.drawImage(img.getImage(), 0, 0,pWidth,pHeight, this);  
+	    }
 	public PlayerPanel() {
 		
 		
