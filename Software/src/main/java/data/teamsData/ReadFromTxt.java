@@ -5,7 +5,7 @@ import java.io.*;
 import po.TeamPO;
 
 public class ReadFromTxt implements ReadTeams {
-	String path = "F:/学习/软工3/迭代一数据/teams/teams";
+	String path = "teams/teams";
 
 	@Override
 	public ArrayList<TeamPO> readAllTeams() {

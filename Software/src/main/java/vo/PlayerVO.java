@@ -1,5 +1,7 @@
 package vo;
 
+import javax.swing.ImageIcon;
+
 import enums.Position;
 
 public class PlayerVO {
@@ -15,11 +17,37 @@ public class PlayerVO {
 	Integer age;                        //年龄
 	Integer exp;                        //球龄
 	String school;                      //毕业学校
+	ImageIcon portrait;                 //头像
+	ImageIcon action;                   //动作
 	
-	public PlayerVO(){
-		
+	public PlayerVO(String name, String number, Position position, Double height_foot,
+			Double height_inch, Double weight_pounds, String birthday, Integer age, 
+			Integer exp, String school){
+		this.name = name;
+		this.number = number;
+		this.position = position;
+		this.height_Foot = height_foot;
+		this.height_Inch = height_inch;
+		this.weight_Pounds = weight_pounds;
+		this.birthday = birthday;
+		this.age = age;
+		this.exp = exp;
+		this.school = school;
 	}
-
+	
+	public void addImage(ImageIcon portrait, ImageIcon action){
+		this.portrait = portrait;
+		this.action = action;
+	}
+	
+	public ImageIcon getPortrait(){
+		return portrait;
+	}
+	
+	public ImageIcon getAction(){
+		return action;
+	}
+	
 	public String getName() {
 		return name;
 	}

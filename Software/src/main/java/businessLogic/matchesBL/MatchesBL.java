@@ -93,7 +93,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 	}
 
 	@Override
-	public ArrayList<PlayerStatsForCalculation> getPlayerDataForCalculation(
+	public ArrayList<PlayerStatsForCalculation> getPlayerStatsForCalculation(
 			String name) throws MatchNotFound, TeamNotFound {
 		ArrayList<MatchPO> matchList = matchesService.getMatches(name);
 		int games = matchList.size();

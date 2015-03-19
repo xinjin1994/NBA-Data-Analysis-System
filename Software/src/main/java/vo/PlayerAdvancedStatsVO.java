@@ -1,5 +1,7 @@
 package vo;
 
+import javax.swing.ImageIcon;
+
 import enums.Teams;
 import businessLogic.playersBL.AdvancedPlayerStats;
 
@@ -19,6 +21,7 @@ public class PlayerAdvancedStatsVO {
 	double blocksPercent;                           //盖帽率
 	double turnoversPercent;                        //失误率
 	double usagePercent;                            //使用率
+	ImageIcon portrait;                             //头像
 	
 	public PlayerAdvancedStatsVO(AdvancedPlayerStats stats){
 		this.name = stats.name();
@@ -35,6 +38,14 @@ public class PlayerAdvancedStatsVO {
 		this.blocksPercent = stats.blockPercent();
 		this.turnoversPercent = stats.turnoversPercent();
 		this.usagePercent = stats.usagePercent();
+	}
+	
+	public void addPortrait(ImageIcon image){
+		this.portrait = image;
+	}
+	
+	public ImageIcon getPortrait(){
+		return portrait;
 	}
 
 	public String getName() {

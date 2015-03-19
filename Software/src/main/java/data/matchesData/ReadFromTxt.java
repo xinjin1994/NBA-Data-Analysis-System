@@ -5,7 +5,7 @@ import java.io.*;
 import po.MatchPO;
 
 public class ReadFromTxt implements ReadMatches{
-	String path = "F:/学习/软工3/迭代一数据/matches";
+	String path = "matches";
 
 	public ArrayList<MatchPO> readAllMatches() {
 		File file = new File(path);

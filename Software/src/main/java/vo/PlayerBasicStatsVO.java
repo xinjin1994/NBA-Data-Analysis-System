@@ -1,5 +1,9 @@
 package vo;
 
+import javax.swing.ImageIcon;
+
+import helper.TypeTransform;
+import businessLogic.playersBL.BasicPlayerStats;
 import enums.Teams;
 
 public class PlayerBasicStatsVO {
@@ -21,6 +25,8 @@ public class PlayerBasicStatsVO {
 	double turnovers;                                //失误数
 	double personalFouls;                              //犯规数
 	double points;                                   //个人得分
+	ImageIcon portrait;                             //头像
+	
 	
 	public PlayerBasicStatsVO(String name, Teams team, double games, double gamesStarting, 
 			String minutes, double rebounds, double assists, double fieldGoalsPercentage, 
@@ -44,6 +50,34 @@ public class PlayerBasicStatsVO {
 		this.turnovers = turnovers;
 		this.personalFouls = personalFouls;
 		this.points = points;
+	}
+	
+	public PlayerBasicStatsVO(BasicPlayerStats stats){
+		this.name = stats.name();
+		this.team = stats.team();
+		this.games = stats.games();
+		this.gamesStarting = stats.gamesStarting();
+		this.minutes = TypeTransform.minutes_to_str(stats.minutes());
+		this.rebounds = stats.rebounds();
+		this.assists = stats.assists();
+		this.fieldGoalPercentage = stats.fieldGoalsMade()/stats.fieldGoalsAttempted();
+		this.threePointFieldGoalPercentage = stats.threePointFieldGoalsMade()/stats.threePointFieldGoalsAttempted();
+		this.freeThrowPercentage = stats.freeThrowsMade()/stats.freeThrowsAttempted();
+		this.offensiveRebounds = stats.offensiveRebounds();
+		this.defensiveRebounds = stats.defensiveRebounds();
+		this.steals = stats.steals();
+		this.blocks = stats.blocks();
+		this.turnovers = stats.turnovers();
+		this.personalFouls = stats.personalFouls();
+		this.points = stats.points();
+	}
+	
+	public void addPortrait(ImageIcon image){
+		this.portrait = image;
+	}
+	
+	public ImageIcon getPortrait(){
+		return portrait;
 	}
 
 	public String getName() {

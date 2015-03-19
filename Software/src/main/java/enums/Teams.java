@@ -4,7 +4,7 @@ public enum Teams {
 	ALL("All","ALL","全部"),
 	ATL("Hawks", "ATL","老鹰"), BKN("Nets", "BKN","篮网"), BOS("Celtics", "BOS","凯尔特人"), CHA("Hornets", "CHA","黄蜂"), 
 	CHI("Bulls", "CHI","公牛"), CLE("Cavaliers", "CLE","骑士"), DAL("Mavericks", "DAL","小牛"), 
-	DEN("Nuggets", "DEN","掘金"), DET("Pistons", "DET","活塞"), GSW("Warriors", "GSW,","勇士"), 
+	DEN("Nuggets", "DEN","掘金"), DET("Pistons", "DET","活塞"), GSW("Warriors", "GSW","勇士"), 
 	HOU("Rockets", "HOU","火箭"), IND("Pacers", "IND","步行者"), LAC("Clippers", "LAC","快船"), 
 	LAL("Lakers", "LAL","湖人"), MEM("Grizzlies", "MEM","鹈鹕"), MIA("Heat", "MIA","热火"), MIL("Bucks", "MIL","雄鹿"), 
 	MIN("Timberwolves", "MIN","森林狼"), NOP("Pelicans", "NOP","灰熊"), NYK("Knicks", "NYK","尼克斯"), 

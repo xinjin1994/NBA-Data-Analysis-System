@@ -14,6 +14,7 @@ public class MatchPO {
 	String score2;                          //第二节比分
 	String score3;                          //第三节比分
 	String score4;                          //第四节比分
+	String scoreExtra;                      //加时赛比分
 	ArrayList<PlayerStatsPO> team1Players;  //主队球员数据
 	ArrayList<PlayerStatsPO> team2Players;  //客队球员数据
 	
@@ -31,6 +32,12 @@ public class MatchPO {
 		score2 = arr2[1];
 		score3 = arr2[2];
 		score4 = arr2[3];
+		
+		if(arr2.length == 5){
+			scoreExtra = arr2[4];
+		}else{
+			scoreExtra = "无";
+		}
 	}
 	
 	public void setTeamsStats(ArrayList<String[]> team1, ArrayList<String[]> team2){
@@ -88,6 +95,10 @@ public class MatchPO {
 	
 	public String score4(){
 		return score4;
+	}
+	
+	public String scoreExtra(){
+		return scoreExtra;
 	}
 	
 	public ArrayList<PlayerStatsPO> team1Players(){

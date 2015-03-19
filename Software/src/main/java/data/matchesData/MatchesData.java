@@ -113,7 +113,23 @@ public class MatchesData implements MatchesDataService {
 
 	@Override
 	public Teams getTeam(String player) throws TeamNotFound {
-		for(int i=matchList.size()-1; i>=0; i--){
+		int n = 0;                          //寻找最后一场比赛的位置，即4月最后一场
+		for(; n<matchList.size(); n++){
+			if(matchList.get(n).date().compareTo("05-01") > 0){
+				break;
+			}
+		}
+		
+		n--;
+		
+		for(int i=n; i>=0; i--){
+			Teams team = getTeam(matchList.get(i), player);
+			if(team != null){
+				return team;
+			}
+		}
+		
+		for(int i=matchList.size()-1; i>n; i--){
 			Teams team = getTeam(matchList.get(i), player);
 			if(team != null){
 				return team;

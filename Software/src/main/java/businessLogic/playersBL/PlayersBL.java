@@ -1,10 +1,9 @@
 package businessLogic.playersBL;
 
-import helper.TypeTransform;
-
 import java.util.ArrayList;
 
 import po.PlayerPO;
+import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
@@ -28,11 +27,14 @@ public class PlayersBL implements PlayersBLService {
 	PlayerDataInMatchesService matchesService;
 	TeamInfoService teamsService;
 	PlayerCalculator calculator;
+	ImageService imageService;
 	
 	public PlayersBL(){
 		playersService = new ObjectCreator().playersDataService();
 		matchesService = new ObjectCreator().dataInMatchesService();
 		teamsService = new ObjectCreator().teamInfoService();
+		calculator = new PlayerCalculator();
+		imageService = new ObjectCreator().imageService();
 	}
 	
 	@Override
@@ -65,7 +67,12 @@ public class PlayersBL implements PlayersBLService {
 	@Override
 	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws MatchNotFound, TeamNotFound{
 		ArrayList<BasicPlayerStats> stats = matchesService.getBasicPlayerStats(name);
-		Teams team = matchesService.getTeam(name);
+		BasicPlayerStats total = calculator.Sum(stats);
+		return new PlayerBasicStatsVO(total);
+	}
+	
+	/*
+	 Teams team = matchesService.getTeam(name);
 		double games = stats.size();
 		double gamesStarting = stats.get(0).gamesStarting();
 		String minutes = null;                                  //在场时间
@@ -105,12 +112,20 @@ public class PlayersBL implements PlayersBLService {
 				assists, fieldGoalPercentage/games, threePointFieldGoalPercentage/games, 
 			freeThrowPercentage/games, offensiveRebounds, defensiveRebounds, steals, 
 			blocks, turnovers, personalFouls, points);
-	}
+	 */
 
 	@Override
 	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name)
 			throws PlayerNotFound, MatchNotFound, TeamNotFound {
 		ArrayList<BasicPlayerStats> stats = matchesService.getBasicPlayerStats(name);
+		BasicPlayerStats average = calculator.Average(stats);
+		PlayerBasicStatsVO vo = new PlayerBasicStatsVO(average);
+		vo.addPortrait(imageService.getPlayerPortrait(name));
+		return vo;
+	}
+	
+	/*
+	 ArrayList<BasicPlayerStats> stats = matchesService.getBasicPlayerStats(name);
 		Teams team = matchesService.getTeam(name);
 		double games = stats.size();
 		double gamesStarting = stats.get(0).gamesStarting();
@@ -151,15 +166,17 @@ public class PlayersBL implements PlayersBLService {
 				assists/games, fieldGoalPercentage/games, threePointFieldGoalPercentage/games, 
 			freeThrowPercentage/games, offensiveRebounds/games, defensiveRebounds/games, steals/games, 
 			blocks/games, turnovers/games, personalFouls/games, points/games);
-	}
+	 */
 
 	@Override
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name)
 			throws PlayerNotFound, MatchNotFound, TeamNotFound {
-		ArrayList<PlayerStatsForCalculation> stats = matchesService.getPlayerDataForCalculation(name);
+		ArrayList<PlayerStatsForCalculation> stats = matchesService.getPlayerStatsForCalculation(name);
 		calculator = new PlayerCalculator(stats);
 		AdvancedPlayerStats adv = calculator.getAdvancedStatsTotal();
-		return new PlayerAdvancedStatsVO(adv);
+		PlayerAdvancedStatsVO vo = new PlayerAdvancedStatsVO(adv);
+		vo.addPortrait(imageService.getPlayerPortrait(name));
+		return vo;
 	}
 	
 	@Override
@@ -195,7 +212,9 @@ public class PlayersBL implements PlayersBLService {
 		
 		ArrayList<PlayerBasicStatsVO> result = new ArrayList<PlayerBasicStatsVO>();
 		for(String name: playerNames){
-			result.add(this.getBasicPlayerStatsTotal(name));
+			PlayerBasicStatsVO vo = this.getBasicPlayerStatsTotal(name);
+			vo.addPortrait(imageService.getPlayerPortrait(name));
+			result.add(vo);
 		}
 		
 		return result;
@@ -208,7 +227,9 @@ public class PlayersBL implements PlayersBLService {
 		
 		ArrayList<PlayerBasicStatsVO> result = new ArrayList<PlayerBasicStatsVO>();
 		for(String name: playerNames){
-			result.add(this.getBasicPlayerStatsAverage(name));
+			PlayerBasicStatsVO vo = this.getBasicPlayerStatsAverage(name);
+			vo.addPortrait(imageService.getPlayerPortrait(name));
+			result.add(vo);
 		}
 		
 		return result;
@@ -221,7 +242,9 @@ public class PlayersBL implements PlayersBLService {
 		ArrayList<PlayerAdvancedStatsVO> result = new ArrayList<PlayerAdvancedStatsVO>();
 		
 		for(String name: names){
-			result.add(this.getAdvancedPlayerStatsTotal(name));
+			PlayerAdvancedStatsVO vo = this.getAdvancedPlayerStatsTotal(name);
+			vo.addPortrait(imageService.getPlayerPortrait(name));
+			result.add(vo);
 		}
 		
 		return result;

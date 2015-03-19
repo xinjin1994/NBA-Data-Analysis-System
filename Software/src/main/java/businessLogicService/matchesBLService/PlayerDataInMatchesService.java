@@ -12,7 +12,7 @@ public interface PlayerDataInMatchesService {
 	//获取比赛的详细数据
 	//仅提供给球员模块的业务逻辑层
 	
-	public ArrayList<PlayerStatsForCalculation> getPlayerDataForCalculation(String name) throws MatchNotFound, TeamNotFound;
+	public ArrayList<PlayerStatsForCalculation> getPlayerStatsForCalculation(String name) throws MatchNotFound, TeamNotFound;
 	public ArrayList<BasicPlayerStats> getBasicPlayerStats(String name) throws MatchNotFound, TeamNotFound;
 
 	

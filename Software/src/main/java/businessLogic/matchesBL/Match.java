@@ -21,7 +21,7 @@ public class Match {
 	
 	public MatchVO getMatchVO(){
 		return new MatchVO(match.homeTeam(), match.guestTeam(), match.date(), match.score(), 
-				match.score1(), match.score2(), match.score3(), match.score4());
+				match.score1(), match.score2(), match.score3(), match.score4(), match.scoreExtra());
 	}
 	
 	public ArrayList<PlayerStatsPO> getTeamStats(Teams team){
@@ -54,7 +54,7 @@ public class Match {
 			}
 		}
 		
-		ArrayList<PlayerStatsPO> team2 = match.team1Players();
+		ArrayList<PlayerStatsPO> team2 = match.team2Players();
 		for(PlayerStatsPO player: team2){
 			if(player.name().equals(name)){
 				return player;
@@ -192,6 +192,7 @@ public class Match {
 		Integer fieldGoalsAttempted = 0;
 		Integer freeThrows = 0;
 		Integer offensiveRebounds = 0;
+		Integer defensiveRebounds_opponent = this.defensiveRebounds_teammate(name);
 		Integer turnovers = 0;
 		
 		for(PlayerStatsPO player: teamStats){
@@ -201,9 +202,9 @@ public class Match {
 			turnovers += player.turnovers();
 		}
 		
-		Double rounds = fieldGoalsMade + 0.4*freeThrows - 1.07*(offensiveRebounds + 
-				this.defensiveRebounds_opponent(name)*(fieldGoalsAttempted - fieldGoalsMade))
-				+ 1.07*turnovers;
+		Double rounds = fieldGoalsMade + 0.4*freeThrows - 1.07*(offensiveRebounds/
+				(offensiveRebounds + defensiveRebounds_opponent)*
+				(fieldGoalsAttempted - fieldGoalsMade)) + 1.07*turnovers;
 		
 		return rounds;
 	}

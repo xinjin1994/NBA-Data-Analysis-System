@@ -31,6 +31,7 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 	public TeamsBL(){
 		teamsService = new ObjectCreator().teamsDataService();
 		matchesService = new ObjectCreator().teamDataInMatchesService();
+		calculator = new TeamsCalculator();
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import java.io.*;
 import po.PlayerPO;
 
 public class ReadFromTxt implements ReadPlayers {
-	String path = "F:/学习/软工3/迭代一数据/players/info";
+	String path = "players/info";
 
 	@Override
 	public ArrayList<PlayerPO> readAllPlayers() {

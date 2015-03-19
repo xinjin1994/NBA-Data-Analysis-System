@@ -5,12 +5,14 @@ import businessLogic.teamsBL.TeamsBL;
 import businessLogicService.matchesBLService.PlayerDataInMatchesService;
 import businessLogicService.matchesBLService.TeamDataInMatchesService;
 import businessLogicService.teamsBLService.TeamInfoService;
+import data.imageData.ImageData;
 import data.matchesData.MatchesData;
 import data.playersData.PlayersData;
 import data.teamsData.TeamsData;
 import data.teamsData.ReadTeams;
 import data.playersData.ReadPlayers;
 import data.matchesData.ReadMatches;
+import dataService.imageService.ImageService;
 import dataService.matchesDataService.MatchesDataService;
 import dataService.playersDataService.PlayersDataService;
 import dataService.teamsDataService.TeamsDataService;
@@ -52,6 +54,10 @@ public class ObjectCreator {
 	
 	public ReadMatches matchesReader(){
 		return new data.matchesData.ReadFromTxt();
+	}
+	
+	public ImageService imageService(){
+		return new ImageData();
 	}
 
 }
