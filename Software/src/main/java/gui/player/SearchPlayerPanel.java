@@ -8,6 +8,8 @@ import javax.swing.JTextField;
 import enums.Conference;
 import enums.Division;
 import enums.Position;
+
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;

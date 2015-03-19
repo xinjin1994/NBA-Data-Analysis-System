@@ -7,13 +7,19 @@ import gui.SelfAdjustPanel;
 import gui.util.ReturnButton;
 
 import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
+import javax.imageio.ImageIO;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.ScrollPaneConstants;
@@ -22,7 +28,32 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 
 	private static final long serialVersionUID = 9090035509234357424L;
 
+//	Image backgroundImage = null;
+//
+//	//这就是重写paint方法
+//	public void paint(Graphics g){
+//	    loadRecources();
+//
+//	    if(backgroundImage != null){
+//	        g.drawImage(backgroundImage, 0, 0, this);
+//	    }
+//	}
+//
+//	public void loadRecources(){
+//	    //载入背景图片
+//	    if(backgroundImage == null){
+//	        try{
+//	        backgroundImage = ImageIO.read(new File("image/Background01.jpg"));
+//	        } catch (IOException e){
+//	        System.out.println("缺少背景图片");
+//	        JOptionPane.showMessageDialog(this, "找不到背景图片!", "文件缺失", JOptionPane.ERROR_MESSAGE);
+//	        }
+//	    }
+//	}
 	public PlayerPanel() {
+		
+		
+		
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
 		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, (int) (pWidth/(10/8.0)), pWidth/10};
 		gbl_pnl_menu.rowHeights = new int[]{pHeight/10,pHeight/10, pHeight/10, (int) (pHeight*(6/10.0)), pHeight/10};
