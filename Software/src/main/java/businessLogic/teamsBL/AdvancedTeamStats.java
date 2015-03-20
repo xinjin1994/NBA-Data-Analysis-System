@@ -86,4 +86,12 @@ public class AdvancedTeamStats {
 	public void setDefensiveEfficiency(Double defensiveEfficiency) {
 		this.defensiveEfficiency=defensiveEfficiency;
 	}
+	
+	public Teams name(){
+		return name;
+	}
+	
+	public void setName(Teams name){
+		this.name=name;
+	}
 }

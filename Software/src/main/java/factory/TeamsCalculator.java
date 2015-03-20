@@ -16,7 +16,8 @@ public class TeamsCalculator {
 	}
 	
 	public BasicTeamStats Average(ArrayList<BasicTeamStats> average){
-		BasicTeamStats result=new BasicTeamStats();                         
+		BasicTeamStats result=new BasicTeamStats();
+		result.setName(average.get(0).name());
 		Double fieldGoalsMade=0.00;                  
 		Double fieldGoalsAttempted=0.00;             
 		Double threePointFieldGoalsMade=0.00;        
@@ -70,7 +71,10 @@ public class TeamsCalculator {
 	}
 	
 	public BasicTeamStats Sum(ArrayList<BasicTeamStats> sum){
-		BasicTeamStats result=new BasicTeamStats();                         
+		BasicTeamStats result=new BasicTeamStats();
+		result.setName(sum.get(0).name());
+		Integer games=0;
+		Integer wins=0;
 		Double fieldGoalsMade=0.00;                  
 		Double fieldGoalsAttempted=0.00;             
 		Double threePointFieldGoalsMade=0.00;        
@@ -88,6 +92,8 @@ public class TeamsCalculator {
 		Double points=0.00;                           
 		for(BasicTeamStats basic:sum){
 			result.setName(basic.name());
+			games=games+basic.games();
+			wins=wins+basic.wins();
 			fieldGoalsMade=fieldGoalsMade+basic.fieldGoalsMade();
 			fieldGoalsAttempted=fieldGoalsAttempted+basic.fieldGoalsAttempted();
 			threePointFieldGoalsMade=threePointFieldGoalsMade+basic.threePointFieldGoalsMade();
@@ -104,6 +110,8 @@ public class TeamsCalculator {
 			fouls=fouls+basic.fouls();
 			points=points+basic.points();
 		}
+		result.setGames(games);
+		result.setWins(wins);
 		result.setFieldGoalsMade(fieldGoalsMade);
 		result.setFieldGoalsAttempted(fieldGoalsAttempted);
 		result.setThreePointFieldGoalsMade(threePointFieldGoalsMade);
@@ -124,6 +132,7 @@ public class TeamsCalculator {
 	
 	public AdvancedTeamStats calculate(){
 		AdvancedTeamStats advanced=new AdvancedTeamStats();
+		advanced.setName(list.get(0).basicTeamStats().name());
 		advanced.setWinningRate(WinningRate());
 		advanced.setOffensiveRounds(OffensiveRounds());
 		advanced.setDefensiveRounds(DefensiveRounds());

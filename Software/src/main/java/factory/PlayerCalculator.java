@@ -35,6 +35,7 @@ public class PlayerCalculator {
 		for(PlayerStatsForCalculation player:list){
 			ArrayList<Double> doubles=new ArrayList<Double>();
 			BasicPlayerStats basic=player.player();
+			advanced.setName(basic.name());
 			doubles.add(player.player().assists());
 			doubles.add(player.player().rebounds());
 			doubles.add(player.player().blocks());
@@ -49,7 +50,7 @@ public class PlayerCalculator {
 			advanced.setFieldGoalsPercent(advanced.fieldGoalsPercent()+FieldGoalsPercent(basic.fieldGoalsMade(),basic.threePointFieldGoalsMade(),basic.fieldGoalsAttempted()));
 			advanced.setReboundsPercent(advanced.reboundsPercent()+ReboundsPercent(basic.rebounds(),player.minutes_teammate(),basic.minutes(),player.offensiveRebounds_teammate(),player.defensiveRebounds_teammate(),player.offensiveRebounds_opponent(),player.defensiveRebounds_opponent()));
 			advanced.setOffensiveReboundsPercent(advanced.reboundsPercent()*basic.offensiveRebounds()/basic.rebounds());
-			advanced.setDefensiveReboundsPercent(advanced.defensiveReboundsPercent()*basic.defensiveRebounds()/basic.rebounds());
+			advanced.setDefensiveReboundsPercent(advanced.reboundsPercent()*basic.defensiveRebounds()/basic.rebounds());
 			advanced.setAssistsPercent(advanced.assistsPercent()+AssistsPercent(basic.assists(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsMade_teammate(),basic.fieldGoalsMade()));
 			advanced.setStealsPercent(advanced.stealsPercent()+StealsPercent(basic.steals(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsAttempted_opponent()));
 			advanced.setBlockPercent(advanced.blockPercent()+BlockPercent(basic.blocks(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsAttempted_opponent()));
@@ -159,6 +160,7 @@ public class PlayerCalculator {
 	}
 	
 	public BasicPlayerStats Sum(ArrayList<BasicPlayerStats> list){
+		String name="";
 		Integer games=0;                        
 		Integer gamesStarting=0;                                          
 		Double minutes=0.00;                         
@@ -178,6 +180,7 @@ public class PlayerCalculator {
 		Double personalFouls=0.00;                    
 		Double points=0.00;
 		for(BasicPlayerStats player:list){
+			name=player.name();
 			games=games+player.games();
 			gamesStarting=gamesStarting+player.gamesStarting();
 			minutes=minutes+player.minutes();
@@ -198,6 +201,7 @@ public class PlayerCalculator {
 			points=points+player.points();
 		}
 		BasicPlayerStats player=new BasicPlayerStats();
+		player.setName(name);
 		player.setGames(games);
 		player.setGamesStarting(gamesStarting);
 		player.setMinutes(minutes);
@@ -220,6 +224,7 @@ public class PlayerCalculator {
 	}
 	
 	public BasicPlayerStats Average(ArrayList<BasicPlayerStats> list){
+		String name="";
 		Integer games=0;                        
 		Integer gamesStarting=0;                                          
 		Double minutes=0.00;                         
@@ -239,6 +244,7 @@ public class PlayerCalculator {
 		Double personalFouls=0.00;                    
 		Double points=0.00;
 		for(BasicPlayerStats player:list){
+			name=player.name();
 			games=games+player.games();
 			gamesStarting=gamesStarting+player.gamesStarting();
 			minutes=minutes+player.minutes();
@@ -260,6 +266,7 @@ public class PlayerCalculator {
 		}
 		BasicPlayerStats player=new BasicPlayerStats();
 		int size=list.size();
+		player.setName(name);
 		player.setGames(games/size);
 		player.setGamesStarting(gamesStarting/size);
 		player.setMinutes(minutes/size);
