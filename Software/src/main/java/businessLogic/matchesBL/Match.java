@@ -276,4 +276,11 @@ public class Match {
 		
 		return turnovers;
 	}
+	
+	public Integer points_opponent(Teams team){
+		Integer points = 0;
+		int t = team == match.homeTeam() ? 0 : 1;
+		points = Integer.parseInt(match.score().split("-")[t]);
+		return points;
+	}
 }

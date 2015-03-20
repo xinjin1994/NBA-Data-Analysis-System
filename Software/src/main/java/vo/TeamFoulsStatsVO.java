@@ -37,4 +37,12 @@ public class TeamFoulsStatsVO {
 		return fouls;
 	}
 	
+	
+	public void print(){
+		System.out.println(this.team + "\n" +
+				this.games + "\n" +
+				this.turnovers + "\n" +
+				this.fouls);
+	}
+	
 }

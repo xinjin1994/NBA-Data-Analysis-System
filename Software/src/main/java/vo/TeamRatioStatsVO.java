@@ -39,4 +39,12 @@ public class TeamRatioStatsVO {
 	}
 
 	
+	public void print(){
+		System.out.println(this.team + "\n" +
+				this.games + "\n" +
+				this.fieldGoalsPercentage + "\n" +
+				this.freeThrowsPercentage + "\n" +
+				this.threePointFieldGoalsPercentage);
+	}
+	
 }

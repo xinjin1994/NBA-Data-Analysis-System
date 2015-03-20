@@ -11,9 +11,9 @@ public class TeamStatsForCalculation {
 	Integer turnovers_opponent;
 	Integer point_opponent;
 	
-	public TeamStatsForCalculation(BasicTeamStats stats, int offensiveRebounds_opponent, 
-			int defensiveRebounds_opponent, int fieldGoalsMade_opponent, int freeThrowsMade_opponent, 
-			int fumbles_opponent, int turnovers_opponent){
+	public TeamStatsForCalculation(BasicTeamStats stats, Integer offensiveRebounds_opponent, 
+			Integer defensiveRebounds_opponent, Integer fieldGoalsMade_opponent, Integer freeThrowsMade_opponent, 
+			Integer fumbles_opponent, Integer turnovers_opponent, Integer point_opponent){
 		this.basicTeamStats = stats;
 		this.offensiveRebounds_opponent = offensiveRebounds_opponent;
 		this.defensiveRebounds_opponent = defensiveRebounds_opponent;
@@ -21,6 +21,7 @@ public class TeamStatsForCalculation {
 		this.freeThrowsMade_opponent = freeThrowsMade_opponent;
 		this.fumbles_opponent = fumbles_opponent;
 		this.turnovers_opponent = turnovers_opponent;
+		this.point_opponent = point_opponent;
 	}
 
 	public BasicTeamStats basicTeamStats() {

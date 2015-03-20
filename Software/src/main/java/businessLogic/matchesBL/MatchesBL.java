@@ -57,7 +57,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 			TeamStatsForCalculation s = new TeamStatsForCalculation(basic, match.offensiveRebounds_opponent(team), 
 					match.defensiveRebounds_opponent(team), match.fieldGoalsMade_opponent(team), 
 					match.freeThrowsMade_opponent(team), match.fumbles_opponent(team), 
-					match.turnovers_opponent(team));
+					match.turnovers_opponent(team), match.points_opponent(team));
 			stats.add(s);
 		}
 		

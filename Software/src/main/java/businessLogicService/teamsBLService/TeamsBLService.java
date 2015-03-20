@@ -16,6 +16,7 @@ import vo.TeamRatioStatsVO;
 public interface TeamsBLService {
 	//获取球队基本信息
 	public TeamVO getTeamInfo(Teams team) throws TeamNotFound;
+	public ArrayList<TeamVO> getAllTeamsInfo();
 	public ArrayList<TeamVO> getTeamsInfo(Conference conference, Division division) throws TeamNotFound;
 	
 	

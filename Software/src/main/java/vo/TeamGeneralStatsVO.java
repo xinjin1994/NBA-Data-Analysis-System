@@ -56,4 +56,15 @@ public class TeamGeneralStatsVO {
 		return stealsEfficiency;
 	}
 	
+	public void print(){
+		System.out.println(this.team + "\n" +
+				this.games + "\n" +
+				this.offensiveRounds + "\n" +
+				this.offensiveEfficiency + "\n" +
+				this.defensiveEfficiency + "\n" +
+				this.offensiveReboundsEfficiency + "\n" +
+				this.defensiveReboundsEfficiency + "\n" +
+				this.stealsEfficiency);
+	}
+	
 }

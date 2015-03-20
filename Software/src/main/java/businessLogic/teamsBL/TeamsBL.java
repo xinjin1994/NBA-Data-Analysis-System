@@ -58,6 +58,18 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 		return team_bl.toVO();
 	}
 	
+	public ArrayList<TeamVO> getAllTeamsInfo(){
+		ArrayList<TeamPO> poList = teamsService.getAllTeams();
+		ArrayList<TeamVO> voList = new ArrayList<TeamVO>();
+		
+		for(TeamPO po: poList){
+			Team team_bl = new Team(po);
+			voList.add(team_bl.toVO());
+		}
+		
+		return voList;
+	}
+	
 	private ArrayList<Teams> getTeamsName(Conference conference, Division division) throws TeamNotFound{
 		return teamsService.getTeamsName(conference, division);
 	}

@@ -79,4 +79,16 @@ public class TeamOffensiveStatsVO {
 	}
 	
 	
+	public void print(){
+		System.out.println(this.team + "\n" +
+				this.games + "\n" +
+				this.fieldGoalsMade + "\n" +
+				this.fieldGoalsAttempted + "\n" +
+				this.freeThrowsMade + "\n" +
+				this.freeThrowsAttempted + "\n" +
+				this.threePointFieldGoalsMade + "\n" +
+				this.threePointFieldGoalsAttempted + "\n" +
+				this.assists );
+	}
+	
 }

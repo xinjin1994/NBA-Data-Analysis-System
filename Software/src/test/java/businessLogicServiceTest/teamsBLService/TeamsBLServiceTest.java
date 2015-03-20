@@ -1,9 +1,16 @@
 package businessLogicServiceTest.teamsBLService;
 
+import java.util.ArrayList;
+
 import enums.Conference;
 import enums.Division;
 import enums.Teams;
 import exceptions.TeamNotFound;
+import vo.TeamDefensiveStatsVO;
+import vo.TeamFoulsStatsVO;
+import vo.TeamGeneralStatsVO;
+import vo.TeamOffensiveStatsVO;
+import vo.TeamRatioStatsVO;
 import vo.TeamVO;
 import businessLogic.teamsBL.TeamsBL;
 import businessLogicService.teamsBLService.TeamsBLService;
@@ -23,11 +30,68 @@ public class TeamsBLServiceTest extends TestCase {
 			TeamVO vo = service.getTeamInfo(team);
 			TeamVO trueValue = new TeamVO(Teams.ATL, "ATL", "Atlanta", Conference.ESTERN, 
 					Division.SOUTHEAST, "Philips Arena", "1949");
-			vo.print();
+			assertTrue(vo.equals(trueValue));
+		} catch (TeamNotFound e) {
+			assertTrue(false);
+		}
+	}
+	
+	public void testGetAllTeamsInfo(){
+		ArrayList<TeamVO> list = service.getAllTeamsInfo();
+		assertTrue(list.size() == 30);
+	}
+	
+	public void testGetTeams(){
+		Conference conference = Conference.ESTERN;
+		Division division = Division.CENTRAL;
+		try {
+			ArrayList<TeamVO> list = service.getTeamsInfo(conference, division);
+			Teams[] trueValue = new Teams[]{Teams.CHI, Teams.CLE, Teams.DET, Teams.IND, Teams.MIL};
+			ArrayList<Teams> teamsGet = new ArrayList<Teams>();
+			for(TeamVO team: list){
+				teamsGet.add(team.getName());
+			}
+		
+			assertTrue(teamsGet.size() == trueValue.length);
+			
+			for(int i=0; i<5; i++){
+				assertTrue(teamsGet.contains(trueValue[i]));
+			}
+		} catch (TeamNotFound e) {
+			assertTrue(false);
+		}
+	}
+	
+	public void testGetTeamsGeneralStatsTotal(){
+		Conference conference = Conference.ESTERN;
+		Division division = Division.SOUTHEAST;
+		try {
+			ArrayList<TeamGeneralStatsVO> list = service.getTeamsGeneralStatsTotal(conference, division);
+			assertTrue(list.size() == 5);
+			
+			for(TeamGeneralStatsVO vo: list){
+				vo.print();
+			}
 			
 		} catch (TeamNotFound e) {
 			assertTrue(false);
 		}
+	}
+	
+	public void testGetTeamsOffensiveStatsTotal(){
+		
+	}
+	
+	public void testGetTeamsDefensiveStatsTotal(){
+		
+	}
+	
+	public void testGetTeamsFoulsStatsTotal(){
+		
+	}
+	
+	public void testGetTeamsRatioStatsTotal(){
+		
 	}
 
 }

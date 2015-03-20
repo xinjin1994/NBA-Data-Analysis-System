@@ -36,6 +36,7 @@ public class BasicPlayerStats {
 	public BasicPlayerStats(PlayerStatsPO po, int games, int gamesStarting, Teams team){
 		this.name = po.name();
 		this.games = games;
+		System.out.println(games+"\n");
 		this.gamesStarting = gamesStarting;
 		this.team = team;
 		

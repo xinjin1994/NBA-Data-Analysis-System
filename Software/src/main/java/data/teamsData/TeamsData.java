@@ -49,12 +49,8 @@ public class TeamsData implements TeamsDataService {
 	}
 	
 	@Override
-	public ArrayList<TeamPO> getAllTeams() throws TeamNotFound {
-		if(teamList.size() != 0){
-			return teamList;
-		}else{
-			throw new TeamNotFound("");
-		}
+	public ArrayList<TeamPO> getAllTeams() {
+		return teamList;
 	}
 
 	@Override

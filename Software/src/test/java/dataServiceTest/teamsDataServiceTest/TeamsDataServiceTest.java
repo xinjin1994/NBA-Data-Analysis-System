@@ -79,17 +79,12 @@ public class TeamsDataServiceTest extends TestCase {
 	}
 	
 	public void testGetAllTeams(){
-		try {
-			int numOfTeams = 30;
-			ArrayList<TeamPO> teams = service.getAllTeams();
-			if(teams.size() != numOfTeams){
-				assertTrue(false);
-			}else{
-				assertTrue(true);
-			}
-			
-		} catch (TeamNotFound e) {
+		int numOfTeams = 30;
+		ArrayList<TeamPO> teams = service.getAllTeams();
+		if(teams.size() != numOfTeams){
 			assertTrue(false);
+		}else{
+			assertTrue(true);
 		}
 	}
 

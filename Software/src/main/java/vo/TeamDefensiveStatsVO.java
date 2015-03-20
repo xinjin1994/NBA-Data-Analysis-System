@@ -60,5 +60,14 @@ public class TeamDefensiveStatsVO {
 	}
 	
 	
+	public void print(){
+		System.out.println(this.team + "\n" +
+		this.games + "\n" +
+		this.offensiveRebounds + "\n" +
+		this.defensiveRebounds + "\n" +
+		this.rebounds + "\n" +
+		this.steals + "\n" +
+		this.blocks);
+	}
 	
 }

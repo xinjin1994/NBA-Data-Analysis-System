@@ -11,5 +11,5 @@ public interface TeamsDataService {
 	TeamPO getTeam(Teams team) throws TeamNotFound;
 	ArrayList<Teams> getTeamsName(Conference conference, Division division) throws TeamNotFound;
 	ArrayList<TeamPO> getTeams(Conference conference, Division division) throws TeamNotFound;
-	ArrayList<TeamPO> getAllTeams() throws TeamNotFound;
+	ArrayList<TeamPO> getAllTeams();
 }
