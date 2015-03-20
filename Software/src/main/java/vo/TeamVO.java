@@ -53,5 +53,28 @@ public class TeamVO {
 	}
 	
 	
+	public void print(){
+		System.out.println(this.name + "\n" +
+		this.abbreviationOfName + "\n" +
+		this.location + "\n" +
+		this.conference + "\n" +
+		this.division + "\n" +
+		this.homeCourt + "\n" +
+		this.yearOfEstablishment);
+	}
+	
+	public boolean equals(TeamVO vo){
+		if(this.name == vo.name &&
+				this.abbreviationOfName.equals(vo.abbreviationOfName) &&
+				this.location.equals(vo.location) &&
+				this.conference == vo.conference &&
+				this.division == vo.division &&
+				this.homeCourt.equals(vo.homeCourt) &&
+				this.yearOfEstablishment.equals(vo.yearOfEstablishment)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 }

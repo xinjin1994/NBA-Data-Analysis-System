@@ -29,7 +29,7 @@ public class PlayersData implements PlayersDataService {
 	}
 
 	@Override
-	public ArrayList<PlayerPO> getAllPlayers() throws PlayerNotFound {
+	public ArrayList<PlayerPO> getAllPlayers() {
 		return playerList;
 	}
 

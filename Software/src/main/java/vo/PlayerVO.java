@@ -89,5 +89,21 @@ public class PlayerVO {
 	}
 	
 	
+	public boolean equals(PlayerVO player){
+		if(this.name.equals(player.name) &&
+				this.number.equals(player.number) &&
+				this.position == player.position &&
+				Math.abs(this.height_Foot - player.height_Foot) < 0.001 &&
+				Math.abs(this.height_Inch - player.height_Inch) < 0.001 &&
+				Math.abs(this.weight_Pounds - player.weight_Pounds) < 0.001 &&
+				this.birthday.equals(player.birthday) &&
+				this.age == player.age &&
+				this.exp == player.exp &&
+				this.school.equals(player.school)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 }

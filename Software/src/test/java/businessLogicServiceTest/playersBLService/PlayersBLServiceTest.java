@@ -1,10 +1,14 @@
 package businessLogicServiceTest.playersBLService;
 
 
-import enums.Conference;
-import enums.Division;
+import java.util.ArrayList;
+
+import vo.PlayerAdvancedStatsVO;
+import vo.PlayerBasicStatsVO;
+import vo.PlayerVO;
 import enums.Position;
 import enums.Teams;
+import exceptions.PlayerNotFound;
 import businessLogic.playersBL.PlayersBL;
 import businessLogicService.playersBLService.PlayersBLService;
 import junit.framework.TestCase;
@@ -22,32 +26,52 @@ public class PlayersBLServiceTest extends TestCase {
 		//此方法不对，暂无好的解决方法
 	}
 			
-	public void getPlayerInfo(String name) {
-		
+	public void testGetPlayerInfo() {
+		String name = "Kobe Bryant";
+		try {
+			PlayerVO player = service.getPlayerInfo(name);
+			PlayerVO trueValue = new PlayerVO("Kobe Bryant", "24", Position.GUARD, 
+					6.0, 6.0, 205.0, "AUG 23, 1978", 35, 17, "Lower Merion HS (PA)");
+			
+			assertTrue(player.equals(trueValue));
+		} catch (PlayerNotFound e) {
+			assertTrue(false);
+		}
 	}
 	
-	public void getAllPlayersInfo() {
-		
+	public void testGetAllPlayersInfo() {
+		ArrayList<PlayerVO> list = service.getAllPlayersInfo();
+		assertTrue(list.size() == 448);
 	}
 		
-	public void getBasicPlayersStatsTotal(Conference con, Division div, 
-			Position pos) {
-		
-	}
-	
-	public void getBasicPlayersStatsAverage(Conference con, Division div, 
-			Position pos) {
-		
-	}
-	
-	public void getAdvancedPlayersStatsTotal(Conference con, 
-			Division div, Position pos) {
-		
+	public void testGetBasicPlayersStatsTotal_Single() {
+		try {
+			PlayerBasicStatsVO stats = service.getBasicPlayerStatsTotal("Kobe Bryant");
+			//stats.print();
+			assertTrue(stats != null);
+		} catch (PlayerNotFound e) {
+			assertTrue(false);
+		}
 	}
 	
-	public void getAdvancedPlayersStatsAverage(Conference con, 
-			Division div, Position pos){
-		
+	public void testGetBasicPlayersStatsAverage_Single() {
+		try {
+			PlayerBasicStatsVO stats = service.getBasicPlayerStatsAverage("Kobe Bryant");
+			//stats.print();
+			assertTrue(stats != null);
+		} catch (PlayerNotFound e) {
+			assertTrue(false);
+		}
+	}
+	
+	public void testGetAdvancedPlayersStatsTotal() {
+		try {
+			PlayerAdvancedStatsVO stats = service.getAdvancedPlayerStatsTotal("Kobe Bryant");
+			stats.print();
+			assertTrue(stats != null);
+		} catch (PlayerNotFound e) {
+			assertTrue(false);
+		}
 	}
 
 }

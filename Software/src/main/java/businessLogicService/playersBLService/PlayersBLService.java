@@ -9,7 +9,6 @@ import enums.Division;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerVO;
 import vo.PlayerAdvancedStatsVO;
-import exceptions.MatchNotFound;
 import exceptions.PlayerNotFound;
 import exceptions.TeamNotFound;
 
@@ -22,28 +21,28 @@ public interface PlayersBLService {
 	
 	//获取基本信息
 	public PlayerVO getPlayerInfo(String name) throws PlayerNotFound;
-	public ArrayList<PlayerVO> getAllPlayersInfo() throws PlayerNotFound;
+	public ArrayList<PlayerVO> getAllPlayersInfo();
 	
 	//获取统计数据
 	//基本数据
 	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsTotal(Conference con, Division div, 
-			Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound;
+			Position pos) throws PlayerNotFound;
 	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsAverage(Conference con, Division div, 
-			Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound;
+			Position pos) throws PlayerNotFound;
 	
 	//高级数据
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(Conference con, 
-			Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound;
+			Division div, Position pos) throws PlayerNotFound;
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(Conference con, 
-			Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound;
+			Division div, Position pos) throws PlayerNotFound;
 	
 	
 	
 	//迭代一不需要
-	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
-	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
+	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws PlayerNotFound;
+	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name) throws PlayerNotFound;
 	
-	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
-	public PlayerAdvancedStatsVO getAdvancedPlayerStatsAverage(String name) throws PlayerNotFound, MatchNotFound, TeamNotFound;
+	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name) throws PlayerNotFound;
+	public PlayerAdvancedStatsVO getAdvancedPlayerStatsAverage(String name) throws PlayerNotFound;
 	
 }

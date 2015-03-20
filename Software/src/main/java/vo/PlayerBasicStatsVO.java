@@ -27,31 +27,6 @@ public class PlayerBasicStatsVO {
 	double points;                                   //个人得分
 	ImageIcon portrait;                             //头像
 	
-	
-	public PlayerBasicStatsVO(String name, Teams team, double games, double gamesStarting, 
-			String minutes, double rebounds, double assists, double fieldGoalsPercentage, 
-			double threePointFieldGoalsPercentage, double freeThrowPercentage, 
-			double offensiveRebounds, double defensiveRebounds, double steals, 
-			double blocks, double turnovers, double personalFouls, double points){
-		this.name = name;
-		this.team = team;
-		this.games = games;
-		this.gamesStarting = gamesStarting;
-		this.minutes = minutes;
-		this.rebounds = rebounds;
-		this.assists = assists;
-		this.fieldGoalPercentage = fieldGoalsPercentage;
-		this.threePointFieldGoalPercentage = threePointFieldGoalsPercentage;
-		this.freeThrowPercentage = freeThrowPercentage;
-		this.offensiveRebounds = offensiveRebounds;
-		this.defensiveRebounds = defensiveRebounds;
-		this.steals = steals;
-		this.blocks = blocks;
-		this.turnovers = turnovers;
-		this.personalFouls = personalFouls;
-		this.points = points;
-	}
-	
 	public PlayerBasicStatsVO(BasicPlayerStats stats){
 		this.name = stats.name();
 		this.team = stats.team();
@@ -148,6 +123,24 @@ public class PlayerBasicStatsVO {
 		return points;
 	}
 	
-	
+	public void print(){
+		System.out.println(this.name + "\n" + 
+		this.team + "\n" + 
+		this.games + "\n" + 
+		this.gamesStarting + "\n" + 
+		this.minutes + "\n" + 
+		this.rebounds + "\n" + 
+		this.assists + "\n" + 
+		this.fieldGoalPercentage + "\n" + 
+		this.threePointFieldGoalPercentage + "\n" + 
+		this.freeThrowPercentage + "\n" + 
+		this.offensiveRebounds + "\n" + 
+		this.defensiveRebounds + "\n" + 
+		this.steals + "\n" + 
+		this.blocks + "\n" + 
+		this.turnovers + "\n" + 
+		this.personalFouls + "\n" + 
+		this.points);
+	}
 	
 }

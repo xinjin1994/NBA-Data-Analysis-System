@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import enums.Teams;
 import exceptions.MatchNotFound;
+import exceptions.PlayerNotFound;
 import exceptions.TeamNotFound;
 import businessLogic.matchesBL.MatchesBL;
 import businessLogic.playersBL.BasicPlayerStats;
@@ -60,7 +61,7 @@ public class PlayerDataInMatchesServiceTest extends TestCase {
 					s1.offensiveRounds_opponent() + "\n" +
 					s1.turnovers_teammate());
 			*/
-		} catch (MatchNotFound | TeamNotFound e) {
+		} catch (PlayerNotFound e) {
 			assertTrue(false);
 		}
 	}
@@ -70,7 +71,7 @@ public class PlayerDataInMatchesServiceTest extends TestCase {
 			String name = "Kobe Bryant";
 			ArrayList<BasicPlayerStats> list = service.getBasicPlayerStats(name);
 			assertTrue(list.size() == 6);
-		} catch (MatchNotFound | TeamNotFound e) {
+		} catch (PlayerNotFound e) {
 			assertTrue(false);
 		}
 	}
@@ -84,7 +85,7 @@ public class PlayerDataInMatchesServiceTest extends TestCase {
 			}
 			//此方法不对，但没有简单且更好的获取方法
 			
-		} catch (MatchNotFound e) {
+		} catch (PlayerNotFound e) {
 			assertTrue(false);
 		}
 	}

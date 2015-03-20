@@ -105,4 +105,22 @@ public class PlayerAdvancedStatsVO {
 	}
 	
 	
+	
+	public void print(){
+		System.out.println(this.name + "\n" +
+		this.team + "\n" +
+		this.efficiency + "\n" +
+		this.GmSc + "\n" +
+		this.trueScorePercent + "\n" +
+		this.fieldGoalEfficiency + "\n" +
+		this.reboundsPercent + "\n" +
+		this.offensiveReboundsPercent + "\n" +
+		this.defensiveReboundsPercent + "\n" +
+		this.assistsPercent + "\n" +
+		this.stealsPercent + "\n" +
+		this.blocksPercent + "\n" +
+		this.turnoversPercent + "\n" +
+		this.usagePercent);
+	}
+	
 }

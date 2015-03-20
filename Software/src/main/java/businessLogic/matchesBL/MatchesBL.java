@@ -8,6 +8,7 @@ import dataService.matchesDataService.MatchesDataService;
 import vo.MatchVO;
 import enums.Teams;
 import exceptions.MatchNotFound;
+import exceptions.PlayerNotFound;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import businessLogic.playersBL.BasicPlayerStats;
@@ -28,8 +29,13 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 	
 	@Override
 	public ArrayList<TeamStatsForCalculation> getTeamDataForCalculation(Teams team) 
-			throws TeamNotFound, MatchNotFound {
-		ArrayList<MatchPO> matchList = matchesService.getMatches(null, null, team, null);
+			throws TeamNotFound {
+		ArrayList<MatchPO> matchList;
+		try {
+			matchList = matchesService.getMatches(null, null, team, null);
+		} catch (MatchNotFound e) {
+			throw new TeamNotFound("未找到该球队的比赛");
+		}
 		
 		int games = matchList.size();
 		int wins = 0;
@@ -55,16 +61,17 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 			stats.add(s);
 		}
 		
-		if(stats.size() != 0){
-			return stats;
-		}else{
-			throw new MatchNotFound("");
-		}
+		return stats;
 	}
 
 	@Override
-	public ArrayList<BasicTeamStats> getBasicTeamStats(Teams team) throws MatchNotFound {
-		ArrayList<MatchPO> matchList = matchesService.getMatches(null, null, team, null);
+	public ArrayList<BasicTeamStats> getBasicTeamStats(Teams team) throws TeamNotFound {
+		ArrayList<MatchPO> matchList;
+		try {
+			matchList = matchesService.getMatches(null, null, team, null);
+		} catch (MatchNotFound e) {
+			throw new TeamNotFound("未找到该球队参加的比赛");
+		}
 		
 		int games = matchList.size();
 		int wins = 0;
@@ -85,17 +92,19 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 			stats.add(new BasicTeamStats(team, games, wins, match.getTeamStats(team)));
 		}
 		
-		if(stats.size() != 0){
-			return stats;
-		}else{
-			throw new MatchNotFound("");
-		}
+		return stats;
 	}
 
 	@Override
 	public ArrayList<PlayerStatsForCalculation> getPlayerStatsForCalculation(
-			String name) throws MatchNotFound, TeamNotFound {
-		ArrayList<MatchPO> matchList = matchesService.getMatches(name);
+			String name) throws PlayerNotFound {
+		ArrayList<MatchPO> matchList;
+		try {
+			matchList = matchesService.getMatches(name);
+		} catch (MatchNotFound e) {
+			throw new PlayerNotFound("该球员没有参加过比赛");
+		}
+		
 		int games = matchList.size();
 		int gameStarting = 0;
 		
@@ -110,7 +119,14 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 		ArrayList<PlayerStatsForCalculation> stats = new ArrayList<PlayerStatsForCalculation>();
 		for(int i=0; i<games; i++){
 			Match match = new Match(matchList.get(i));
-			Teams team = this.getTeam(name);
+			Teams team;
+			
+			try {
+				team = this.getTeam(name);
+			} catch (TeamNotFound e) {
+				throw new PlayerNotFound("没有找到该球员所在球队");
+			}
+			
 			BasicPlayerStats basic = new BasicPlayerStats(match.getPlayerStats(name), games, gameStarting, team);
 			PlayerStatsForCalculation s = new PlayerStatsForCalculation(basic, match.minutes_teammate(name),
 					match.offensiveRebounds_teammate(name), match.defensiveRebounds_teammate(name), 
@@ -121,16 +137,18 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 			stats.add(s);
 		}
 		
-		if(stats.size() != 0){
-			return stats;
-		}else{
-			throw new MatchNotFound("");
-		}
+		return stats;
 	}
 
 	@Override
-	public ArrayList<BasicPlayerStats> getBasicPlayerStats(String name) throws MatchNotFound, TeamNotFound {
-		ArrayList<MatchPO> matchList = matchesService.getMatches(name);
+	public ArrayList<BasicPlayerStats> getBasicPlayerStats(String name) throws PlayerNotFound {
+		ArrayList<MatchPO> matchList;
+		try {
+			matchList = matchesService.getMatches(name);
+		} catch (MatchNotFound e) {
+			throw new PlayerNotFound("未找到该球员参加的比赛");
+		}
+		
 		int games = matchList.size();
 		int gameStarting = 0;
 		
@@ -145,21 +163,30 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 		ArrayList<BasicPlayerStats> stats = new ArrayList<BasicPlayerStats>();
 		for(int i=0; i<games; i++){
 			Match match = new Match(matchList.get(i));
-			Teams team = this.getTeam(name);
+			
+			Teams team;
+			try {
+				team = this.getTeam(name);
+			} catch (TeamNotFound e) {
+				throw new PlayerNotFound("未找到该球员所在队伍");
+			}
+			
 			BasicPlayerStats basic = new BasicPlayerStats(match.getPlayerStats(name), games, gameStarting, team);
 			stats.add(basic);
 		}
 		
-		if(stats.size() != 0){
-			return stats;
-		}else{
-			throw new MatchNotFound("");
-		}
+		return stats;
 	}
 
 	@Override
-	public ArrayList<String> getPlayers(String season, Teams team) throws MatchNotFound {
-		ArrayList<MatchPO> matches = matchesService.getMatches(season, null, team, null);
+	public ArrayList<String> getPlayers(String season, Teams team) throws PlayerNotFound {
+		ArrayList<MatchPO> matches;
+		try {
+			matches = matchesService.getMatches(season, null, team, null);
+		} catch (MatchNotFound e) {
+			throw new PlayerNotFound("未找到该球队在此赛季参加的比赛");
+		}
+		
 		ArrayList<String> names = new ArrayList<String>();
 		for(int i=matches.size()-1; i>=0; i--){
 			MatchPO match = matches.get(i);

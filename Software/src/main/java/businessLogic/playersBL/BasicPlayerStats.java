@@ -1,5 +1,6 @@
 package businessLogic.playersBL;
 
+import helper.TypeTransform;
 import po.PlayerStatsPO;
 import enums.Position;
 import enums.Teams;
@@ -27,9 +28,9 @@ public class BasicPlayerStats {
 	Double turnovers;                        //失误数
 	Double personalFouls;                    //犯规数
 	Double points;                           //个人得分
-
+	
 	public BasicPlayerStats(){
-		
+		//勿删，有用
 	}
 	
 	public BasicPlayerStats(PlayerStatsPO po, int games, int gamesStarting, Teams team){
@@ -37,6 +38,24 @@ public class BasicPlayerStats {
 		this.games = games;
 		this.gamesStarting = gamesStarting;
 		this.team = team;
+		
+		this.position = po.position();
+		this.minutes = TypeTransform.str_to_minutes(po.minutes());
+		this.fieldGoalsMade = (double)po.fieldGoalsMade();
+		this.fieldGoalsAttempted = (double)po.fieldGoalsAttempted();
+		this.threePointFieldGoalsMade = (double)po.threePointFieldGoalsMade();
+		this.threePointFieldGoalsAttempted = (double)po.threePointFieldGoalsAttempted();
+		this.freeThrowsMade = (double)po.freeThrowsMade();
+		this.freeThrowsAttempted = (double)po.freeThrowsAttempted();
+		this.offensiveRebounds = (double)po.offensiveRebounds();
+		this.defensiveRebounds = (double)po.defensiveRebounds();
+		this.rebounds = (double)po.rebounds();
+		this.assists = (double)po.assists();
+		this.steals = (double)po.steals();
+		this.blocks = (double)po.blocks();
+		this.turnovers = (double)po.turnovers();
+		this.personalFouls = (double)po.personalFouls();
+		this.points = (double)po.points();
 	}
 
 	public String name() {

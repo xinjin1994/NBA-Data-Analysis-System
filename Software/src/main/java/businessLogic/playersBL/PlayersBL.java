@@ -2,6 +2,8 @@ package businessLogic.playersBL;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import po.PlayerPO;
 import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService;
@@ -12,7 +14,6 @@ import enums.Conference;
 import enums.Division;
 import enums.Position;
 import enums.Teams;
-import exceptions.MatchNotFound;
 import exceptions.PlayerNotFound;
 import exceptions.TeamNotFound;
 import businessLogicService.matchesBLService.PlayerDataInMatchesService;
@@ -48,24 +49,34 @@ public class PlayersBL implements PlayersBLService {
 	@Override
 	public PlayerVO getPlayerInfo(String name) throws PlayerNotFound {
 		PlayerPO po = playersService.getPlayer(name);
-		Player player = new Player(po);
-		return player.toVO();
+		PlayerVO vo = new PlayerVO(po.name(), po.number(), po.position(), 
+				po.height_Foot(), po.height_Inch(), po.weight_Pounds(), 
+				po.birthday(), po.age(), po.exp(), po.school());
+		ImageIcon portrait = imageService.getPlayerPortrait(name);
+		ImageIcon action = imageService.getPlayerAction(name);
+		vo.addImage(portrait, action);
+		return vo;
 	}
 	
 	@Override
-	public ArrayList<PlayerVO> getAllPlayersInfo() throws PlayerNotFound {
+	public ArrayList<PlayerVO> getAllPlayersInfo() {
 		ArrayList<PlayerVO> voList = new ArrayList<PlayerVO>();
 		ArrayList<PlayerPO> poList = playersService.getAllPlayers();
 		for(PlayerPO po: poList){
-			Player player = new Player(po);
-			voList.add(player.toVO());
+			PlayerVO vo = new PlayerVO(po.name(), po.number(), po.position(), 
+					po.height_Foot(), po.height_Inch(), po.weight_Pounds(), 
+					po.birthday(), po.age(), po.exp(), po.school());
+			ImageIcon portrait = imageService.getPlayerPortrait(po.name());
+			ImageIcon action = imageService.getPlayerAction(po.name());
+			vo.addImage(portrait, action);
+			voList.add(vo);
 		}
 		
 		return voList;
 	}
 	
 	@Override
-	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws MatchNotFound, TeamNotFound{
+	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws PlayerNotFound {
 		ArrayList<BasicPlayerStats> stats = matchesService.getBasicPlayerStats(name);
 		BasicPlayerStats total = calculator.Sum(stats);
 		return new PlayerBasicStatsVO(total);
@@ -116,7 +127,7 @@ public class PlayersBL implements PlayersBLService {
 
 	@Override
 	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name)
-			throws PlayerNotFound, MatchNotFound, TeamNotFound {
+			throws PlayerNotFound {
 		ArrayList<BasicPlayerStats> stats = matchesService.getBasicPlayerStats(name);
 		BasicPlayerStats average = calculator.Average(stats);
 		PlayerBasicStatsVO vo = new PlayerBasicStatsVO(average);
@@ -170,7 +181,7 @@ public class PlayersBL implements PlayersBLService {
 
 	@Override
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsTotal(String name)
-			throws PlayerNotFound, MatchNotFound, TeamNotFound {
+			throws PlayerNotFound {
 		ArrayList<PlayerStatsForCalculation> stats = matchesService.getPlayerStatsForCalculation(name);
 		calculator = new PlayerCalculator(stats);
 		AdvancedPlayerStats adv = calculator.getAdvancedStatsTotal();
@@ -181,25 +192,38 @@ public class PlayersBL implements PlayersBLService {
 	
 	@Override
 	public PlayerAdvancedStatsVO getAdvancedPlayerStatsAverage(String name)
-			throws PlayerNotFound, MatchNotFound, TeamNotFound {
+			throws PlayerNotFound {
 		//高级数据没有平均与总和的区别
 		return getAdvancedPlayerStatsTotal(name);
 	}
 	
-	private ArrayList<String> getPlayers(Conference con, Division div, Position pos) throws PlayerNotFound, TeamNotFound{
+	private ArrayList<String> getPlayers(Conference con, Division div, Position pos) throws PlayerNotFound {
 		ArrayList<PlayerPO> players = playersService.getAllPlayers();
 		ArrayList<String> playerNames = new ArrayList<String>();
+		
+		ArrayList<Teams> teams;
+		try {
+			teams = teamsService.getTeams(con, div);
+		} catch (TeamNotFound e1) {
+			throw new PlayerNotFound("该地区没有球队，没有球员");
+		}
+		
 		for(PlayerPO player: players){
 			if(player.position() != pos){
 				continue;
 			}
 			
-			Teams team = matchesService.getTeam(player.name());
-			ArrayList<Teams> teams = teamsService.getTeams(con, div);
-			
-			if(teams.contains(team)){
-				playerNames.add(player.name());
+			try {
+				Teams team = matchesService.getTeam(player.name());
+				
+				if(teams.contains(team)){
+					playerNames.add(player.name());
+				}
+			} catch (TeamNotFound e) {
+				//没找到的不管
+				continue;
 			}
+			
 		}
 		
 		return playerNames;
@@ -207,29 +231,41 @@ public class PlayersBL implements PlayersBLService {
 
 	@Override
 	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsTotal(Conference con,
-			Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound {
+			Division div, Position pos) throws PlayerNotFound {
 		ArrayList<String> playerNames = this.getPlayers(con, div, pos);
 		
 		ArrayList<PlayerBasicStatsVO> result = new ArrayList<PlayerBasicStatsVO>();
 		for(String name: playerNames){
-			PlayerBasicStatsVO vo = this.getBasicPlayerStatsTotal(name);
-			vo.addPortrait(imageService.getPlayerPortrait(name));
-			result.add(vo);
+			try{
+				PlayerBasicStatsVO vo = this.getBasicPlayerStatsTotal(name);
+				vo.addPortrait(imageService.getPlayerPortrait(name));
+				result.add(vo);
+			}catch(PlayerNotFound e){
+				continue;
+			}
 		}
 		
-		return result;
+		if(result.size() != 0){
+			return result;
+		}else{
+			throw new PlayerNotFound("");
+		}
 	}
 	
 	@Override
 	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsAverage(Conference con,
-			Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound {
+			Division div, Position pos) throws PlayerNotFound {
 		ArrayList<String> playerNames = this.getPlayers(con, div, pos);
 		
 		ArrayList<PlayerBasicStatsVO> result = new ArrayList<PlayerBasicStatsVO>();
 		for(String name: playerNames){
-			PlayerBasicStatsVO vo = this.getBasicPlayerStatsAverage(name);
-			vo.addPortrait(imageService.getPlayerPortrait(name));
-			result.add(vo);
+			try{
+				PlayerBasicStatsVO vo = this.getBasicPlayerStatsAverage(name);
+				vo.addPortrait(imageService.getPlayerPortrait(name));
+				result.add(vo);
+			}catch(PlayerNotFound e){
+				continue;
+			}
 		}
 		
 		return result;
@@ -237,14 +273,18 @@ public class PlayersBL implements PlayersBLService {
 
 	@Override
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(
-			Conference con, Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound {
+			Conference con, Division div, Position pos) throws PlayerNotFound {
 		ArrayList<String> names = this.getPlayers(con, div, pos);
 		ArrayList<PlayerAdvancedStatsVO> result = new ArrayList<PlayerAdvancedStatsVO>();
 		
 		for(String name: names){
-			PlayerAdvancedStatsVO vo = this.getAdvancedPlayerStatsTotal(name);
-			vo.addPortrait(imageService.getPlayerPortrait(name));
-			result.add(vo);
+			try{
+				PlayerAdvancedStatsVO vo = this.getAdvancedPlayerStatsTotal(name);
+				vo.addPortrait(imageService.getPlayerPortrait(name));
+				result.add(vo);
+			}catch(PlayerNotFound e){
+				continue;
+			}
 		}
 		
 		return result;
@@ -252,7 +292,7 @@ public class PlayersBL implements PlayersBLService {
 	
 	@Override
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(
-			Conference con, Division div, Position pos) throws PlayerNotFound, TeamNotFound, MatchNotFound {
+			Conference con, Division div, Position pos) throws PlayerNotFound {
 		//高级数据不区分平均和总和
 		return this.getAdvancedPlayersStatsTotal(con, div, pos);
 	}

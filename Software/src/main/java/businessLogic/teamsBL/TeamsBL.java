@@ -69,8 +69,13 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 		return new TeamInMatches(calculator.Sum(basic), calculator.calculate());
 	}
 	
-	private TeamInMatches getTeamInMatches_basic(Teams team) throws MatchNotFound {
-		ArrayList<BasicTeamStats> basic = matchesService.getBasicTeamStats(team);
+	private TeamInMatches getTeamInMatches_basic(Teams team) throws TeamNotFound {
+		ArrayList<BasicTeamStats> basic;
+		try {
+			basic = matchesService.getBasicTeamStats(team);
+		} catch (TeamNotFound e) {
+			throw new TeamNotFound("未找到该队伍参加的比赛");
+		}
 		return new TeamInMatches(calculator.Sum(basic), null);
 	}
 
@@ -98,7 +103,7 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 				TeamInMatches match = this.getTeamInMatches(team);
 				result.add(match.getGeneralStatsVO());
 			} catch (MatchNotFound e) {
-				//do nothing
+				continue;
 			}	
 		}
 		
@@ -112,12 +117,12 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 		ArrayList<TeamOffensiveStatsVO> result = new ArrayList<TeamOffensiveStatsVO>();
 		
 		for(Teams team: teams){
-			try {
+			try{
 				TeamInMatches match = this.getTeamInMatches_basic(team);
 				result.add(match.getOffensiveStatsVO());
-			} catch (MatchNotFound e) {
-				//do nothing
-			}	
+			}catch(TeamNotFound e){
+				continue;
+			}
 		}
 		
 		return result;
@@ -130,12 +135,12 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 		ArrayList<TeamDefensiveStatsVO> result = new ArrayList<TeamDefensiveStatsVO>();
 		
 		for(Teams team: teams){
-			try {
+			try{
 				TeamInMatches match = this.getTeamInMatches_basic(team);
 				result.add(match.getDefensiveStatsVO());
-			} catch (MatchNotFound e) {
-				//do nothing
-			}	
+			}catch(TeamNotFound e){
+				continue;
+			}
 		}
 		
 		return result;
@@ -148,12 +153,12 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 		ArrayList<TeamFoulsStatsVO> result = new ArrayList<TeamFoulsStatsVO>();
 		
 		for(Teams team: teams){
-			try {
+			try{
 				TeamInMatches match = this.getTeamInMatches_basic(team);
 				result.add(match.getFoulsStatsVO());
-			} catch (MatchNotFound e) {
-				//do nothing
-			}	
+			}catch(TeamNotFound e){
+				continue;
+			}
 		}
 		
 		return result;
@@ -166,12 +171,12 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 		ArrayList<TeamRatioStatsVO> result = new ArrayList<TeamRatioStatsVO>();
 		
 		for(Teams team: teams){
-			try {
+			try{
 				TeamInMatches match = this.getTeamInMatches_basic(team);
 				result.add(match.getRatioStatsVO());
-			} catch (MatchNotFound e) {
-				//do nothing
-			}	
+			}catch(TeamNotFound e){
+				continue;
+			}
 		}
 		
 		return result;

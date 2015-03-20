@@ -51,14 +51,10 @@ public class PlayersDataServiceTest extends TestCase {
 	}
 	
 	public void testGetAllPlayer(){
-		try {
-			ArrayList<PlayerPO> players = service.getAllPlayers();
-			if(players.size() == numOfPlayers){
-				assertTrue(true);
-			}else{
-				assertTrue(false);
-			}
-		} catch (PlayerNotFound e) {
+		ArrayList<PlayerPO> players = service.getAllPlayers();
+		if(players.size() == numOfPlayers){
+			assertTrue(true);
+		}else{
 			assertTrue(false);
 		}
 	}
