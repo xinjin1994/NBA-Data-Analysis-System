@@ -13,11 +13,14 @@ import factory.ObjectCreator;
 public class MatchesData implements MatchesDataService {
 	ReadMatches reader;
 	
-	ArrayList<MatchPO> matchList;
+	static ArrayList<MatchPO> matchList;
 	
 	public MatchesData(){
 		reader = new ObjectCreator().matchesReader();
-		matchList = reader.readAllMatches();
+		
+		if(matchList == null){
+			matchList = reader.readAllMatches();
+		}
 	}
 
 	@Override

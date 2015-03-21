@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerVO;
+import enums.Conference;
+import enums.Division;
 import enums.Position;
 import enums.Teams;
 import exceptions.PlayerNotFound;
@@ -64,10 +66,23 @@ public class PlayersBLServiceTest extends TestCase {
 		}
 	}
 	
+	public void testGetBasicPlayersStatsAverage(){
+		Conference con = Conference.NATIONAL;
+		Division div = Division.NATIONAL;
+		Position pos = Position.ALL;
+		try {
+			ArrayList<PlayerBasicStatsVO> list = service.getBasicPlayersStatsAverage(con, div, pos);
+			System.out.println(list.size());
+			assertTrue(list.size() != 0);
+		} catch (PlayerNotFound e) {
+			assertTrue(false);
+		}
+	}
+	
 	public void testGetAdvancedPlayersStatsTotal() {
 		try {
 			PlayerAdvancedStatsVO stats = service.getAdvancedPlayerStatsTotal("Kobe Bryant");
-			stats.print();
+			//stats.print();
 			assertTrue(stats != null);
 		} catch (PlayerNotFound e) {
 			assertTrue(false);

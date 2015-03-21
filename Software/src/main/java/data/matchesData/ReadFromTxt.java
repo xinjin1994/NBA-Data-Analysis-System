@@ -52,7 +52,7 @@ public class ReadFromTxt implements ReadMatches{
 				match.setTeamsStats(team1Players, team2Players);
 				
 				br.close();
-				
+								
 				return match;
 			}catch(Exception e){
 				e.printStackTrace();

@@ -168,7 +168,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 			try {
 				team = this.getTeam(name);
 			} catch (TeamNotFound e) {
-				throw new PlayerNotFound("未找到该球员所在队伍");
+				continue;
 			}
 			
 			BasicPlayerStats basic = new BasicPlayerStats(match.getPlayerStats(name), games, gameStarting, team);

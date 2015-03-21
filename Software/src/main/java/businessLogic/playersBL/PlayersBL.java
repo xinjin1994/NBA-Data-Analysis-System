@@ -209,7 +209,7 @@ public class PlayersBL implements PlayersBLService {
 		}
 		
 		for(PlayerPO player: players){
-			if(player.position() != pos){
+			if(player.position() != pos && pos != Position.ALL){
 				continue;
 			}
 			

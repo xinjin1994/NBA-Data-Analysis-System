@@ -32,7 +32,7 @@ public class PlayerStatsPO {
 		
 		this.name = arr[0];
 		this.position = Position.toEnum(arr[1]);
-		this.minutes = arr[2];
+		this.minutes = arr[2].equals("None") ? "0" : arr[2];
 		this.fieldGoalsMade = helper.str_to_int(arr[3]);
 		this.fieldGoalsAttempted = helper.str_to_int(arr[4]);
 		this.threePointFieldGoalsMade = helper.str_to_int(arr[5]);

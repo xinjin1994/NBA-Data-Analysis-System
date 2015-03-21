@@ -12,11 +12,14 @@ import exceptions.TeamNotFound;
 public class TeamsData implements TeamsDataService {
 	ReadTeams reader;
 	
-	ArrayList<TeamPO> teamList;
+	static ArrayList<TeamPO> teamList;
 	
 	public TeamsData(){
 		reader = new ObjectCreator().teamsReader();
-		teamList = reader.readAllTeams();
+		
+		if(teamList == null){
+			teamList = reader.readAllTeams();
+		}
 	}
 
 	@Override

@@ -9,11 +9,14 @@ import exceptions.PlayerNotFound;
 public class PlayersData implements PlayersDataService {
 	ReadPlayers reader;
 	
-	ArrayList<PlayerPO> playerList;
+	static ArrayList<PlayerPO> playerList;
 	
 	public PlayersData(){
 		reader = new ObjectCreator().playersReader();
-		playerList = reader.readAllPlayers();
+		
+		if(playerList == null){
+			playerList = reader.readAllPlayers();
+		}
 	}
 
 	@Override
