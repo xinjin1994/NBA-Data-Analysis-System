@@ -4,6 +4,7 @@ import enums.Conference;
 import enums.Division;
 import enums.Position;
 import exceptions.PlayerNotFound;
+import exceptions.TeamNotFound;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
 import gui.enums.PanelType;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultRowSorter;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -37,16 +39,17 @@ import businessLogic.playersBL.PlayersBL;
 import businessLogic.teamsBL.TeamsBL;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
+import vo.TeamDefensiveStatsVO;
 import vo.TeamGeneralStatsVO;
 import vo.TeamOffensiveStatsVO;
 
 public class TeamStatisticPanel extends SelfAdjustPanel{
 
 	private static final long serialVersionUID = 9090035509234357424L;
-	private ArrayList<TeamOffensiveStatsVO> basicList_average;
-	private ArrayList<PlayerBasicStatsVO> basicList_total;
-	private ArrayList<PlayerAdvancedStatsVO> advancedList_average;
-	private ArrayList<PlayerAdvancedStatsVO> advancedList_total;
+	private ArrayList<TeamOffensiveStatsVO> offenceList_average;
+	private ArrayList<TeamOffensiveStatsVO> offenceList_total;
+	private ArrayList<TeamDefensiveStatsVO> defenseList_average;
+	private ArrayList<TeamDefensiveStatsVO> defenseList_total;
 	private JTable tbl_advancedList;
 	private JTable tbl_basicList;
 	private ButtonGroup btngrp;
@@ -129,22 +132,20 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 	}
  
 	public void buildList() {
-		/*
 		try {
-			basicList_average = new TeamsBL().getTeamsOffensiveStatsAverage(Conference.NATIONAL, Division.NATIONAL);
-			basicList_total = new TeamsBL().getTeamsOffensiveStatsTotal(Conference.NATIONAL, Division.NATIONAL)
-		} catch (PlayerNotFound e) {
-			basicList_average = new ArrayList<PlayerBasicStatsVO>();
-			basicList_total = new ArrayList<PlayerBasicStatsVO>();
+			offenceList_average = new TeamsBL().getTeamsOffensiveStatsAverage(Conference.NATIONAL, Division.NATIONAL);
+			offenceList_total = new TeamsBL().getTeamsOffensiveStatsTotal(Conference.NATIONAL, Division.NATIONAL);
+		} catch (TeamNotFound e) {
+			offenceList_average = new ArrayList<TeamOffensiveStatsVO>();
+			offenceList_total = new ArrayList<TeamOffensiveStatsVO>();
 		}
 		try {
-			advancedList_average;
-			advancedList_total;
-		} catch (PlayerNotFound e) {
-			advancedList_average = new ArrayList<PlayerAdvancedStatsVO>();
-			advancedList_total = new ArrayList<PlayerAdvancedStatsVO>();
+			defenseList_average = new TeamsBL().getTeamsDefensiveStatsAverage(Conference.NATIONAL, Division.NATIONAL);
+			defenseList_total = new TeamsBL().getTeamsDefensiveStatsTotal(Conference.NATIONAL, Division.NATIONAL);
+		} catch (TeamNotFound e) {
+			defenseList_average = new ArrayList<TeamDefensiveStatsVO>();
+			defenseList_total = new ArrayList<TeamDefensiveStatsVO>();
 		}
-		*/
 	}
 
 }

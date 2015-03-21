@@ -53,10 +53,8 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		gbl_pnl_menu.rowWeights = new double[]{1,1,1,1,1};
 		setLayout(gbl_pnl_menu);
 		
-		buildList(Conference.NATIONAL,Division.NATIONAL,Position.ALL);
+		getList(Conference.NATIONAL,Division.NATIONAL,Position.ALL);
 
-		JScrollPane pane_basicList = new JScrollPane();
-		pane_basicList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		tbl_basicList = new JTable(new PlayerTableModel_Basic(basicList_average));
 		tbl_basicList.setFillsViewportHeight(true);
 		tbl_basicList.setAutoCreateRowSorter(true);
@@ -69,10 +67,7 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 				}
 			}
 		});
-		pane_basicList.add(tbl_basicList);
 		
-		JScrollPane pane_advancedList = new JScrollPane();
-		pane_advancedList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		tbl_advancedList = new JTable(new PlayerTableModel_Advanced(advancedList_average));
 		tbl_advancedList.setFillsViewportHeight(true);
 		tbl_advancedList.setAutoCreateRowSorter(true);
@@ -85,7 +80,11 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 				}
 			}
 		});
-		pane_advancedList.add(tbl_advancedList);
+		
+		JScrollPane pane_basicList = new JScrollPane(tbl_basicList);
+		pane_basicList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane pane_advancedList = new JScrollPane(tbl_advancedList);
+		pane_advancedList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		JTabbedPane pane_lists = new JTabbedPane();
 		GridBagConstraints gbc_pane_list = new GridBagConstraints();
@@ -143,8 +142,7 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		}
 	}
 
-	@Override
-	public void buildList(Conference c, Division d, Position p) {
+	public void getList(Conference c, Division d, Position p) {
 		try {
 			basicList_average = new PlayersBL().getBasicPlayersStatsAverage(c,d,p);
 			basicList_total = new PlayersBL().getBasicPlayersStatsTotal(c,d,p);
@@ -159,6 +157,11 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 			advancedList_average = new ArrayList<PlayerAdvancedStatsVO>();
 			advancedList_total = new ArrayList<PlayerAdvancedStatsVO>();
 		}
+	}
+	@Override
+	public void buildList(Conference c, Division d, Position p) {
+		getList(c,d,p);
+		setList(btngrp.getSelection().getActionCommand());
 	}
 	private void setList(String str){
 		switch(str){
