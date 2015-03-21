@@ -9,8 +9,11 @@ import gui.SelfAdjustPanel;
 import gui.enums.PanelType;
 import gui.player.PlayerSearch;
 import gui.player.SearchPlayerPanel;
+import gui.statistic.PlayerStatisticPanel.RadioButtonListener;
 import gui.util.ReturnButton;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -31,13 +34,16 @@ import javax.swing.RowFilter;
 import javax.swing.ScrollPaneConstants;
 
 import businessLogic.playersBL.PlayersBL;
+import businessLogic.teamsBL.TeamsBL;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
+import vo.TeamGeneralStatsVO;
+import vo.TeamOffensiveStatsVO;
 
-public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearch{
+public class TeamStatisticPanel extends SelfAdjustPanel{
 
 	private static final long serialVersionUID = 9090035509234357424L;
-	private ArrayList<PlayerBasicStatsVO> basicList_average;
+	private ArrayList<TeamOffensiveStatsVO> basicList_average;
 	private ArrayList<PlayerBasicStatsVO> basicList_total;
 	private ArrayList<PlayerAdvancedStatsVO> advancedList_average;
 	private ArrayList<PlayerAdvancedStatsVO> advancedList_total;
@@ -45,19 +51,14 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 	private JTable tbl_basicList;
 	private ButtonGroup btngrp;
 
-	public PlayerStatisticPanel() {
-		GridBagLayout gbl_pnl_menu = new GridBagLayout();
-		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, (int) (pWidth/(10/8.0)), pWidth/10};
-		gbl_pnl_menu.rowHeights = new int[]{pHeight/10,pHeight/10, pHeight/10, (int) (pHeight*(6/10.0)), pHeight/10};
-		gbl_pnl_menu.columnWeights = new double[]{1,1,1};
-		gbl_pnl_menu.rowWeights = new double[]{1,1,1,1,1};
-		setLayout(gbl_pnl_menu);
+	public TeamStatisticPanel() {
+		setLayout(new BorderLayout());
 		
-		buildList(Conference.NATIONAL,Division.NATIONAL,Position.ALL);
+		//buildList();
 
 		JScrollPane pane_basicList = new JScrollPane();
 		pane_basicList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		tbl_basicList = new JTable(new PlayerTableModel_Basic(basicList_average));
+		tbl_basicList = new JTable();//TODO
 		tbl_basicList.setFillsViewportHeight(true);
 		tbl_basicList.setAutoCreateRowSorter(true);
 		tbl_basicList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -73,7 +74,7 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		
 		JScrollPane pane_advancedList = new JScrollPane();
 		pane_advancedList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		tbl_advancedList = new JTable(new PlayerTableModel_Advanced(advancedList_average));
+		tbl_advancedList = new JTable();//TODO
 		tbl_advancedList.setFillsViewportHeight(true);
 		tbl_advancedList.setAutoCreateRowSorter(true);
 		tbl_advancedList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -88,20 +89,20 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		pane_advancedList.add(tbl_advancedList);
 		
 		JTabbedPane pane_lists = new JTabbedPane();
-		GridBagConstraints gbc_pane_list = new GridBagConstraints();
-		gbc_pane_list.gridx = 1;
-		gbc_pane_list.gridy = 3;
-		gbc_pane_list.fill = GridBagConstraints.BOTH;
-		pane_lists.add("球员基本数据",pane_basicList);
-		pane_lists.add("球员进阶数据",pane_advancedList);
-		add(pane_lists, gbc_pane_list);
+		pane_lists.add("球队基本数据",pane_basicList);
+		pane_lists.add("球队进阶数据",pane_advancedList);
+		add(pane_lists);
 		
-		SearchPlayerPanel pnl_search = new SearchPlayerPanel(this);
-		GridBagConstraints gbc_pnl_search = new GridBagConstraints();
-		gbc_pnl_search.gridx = 1;
-		gbc_pnl_search.gridy = 1;
-		gbc_pnl_search.fill = GridBagConstraints.HORIZONTAL;
-		add(pnl_search, gbc_pnl_search);
+		JPanel pnl_button = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		ReturnButton btn_return = new ReturnButton();
+		btn_return.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				MainFrame.mf.gotoPanel(PanelType.STATISTIC);
+			}
+		});
+		pnl_button.add(btn_return);
+		add(pnl_button, BorderLayout.SOUTH);
 		
 		JRadioButton rdibtn_average = new JRadioButton("平均");
 		rdibtn_average.setActionCommand("AVERAGE");
@@ -115,68 +116,35 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		rdibtn_average.setSelected(true);
 		
 		JPanel pnl_selection = new JPanel();
-		GridBagConstraints gbc_pnl_selection = new GridBagConstraints();
-		gbc_pnl_selection.gridx = 1;
-		gbc_pnl_selection.gridy = 2;
 		pnl_selection.add(rdibtn_average);
 		pnl_selection.add(rdibtn_total);
-		add(pnl_selection, gbc_pnl_selection);
-		
-		ReturnButton btn_return = new ReturnButton();
-		GridBagConstraints gbc_btn_return = new GridBagConstraints();
-		btn_return.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				MainFrame.mf.gotoPanel(PanelType.STATISTIC);
-			}
-		});
-		gbc_btn_return.gridx = 1;
-		gbc_btn_return.gridy = 4;
-		gbc_btn_return.anchor = GridBagConstraints.SOUTHWEST;
-		add(btn_return,gbc_btn_return);
+		add(pnl_selection,BorderLayout.NORTH);
 	}
 	
 	class RadioButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			setList(btngrp.getSelection().getActionCommand());
+			
 		}
 	}
-
-	@Override
-	public void buildList(Conference c, Division d, Position p) {
+ 
+	public void buildList() {
+		/*
 		try {
-			basicList_average = new PlayersBL().getBasicPlayersStatsAverage(c,d,p);
-			basicList_total = new PlayersBL().getBasicPlayersStatsTotal(c,d,p);
+			basicList_average = new TeamsBL().getTeamsOffensiveStatsAverage(Conference.NATIONAL, Division.NATIONAL);
+			basicList_total = new TeamsBL().getTeamsOffensiveStatsTotal(Conference.NATIONAL, Division.NATIONAL)
 		} catch (PlayerNotFound e) {
 			basicList_average = new ArrayList<PlayerBasicStatsVO>();
 			basicList_total = new ArrayList<PlayerBasicStatsVO>();
 		}
 		try {
-			advancedList_average = new PlayersBL().getAdvancedPlayersStatsAverage(c,d,p);
-			advancedList_total = new PlayersBL().getAdvancedPlayersStatsTotal(c,d,p);
+			advancedList_average;
+			advancedList_total;
 		} catch (PlayerNotFound e) {
 			advancedList_average = new ArrayList<PlayerAdvancedStatsVO>();
 			advancedList_total = new ArrayList<PlayerAdvancedStatsVO>();
 		}
-	}
-	private void setList(String str){
-		switch(str){
-		case "AVERAGE":
-			((PlayerTableModel_Basic)tbl_basicList.getModel()).updateData(basicList_average);
-			((PlayerTableModel_Advanced)tbl_advancedList.getModel()).updateData(advancedList_average);
-			break;
-		case "TOTAL":
-			((PlayerTableModel_Basic)tbl_basicList.getModel()).updateData(basicList_total);
-			((PlayerTableModel_Advanced)tbl_advancedList.getModel()).updateData(advancedList_total);
-			break;
-		}
-	}
-	@SuppressWarnings("unchecked")
-	@Override
-	public void filterList(String name) {
-		((DefaultRowSorter<PlayerTableModel_Basic,Object>)tbl_basicList.getRowSorter()).setRowFilter(RowFilter.regexFilter(name, 0));
-		((DefaultRowSorter<PlayerTableModel_Advanced,Object>)tbl_advancedList.getRowSorter()).setRowFilter(RowFilter.regexFilter(name, 0));
+		*/
 	}
 
 }

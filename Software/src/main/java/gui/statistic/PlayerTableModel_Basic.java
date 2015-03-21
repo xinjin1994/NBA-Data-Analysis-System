@@ -11,7 +11,7 @@ import vo.PlayerBasicStatsVO;
 public class PlayerTableModel_Basic extends AbstractTableModel {
 
 	private static final long serialVersionUID = 6864903079434462186L;
-	private String[] header = new String[]{"姓名","参赛场数","先发场数","篮板数","助攻数","在场时间","投篮命中率/%","三分命中率/%","罚球命中率/%","进攻数","防守数","抢断数","盖帽数","失误数","犯规数","得分"};
+	private String[] header = new String[]{"姓名","参赛场数","先发场数","篮板数","助攻数","在场时间","投篮命中率/%","三分命中率/%","罚球命中率/%","进攻数","防守数","抢断数","盖帽数","失误数","犯规数","得分","得分/篮板/助攻","两双"};
 	private ArrayList<PlayerBasicStatsVO> data;
 
 	public PlayerTableModel_Basic(ArrayList<PlayerBasicStatsVO> data) {
@@ -96,6 +96,23 @@ public class PlayerTableModel_Basic extends AbstractTableModel {
 			break;
 		case 15:
 			result = GUIUtility.formatDouble(pl.getPoints());
+			break;
+		case 16:
+			result = GUIUtility.formatDouble(pl.getPoints()+pl.getRebounds()+pl.getAssists());
+			break;
+		case 17:
+			int doubledouble = 0;
+			if(pl.getRebounds() >= 10)
+				doubledouble++;
+			if(pl.getAssists() >= 10)
+				doubledouble++;
+			if(pl.getPoints() >= 10)
+				doubledouble++;
+			if(pl.getBlocks() >= 10)
+				doubledouble++;
+			if(pl.getSteals() >= 10)
+				doubledouble++;
+			result = String.valueOf(doubledouble);
 			break;
 		}
 		if(result == null)

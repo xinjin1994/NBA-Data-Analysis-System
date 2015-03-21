@@ -143,7 +143,7 @@ public class PlayerDetailDialog extends JDialog {
 				pnl_tech.setLayout(gbl_pnl_tech);
 				
 				int i = 0;
-				for(Terminology[] term = Terminology.getBasic();i < term.length;i++){
+				for(Terminology[] term = Terminology.getPlayerBasic();i < term.length;i++){
 					String unit = "";
 					if(i == 5 || i == 6 || i ==7)
 						unit = "%";
@@ -161,7 +161,7 @@ public class PlayerDetailDialog extends JDialog {
 				pnl_advanced.setLayout(gbl_pnl_advanced);
 				
 				int i = 0;
-				for(Terminology[] term = Terminology.getAdvanced();i < term.length;i++){
+				for(Terminology[] term = Terminology.getPlayerAdvanced();i < term.length;i++){
 					LabelPanel labelPanel = new LabelPanel(term[i].toString(),"123","%");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = i%2;

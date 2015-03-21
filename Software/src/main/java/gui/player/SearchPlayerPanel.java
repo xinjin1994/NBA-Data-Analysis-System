@@ -122,6 +122,7 @@ public class SearchPlayerPanel extends JPanel {
 				case ESTERN:
 					for(Division d : Division.getEasternDivision())
 						cbbx_division.addItem(d);
+					break;
 				case NATIONAL:
 					for(Division d : Division.values())
 						cbbx_division.addItem(d);
