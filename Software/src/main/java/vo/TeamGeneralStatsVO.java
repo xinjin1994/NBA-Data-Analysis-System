@@ -16,7 +16,7 @@ public class TeamGeneralStatsVO {
 			double def, double offRebd, double defRebd, double stl){
 		this.team = team;
 		this.games = games;
-		this.offensiveRounds  =offRounds;
+		this.offensiveRounds = offRounds;
 		this.offensiveEfficiency = off;
 		this.defensiveEfficiency = def;
 		this.offensiveReboundsEfficiency = offRebd;

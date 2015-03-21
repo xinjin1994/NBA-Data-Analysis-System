@@ -88,6 +88,7 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 		} catch (TeamNotFound e) {
 			throw new TeamNotFound("未找到该队伍参加的比赛");
 		}
+		
 		return new TeamInMatches(calculator.Sum(basic), null);
 	}
 

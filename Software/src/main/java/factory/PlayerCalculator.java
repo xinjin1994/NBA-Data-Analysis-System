@@ -161,7 +161,7 @@ public class PlayerCalculator {
 	
 	public BasicPlayerStats Sum(ArrayList<BasicPlayerStats> list){
 		String name="";
-		Integer games=0;                        
+		Integer games=list.get(0).games();                     
 		Integer gamesStarting=0;                                          
 		Double minutes=0.00;                         
 		Double fieldGoalsMade=0.00;                  
@@ -181,7 +181,6 @@ public class PlayerCalculator {
 		Double points=0.00;
 		for(BasicPlayerStats player:list){
 			name=player.name();
-			games=games+player.games();
 			gamesStarting=gamesStarting+player.gamesStarting();
 			minutes=minutes+player.minutes();
 			fieldGoalsMade=fieldGoalsMade+player.fieldGoalsMade();
@@ -225,7 +224,7 @@ public class PlayerCalculator {
 	
 	public BasicPlayerStats Average(ArrayList<BasicPlayerStats> list){
 		String name="";
-		Integer games=0;                        
+		Integer games=list.get(0).games();
 		Integer gamesStarting=0;                                          
 		Double minutes=0.00;                         
 		Double fieldGoalsMade=0.00;                  
@@ -245,7 +244,6 @@ public class PlayerCalculator {
 		Double points=0.00;
 		for(BasicPlayerStats player:list){
 			name=player.name();
-			games=games+player.games();
 			gamesStarting=gamesStarting+player.gamesStarting();
 			minutes=minutes+player.minutes();
 			fieldGoalsMade=fieldGoalsMade+player.fieldGoalsMade();
@@ -267,7 +265,7 @@ public class PlayerCalculator {
 		BasicPlayerStats player=new BasicPlayerStats();
 		int size=list.size();
 		player.setName(name);
-		player.setGames(games/size);
+		player.setGames(games);
 		player.setGamesStarting(gamesStarting/size);
 		player.setMinutes(minutes/size);
 		player.setFieldGoalsMade(fieldGoalsMade/size);

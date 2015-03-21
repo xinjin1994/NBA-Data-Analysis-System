@@ -70,7 +70,7 @@ public class TeamsBLServiceTest extends TestCase {
 			assertTrue(list.size() == 5);
 			
 			for(TeamGeneralStatsVO vo: list){
-				vo.print();
+				//vo.print();
 			}
 			
 		} catch (TeamNotFound e) {
@@ -79,19 +79,67 @@ public class TeamsBLServiceTest extends TestCase {
 	}
 	
 	public void testGetTeamsOffensiveStatsTotal(){
-		
+		Conference conference = Conference.ESTERN;
+		Division division = Division.SOUTHEAST;
+		try {
+			ArrayList<TeamOffensiveStatsVO> list = service.getTeamsOffensiveStatsTotal(conference, division);
+			assertTrue(list.size() == 5);
+			
+			for(TeamOffensiveStatsVO vo: list){
+				//vo.print();
+			}
+			
+		} catch (TeamNotFound e) {
+			assertTrue(false);
+		}
 	}
 	
 	public void testGetTeamsDefensiveStatsTotal(){
-		
+		Conference conference = Conference.ESTERN;
+		Division division = Division.SOUTHEAST;
+		try {
+			ArrayList<TeamDefensiveStatsVO> list = service.getTeamsDefensiveStatsTotal(conference, division);
+			assertTrue(list.size() == 5);
+			
+			for(TeamDefensiveStatsVO vo: list){
+				//vo.print();
+			}
+			
+		} catch (TeamNotFound e) {
+			assertTrue(false);
+		}
 	}
 	
 	public void testGetTeamsFoulsStatsTotal(){
-		
+		Conference conference = Conference.ESTERN;
+		Division division = Division.SOUTHEAST;
+		try {
+			ArrayList<TeamFoulsStatsVO> list = service.getTeamsFoulsStatsTotal(conference, division);
+			assertTrue(list.size() == 5);
+			
+			for(TeamFoulsStatsVO vo: list){
+				//vo.print();
+			}
+			
+		} catch (TeamNotFound e) {
+			assertTrue(false);
+		}
 	}
 	
 	public void testGetTeamsRatioStatsTotal(){
-		
+		Conference conference = Conference.ESTERN;
+		Division division = Division.SOUTHEAST;
+		try {
+			ArrayList<TeamRatioStatsVO> list = service.getTeamsRatioStatsTotal(conference, division);
+			assertTrue(list.size() == 5);
+			
+			for(TeamRatioStatsVO vo: list){
+				vo.print();
+			}
+			
+		} catch (TeamNotFound e) {
+			assertTrue(false);
+		}
 	}
 
 }

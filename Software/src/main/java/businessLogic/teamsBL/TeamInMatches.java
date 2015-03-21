@@ -24,7 +24,7 @@ public class TeamInMatches {
 	
 	public TeamDefensiveStatsVO getDefensiveStatsVO(){
 		return new TeamDefensiveStatsVO(basic.name, basic.games, basic.offensiveRebounds, 
-				basic.offensiveRebounds, basic.rebounds, basic.steals, basic.blocks);
+				basic.defensiveRebounds, basic.rebounds, basic.steals, basic.blocks);
 	}
 	
 	public TeamFoulsStatsVO getFoulsStatsVO(){

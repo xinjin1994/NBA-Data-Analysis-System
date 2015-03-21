@@ -37,10 +37,11 @@ public class BasicTeamStats {
 		
 		for(PlayerStatsPO player: players){
 			this.fieldGoalsMade += (double)player.fieldGoalsMade();
-			this.fieldGoalsAttempted = (double)player.fieldGoalsAttempted();
-			this.threePointFieldGoalsMade = (double)player.threePointFieldGoalsMade();
+			this.fieldGoalsAttempted += (double)player.fieldGoalsAttempted();
+			this.threePointFieldGoalsMade += (double)player.threePointFieldGoalsMade();
+			this.threePointFieldGoalsAttempted += (double)player.threePointFieldGoalsAttempted();
 			this.freeThrowsMade += (double)player.freeThrowsMade();
-			this.freeThrowsAttempted = (double)player.freeThrowsAttempted();
+			this.freeThrowsAttempted += (double)player.freeThrowsAttempted();
 			this.offensiveRebounds += (double)player.offensiveRebounds();
 			this.defensiveRebounds += (double)player.defensiveRebounds();
 			this.rebounds += (double)player.rebounds();
@@ -51,6 +52,7 @@ public class BasicTeamStats {
 			this.fouls += (double)player.personalFouls();
 			this.points += (double)player.points();
 		}
+		
 	}
 
 	public Teams name() {
