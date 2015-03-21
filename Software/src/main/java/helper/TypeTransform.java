@@ -11,6 +11,7 @@ public class TypeTransform {
 			return 0.0;
 		}
 		Double minutes = Double.parseDouble(arr[0]) + Double.parseDouble(arr[1])/60;
+		
 		return minutes;
 	}
 	

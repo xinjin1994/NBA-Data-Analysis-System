@@ -1,7 +1,9 @@
 package po;
 
 import java.util.ArrayList;
+
 import enums.Teams;
+import exceptions.ErrorData;
 import po.PlayerStatsPO;
 
 public class MatchPO {
@@ -46,18 +48,32 @@ public class MatchPO {
 		team2Players = new ArrayList<PlayerStatsPO>();
 		
 		for(int i=0; i<team1.size(); i++){
-			PlayerStatsPO player1 = new PlayerStatsPO(team1.get(i));
-			if(i<5){
-				player1.setGameStarting(true);
+			PlayerStatsPO player1;
+			try {
+				player1 = new PlayerStatsPO(team1.get(i));
+				if(i<5){
+					player1.setGameStarting(true);
+				}
+				team1Players.add(player1);
+			} catch (ErrorData e) {
+				// TODO Auto-generated catch block
+				//错误数据不处理
+				//e.printStackTrace();
 			}
-			team1Players.add(player1);
 		}
 		for(int i=0; i<team2.size(); i++){
-			PlayerStatsPO player2 = new PlayerStatsPO(team2.get(i));
-			if(i<5){
-				player2.setGameStarting(true);
+			PlayerStatsPO player2;
+			try {
+				player2 = new PlayerStatsPO(team2.get(i));
+				if(i<5){
+					player2.setGameStarting(true);
+				}
+				team2Players.add(player2);
+			} catch (ErrorData e) {
+				// TODO Auto-generated catch block
+				//错误数据不处理
+				//e.printStackTrace();
 			}
-			team2Players.add(player2);
 		}
 	}
 	

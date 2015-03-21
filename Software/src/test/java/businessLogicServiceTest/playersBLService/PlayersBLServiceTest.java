@@ -48,8 +48,8 @@ public class PlayersBLServiceTest extends TestCase {
 		
 	public void testGetBasicPlayersStatsTotal_Single() {
 		try {
-			PlayerBasicStatsVO stats = service.getBasicPlayerStatsTotal("Kobe Bryant");
-			//stats.print();
+			PlayerBasicStatsVO stats = service.getBasicPlayerStatsTotal("Alex Len");
+			stats.print();
 			assertTrue(stats != null);
 		} catch (PlayerNotFound e) {
 			assertTrue(false);
@@ -72,7 +72,6 @@ public class PlayersBLServiceTest extends TestCase {
 		Position pos = Position.ALL;
 		try {
 			ArrayList<PlayerBasicStatsVO> list = service.getBasicPlayersStatsAverage(con, div, pos);
-			System.out.println(list.size());
 			assertTrue(list.size() != 0);
 		} catch (PlayerNotFound e) {
 			assertTrue(false);

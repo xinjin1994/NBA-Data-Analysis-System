@@ -36,7 +36,7 @@ public class MatchesDataServiceTest extends TestCase {
 		String season = null;
 		String date = null;
 		Teams team1 = Teams.toEnum("CHI");
-		Teams team2 = null;
+		Teams team2 = Teams.ALL;
 		
 		try {
 			ArrayList<MatchPO> matches = service.getMatches(season, date, team1, team2);
@@ -50,12 +50,13 @@ public class MatchesDataServiceTest extends TestCase {
 	}
 	
 	public void testGetMatchesByName(){
-		String name = "Kobe Bryant";
+		String name = "Alex Len";
 		try {
 			ArrayList<MatchPO> matches = service.getMatches(name);
 			
 			for(MatchPO match: matches){
-				System.out.println(match.date() + "_" + match.homeTeam() + "-" + match.guestTeam());
+				System.out.println(match.date() + "_" + match.homeTeam().toAbbr() 
+						+ "-" + match.guestTeam().toAbbr());
 			}
 		} catch (MatchNotFound e) {
 			assertTrue(false);

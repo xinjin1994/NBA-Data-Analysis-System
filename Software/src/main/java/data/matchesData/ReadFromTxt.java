@@ -14,7 +14,8 @@ public class ReadFromTxt implements ReadMatches{
 			ArrayList<MatchPO> matchList = new ArrayList<MatchPO>();
 			
 			for(int i=0; i<fileList.length; i++){
-				matchList.add(readFromOneFile(fileList[i]));
+				MatchPO match = readFromOneFile(fileList[i]);
+				matchList.add(match);
 			}
 			
 			return matchList;
@@ -22,7 +23,7 @@ public class ReadFromTxt implements ReadMatches{
 		return null;
 	}
 	
-	private MatchPO readFromOneFile(File file){
+	private MatchPO readFromOneFile(File file) {
 		if(file.exists()){
 			try{
 				String season = file.getName().split("_")[0];           //读取赛季
@@ -61,7 +62,6 @@ public class ReadFromTxt implements ReadMatches{
 		
 		return null;
 	}
-
 	
 	
 	//简单测试
