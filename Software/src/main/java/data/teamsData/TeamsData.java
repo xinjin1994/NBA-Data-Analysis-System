@@ -36,7 +36,9 @@ public class TeamsData implements TeamsDataService {
 		ArrayList<TeamPO> list = new ArrayList<TeamPO>();
 		for(int i=0; i<teamList.size(); i++){
 			TeamPO team = teamList.get(i);
-			if(team.conference() == conference && team.division() == division){
+			boolean conferenceOK = team.conference() == conference || conference == Conference.NATIONAL;
+			boolean divisionOK = team.division() == division || division == Division.NATIONAL;
+			if(conferenceOK && divisionOK){
 				list.add(team);
 			}
 		}
@@ -58,8 +60,8 @@ public class TeamsData implements TeamsDataService {
 			Division division) throws TeamNotFound {
 		ArrayList<Teams> teams = new ArrayList<Teams>();
 		for(TeamPO po: teamList){
-			if(conference == null || po.conference() == conference){
-				if(division == null || po.division() == division){
+			if(conference == Conference.NATIONAL || po.conference() == conference){
+				if(division == Division.NATIONAL || po.division() == division){
 					teams.add(po.name());
 				}
 			}

@@ -43,8 +43,8 @@ public class MatchesData implements MatchesDataService {
 			MatchPO match = matchList.get(i);
 			boolean seasonOK = (season == null || match.season().equals(season));
 			boolean dateOK = (date == null || match.date().equals(date));
-			boolean homeTeamOK = (team1 == null || match.homeTeam() == team1 || match.guestTeam() == team1);
-			boolean guestTeamOK = (team2 == null || match.guestTeam() == team2 || match.guestTeam() == team2);
+			boolean homeTeamOK = (team1 == Teams.ALL || match.homeTeam() == team1 || match.guestTeam() == team1);
+			boolean guestTeamOK = (team2 == Teams.ALL || match.guestTeam() == team2 || match.guestTeam() == team2);
 			
 			if(seasonOK && dateOK && homeTeamOK && guestTeamOK){
 				list.add(match);
