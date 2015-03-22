@@ -101,7 +101,7 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 		pane_offenceList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		JScrollPane pane_defensefoulList = new JScrollPane(tbl_defensefoulList);
 		pane_defensefoulList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		JScrollPane pane_generalratioList = new JScrollPane(tbl_defensefoulList);
+		JScrollPane pane_generalratioList = new JScrollPane(tbl_generalratioList);
 		pane_generalratioList.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		JTabbedPane pane_lists = new JTabbedPane();
