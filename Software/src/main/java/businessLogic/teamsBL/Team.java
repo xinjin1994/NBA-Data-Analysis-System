@@ -5,6 +5,7 @@ import vo.TeamVO;
 import enums.Conference;
 import enums.Division;
 import enums.Teams;
+import factory.ObjectCreator;
 
 public class Team {
 	Teams name;                            //队名
@@ -26,8 +27,10 @@ public class Team {
 	}
 	
 	public TeamVO toVO(){
-		return new TeamVO(name, abbreviationOfName, location, conference, 
+		TeamVO vo = new TeamVO(name, abbreviationOfName, location, conference, 
 				division, homeCourt, yearOfEstablishment);
+		vo.setImage(new ObjectCreator().imageService().getTeamImage(name));
+		return vo;
 	}
 	
 }

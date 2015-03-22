@@ -26,8 +26,9 @@ public class ImageData implements ImageService {
 
 	@Override
 	public ImageIcon getTeamImage(Teams team) {
-		// TODO Auto-generated method stub
-		return null;
+		String filename = "teams/" + team.toAbbr() + ".png";
+		ImageIcon image = new ImageIcon(filename);
+		return image;
 	}
 
 	

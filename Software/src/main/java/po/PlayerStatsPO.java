@@ -1,7 +1,9 @@
 package po;
 
 import enums.Position;
+import exceptions.ErrorData;
 import helper.ReaderHelper;
+import helper.TypeTransform;
 
 public class PlayerStatsPO {
 	//单场比赛球员的基本数据，一般包含在MatchPO中
@@ -25,7 +27,7 @@ public class PlayerStatsPO {
 	Integer personalFouls;                   //犯规数
 	Integer points;                          //个人得分
 	
-	public PlayerStatsPO(String[] arr) {
+	public PlayerStatsPO(String[] arr) throws ErrorData{
 		//arr大小为18，依次为此类所有成员变量
 		
 		ReaderHelper helper = new ReaderHelper();
@@ -52,6 +54,13 @@ public class PlayerStatsPO {
 		if(points == null){                          //points可能为null
 			points = this.fieldGoalsMade*2 + this.threePointFieldGoalsMade*3
 					 + this.freeThrowsMade;
+		}
+		
+		if(TypeTransform.str_to_minutes(minutes) < 0.001 ||
+				this.fieldGoalsMade > this.fieldGoalsAttempted ||
+				this.threePointFieldGoalsMade > this.threePointFieldGoalsAttempted ||
+				this.freeThrowsMade > this.freeThrowsAttempted){
+			throw new ErrorData();
 		}
 
 	}

@@ -35,14 +35,15 @@ public class TeamInMatches {
 		return new TeamRatioStatsVO(basic.name, basic.games,
 				basic.fieldGoalsMade/basic.fieldGoalsAttempted,
 				basic.freeThrowsMade/basic.freeThrowsAttempted,
-				basic.threePointFieldGoalsMade/basic.threePointFieldGoalsAttempted);
+				basic.threePointFieldGoalsMade/basic.threePointFieldGoalsAttempted,
+				basic.wins/basic.games);
 	}
 	
 	public TeamGeneralStatsVO getGeneralStatsVO(){
 		return new TeamGeneralStatsVO(basic.name, basic.games, advanced.offensiveRounds, 
 				advanced.offensiveEfficiency, advanced.defensiveEfficiency, 
 				advanced.offensiveReboudnsEfficiency, advanced.defensiveReboundsEfficiency,
-				advanced.stealsEfficiency);
+				advanced.stealsEfficiency, advanced.assistsEfficiency);
 	}
 	
 }

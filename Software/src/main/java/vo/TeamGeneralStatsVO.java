@@ -11,9 +11,10 @@ public class TeamGeneralStatsVO {
 	double offensiveReboundsEfficiency;           //进攻篮板效率
 	double defensiveReboundsEfficiency;           //防守篮板效率
 	double stealsEfficiency;                      //抢断效率
+	double assistsEfficiency;                     //助攻（效）率
 	
 	public TeamGeneralStatsVO(Teams team, int games, double offRounds, double off, 
-			double def, double offRebd, double defRebd, double stl){
+			double def, double offRebd, double defRebd, double stl, double ast){
 		this.team = team;
 		this.games = games;
 		this.offensiveRounds = offRounds;
@@ -22,6 +23,7 @@ public class TeamGeneralStatsVO {
 		this.offensiveReboundsEfficiency = offRebd;
 		this.defensiveReboundsEfficiency = defRebd;
 		this.stealsEfficiency = stl;
+		this.assistsEfficiency = ast;
 	}
 
 	public Teams getTeam() {
@@ -56,6 +58,10 @@ public class TeamGeneralStatsVO {
 		return stealsEfficiency;
 	}
 	
+	public double getAssistsEfficiency(){
+		return assistsEfficiency;
+	}
+	
 	public void print(){
 		System.out.println(this.team + "\n" +
 				this.games + "\n" +
@@ -64,7 +70,8 @@ public class TeamGeneralStatsVO {
 				this.defensiveEfficiency + "\n" +
 				this.offensiveReboundsEfficiency + "\n" +
 				this.defensiveReboundsEfficiency + "\n" +
-				this.stealsEfficiency);
+				this.stealsEfficiency + "\n" +
+				this.assistsEfficiency);
 	}
 	
 }

@@ -1,5 +1,7 @@
 package vo;
 
+import javax.swing.ImageIcon;
+
 import enums.Conference;
 import enums.Division;
 import enums.Teams;
@@ -12,6 +14,7 @@ public class TeamVO {
 	Division division;                     //分区
 	String homeCourt;                      //主场
 	String yearOfEstablishment;            //建立时间（年）
+	ImageIcon image;                       //队标
 	
 	public TeamVO(Teams name, String abbr, String loc, Conference con, Division div, 
 			String homeCourt, String year){
@@ -22,6 +25,14 @@ public class TeamVO {
 		this.division = div;
 		this.homeCourt = homeCourt;
 		this.yearOfEstablishment = year;
+	}
+	
+	public void setImage(ImageIcon img){
+		this.image = img;
+	}
+	
+	public ImageIcon getImage(){
+		return image;
 	}
 
 	public Teams getName() {

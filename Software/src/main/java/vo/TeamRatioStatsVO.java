@@ -9,13 +9,16 @@ public class TeamRatioStatsVO {
 	double fieldGoalsPercentage;                        //投篮命中率
 	double freeThrowsPercentage;                        //罚球命中率
 	double threePointFieldGoalsPercentage;              //三分命中率
+	double winningRating;                               //胜率
 	
-	public TeamRatioStatsVO(Teams team, int games, double fgp, double ftp, double tgp){
+	public TeamRatioStatsVO(Teams team, int games, double fgp, double ftp, double tgp, 
+			double wr){
 		this.team = team;
 		this.games = games;
 		this.fieldGoalsPercentage = fgp;
 		this.freeThrowsPercentage = ftp;
 		this.threePointFieldGoalsPercentage = tgp;
+		this.winningRating = wr;
 	}
 
 	public Teams getTeam() {
@@ -36,6 +39,10 @@ public class TeamRatioStatsVO {
 
 	public double getThreePointFieldGoalsPercentage() {
 		return threePointFieldGoalsPercentage*100;
+	}
+	
+	public double getWinningRating(){
+		return winningRating*100;
 	}
 
 	
