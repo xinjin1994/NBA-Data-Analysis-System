@@ -32,7 +32,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 			throws TeamNotFound {
 		ArrayList<MatchPO> matchList;
 		try {
-			matchList = matchesService.getMatches(null, null, team, null);
+			matchList = matchesService.getMatches(null, null, team, Teams.ALL);
 		} catch (MatchNotFound e) {
 			throw new TeamNotFound("未找到该球队的比赛");
 		}
@@ -68,7 +68,7 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 	public ArrayList<BasicTeamStats> getBasicTeamStats(Teams team) throws TeamNotFound {
 		ArrayList<MatchPO> matchList;
 		try {
-			matchList = matchesService.getMatches(null, null, team, null);
+			matchList = matchesService.getMatches(null, null, team, Teams.ALL);
 		} catch (MatchNotFound e) {
 			throw new TeamNotFound("未找到该球队参加的比赛");
 		}

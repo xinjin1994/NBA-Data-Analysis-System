@@ -37,9 +37,21 @@ public class PlayerBasicStatsVO {
 		this.minutes = TypeTransform.minutes_to_str(stats.minutes());
 		this.rebounds = stats.rebounds();
 		this.assists = stats.assists();
-		this.fieldGoalPercentage = stats.fieldGoalsMade()/stats.fieldGoalsAttempted();
-		this.threePointFieldGoalPercentage = stats.threePointFieldGoalsMade()/stats.threePointFieldGoalsAttempted();
-		this.freeThrowPercentage = stats.freeThrowsMade()/stats.freeThrowsAttempted();
+		if(stats.fieldGoalsAttempted() < 0.001){
+			this.fieldGoalPercentage = 0;
+		}else{
+			this.fieldGoalPercentage = stats.fieldGoalsMade()/stats.fieldGoalsAttempted();
+		}
+		if(stats.threePointFieldGoalsAttempted() < 0.001){
+			this.threePointFieldGoalPercentage = 0;
+		}else{
+			this.threePointFieldGoalPercentage = stats.threePointFieldGoalsMade()/stats.threePointFieldGoalsAttempted();
+		}
+		if(stats.freeThrowsAttempted() < 0.001){
+			this.freeThrowPercentage = 0;
+		}else{
+			this.freeThrowPercentage = stats.freeThrowsMade()/stats.freeThrowsAttempted();
+		}
 		this.offensiveRebounds = stats.offensiveRebounds();
 		this.defensiveRebounds = stats.defensiveRebounds();
 		this.steals = stats.steals();
