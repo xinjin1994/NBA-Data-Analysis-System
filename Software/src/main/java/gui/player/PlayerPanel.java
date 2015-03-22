@@ -15,28 +15,20 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.ListModel;
 import javax.swing.ScrollPaneConstants;
 
 import vo.PlayerPortraitVO;
-import vo.PlayerVO;
 import businessLogic.playersBL.PlayersBL;
 
 public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
@@ -119,7 +111,7 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 		gbc_pane_list.fill = GridBagConstraints.BOTH;
 		add(pane_list, gbc_pane_list);
 		
-		SearchPlayerPanel pnl_search = new SearchPlayerPanel(this);//TODO
+		SearchPlayerPanel pnl_search = new SearchPlayerPanel(this);
 		GridBagConstraints gbc_pnl_search = new GridBagConstraints();
 		gbc_pnl_search.gridx = 1;
 		gbc_pnl_search.gridy = 1;
@@ -166,8 +158,19 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 	}
 	@Override
 	public void filterList(String name) {
-		// TODO Auto-generated method stub
+		ArrayList<PlayerPortraitVO> volist = null;
+		try {
+			volist = new PlayersBL().getPlayerPortrait(name);
+		} catch (PlayerNotFound e) {
+			JOptionPane.showMessageDialog(MainFrame.currentFrame, "未搜索到球员！");
+			return;
+		}
 		
+		DefaultListModel<PortraitPanel> model = new DefaultListModel<PortraitPanel>();
+		for(int i = 0;i < volist.size();i++){
+			model.addElement(new PortraitPanel(volist.get(i)));
+		}
+		list.setModel(model);
 	}
 
 }

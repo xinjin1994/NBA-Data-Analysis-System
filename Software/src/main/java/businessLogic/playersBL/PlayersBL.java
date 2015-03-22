@@ -262,6 +262,21 @@ public class PlayersBL implements PlayersBLService {
 		
 		return playerNames;
 	}
+	
+	public ArrayList<PlayerPortraitVO> getPlayerPortrait(String name) throws PlayerNotFound {
+		ArrayList<PlayerPortraitVO> list = new ArrayList<PlayerPortraitVO>();
+		for(PlayerPO po :playersService.searchPlayer(name)){
+			try {
+				matchesService.getTeam(po.name());
+				ImageIcon portrait = imageService.getPlayerPortrait(po.name());
+				list.add(new PlayerPortraitVO(po.name(),portrait));
+			} catch (TeamNotFound e) {
+				//没找到的不管
+				continue;
+			}
+		}
+		return list;
+	}
 
 	@Override
 	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsTotal(Conference con,

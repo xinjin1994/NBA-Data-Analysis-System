@@ -3,6 +3,8 @@ package vo;
 import javax.swing.ImageIcon;
 
 import enums.Teams;
+import enums.Terminology;
+import gui.util.GUIUtility;
 import businessLogic.playersBL.AdvancedPlayerStats;
 
 public class PlayerAdvancedStatsVO {
@@ -104,7 +106,36 @@ public class PlayerAdvancedStatsVO {
 		return usagePercent*100;
 	}
 	
-	
+	public String getProperty(Terminology term){
+		switch(term){
+		case PER:
+			return GUIUtility.formatDouble(this.efficiency);
+		case GMSC:
+			return GUIUtility.formatDouble(this.GmSc);
+		case TSP:
+			return GUIUtility.formatDouble(this.trueScorePercent);
+		case FGE:
+			return GUIUtility.formatDouble(this.fieldGoalEfficiency);
+		case REBP:
+			return GUIUtility.formatDouble(this.reboundsPercent);
+		case OREBP:
+			return GUIUtility.formatDouble(this.offensiveReboundsPercent);
+		case DREBP:
+			return GUIUtility.formatDouble(this.defensiveReboundsPercent);
+		case ASTP:
+			return GUIUtility.formatDouble(this.assistsPercent);
+		case STLP:
+			return GUIUtility.formatDouble(this.stealsPercent);
+		case BLKP:
+			return GUIUtility.formatDouble(this.blocksPercent);
+		case TOVP:
+			return GUIUtility.formatDouble(this.turnoversPercent);
+		case USGP:
+			return GUIUtility.formatDouble(this.usagePercent);
+		default:
+			return null;
+		}
+	}
 	
 	public void print(){
 		System.out.println(this.name + "\n" +

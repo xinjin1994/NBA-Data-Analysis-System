@@ -31,6 +31,20 @@ public class PlayersData implements PlayersDataService {
 		throw new PlayerNotFound(name);
 	}
 
+
+	public ArrayList<PlayerPO> searchPlayer(String name) throws PlayerNotFound {
+		ArrayList<PlayerPO> list = new ArrayList<PlayerPO>();
+		for(int i=0; i<playerList.size(); i++){
+			PlayerPO player = playerList.get(i);
+			if(player.name().toLowerCase().contains(name.toLowerCase())){
+				list.add(player);
+			}
+		}
+		if(list.size() == 0)
+			throw new PlayerNotFound(name);
+		return list;
+	}
+	
 	@Override
 	public ArrayList<PlayerPO> getAllPlayers() {
 		return playerList;

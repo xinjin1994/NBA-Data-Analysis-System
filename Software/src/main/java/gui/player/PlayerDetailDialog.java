@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 
 import businessLogic.playersBL.PlayersBL;
+import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerVO;
 import enums.Terminology;
@@ -144,7 +145,7 @@ public class PlayerDetailDialog extends JDialog {
 				
 				PlayerBasicStatsVO bs = null;
 				try {
-					bs = new PlayersBL().getBasicPlayerStatsAverage(vo.getName());
+					bs = new PlayersBL().getBasicPlayerStatsTotal(vo.getName());
 				} catch (PlayerNotFound e) {
 					JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
 				}
@@ -167,9 +168,16 @@ public class PlayerDetailDialog extends JDialog {
 				GridBagLayout gbl_pnl_advanced = new GridBagLayout();
 				pnl_advanced.setLayout(gbl_pnl_advanced);
 				
+				PlayerAdvancedStatsVO as = null;
+				try {
+					as = new PlayersBL().getAdvancedPlayerStatsTotal(vo.getName());
+				} catch (PlayerNotFound e) {
+					JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
+				}
+				
 				int i = 0;
 				for(Terminology[] term = Terminology.getPlayerAdvanced();i < term.length;i++){
-					LabelPanel labelPanel = new LabelPanel(term[i].toString(),"123","%");
+					LabelPanel labelPanel = new LabelPanel(term[i].toString(),as.getProperty(term[i]),"%");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = i%2;
 					gbc_labelPanel.gridy = i/2;

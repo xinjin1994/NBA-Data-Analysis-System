@@ -12,7 +12,7 @@ public class ImageData implements ImageService {
 
 	@Override
 	public ImageIcon getPlayerAction(String name) {
-		String filename = "players/acton/" + name + ".png";
+		String filename = "players/action/" + name + ".png";
 		ImageIcon image = new ImageIcon(filename);
 		return image;
 	}

@@ -1,5 +1,6 @@
 package gui.player;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -117,21 +118,23 @@ public class SearchPlayerPanel extends JPanel {
 		cbbx_conference.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				cbbx_division.removeAllItems();
+				DefaultComboBoxModel<Division> model = new DefaultComboBoxModel<Division>();
+				
 				switch(cbbx_conference.getItemAt(cbbx_conference.getSelectedIndex())){
 				case ESTERN:
 					for(Division d : Division.getEasternDivision())
-						cbbx_division.addItem(d);
+						model.addElement(d);
 					break;
 				case NATIONAL:
 					for(Division d : Division.values())
-						cbbx_division.addItem(d);
+						model.addElement(d);
 					break;
 				case WESTERN:
 					for(Division d : Division.getWesternDivision())
-						cbbx_division.addItem(d);
+						model.addElement(d);
 					break;
 				}
+				cbbx_division.setModel(model);
 				
 				search();
 			}
