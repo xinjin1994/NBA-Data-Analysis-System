@@ -63,9 +63,9 @@ public class MatchesBLServiceTest extends TestCase {
 	
 	public void testGetMatchesVO(){
 		try {
-			ArrayList<MatchVO> matches = service.getMatchesVO("13-14", null, null, null);
+			ArrayList<MatchVO> matches = service.getMatchesVO("13-14", null, Teams.ALL, Teams.ALL);
 			assertTrue(matches.size() == 1230);
-			matches = service.getMatchesVO("13-14", "11-11", null, null);
+			matches = service.getMatchesVO("13-14", "11-11", Teams.ALL, Teams.ALL);
 			assertTrue(matches.size() == 9);
 		} catch (TeamNotFound | MatchNotFound e) {
 			assertTrue(false);

@@ -19,6 +19,7 @@ public class TeamOffensiveStatsVO {
 			double ftm, double fta, double tgm, double tga, double ast){
 		this.team = team;
 		this.games = games;
+		this.points = pts;
 		this.fieldGoalsMade = fgm;
 		this.fieldGoalsAttempted = fga;
 		this.freeThrowsMade = ftm;
@@ -29,6 +30,7 @@ public class TeamOffensiveStatsVO {
 	}
 	
 	public void average(){
+		this.points /= games;
 		this.fieldGoalsMade /= games;
 		this.fieldGoalsAttempted /= games;
 		this.freeThrowsMade /= games;
@@ -82,6 +84,7 @@ public class TeamOffensiveStatsVO {
 	public void print(){
 		System.out.println(this.team + "\n" +
 				this.games + "\n" +
+				this.points + "\n" +
 				this.fieldGoalsMade + "\n" +
 				this.fieldGoalsAttempted + "\n" +
 				this.freeThrowsMade + "\n" +

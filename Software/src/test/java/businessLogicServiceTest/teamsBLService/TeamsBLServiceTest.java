@@ -86,7 +86,7 @@ public class TeamsBLServiceTest extends TestCase {
 			assertTrue(list.size() == 5);
 			
 			for(TeamOffensiveStatsVO vo: list){
-				//vo.print();
+				vo.print();
 			}
 			
 		} catch (TeamNotFound e) {
@@ -134,7 +134,7 @@ public class TeamsBLServiceTest extends TestCase {
 			assertTrue(list.size() == 5);
 			
 			for(TeamRatioStatsVO vo: list){
-				vo.print();
+				//vo.print();
 			}
 			
 		} catch (TeamNotFound e) {
