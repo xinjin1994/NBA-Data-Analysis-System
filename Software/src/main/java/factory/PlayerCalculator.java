@@ -16,69 +16,42 @@ public class PlayerCalculator {
 	}
 	public AdvancedPlayerStats getAdvancedStatsTotal(){
 		AdvancedPlayerStats advanced=new AdvancedPlayerStats();
+		advanced.setName(list.get(0).player().name());
 		advanced.setAverage(Averager(list));
-		advanced.setDoubleDouble(0.00);
-		advanced.setHitRate(0.00);
-		advanced.setRebounds(0.00);
-		advanced.setPlayerEfficiencyRating(0.00);
-		advanced.setGmsc(0.00);
-		advanced.setTrueScorePercent(0.00);
-		advanced.setFieldGoalsPercent(0.00);
-		advanced.setReboundsPercent(0.00);
-		advanced.setOffensiveReboundsPercent(0.00);
-		advanced.setDefensiveReboundsPercent(0.00);
-		advanced.setAssistsPercent(0.00);
-		advanced.setStealsPercent(0.00);
-		advanced.setBlockPercent(0.00);
-		advanced.setTurnoversPercent(0.00);
-		advanced.setUsagePercent(0.00);
-		for(PlayerStatsForCalculation player:list){
-			ArrayList<Double> doubles=new ArrayList<Double>();
-			BasicPlayerStats basic=player.player();
-			advanced.setName(basic.name());
-			doubles.add(player.player().assists());
-			doubles.add(player.player().rebounds());
-			doubles.add(player.player().blocks());
-			doubles.add(player.player().steals());
-			advanced.setDoubleDouble(advanced.doubleDouble()+DoubleDoubles(doubles));
-			advanced.setHitRate(advanced.hitRate()+HitRate(basic.fieldGoalsMade(),basic.fieldGoalsAttempted()));
-			advanced.setRebounds(advanced.rebounds()+basic.rebounds());
-			doubles.add(basic.points());
-			advanced.setPlayerEfficiencyRating(advanced.playerEfficiencyRating()+PlayerEfficiencyRating(doubles,basic.fieldGoalsAttempted(),basic.fieldGoalsMade(),basic.freeThrowsAttempted(),basic.fieldGoalsMade(),basic.turnovers()));
-			advanced.setGmsc(advanced.Gmsc()+Gmsc(basic));
-			advanced.setTrueScorePercent(advanced.trueScorePercent()+TrueScorePercent(basic.points(),basic.fieldGoalsAttempted(),basic.freeThrowsAttempted()));
-			advanced.setFieldGoalsPercent(advanced.fieldGoalsPercent()+FieldGoalsPercent(basic.fieldGoalsMade(),basic.threePointFieldGoalsMade(),basic.fieldGoalsAttempted()));
-			advanced.setReboundsPercent(advanced.reboundsPercent()+ReboundsPercent(basic.rebounds(),player.minutes_teammate(),basic.minutes(),player.offensiveRebounds_teammate(),player.defensiveRebounds_teammate(),player.offensiveRebounds_opponent(),player.defensiveRebounds_opponent()));
-			advanced.setOffensiveReboundsPercent(advanced.reboundsPercent()*basic.offensiveRebounds()/basic.rebounds());
-			advanced.setDefensiveReboundsPercent(advanced.reboundsPercent()*basic.defensiveRebounds()/basic.rebounds());
-			advanced.setAssistsPercent(advanced.assistsPercent()+AssistsPercent(basic.assists(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsMade_teammate(),basic.fieldGoalsMade()));
-			advanced.setStealsPercent(advanced.stealsPercent()+StealsPercent(basic.steals(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsAttempted_opponent()));
-			advanced.setBlockPercent(advanced.blockPercent()+BlockPercent(basic.blocks(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsAttempted_opponent()));
-			advanced.setTurnoversPercent(advanced.turnoversPercent()+TurnoversPercent(basic.turnovers(),basic.fieldGoalsAttempted(),basic.freeThrowsAttempted()));
-			advanced.setUsagePercent(advanced.usagePercent()+UsagePercent(player));
-		}
-		int number=list.size();
-		if(number!=0){
-			advanced.setDoubleDouble(advanced.doubleDouble()/number);
-			advanced.setHitRate(advanced.hitRate()/number);
-			advanced.setRebounds(advanced.rebounds()/number);
-			advanced.setPlayerEfficiencyRating(advanced.playerEfficiencyRating()/number);
-			advanced.setGmsc(advanced.Gmsc()/number);
-			advanced.setTrueScorePercent(advanced.trueScorePercent()/number);
-			advanced.setFieldGoalsPercent(advanced.fieldGoalsPercent()/number);
-			advanced.setReboundsPercent(advanced.reboundsPercent()/number);
-			advanced.setOffensiveReboundsPercent(advanced.offensiveReboundsPercent()/number);
-			advanced.setDefensiveReboundsPercent(advanced.defensiveReboundsPercent()/number);
-			advanced.setAssistsPercent(advanced.assistsPercent()/number);
-			advanced.setStealsPercent(advanced.stealsPercent()/number);
-			advanced.setBlockPercent(advanced.blockPercent()/number);
-			advanced.setTurnoversPercent(advanced.turnoversPercent()/number);
-			advanced.setUsagePercent(advanced.usagePercent()/number);
-		}
+		advanced.setDoubleDouble(DoubleDoubless());
+		advanced.setHitRate(HitRates());
+		advanced.setRebounds(Rebounds());
+		advanced.setPlayerEfficiencyRating(PlayerEfficiencyRatings());
+		advanced.setGmsc(Gmscs());
+		advanced.setTrueScorePercent(TrueScorePercents());
+		advanced.setFieldGoalsPercent(FieldGoalsPercents());
+		advanced.setReboundsPercent(ReboundsPercents());
+		advanced.setOffensiveReboundsPercent(OffensiveReboundsPercents());
+		advanced.setDefensiveReboundsPercent(DefensiveReboundsPercents());
+		advanced.setAssistsPercent(AssistsPercents());
+		advanced.setStealsPercent(StealsPercents());
+		advanced.setBlockPercent(BlockPercents());
+		advanced.setTurnoversPercent(TurnoversPercents());
+		advanced.setUsagePercent(UsagePercents());
 		return advanced;
 	}
 	
 	//两双计算 doubledoubles
+	
+	private Double DoubleDoubless(){
+		Double doubledouble=0.00;
+		for(PlayerStatsForCalculation player:list){
+			ArrayList<Double> doubles=new ArrayList<Double>();
+			doubles.add(player.player().assists());
+			doubles.add(player.player().rebounds());
+			doubles.add(player.player().blocks());
+			doubles.add(player.player().steals());
+			doubledouble=doubledouble+DoubleDoubles(doubles);
+		}
+		doubledouble=doubledouble/list.size();
+		return doubledouble;
+	}
+	
 	private Double DoubleDoubles(ArrayList<Double> point){
 		Double doubledoubles=new Double(0);
 		if(point.contains(null)){
@@ -138,6 +111,7 @@ public class PlayerCalculator {
 		}
 		BasicPlayerStats player=new BasicPlayerStats();
 		int size=list.size();
+		player.setTeam(list.get(0).player().team());
 		player.setGames(games/size);
 		player.setGamesStarting(gamesStarting/size);
 		player.setMinutes(minutes/size);
@@ -264,6 +238,7 @@ public class PlayerCalculator {
 		}
 		BasicPlayerStats player=new BasicPlayerStats();
 		int size=list.size();
+		player.setTeam(list.get(0).team());
 		player.setName(name);
 		player.setGames(games);
 		player.setGamesStarting(gamesStarting/size);
@@ -287,6 +262,21 @@ public class PlayerCalculator {
 	}
 	
 	//命中率计算  hitRate
+	
+	private Double HitRates(){
+		Double hitRate=0.00;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.fieldGoalsAttempted()!=0){
+				hitRate=hitRate+HitRate(basic.fieldGoalsMade(),basic.fieldGoalsAttempted());
+				size++;
+			}
+		}
+		hitRate=hitRate/size;
+		return hitRate;
+	}
+	
 	private Double HitRate(Double fieldGoalsMade,Double fieldGoalsAttempted){
 		if(fieldGoalsMade==null||fieldGoalsAttempted==null){
 			return null;
@@ -296,7 +286,36 @@ public class PlayerCalculator {
 		}
 	}
 	
+	//篮板计算 Rebounds
+	private Double Rebounds(){
+		Double rebounds=0.0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			rebounds=rebounds+basic.offensiveRebounds()+basic.defensiveRebounds();
+		}
+		rebounds=rebounds/list.size();
+		return rebounds;
+	}
+	
+	
 	//效率计算  playerEfficiencyRating
+	
+	private Double PlayerEfficiencyRatings(){
+		Double playerEfficiencyRating=0.0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			ArrayList<Double> doubles=new ArrayList<Double>();
+			doubles.add(player.player().assists());
+			doubles.add(player.player().rebounds());
+			doubles.add(player.player().blocks());
+			doubles.add(player.player().steals());
+			doubles.add(basic.points());
+			playerEfficiencyRating=playerEfficiencyRating+PlayerEfficiencyRating(doubles,basic.fieldGoalsAttempted(),basic.fieldGoalsMade(),basic.freeThrowsAttempted(),basic.fieldGoalsMade(),basic.turnovers());
+		}
+		playerEfficiencyRating=playerEfficiencyRating/list.size();
+		return playerEfficiencyRating;
+	}
+	
 	private Double PlayerEfficiencyRating(ArrayList<Double> point,Double fieldGoalsAttempted,Double fieldGoalsMade,
 			Double freeThrowsAttempted,Double freeThrowsMade,Double turnovers){
 		Double playerEfficiencyRating=0.0;
@@ -316,6 +335,17 @@ public class PlayerCalculator {
 	}
 	
 	//真得分计算  Gmsc
+	
+	private Double Gmscs(){
+		Double Gmsc=0.00;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			Gmsc=Gmsc+Gmsc(basic);
+		}
+		Gmsc=Gmsc/list.size();
+		return Gmsc;
+	}
+	
 	private Double Gmsc(BasicPlayerStats basic){
 		Double Gmsc=0.0;
 		try{
@@ -330,6 +360,21 @@ public class PlayerCalculator {
 	}
 	
 	//真实投篮命中率计算   trueScorePercent
+	
+	private Double TrueScorePercents(){
+		Double trueScorePercent=0.00;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.fieldGoalsAttempted()+basic.freeThrowsAttempted()!=0){
+				trueScorePercent=trueScorePercent+TrueScorePercent(basic.points(),basic.fieldGoalsAttempted(),basic.freeThrowsAttempted());
+				size++;
+			}
+		}
+		trueScorePercent=trueScorePercent/size;
+		return trueScorePercent;
+	}
+	
 	private Double TrueScorePercent(Double point,Double fieldGoalsAttempted,Double freeThrowsAttempted){
 		try{
 			Double trueScorePercent=point/(2*(fieldGoalsAttempted+0.44*freeThrowsAttempted));
@@ -341,6 +386,21 @@ public class PlayerCalculator {
 	}
 	
 	//投篮效率计算  fieldGoalsPercent
+	
+	private Double FieldGoalsPercents(){
+		Double fieldGoalsPercent=0.00;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.fieldGoalsAttempted()!=0){
+				fieldGoalsPercent=fieldGoalsPercent+FieldGoalsPercent(basic.fieldGoalsMade(),basic.threePointFieldGoalsMade(),basic.fieldGoalsAttempted());
+				size++;
+			}
+		}
+		fieldGoalsPercent=fieldGoalsPercent/size;
+		return fieldGoalsPercent;
+	}
+	
 	private Double FieldGoalsPercent(Double fieldGoalsMade,Double threePointFieldGoalsMade,Double fieldGoalsAttempted){
 		try{
 			Double fieldGoalsPercent=(fieldGoalsMade+0.5*threePointFieldGoalsMade)/fieldGoalsAttempted;
@@ -352,6 +412,49 @@ public class PlayerCalculator {
 	}
 	
 	//篮板率计算  reboundsPercent
+	
+	private Double ReboundsPercents(){
+		Double reboundsPercent=0.0;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.minutes()!=0){
+				reboundsPercent=reboundsPercent+ReboundsPercent(basic.rebounds(),player.minutes_teammate(),basic.minutes(),player.offensiveRebounds_teammate(),player.defensiveRebounds_teammate(),player.offensiveRebounds_opponent(),player.defensiveRebounds_opponent());
+				size++;
+			}
+		}
+		reboundsPercent=reboundsPercent/size;
+		return reboundsPercent;
+	}
+	
+	private Double OffensiveReboundsPercents(){
+		Double offensiveReboundsPercent=0.0;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.minutes()!=0){
+				offensiveReboundsPercent=offensiveReboundsPercent+ReboundsPercent(basic.offensiveRebounds(),player.minutes_teammate(),basic.minutes(),player.offensiveRebounds_teammate(),player.defensiveRebounds_teammate(),player.offensiveRebounds_opponent(),player.defensiveRebounds_opponent());
+				size++;
+			}
+		}
+		offensiveReboundsPercent=offensiveReboundsPercent/size;
+		return offensiveReboundsPercent;
+	}
+	
+	private Double DefensiveReboundsPercents(){
+		Double defensiveReboundsPercent=0.0;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.minutes()!=0){
+				defensiveReboundsPercent=defensiveReboundsPercent+ReboundsPercent(basic.defensiveRebounds(),player.minutes_teammate(),basic.minutes(),player.offensiveRebounds_teammate(),player.defensiveRebounds_teammate(),player.offensiveRebounds_opponent(),player.defensiveRebounds_opponent());
+				size++;
+			}
+		}
+		defensiveReboundsPercent=defensiveReboundsPercent/size;
+		return defensiveReboundsPercent;
+	}
+	
 	private Double ReboundsPercent (Double rebounds,Double minutes_teammate,Double minutes,
 			Integer offensiveRebounds_teammate,Integer defensiveRebounds_teammate,
 	        Integer offensiveRebounds_opponent,Integer defensiveRebounds_opponent){
@@ -367,6 +470,21 @@ public class PlayerCalculator {
 	}
 	
 	//助攻率计算  assistsPercent
+	
+	private Double AssistsPercents(){
+		Double assistsPercent=0.00;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.minutes()!=0){
+				assistsPercent=assistsPercent+AssistsPercent(basic.assists(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsMade_teammate(),basic.fieldGoalsMade());
+                size++;
+			}		
+		}
+		assistsPercent=assistsPercent/size;
+		return assistsPercent;
+	}
+	
 	private Double AssistsPercent(Double assists,Double minutes,Double minutes_teammate,
 			Integer fieldGoalsMade_teammate,Double fieldGoalsMade){
 		try{
@@ -379,6 +497,21 @@ public class PlayerCalculator {
 	}
 	
 	//抢断率计算  stealsPercent
+	
+	private Double StealsPercents(){
+		Double stealsPercent=0.0;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.minutes()!=0){
+				stealsPercent=stealsPercent+StealsPercent(basic.steals(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsAttempted_opponent());
+				size++;
+			}
+		}
+		stealsPercent=stealsPercent/size;
+		return stealsPercent;
+	}
+	
 	private Double StealsPercent(Double steals,Double minutes,Double minutes_teammate,Integer fieldGoalsAttempted_opponent){
 		try{
 			Double stealsPercent=steals*(minutes_teammate/5)/minutes/fieldGoalsAttempted_opponent;
@@ -390,6 +523,21 @@ public class PlayerCalculator {
 	}
 	
 	//盖帽率计算   blockPercent
+	
+	private Double BlockPercents(){
+		Double blockPercent=0.00;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.minutes()!=0){
+				blockPercent=blockPercent+BlockPercent(basic.blocks(),basic.minutes(),player.minutes_teammate(),player.fieldGoalsAttempted_opponent());
+				size++;
+			}
+		}
+		blockPercent=blockPercent/size;
+		return blockPercent;
+	}
+	
 	private Double BlockPercent(Double block,Double minutes,Double minutes_teammate,Integer fieldGoalsAttempted_opponent){
 		try{
 			Double blockPercent=block*(minutes_teammate/5)/minutes/fieldGoalsAttempted_opponent;
@@ -401,6 +549,21 @@ public class PlayerCalculator {
 	}
 	
 	//失误率计算   turnoversPercent
+	
+	private Double TurnoversPercents(){
+		Double turnoversPercent=0.00;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			BasicPlayerStats basic=player.player();
+			if(basic.fieldGoalsAttempted()+basic.freeThrowsAttempted()+basic.turnovers()!=0){
+				turnoversPercent=turnoversPercent+TurnoversPercent(basic.turnovers(),basic.fieldGoalsAttempted(),basic.freeThrowsAttempted());
+				size++;
+			}
+		}
+		turnoversPercent=turnoversPercent/size;
+		return turnoversPercent;
+	}
+	
 	private Double TurnoversPercent(Double turnovers,Double fieldGoalsAttempted,Double freeThrowsAttempted){
 		try{
 			Double turnoversPercent=turnovers/(fieldGoalsAttempted+0.44*freeThrowsAttempted+turnovers);
@@ -412,6 +575,20 @@ public class PlayerCalculator {
 	}
 	
 	//使用率计算  usagePercent
+	
+	private Double UsagePercents(){
+		Double usagePercent=0.00;
+		int size=0;
+		for(PlayerStatsForCalculation player:list){
+			if(player.player().minutes()!=0){
+				usagePercent=usagePercent+UsagePercent(player);
+				size++;
+			}
+		}
+		usagePercent=usagePercent/size;
+		return usagePercent;
+	}
+	
 	private Double UsagePercent(PlayerStatsForCalculation play){
 		try{
 			Double usagePercent=(play.player().fieldGoalsAttempted()+play.player().threePointFieldGoalsAttempted()

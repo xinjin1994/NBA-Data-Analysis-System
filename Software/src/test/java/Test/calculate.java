@@ -21,13 +21,13 @@ import businessLogicService.matchesBLService.PlayerDataInMatchesService;
 
 public class calculate {
 	public static void printP(BasicPlayerStats basic){
-		System.out.println(basic.name()+" "+basic.minutes()+" "+basic.fieldGoalsMade()
-				+" "+basic.fieldGoalsAttempted()+" "+basic.threePointFieldGoalsMade()
-				+" "+basic.threePointFieldGoalsAttempted()+" "+basic.freeThrowsMade()
-				+" "+basic.freeThrowsAttempted()+" "+basic.offensiveRebounds()
-				+" "+basic.defensiveRebounds()+" "+basic.rebounds()
-				+" "+basic.assists()+" "+basic.steals()+" "+basic.blocks()
-				+" "+basic.turnovers()+" "+basic.personalFouls()+" "+basic.points());
+		System.out.println(basic.name()+"上场时间 "+basic.minutes()+"两分 "+basic.fieldGoalsMade()
+				+"两分试 "+basic.fieldGoalsAttempted()+"三分 "+basic.threePointFieldGoalsMade()
+				+"三分试 "+basic.threePointFieldGoalsAttempted()+"罚球 "+basic.freeThrowsMade()
+				+"罚球试 "+basic.freeThrowsAttempted()+"进攻篮板 "+basic.offensiveRebounds()
+				+"防守篮板 "+basic.defensiveRebounds()+"篮板 "+basic.rebounds()
+				+"助攻 "+basic.assists()+"抢断 "+basic.steals()+"盖帽 "+basic.blocks()
+				+"失误 "+basic.turnovers()+"犯规 "+basic.personalFouls()+"得分 "+basic.points());
 	}
 	
 	public static void printPY(BasicPlayerStats basic){
@@ -43,20 +43,20 @@ public class calculate {
 	}
 	
 	public static void printAY(AdvancedPlayerStats adv){
-		System.out.println(adv.defensiveReboundsPercent());
+		System.out.println(adv.trueScorePercent());
 	}
 	public static void main(String[] args){
 		PlayerDataInMatchesService playcal=new MatchesBL();
 		ArrayList<PlayerStatsForCalculation> player;
 		try {
-			player = playcal.getPlayerStatsForCalculation("Kobe Bryant");
+			player = playcal.getPlayerStatsForCalculation("Andrew Nicholson");
 			for(PlayerStatsForCalculation cal:player){
 				BasicPlayerStats basic=cal.player();
 				//printP(basic);
 			}
 			PlayerCalculator calcu=new PlayerCalculator(player);
 			AdvancedPlayerStats adv=calcu.getAdvancedStatsTotal();
-			printAY(adv);
+			printA(adv);
 		} catch (PlayerNotFound e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
