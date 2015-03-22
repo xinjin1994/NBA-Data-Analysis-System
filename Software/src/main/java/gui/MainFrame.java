@@ -5,6 +5,7 @@ import gui.game.GamePanel;
 import gui.player.PlayerPanel;
 import gui.statistic.PlayerStatisticPanel;
 import gui.statistic.StatisticPanel;
+import gui.statistic.TeamStatisticPanel;
 import gui.util.GUIUtility;
 
 import java.awt.BorderLayout;
@@ -107,6 +108,7 @@ public class MainFrame extends JFrame {
 				panel = new PlayerStatisticPanel();
 				break;
 			case TEAM_STATISTIC:
+				panel = new TeamStatisticPanel();
 				break;
 			}
 			panels.put(type, panel);
