@@ -82,12 +82,15 @@ public class TeamTableModel_GeneralRatio extends AbstractTableModel {
 			result = GUIUtility.formatDouble(tg.getOffensiveEfficiency());
 			break;
 		case 9:
-			result = GUIUtility.formatDouble(tg.getOffensiveReboundsEfficiency());
+			result = GUIUtility.formatDouble(tg.getDefensiveEfficiency());
 			break;
 		case 10:
-			result = GUIUtility.formatDouble(tg.getDefensiveReboundsEfficiency());
+			result = GUIUtility.formatDouble(tg.getOffensiveReboundsEfficiency());
 			break;
 		case 11:
+			result = GUIUtility.formatDouble(tg.getDefensiveReboundsEfficiency());
+			break;
+		case 12:
 			result = GUIUtility.formatDouble(tg.getStealsEfficiency());
 			break;
 		}

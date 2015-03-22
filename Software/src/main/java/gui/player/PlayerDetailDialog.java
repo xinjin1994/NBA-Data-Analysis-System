@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -17,11 +18,16 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.BoxLayout;
 
+import businessLogic.playersBL.PlayersBL;
+import vo.PlayerBasicStatsVO;
+import vo.PlayerVO;
 import enums.Terminology;
+import exceptions.PlayerNotFound;
 
 import java.awt.GridBagLayout;
 
 import gui.MainFrame;
+import gui.util.GUIUtility;
 import gui.util.LabelPanel;
 
 import java.awt.GridBagConstraints;
@@ -33,22 +39,9 @@ public class PlayerDetailDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			PlayerDetailDialog dialog = new PlayerDetailDialog();
-			
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
-	public PlayerDetailDialog() {
+	public PlayerDetailDialog(String name) {
 		super(MainFrame.currentFrame,true);
 		
 		setTitle("球员详情");
@@ -58,7 +51,14 @@ public class PlayerDetailDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 
-		ImageIcon image = new ImageIcon("E:\\assignment\\2015 I\\softwareIII\\迭代一数据\\players\\action\\Aaron Brooks.png");
+		PlayerVO vo = null;
+		try {
+			vo = new PlayersBL().getPlayerInfo(name);
+		} catch (PlayerNotFound e1) {
+			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
+		}
+		
+		ImageIcon image = vo.getAction();
 		JLabel lbl_photo = new JLabel(image);
 		lbl_photo.setBorder(new LineBorder(Color.BLACK,1));
 		contentPanel.add(lbl_photo,BorderLayout.WEST);
@@ -72,7 +72,7 @@ public class PlayerDetailDialog extends JDialog {
 				GridBagLayout gbl_pnl_basic = new GridBagLayout();
 				pnl_basic.setLayout(gbl_pnl_basic);
 				{
-					LabelPanel labelPanel = new LabelPanel("姓名","Aaron Brooks","");
+					LabelPanel labelPanel = new LabelPanel("姓名",vo.getName(),"");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.insets = new Insets(0, 0, 5, 0);
 					gbc_labelPanel.gridx = 0;
@@ -80,56 +80,56 @@ public class PlayerDetailDialog extends JDialog {
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 				}
 				{
-					LabelPanel labelPanel = new LabelPanel("球衣号","0","");
+					LabelPanel labelPanel = new LabelPanel("球衣号",vo.getNumber(),"");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = 0;
 					gbc_labelPanel.gridy = 1;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 				}
 				{
-					LabelPanel labelPanel = new LabelPanel("位置","GUARD","");
+					LabelPanel labelPanel = new LabelPanel("位置",vo.getPosition().toString(),"");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = 0;
 					gbc_labelPanel.gridy = 2;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 				}
 				{
-					LabelPanel labelPanel = new LabelPanel("身高","6/0","（英尺/英寸）");
+					LabelPanel labelPanel = new LabelPanel("身高",GUIUtility.formatDouble(vo.getHeight_Inch())+"/"+GUIUtility.formatDouble(vo.getHeight_Foot()),"（英尺/英寸）");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = 0;
 					gbc_labelPanel.gridy = 3;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 				}
 				{
-					LabelPanel labelPanel = new LabelPanel("体重","161","磅");
+					LabelPanel labelPanel = new LabelPanel("体重",GUIUtility.formatDouble(vo.getWeight_Pounds()),"磅");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = 0;
 					gbc_labelPanel.gridy = 4;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 				}
 				{
-					LabelPanel labelPanel = new LabelPanel("生日","JAN 14, 1985","");
+					LabelPanel labelPanel = new LabelPanel("生日",vo.getBirthday(),"");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = 0;
 					gbc_labelPanel.gridy = 5;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 				}
 				{
-					LabelPanel labelPanel = new LabelPanel("年龄","20","");
+					LabelPanel labelPanel = new LabelPanel("年龄",String.valueOf(vo.getAge()),"");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = 0;
 					gbc_labelPanel.gridy = 6;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 				}
 				{
-					LabelPanel labelPanel = new LabelPanel("球龄","5","年");
+					LabelPanel labelPanel = new LabelPanel("球龄",String.valueOf(vo.getExp()),"年");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = 0;
 					gbc_labelPanel.gridy = 7;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 				}
 				{
-					LabelPanel labelPanel = new LabelPanel("毕业学校","Oregon","");
+					LabelPanel labelPanel = new LabelPanel("毕业学校",vo.getSchool(),"");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = 0;
 					gbc_labelPanel.gridy = 8;
@@ -142,12 +142,19 @@ public class PlayerDetailDialog extends JDialog {
 				GridBagLayout gbl_pnl_tech = new GridBagLayout();
 				pnl_tech.setLayout(gbl_pnl_tech);
 				
+				PlayerBasicStatsVO bs = null;
+				try {
+					bs = new PlayersBL().getBasicPlayerStatsAverage(vo.getName());
+				} catch (PlayerNotFound e) {
+					JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
+				}
+				
 				int i = 0;
 				for(Terminology[] term = Terminology.getPlayerBasic();i < term.length;i++){
 					String unit = "";
 					if(i == 5 || i == 6 || i ==7)
 						unit = "%";
-					LabelPanel labelPanel = new LabelPanel(term[i].toString(),"123",unit);
+					LabelPanel labelPanel = new LabelPanel(term[i].toString(),bs.getProperty(term[i]),unit);
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = i%2;
 					gbc_labelPanel.gridy = i/2;

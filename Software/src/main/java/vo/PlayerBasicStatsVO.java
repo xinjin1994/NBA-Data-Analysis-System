@@ -2,9 +2,11 @@ package vo;
 
 import javax.swing.ImageIcon;
 
+import gui.util.GUIUtility;
 import helper.TypeTransform;
 import businessLogic.playersBL.BasicPlayerStats;
 import enums.Teams;
+import enums.Terminology;
 
 public class PlayerBasicStatsVO {
 	//
@@ -121,6 +123,43 @@ public class PlayerBasicStatsVO {
 
 	public double getPoints() {
 		return points;
+	}
+	
+	public String getProperty(Terminology term){
+		switch(term){
+		case ATTENDED:
+			return GUIUtility.formatDouble(this.games);
+		case PREMIERE:
+			return GUIUtility.formatDouble(this.gamesStarting);
+		case REB:
+			return GUIUtility.formatDouble(this.rebounds);
+		case AST:
+			return GUIUtility.formatDouble(this.assists);
+		case MIN:
+			return minutes;
+		case FGP:
+			return GUIUtility.formatDouble(this.fieldGoalPercentage);
+		case TPP:
+			return GUIUtility.formatDouble(this.threePointFieldGoalPercentage);
+		case FTM:
+			return GUIUtility.formatDouble(this.freeThrowPercentage);
+		case OFR:
+			return GUIUtility.formatDouble(this.offensiveRebounds);
+		case DFR:
+			return GUIUtility.formatDouble(this.defensiveRebounds);
+		case TOV:
+			return GUIUtility.formatDouble(this.turnovers);
+		case STL:
+			return GUIUtility.formatDouble(this.steals);
+		case BLK:
+			return GUIUtility.formatDouble(this.blocks);
+		case PF:
+			return GUIUtility.formatDouble(this.personalFouls);
+		case PTS:
+			return GUIUtility.formatDouble(this.points);
+		default:
+			return null;
+		}
 	}
 	
 	public void print(){

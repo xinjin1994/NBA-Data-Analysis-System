@@ -33,7 +33,7 @@ public enum Terminology {
 	}
 	
 	static public Terminology[] getPlayerBasic(){
-		//参赛场数、先发场数、篮板数、助攻数、在场时间、投篮命中率、三分命中率、罚球命中率、进攻数、防守数、抢断数、盖帽数、失误数、犯规数、得分
+		//参赛场数、先发场数、篮板数、助攻数、在场时间、投篮命中率、三分命中率、罚球命中率、进攻数、防守数、抢断数、盖帽数、犯规数、失误数、得分
 		return new Terminology[]{ATTENDED,PREMIERE,REB,AST,MIN,FGP,TPP,FTM,OFR,DFR,STL,BLK,TOV,PF,PTS};
 	}
 	static public Terminology[] getPlayerAdvanced(){

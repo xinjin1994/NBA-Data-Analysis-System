@@ -7,6 +7,7 @@ import enums.Position;
 import enums.Conference;
 import enums.Division;
 import vo.PlayerBasicStatsVO;
+import vo.PlayerPortraitVO;
 import vo.PlayerVO;
 import vo.PlayerAdvancedStatsVO;
 import exceptions.PlayerNotFound;
@@ -21,6 +22,7 @@ public interface PlayersBLService {
 	
 	//获取基本信息
 	public PlayerVO getPlayerInfo(String name) throws PlayerNotFound;
+	public ArrayList<PlayerPortraitVO> getPlayersPortrait(Conference con, Division div, Position pos) throws PlayerNotFound;
 	public ArrayList<PlayerVO> getAllPlayersInfo();
 	
 	//获取统计数据

@@ -3,7 +3,10 @@ package gui.player;
 import enums.Conference;
 import enums.Division;
 import enums.Position;
+import exceptions.PlayerNotFound;
+import gui.MainFrame;
 import gui.SelfAdjustPanel;
+import gui.enums.PanelType;
 import gui.util.ReturnButton;
 
 import java.awt.Component;
@@ -13,23 +16,33 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.ListModel;
 import javax.swing.ScrollPaneConstants;
+
+import vo.PlayerPortraitVO;
+import vo.PlayerVO;
+import businessLogic.playersBL.PlayersBL;
 
 public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 
 	private static final long serialVersionUID = 9090035509234357424L;
+	private JList<PortraitPanel> list;
 
 //	Image backgroundImage = null;
 //
@@ -65,10 +78,9 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 	        img.setImage(img.getImage().getScaledInstance(pWidth,pHeight,Image.SCALE_DEFAULT));
 	        g.drawImage(img.getImage(), 0, 0,pWidth,pHeight, this);  
 	    }
+	 
+	 
 	public PlayerPanel() {
-		
-		
-		
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
 		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, (int) (pWidth/(10/8.0)), pWidth/10};
 		gbl_pnl_menu.rowHeights = new int[]{pHeight/10,pHeight/10, pHeight/10, (int) (pHeight*(6/10.0)), pHeight/10};
@@ -76,49 +88,29 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 		gbl_pnl_menu.rowWeights = new double[]{1,1,1,1,1};
 		setLayout(gbl_pnl_menu);
 		
-		/*
+		ArrayList<PlayerPortraitVO> volist = null;
 		try {
-			ArrayList<PlayerVO> list = new PlayersBL().getAllPlayersInfo();
+			volist = new PlayersBL().getPlayersPortrait(Conference.NATIONAL, Division.NATIONAL, Position.ALL);
 		} catch (PlayerNotFound e) {
-			//TODO
+			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
 		}
 		
-		JScrollPane pane_list = new JScrollPane();
-		pane_list.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		JTable tbl_list = new JTable(new PlayerTableModel_Simple(null));// TODO
-		tbl_list.setFillsViewportHeight(true);
-		tbl_list.setRowSorter(new TableRowSorter<PlayerTableModel_Simple>());
-		tbl_list.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbl_list.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseClicked(MouseEvent me) {
-				if(me.getClickCount() == 2 && me.getButton() == MouseEvent.BUTTON1){
-					
-				}
-			}
-		});
-		pane_list.add(tbl_list);
-		GridBagConstraints gbc_pane_list = new GridBagConstraints();
-		gbc_pane_list.gridx = 1;
-		gbc_pane_list.gridy = 3;
-		gbc_pane_list.fill = GridBagConstraints.BOTH;
-		add(pane_list, gbc_pane_list);
-		*/
-		
-		
-		PortraitPanel_Stub[] plist = new PortraitPanel_Stub[10];
-		Arrays.fill(plist, new PortraitPanel_Stub());
-		JList<PortraitPanel_Stub> list = new JList<PortraitPanel_Stub>(plist);
-		list.setCellRenderer(new ListCellRenderer<PortraitPanel_Stub>(){
+		PortraitPanel[] plist = new PortraitPanel[volist.size()];
+		for(int i = 0;i < plist.length;i++){
+			plist[i] = new PortraitPanel(volist.get(i));
+		}
+		list = new JList<PortraitPanel>(plist);
+		list.setCellRenderer(new ListCellRenderer<PortraitPanel>(){
 			@Override
 			public Component getListCellRendererComponent(
-					JList<? extends PortraitPanel_Stub> list, PortraitPanel_Stub value,
+					JList<? extends PortraitPanel> list, PortraitPanel value,
 					int index, boolean isSelected, boolean cellHasFocus) {
 				return value;
 			}
 		});
 		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		list.setVisibleRowCount(-1);
+		list.setToolTipText("双击以查看详细信息");
 		JScrollPane pane_list = new JScrollPane(list);
 		pane_list.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_pane_list = new GridBagConstraints();
@@ -135,6 +127,12 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 		add(pnl_search, gbc_pnl_search);
 		
 		ReturnButton btn_return = new ReturnButton();
+		btn_return.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				MainFrame.mf.gotoPanel(PanelType.MENU);
+			}
+		});
 		GridBagConstraints gbc_btn_return = new GridBagConstraints();
 		gbc_btn_return.gridx = 1;
 		gbc_btn_return.gridy = 4;
@@ -145,17 +143,26 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 			@Override
 			public void mouseClicked(MouseEvent me){
 				if(me.getClickCount() == 2 && me.getButton() == MouseEvent.BUTTON1)
-					new PlayerDetailDialog().setVisible(true);
+					if(list.getSelectedValue()!=null)
+						new PlayerDetailDialog(list.getSelectedValue().getName()).setVisible(true);
 			}
 		});
 	}
 
-	public void buildList() {
-		// TODO Auto-generated method stub
-	}
 	@Override
 	public void buildList(Conference c, Division d, Position p) {
-		// TODO Auto-generated method stub
+		ArrayList<PlayerPortraitVO> volist = null;
+		try {
+			volist = new PlayersBL().getPlayersPortrait(c,d,p);
+		} catch (PlayerNotFound e) {
+			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
+		}
+		
+		DefaultListModel<PortraitPanel> model = new DefaultListModel<PortraitPanel>();
+		for(int i = 0;i < volist.size();i++){
+			model.addElement(new PortraitPanel(volist.get(i)));
+		}
+		list.setModel(model);
 	}
 	@Override
 	public void filterList(String name) {

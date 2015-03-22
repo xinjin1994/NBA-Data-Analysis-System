@@ -11,16 +11,21 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 
 import java.awt.Component;
+
 import javax.swing.border.CompoundBorder;
+
+import vo.PlayerPortraitVO;
 
 public class PortraitPanel extends JPanel {
 
 	private static final long serialVersionUID = -3196192629310865321L;
-
+	private String name;
 	/**
 	 * Create the panel.
 	 */
 	public PortraitPanel(ImageIcon image, String name) {
+		this.name = name;
+		
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -34,6 +39,14 @@ public class PortraitPanel extends JPanel {
 		lblName.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(lblName);
 		
+	}
+
+	public PortraitPanel(PlayerPortraitVO playerPortraitVO) {
+		this(playerPortraitVO.getPortrait(),playerPortraitVO.getName());
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

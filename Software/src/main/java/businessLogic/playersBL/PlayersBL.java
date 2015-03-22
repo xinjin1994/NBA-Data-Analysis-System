@@ -9,6 +9,7 @@ import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
+import vo.PlayerPortraitVO;
 import vo.PlayerVO;
 import enums.Conference;
 import enums.Division;
@@ -218,6 +219,39 @@ public class PlayersBL implements PlayersBLService {
 				
 				if(teams.contains(team)){
 					playerNames.add(player.name());
+				}
+			} catch (TeamNotFound e) {
+				//没找到的不管
+				continue;
+			}
+			
+		}
+		
+		return playerNames;
+	}
+	
+	public ArrayList<PlayerPortraitVO> getPlayersPortrait(Conference con, Division div, Position pos) throws PlayerNotFound {
+		ArrayList<PlayerPO> players = playersService.getAllPlayers();
+		ArrayList<PlayerPortraitVO> playerNames = new ArrayList<PlayerPortraitVO>();
+		
+		ArrayList<Teams> teams;
+		try {
+			teams = teamsService.getTeams(con, div);
+		} catch (TeamNotFound e1) {
+			throw new PlayerNotFound("该地区没有球队，没有球员");
+		}
+		
+		for(PlayerPO player: players){
+			if(player.position() != pos && pos != Position.ALL){
+				continue;
+			}
+			
+			try {
+				Teams team = matchesService.getTeam(player.name());
+				
+				if(teams.contains(team)){
+					ImageIcon portrait = imageService.getPlayerPortrait(player.name());
+					playerNames.add(new PlayerPortraitVO(player.name(),portrait));
 				}
 			} catch (TeamNotFound e) {
 				//没找到的不管
