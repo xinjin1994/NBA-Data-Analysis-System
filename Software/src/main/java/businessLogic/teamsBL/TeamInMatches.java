@@ -1,9 +1,11 @@
 package businessLogic.teamsBL;
 
+import vo.TeamDefensiveFoulsVO;
 import vo.TeamDefensiveStatsVO;
 import vo.TeamFoulsStatsVO;
 import vo.TeamGeneralStatsVO;
 import vo.TeamOffensiveStatsVO;
+import vo.TeamRatioGeneralVO;
 import vo.TeamRatioStatsVO;
 
 public class TeamInMatches {
@@ -44,6 +46,23 @@ public class TeamInMatches {
 				advanced.offensiveEfficiency, advanced.defensiveEfficiency, 
 				advanced.offensiveReboudnsEfficiency, advanced.defensiveReboundsEfficiency,
 				advanced.stealsEfficiency, advanced.assistsEfficiency);
+	}
+	
+	public TeamRatioGeneralVO getRatioGeneralVO(){
+		return new TeamRatioGeneralVO(basic.name, basic.games,
+				basic.fieldGoalsMade/basic.fieldGoalsAttempted,
+				basic.freeThrowsMade/basic.freeThrowsAttempted,
+				basic.threePointFieldGoalsMade/basic.threePointFieldGoalsAttempted,
+				basic.wins/basic.games, advanced.offensiveRounds, 
+				advanced.offensiveEfficiency, advanced.defensiveEfficiency, 
+				advanced.offensiveReboudnsEfficiency, advanced.defensiveReboundsEfficiency,
+				advanced.stealsEfficiency, advanced.assistsEfficiency);
+	}
+	
+	public TeamDefensiveFoulsVO getDefensiveFoulsVO(){
+		return new TeamDefensiveFoulsVO(basic.name, basic.games, basic.offensiveRebounds, 
+				basic.defensiveRebounds, basic.rebounds, basic.steals, basic.blocks, 
+				basic.turnovers, basic.fouls);
 	}
 	
 }

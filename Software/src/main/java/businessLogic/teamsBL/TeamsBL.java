@@ -3,10 +3,12 @@ package businessLogic.teamsBL;
 import java.util.ArrayList;
 
 import po.TeamPO;
+import vo.TeamDefensiveFoulsVO;
 import vo.TeamDefensiveStatsVO;
 import vo.TeamFoulsStatsVO;
 import vo.TeamGeneralStatsVO;
 import vo.TeamOffensiveStatsVO;
+import vo.TeamRatioGeneralVO;
 import vo.TeamRatioStatsVO;
 import vo.TeamVO;
 import dataService.teamsDataService.TeamsDataService;
@@ -115,7 +117,7 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 			try {
 				TeamInMatches match = this.getTeamInMatches(team);
 				result.add(match.getGeneralStatsVO());
-			} catch (MatchNotFound e) {
+			} catch (MatchNotFound | TeamNotFound e) {
 				continue;
 			}	
 		}
@@ -252,6 +254,59 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 			Division division) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsTotal(
+			Conference conference, Division division) throws TeamNotFound {
+		ArrayList<Teams> teams = this.getTeamsName(conference, division);
+		ArrayList<TeamRatioGeneralVO> result = new ArrayList<TeamRatioGeneralVO>();
+		
+		for(Teams team: teams){
+			try {
+				TeamInMatches match = this.getTeamInMatches(team);
+				result.add(match.getRatioGeneralVO());
+			} catch (MatchNotFound | TeamNotFound e) {
+				continue;
+			}	
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsTotal(
+			Conference conference, Division division) throws TeamNotFound {
+		ArrayList<Teams> teams = this.getTeamsName(conference, division);
+		ArrayList<TeamDefensiveFoulsVO> result = new ArrayList<TeamDefensiveFoulsVO>();
+		
+		for(Teams team: teams){
+			try{
+				TeamInMatches match = this.getTeamInMatches_basic(team);
+				result.add(match.getDefensiveFoulsVO());
+			}catch(TeamNotFound e){
+				continue;
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsAverage(
+			Conference conference, Division division) throws TeamNotFound {
+		ArrayList<TeamRatioGeneralVO> result = this.getTeamRatioGeneralStatsTotal(conference, division);
+		for(TeamRatioGeneralVO stats: result){
+			stats.average();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsAverage(
+			Conference conference, Division division) throws TeamNotFound {
+		return this.getTeamDefensiveFoulsStatsTotal(conference, division);
 	}
 
 }
