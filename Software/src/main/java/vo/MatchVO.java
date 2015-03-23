@@ -6,6 +6,7 @@ public class MatchVO {
 	//
 	Teams team1;
 	Teams team2;
+	String season;
 	String date;
 	String score;
 	String score1;
@@ -14,8 +15,8 @@ public class MatchVO {
 	String score4;
 	String scoreExtra;
 	
-	public MatchVO(Teams team1, Teams team2, String date, String score, String score1, String score2, 
-			String score3, String score4, String scoreExtra){
+	public MatchVO(String season, String date, Teams team1, Teams team2, String score, 
+			String score1, String score2, String score3, String score4, String scoreExtra){
 		this.team1 = team1;
 		this.team2 = team2;
 		this.date = date;
@@ -33,6 +34,10 @@ public class MatchVO {
 
 	public Teams getTeam2() {
 		return team2;
+	}
+	
+	public String getSeason() {
+		return season;
 	}
 	
 	public String getDate(){
@@ -64,6 +69,7 @@ public class MatchVO {
 	}
 	
 	
+
 	public void print(){
 		System.out.println(this.getDate() + "\n" +
 				this.getTeam1() + "-" + this.getTeam2() + "\n" +

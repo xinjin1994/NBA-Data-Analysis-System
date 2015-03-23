@@ -20,8 +20,9 @@ public class Match {
 	}
 	
 	public MatchVO getMatchVO(){
-		return new MatchVO(match.homeTeam(), match.guestTeam(), match.date(), match.score(), 
-				match.score1(), match.score2(), match.score3(), match.score4(), match.scoreExtra());
+		return new MatchVO(match.season(), match.date(), match.homeTeam(), match.guestTeam(),
+				match.score(), match.score1(), match.score2(), match.score3(), 
+				match.score4(), match.scoreExtra());
 	}
 	
 	public ArrayList<PlayerStatsPO> getTeamStats(Teams team){

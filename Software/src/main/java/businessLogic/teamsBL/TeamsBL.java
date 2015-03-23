@@ -20,11 +20,10 @@ import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import factory.TeamsCalculator;
 import businessLogicService.matchesBLService.TeamDataInMatchesService;
-import businessLogicService.teamsBLService.PlayersInTeamsService;
 import businessLogicService.teamsBLService.TeamInfoService;
 import businessLogicService.teamsBLService.TeamsBLService;
 
-public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLService {
+public class TeamsBL implements TeamInfoService, TeamsBLService {
 	//
 	TeamsDataService teamsService;
 	TeamDataInMatchesService matchesService;
@@ -246,13 +245,6 @@ public class TeamsBL implements TeamInfoService, PlayersInTeamsService, TeamsBLS
 	public TeamGeneralStatsVO getTeamStats(Teams team) {
 		// TODO Auto-generated method stub
 		// 暂时不用
-		return null;
-	}
-
-	@Override
-	public ArrayList<String> getPlayers(String season, Conference conference,
-			Division division) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

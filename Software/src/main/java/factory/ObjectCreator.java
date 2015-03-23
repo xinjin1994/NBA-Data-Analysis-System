@@ -1,20 +1,27 @@
 package factory;
 
+
 import businessLogic.matchesBL.MatchesBL;
 import businessLogic.teamsBL.TeamsBL;
 import businessLogicService.matchesBLService.PlayerDataInMatchesService;
 import businessLogicService.matchesBLService.TeamDataInMatchesService;
+import businessLogicService.teamsBLService.PlayersInTeamsService;
 import businessLogicService.teamsBLService.TeamInfoService;
 import data.imageData.ImageData;
 import data.matchesData.MatchesData;
+import data.matchesData.MatchesData_new;
 import data.playersData.PlayersData;
+import data.playersData.PlayersData_new;
 import data.teamsData.TeamsData;
 import data.teamsData.ReadTeams;
+import data.teamsData.TeamsData_new;
 import data.playersData.ReadPlayers;
 import data.matchesData.ReadMatches;
 import dataService.imageService.ImageService;
 import dataService.matchesDataService.MatchesDataService;
+import dataService.matchesDataService.MatchesDataService_new;
 import dataService.playersDataService.PlayersDataService;
+import dataService.playersDataService.PlayersDataService_new;
 import dataService.teamsDataService.TeamsDataService;
 
 public class ObjectCreator {
@@ -60,4 +67,35 @@ public class ObjectCreator {
 		return new ImageData();
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//用于*_new
+	public MatchesDataService_new matchesDataService_new(){
+		return new MatchesData_new();
+	}
+	
+	public PlayersDataService_new playersDataService_new(){
+		return new PlayersData_new();
+	}
+	
+	public TeamsDataService_new teamsDataService_new(){
+		return new TeamsData_new();
+	}
+	
+	public PlayersInTeamsService playersInTeamsService(){
+		return new TeamsData_new();
+	}
+	
+	
 }

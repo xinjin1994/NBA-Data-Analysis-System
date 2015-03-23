@@ -1,5 +1,7 @@
 package data.imageData;
 
+import java.io.File;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +15,9 @@ public class ImageData implements ImageService {
 	@Override
 	public ImageIcon getPlayerAction(String name) {
 		String filename = "players/action/" + name + ".png";
+		if(!fileExists(filename)){
+			filename = "players/action/action.png";
+		}
 		ImageIcon image = new ImageIcon(filename);
 		return image;
 	}
@@ -20,6 +25,9 @@ public class ImageData implements ImageService {
 	@Override
 	public ImageIcon getPlayerPortrait(String name) {
 		String filename = "players/portrait/" + name + ".png";
+		if(!fileExists(filename)){
+			filename = "players/portrait/portrait.png";
+		}
 		ImageIcon image = new ImageIcon(filename);
 		return image;
 	}
@@ -29,6 +37,15 @@ public class ImageData implements ImageService {
 		String filename = "teams/" + team.toAbbr() + ".png";
 		ImageIcon image = new ImageIcon(filename);
 		return image;
+	}
+	
+	private boolean fileExists(String path){
+		File file = new File(path);
+		if(file.exists()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	
