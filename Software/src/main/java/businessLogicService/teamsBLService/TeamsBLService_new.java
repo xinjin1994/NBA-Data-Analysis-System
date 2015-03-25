@@ -21,7 +21,7 @@ public interface TeamsBLService_new {
 	//获取球队数据
 	//总数
 	//进攻数据
-	public ArrayList<TeamOffensiveStatsVO> getTeamsOffensiveStatsTotal(Conference conference, Division division) throws TeamNotFound;
+	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsTotal(Conference conference, Division division) throws TeamNotFound;
 	//比率、总和数据
 	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsTotal(Conference conference, Division division) throws TeamNotFound;
 	//防守犯规数据
@@ -29,7 +29,7 @@ public interface TeamsBLService_new {
 	
 	//场均
 	//进攻数据
-	public ArrayList<TeamOffensiveStatsVO> getTeamsOffensiveStatsAverage(Conference conference, Division division) throws TeamNotFound;
+	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsAverage(Conference conference, Division division) throws TeamNotFound;
 	//比率、总和数据
 	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsAverage(Conference conference, Division division) throws TeamNotFound;
 	//防守犯规数据

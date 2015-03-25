@@ -61,6 +61,46 @@ public class PlayerBasicStatsVO {
 		this.points = stats.points();
 	}
 	
+	public PlayerBasicStatsVO(String name, Teams team, double games, double gamesStarting, 
+			String minutes, double rebounds, double ast, double fgp, double tpp, 
+			double ftp, double or, double dr, double stl, double blk, double tov, 
+			double fouls, double pts){
+		this.name = name;
+		this.team = team;
+		this.games = games;
+		this.gamesStarting = gamesStarting;
+		this.minutes = minutes;
+		this.rebounds = rebounds;
+		this.assists = ast;
+		this.fieldGoalPercentage = fgp;
+		this.threePointFieldGoalPercentage = tpp;
+		this.freeThrowPercentage = ftp;
+		this.offensiveRebounds = or;
+		this.defensiveRebounds = dr;
+		this.steals = stl;
+		this.blocks = blk;
+		this.turnovers = tov;
+		this.personalFouls = fouls;
+		this.points = pts;
+	}
+	
+	public void average(){
+		double min = TypeTransform.str_to_minutes(minutes);
+		this.minutes = TypeTransform.minutes_to_str(min/games);
+		this.rebounds /= games;
+		this.assists /= games;
+		this.fieldGoalPercentage /= games;
+		this.threePointFieldGoalPercentage /= games;
+		this.freeThrowPercentage /= games;
+		this.offensiveRebounds /= games;
+		this.defensiveRebounds /= games;
+		this.steals /= games;
+		this.blocks /= games;
+		this.turnovers /= games;
+		this.personalFouls /= games;
+		this.points /= games;
+	}
+	
 	public void addPortrait(ImageIcon image){
 		this.portrait = image;
 	}

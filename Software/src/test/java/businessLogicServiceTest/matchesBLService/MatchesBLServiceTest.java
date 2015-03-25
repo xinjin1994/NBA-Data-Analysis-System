@@ -39,7 +39,7 @@ public class MatchesBLServiceTest extends TestCase {
 		Teams team2 = Teams.PHX;
 		try {
 			MatchVO match = service.getMatchVO("13-14", "01-02", team1, team2);
-			MatchVO trueValue = new MatchVO(team1, team2, "01-02", "99-91", "22-26", 
+			MatchVO trueValue = new MatchVO("13-14", "01-02", team1, team2, "99-91", "22-26", 
 					"31-15", "16-32", "30-18", "无");
 			assertTrue(this.MatchVOEqual(match, trueValue));
 			
@@ -52,7 +52,7 @@ public class MatchesBLServiceTest extends TestCase {
 		
 		try {
 			MatchVO match = service.getMatchVO("13-14", "02-20", team1, team2);
-			MatchVO trueValue = new MatchVO(team1, team2, "02-20", "99-102", "24-20", 
+			MatchVO trueValue = new MatchVO("13-14", "02-20", team1, team2, "99-102", "24-20", 
 					"19-27", "24-24", "22-18", "10-13");
 			assertTrue(this.MatchVOEqual(match, trueValue));
 		} catch (TeamNotFound | MatchNotFound e) {

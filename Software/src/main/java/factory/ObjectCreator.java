@@ -3,6 +3,7 @@ package factory;
 
 import businessLogic.matchesBL.MatchesBL;
 import businessLogic.teamsBL.TeamsBL;
+import businessLogic.teamsBL.TeamsBL_new;
 import businessLogicService.matchesBLService.PlayerDataInMatchesService;
 import businessLogicService.matchesBLService.TeamDataInMatchesService;
 import businessLogicService.teamsBLService.PlayersInTeamsService;
@@ -23,6 +24,7 @@ import dataService.matchesDataService.MatchesDataService_new;
 import dataService.playersDataService.PlayersDataService;
 import dataService.playersDataService.PlayersDataService_new;
 import dataService.teamsDataService.TeamsDataService;
+import dataService.teamsDataService.TeamsDataService_new;
 
 public class ObjectCreator {
 	
@@ -94,7 +96,7 @@ public class ObjectCreator {
 	}
 	
 	public PlayersInTeamsService playersInTeamsService(){
-		return new TeamsData_new();
+		return new TeamsBL_new();
 	}
 	
 	

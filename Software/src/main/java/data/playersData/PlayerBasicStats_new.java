@@ -4,7 +4,7 @@ import enums.Position;
 
 public class PlayerBasicStats_new {
 	//某场比赛某个球员的所有基础统计数据
-	boolean gamesStarting;                   //是否
+	boolean gamesStarting;                   //是否首发
 	Position position;                       //位置
 	Double minutes;                          //在场时间
 	Double fieldGoalsMade;                   //投篮命中数

@@ -42,6 +42,25 @@ public class PlayerAdvancedStatsVO {
 		this.usagePercent = stats.usagePercent();
 	}
 	
+	public PlayerAdvancedStatsVO(String name, Teams team, double eff, double gmsc, 
+			double tsp, double fge, double rp, double orp, double drp, double ap, 
+			double sp, double bp, double tp, double up){
+		this.name = name;
+		this.team = team;
+		this.efficiency = eff;
+		this.GmSc = gmsc;
+		this.trueScorePercent = tsp;
+		this.fieldGoalEfficiency = fge;
+		this.reboundsPercent = rp;
+		this.offensiveReboundsPercent = orp;
+		this.defensiveReboundsPercent = drp;
+		this.assistsPercent = ap;
+		this.stealsPercent = sp;
+		this.blocksPercent = bp;
+		this.turnoversPercent = tp;
+		this.usagePercent = up;
+	}
+	
 	public void addPortrait(ImageIcon image){
 		this.portrait = image;
 	}
