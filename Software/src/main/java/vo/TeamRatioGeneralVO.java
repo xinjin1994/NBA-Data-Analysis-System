@@ -37,7 +37,7 @@ public class TeamRatioGeneralVO {
 	}
 	
 	public void average(){
-		
+		offensiveRounds /= games;
 	}
 
 	public Teams getTeam() {

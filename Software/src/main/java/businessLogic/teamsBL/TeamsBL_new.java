@@ -149,15 +149,106 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 	
 	
 	private TeamOffensiveStatsVO sum_offensive(ArrayList<TeamOffensiveStatsPO> poList){
-		return null;
+		Teams team = poList.get(0).getTeam();
+		int games = poList.size();
+		double points = 0;
+		double fieldGoalsMade = 0;
+		double fieldGoalsAttempted = 0;
+		double freeThrowsMade = 0;
+		double freeThrowsAttempted = 0;
+		double threePointFieldGoalsMade = 0;
+		double threePointFieldGoalsAttempted = 0;
+		double assists = 0;
+		for(TeamOffensiveStatsPO po: poList){
+			points += po.getPoints();
+			fieldGoalsMade += po.getFieldGoalsMade();
+			fieldGoalsAttempted += po.getFieldGoalsAttempted();
+			freeThrowsMade += po.getFreeThrowsMade();
+			freeThrowsAttempted += po.getFreeThrowsAttempted();
+			threePointFieldGoalsMade += po.getThreePointFieldGoalsMade();
+			threePointFieldGoalsAttempted += po.getThreePointFieldGoalsAttempted();
+			assists += po.getAssists();
+		}
+		
+		TeamOffensiveStatsVO vo = new TeamOffensiveStatsVO(team, games, points, fieldGoalsMade, 
+				fieldGoalsAttempted, freeThrowsMade, freeThrowsAttempted, threePointFieldGoalsMade, 
+				threePointFieldGoalsAttempted, assists);
+		return vo;
 	}
 	
 	private TeamDefensiveFoulsVO sum_defensive(ArrayList<TeamDefensiveFoulsStatsPO> poList){
-		return null;
+		Teams team = poList.get(0).getTeam();
+		int games = poList.get(0).getGames();
+		double offensiveRebounds = 0;
+		double defensiveRebounds = 0;
+		double rebounds = 0;
+		double steals = 0;
+		double blocks = 0;
+		double turnovers = 0;
+		double fouls = 0;
+		for(TeamDefensiveFoulsStatsPO po: poList){
+			offensiveRebounds += po.getOffensiveRebounds();
+			defensiveRebounds += po.getOffensiveRebounds();
+			rebounds += po.getRebounds();
+			steals += po.getSteals();
+			blocks += po.getBlocks();
+			turnovers += po.getTurnovers();
+			fouls += po.getFouls();
+		}
+		
+		TeamDefensiveFoulsVO vo = new TeamDefensiveFoulsVO(team, games, offensiveRebounds, 
+				defensiveRebounds, rebounds, steals, blocks, turnovers, fouls);
+		return vo;
+		
 	}
 	
 	private TeamRatioGeneralVO sum_ratio(ArrayList<TeamRatioGeneralStatsPO> poList){
-		return null;
+		Teams team = poList.get(0).getTeam();
+		int games = poList.get(0).getGames();
+		int fg_num = 0;
+		int ft_num = 0;
+		int tp_num = 0;
+		double fieldGoalsPercentage = 0;
+		double freeThrowsPercentage = 0;
+		double threePointFieldGoalsPercentage = 0;
+		double winningRating = 0;
+		double offensiveRounds = 0;
+		double offensiveEfficiency = 0;
+		double defensiveEfficiency = 0;
+		double offensiveReboundsEfficiency = 0;
+		double defensiveReboundsEfficiency = 0;
+		double stealsEfficiency = 0;
+		double assistsEfficiency = 0;
+		for(TeamRatioGeneralStatsPO po: poList){
+			fieldGoalsPercentage += po.getFieldGoalsPercentage();
+			freeThrowsPercentage += po.getFreeThrowsPercentage();
+			threePointFieldGoalsPercentage += po.getThreePointFieldGoalsPercentage();
+			winningRating += po.getWinningRating();
+		    offensiveRounds += po.getOffensiveRounds();
+			offensiveEfficiency += po.getOffensiveEfficiency();
+			defensiveEfficiency += po.getDefensiveEfficiency();
+			offensiveReboundsEfficiency += po.getOffensiveReboundsEfficiency();
+			defensiveReboundsEfficiency += po.getDefensiveReboundsEfficiency();
+			stealsEfficiency += po.getStealsEfficiency();
+			assistsEfficiency += po.getAssistsEfficiency();
+			if(po.getFieldGoalsAttempted() != 0){
+				fg_num++;
+			}
+			if(po.getFreeThrowsAttempted() != 0){
+				ft_num++;
+			}
+			if(po.getThreePointFieldGoalsAttempted() != 0){
+				tp_num++;
+			}
+		}
+		
+		TeamRatioGeneralVO vo = new TeamRatioGeneralVO(team, games, fieldGoalsPercentage/fg_num, 
+				freeThrowsPercentage/ft_num, threePointFieldGoalsPercentage/tp_num, 
+				winningRating/games, offensiveRounds, offensiveEfficiency/games, 
+				defensiveEfficiency/games, offensiveReboundsEfficiency/games, 
+				defensiveReboundsEfficiency/games, stealsEfficiency/games, 
+				assistsEfficiency/games);
+		return vo;
 	}
 
 }

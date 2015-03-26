@@ -103,14 +103,52 @@ public class TeamsData_new implements TeamsDataService_new {
 	@Override
 	public ArrayList<TeamRatioGeneralStatsPO> getRatioGeneralStats(Teams team)
 			throws TeamNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<TeamRatioGeneralStatsPO> poList = new ArrayList<TeamRatioGeneralStatsPO>();
+		for(Teams_new t: teams){
+			if(t.team == team){
+				ArrayList<TeamStats_new> stats = t.stats;
+				int wins = 0;
+				for(TeamStats_new s: stats){
+					if(s.basic.win){
+						wins++;
+					}
+				}
+				for(TeamStats_new s: stats){
+					TeamBasicStats_new basic = s.basic;
+					TeamAdvancedStats_new advanced = s.advanced;
+					TeamRatioGeneralStatsPO po = new TeamRatioGeneralStatsPO(team, stats.size(), 
+							wins, basic.fieldGoalsMade, basic.fieldGoalsAttempted, basic.freeThrowsMade,
+							basic.freeThrowsAttempted, basic.threePointFieldGoalsMade, 
+							basic.threePointFieldGoalsAttempted, basic.offensiveRebounds,
+							advanced.offensiveEfficiency, advanced.defensiveEfficiency, 
+							advanced.offensiveReboudnsEfficiency, advanced.defensiveReboundsEfficiency, 
+							advanced.stealsEfficiency, advanced.assistsEfficiency);
+					poList.add(po);
+				}
+			}
+		}
+		
+		return poList;
 	}
 
 	@Override
 	public ArrayList<TeamDefensiveFoulsStatsPO> getDefensiveFoulsStats(
 			Teams team) throws TeamNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<TeamDefensiveFoulsStatsPO> poList = new ArrayList<TeamDefensiveFoulsStatsPO>();
+		for(Teams_new t: teams){
+			if(t.team == team){
+				ArrayList<TeamStats_new> stats = t.stats;
+				for(TeamStats_new s: stats){
+					TeamBasicStats_new basic = s.basic;
+					TeamDefensiveFoulsStatsPO po = new TeamDefensiveFoulsStatsPO(team,
+							stats.size(), basic.offensiveRebounds, basic.defensiveRebounds, 
+							basic.rebounds, basic.steals, basic.blocks, basic.turnovers, 
+							basic.fouls);
+					poList.add(po);
+				}
+			}
+		}
+		
+		return poList;
 	}
 }
