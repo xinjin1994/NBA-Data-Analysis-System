@@ -12,13 +12,18 @@ public class MatchesData_new implements MatchesDataService_new {
 	
 	public MatchesData_new(ArrayList<Matches_new> matches) {
 		//仅用于数据初始化
-		if(matches == null){
+		if(MatchesData_new.matches == null){
 			MatchesData_new.matches = matches;
 		}
 	}
 	
 	public MatchesData_new() {
 		//do nothing
+	}
+	
+	public ArrayList<Matches_new> getData(){
+		//测试用
+		return matches;
 	}
 
 	@Override

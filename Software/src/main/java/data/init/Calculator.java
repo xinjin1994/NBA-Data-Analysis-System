@@ -1,6 +1,9 @@
 package data.init;
 
+import helper.TypeTransform;
+
 import java.util.ArrayList;
+
 
 
 
@@ -89,7 +92,7 @@ public class Calculator {
 		PlayerBasicStats_new player_new=new PlayerBasicStats_new();
 		player_new.setGamesStarting(player.isGameStarting());
 		player_new.setPosition(player.position());
-		player_new.setMinutes(Double.valueOf(player.minutes()));
+		player_new.setMinutes(TypeTransform.str_to_minutes(player.minutes()));
 		player_new.setFieldGoalsMade((double)player.fieldGoalsMade());
 		player_new.setFieldGoalsAttempted((double)player.fieldGoalsAttempted());
 		player_new.setThreePointFieldGoalsMade((double)player.threePointFieldGoalsMade());
@@ -178,7 +181,7 @@ public class Calculator {
 		Double turnovers=0.0;                        	
 		Double fouls=0.0;                            	
 		Double points=0.0;
-		String[] point=match.score().split(":");
+		String[] point=match.score().split("-");
 		if(point[0].compareTo(point[1])>=0){
 			win=true;
 		}
@@ -236,7 +239,7 @@ public class Calculator {
 		Double turnovers=0.0;                        	
 		Double fouls=0.0;                            	
 		Double points=0.0;
-		String[] point=match.score().split(":");
+		String[] point=match.score().split("-");
 		if(point[0].compareTo(point[1])<0){
 			win=true;
 		}
@@ -369,11 +372,11 @@ public class Calculator {
 		ArrayList<PlayerStatsPO> team2player=match.team2Players();
     	if(team==match.homeTeam()){
 			for(PlayerStatsPO po:team1player){
-				minutes_team=minutes_team+Double.valueOf(po.minutes());
+				minutes_team=minutes_team+TypeTransform.str_to_minutes(po.minutes());
 			}
 		}else{
 			for(PlayerStatsPO po:team2player){
-				minutes_team=minutes_team+Double.valueOf(po.minutes());
+				minutes_team=minutes_team+TypeTransform.str_to_minutes(po.minutes());
 			}
 		}
     	return minutes_team;

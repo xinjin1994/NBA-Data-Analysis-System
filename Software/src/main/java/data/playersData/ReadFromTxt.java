@@ -56,7 +56,7 @@ public class ReadFromTxt implements ReadPlayers {
 	String getInfo(String s){
 		//读取player文件时，从某一行信息筛选出需要的内容
 		String info = s.split("│")[1];
-		info = info.substring(0, info.length()-2);
+		info = info.substring(0, info.length()-1);
 		return info.trim();
 	}
 

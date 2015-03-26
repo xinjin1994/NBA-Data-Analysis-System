@@ -14,7 +14,7 @@ public class Players_new {
 	ArrayList<PlayerStats_new> stats;
 	
 	public Players_new(String name, PlayerPO info){
-		this.name = info.name();
+		this.name = name;
 		this.info = info;
 		games = 0;
 		stats = new ArrayList<PlayerStats_new>();

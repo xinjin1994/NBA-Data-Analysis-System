@@ -17,13 +17,18 @@ public class TeamsData_new implements TeamsDataService_new {
 	
 	public TeamsData_new(ArrayList<Teams_new> teams) {
 		//仅用于数据初始化
-		if(teams == null){
+		if(TeamsData_new.teams == null){
 			TeamsData_new.teams = teams;
 		}
 	}
 	
 	public TeamsData_new() {
 		//do nothing
+	}
+	
+	public ArrayList<Teams_new> getData(){
+		//测试用
+		return teams;
 	}
 
 	@Override

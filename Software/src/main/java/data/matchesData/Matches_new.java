@@ -7,46 +7,6 @@ import enums.Teams;
 public class Matches_new {
 	//某场比赛的球队、球员以外的信息
 	String season;                          //赛季
-	public void setSeason(String season) {
-		this.season = season;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public void setHomeTeam(Teams homeTeam) {
-		this.homeTeam = homeTeam;
-	}
-
-	public void setGuestTeam(Teams guestTeam) {
-		this.guestTeam = guestTeam;
-	}
-
-	public void setScore(String score) {
-		this.score = score;
-	}
-
-	public void setScore1(String score1) {
-		this.score1 = score1;
-	}
-
-	public void setScore2(String score2) {
-		this.score2 = score2;
-	}
-
-	public void setScore3(String score3) {
-		this.score3 = score3;
-	}
-
-	public void setScore4(String score4) {
-		this.score4 = score4;
-	}
-
-	public void setScoreExtra(String scoreExtra) {
-		this.scoreExtra = scoreExtra;
-	}
-
 	String date;                            //日期
 	Teams homeTeam;                         //主队
 	Teams guestTeam;                        //客队
@@ -76,7 +36,8 @@ public class Matches_new {
 		
 		return match;
 	}
-
+	
+	
 	public String getSeason() {
 		return season;
 	}
@@ -115,6 +76,46 @@ public class Matches_new {
 
 	public String getScoreExtra() {
 		return scoreExtra;
+	}
+	
+	public void setSeason(String season) {
+		this.season = season;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public void setHomeTeam(Teams homeTeam) {
+		this.homeTeam = homeTeam;
+	}
+
+	public void setGuestTeam(Teams guestTeam) {
+		this.guestTeam = guestTeam;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
+	public void setScore1(String score1) {
+		this.score1 = score1;
+	}
+
+	public void setScore2(String score2) {
+		this.score2 = score2;
+	}
+
+	public void setScore3(String score3) {
+		this.score3 = score3;
+	}
+
+	public void setScore4(String score4) {
+		this.score4 = score4;
+	}
+
+	public void setScoreExtra(String scoreExtra) {
+		this.scoreExtra = scoreExtra;
 	}
 	
 }

@@ -27,12 +27,13 @@ public class DataInit {
 		playerMap = new HashMap<String, Players_new>();
 		teamMap = new HashMap<Teams, Teams_new>();
 		matchList = new ArrayList<Matches_new>();
-		
+	}
+	
+	public void init(){
 		initHashMap();
 		distributeData();
 		
 		setupData();
-		
 	}
 	
 	private void initHashMap(){
@@ -47,14 +48,19 @@ public class DataInit {
 			Teams_new t = new Teams_new(team.name(), team);
 			teamMap.put(team.name(), t);
 		}
+		
 	}
 	
 	private void distributeData(){
-		ArrayList<MatchPO> matches = new ArrayList<MatchPO>();
+		ArrayList<MatchPO> matches = new data.matchesData.ReadFromTxt().readAllMatches();
 		for(MatchPO match: matches){
 			calculator = new Calculator(match);
 			ArrayList<PlayerStats_new> players = calculator.getPlayerStats();
 			for(PlayerStats_new player: players){
+				Players_new p = playerMap.get(player.getName());
+				if(p == null){
+					playerMap.put(player.getName(), new Players_new(player.getName(), null));
+				}
 				playerMap.get(player.getName()).addStats(player);
 			}
 			
@@ -72,7 +78,7 @@ public class DataInit {
 		for(Players_new player: playerMap.values()){
 			players.add(player);
 		}
-		new PlayersData_new(players); 
+		new PlayersData_new(players);
 		
 		ArrayList<Teams_new> teams = new ArrayList<Teams_new>();
 		for(Teams_new team: teamMap.values()){

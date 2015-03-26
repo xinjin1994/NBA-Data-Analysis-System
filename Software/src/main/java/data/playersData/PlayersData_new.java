@@ -15,13 +15,18 @@ public class PlayersData_new implements PlayersDataService_new {
 	
 	public PlayersData_new(ArrayList<Players_new> players) {
 		//仅用于数据初始化
-		if(players == null){
+		if(PlayersData_new.players == null){
 			PlayersData_new.players = players;
 		}
 	}
 	
 	public PlayersData_new() {
 		//do nothing
+	}
+	
+	public ArrayList<Players_new> getData(){
+		//测试用
+		return players;
 	}
 
 	@Override
@@ -41,6 +46,9 @@ public class PlayersData_new implements PlayersDataService_new {
 	public PlayerPO getPlayerInfo(String name) throws PlayerNotFound {
 		for(Players_new player: players){
 			if(player.name.equals(name)){
+				if(player.getInfo() == null){
+					throw new PlayerNotFound("没有该球员的信息");
+				}
 				return player.getInfo();
 			}
 		}
@@ -52,7 +60,9 @@ public class PlayersData_new implements PlayersDataService_new {
 	public ArrayList<PlayerPO> getAllPlayersInfo() {
 		ArrayList<PlayerPO> info = new ArrayList<PlayerPO>();
 		for(Players_new player: players){
-			info.add(player.getInfo());
+			if(player.getInfo() != null){
+				info.add(player.getInfo());
+			}
 		}
 		
 		return info;
