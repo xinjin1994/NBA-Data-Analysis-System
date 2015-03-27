@@ -34,7 +34,8 @@ public class PlayersData_new implements PlayersDataService_new {
 			throws PlayerNotFound {
 		ArrayList<String> names = new ArrayList<String>();
 		for(Players_new player: players){
-			if(player.team == team && player.getInfo().position() == pos){
+			if((team == Teams.ALL || player.team == team) &&
+					(pos == Position.ALL || player.getInfo().position() == pos)){
 				names.add(player.name);
 			}
 		}

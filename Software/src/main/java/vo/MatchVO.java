@@ -26,6 +26,7 @@ public class MatchVO {
 		this.score3 = score3;
 		this.score4 = score4;
 		this.scoreExtra = scoreExtra;
+		this.season = season;
 	}
 
 	public Teams getTeam1() {

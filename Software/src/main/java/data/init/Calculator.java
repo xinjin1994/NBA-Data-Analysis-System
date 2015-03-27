@@ -216,6 +216,7 @@ public class Calculator {
 		team.setAssists(assists);
 		team.setSteals(steals);
 		team.setBlocks(blocks);
+		team.setTurnovers(turnovers);
 		team.setFouls(fouls);
 		team.setPoints(points);
 		return team;
@@ -274,6 +275,7 @@ public class Calculator {
 		team.setAssists(assists);
 		team.setSteals(steals);
 		team.setBlocks(blocks);
+		team.setTurnovers(turnovers);
 		team.setFouls(fouls);
 		team.setPoints(points);
 		return team;

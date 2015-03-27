@@ -51,10 +51,10 @@ public class MatchesData_new implements MatchesDataService_new {
 			boolean seasonOK = season == null ||match.season.equals(season);
 			boolean dateOK = date == null || match.date.equals(date);
 			boolean teamOK;
-			if(team1 == null){
+			if(team1 == Teams.ALL){
 				teamOK = team2 == Teams.ALL || team2 == match.homeTeam 
 						                    || team2 == match.guestTeam;
-			}else if(team2 == null){
+			}else if(team2 == Teams.ALL){
 				teamOK = team1 == Teams.ALL || team1 == match.homeTeam 
 						                    || team1 == match.guestTeam;
 			}else{

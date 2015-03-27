@@ -81,6 +81,7 @@ public class PlayersBL_new implements PlayersBLService_new{
 
 	@Override
 	public ArrayList<PlayerVO> getAllPlayersInfo() {
+		//这个方法最好别用，读图片太慢
 		ArrayList<PlayerVO> voList = new ArrayList<PlayerVO>();
 		ArrayList<PlayerPO> poList = playerService.getAllPlayersInfo();
 		for(PlayerPO po: poList){
