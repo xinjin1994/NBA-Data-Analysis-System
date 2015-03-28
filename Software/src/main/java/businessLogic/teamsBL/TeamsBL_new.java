@@ -6,6 +6,8 @@ import po.TeamDefensiveFoulsStatsPO;
 import po.TeamOffensiveStatsPO;
 import po.TeamPO;
 import po.TeamRatioGeneralStatsPO;
+import data.imageData.ImageData;
+import dataService.imageService.ImageService;
 import dataService.teamsDataService.TeamsDataService_new;
 import vo.TeamDefensiveFoulsVO;
 import vo.TeamOffensiveStatsVO;
@@ -21,9 +23,11 @@ import businessLogicService.teamsBLService.TeamsBLService_new;
 
 public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 	TeamsDataService_new teamService;
+	ImageService imageService;
 	
 	public TeamsBL_new(){
 		teamService = new ObjectCreator().teamsDataService_new();
+		imageService = new ImageData();
 	}
 
 	@Override
@@ -31,6 +35,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 		TeamPO po = teamService.getTeam(team);
 		TeamVO vo = new TeamVO(po.name(), team.toAbbr(), po.location(), po.conference(),
 				po.division(), po.homeCourt(), po.yearOfEstablishment());
+		vo.setImage(imageService.getTeamImage(team));
 		return vo;
 	}
 
@@ -41,6 +46,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 		for(TeamPO po: poList){
 			TeamVO vo = new TeamVO(po.name(), po.abbreviationOfName(), po.location(), po.conference(),
 					po.division(), po.homeCourt(), po.yearOfEstablishment());
+			vo.setImage(imageService.getTeamImage(po.name()));
 			voList.add(vo);
 		}
 		
@@ -55,6 +61,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 		for(TeamPO po: poList){
 			TeamVO vo = new TeamVO(po.name(), po.abbreviationOfName(), po.location(), po.conference(),
 					po.division(), po.homeCourt(), po.yearOfEstablishment());
+			vo.setImage(imageService.getTeamImage(po.name()));
 			voList.add(vo);
 		}
 		
@@ -72,7 +79,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 			voList.add(vo);
 		}
 		
-		return null;
+		return voList;
 	}
 
 	@Override
@@ -86,7 +93,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 			voList.add(vo);
 		}
 		
-		return null;
+		return voList;
 	}
 
 	@Override
@@ -100,7 +107,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 			voList.add(vo);
 		}
 		
-		return null;
+		return voList;
 	}
 
 	@Override
@@ -188,7 +195,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 		double fouls = 0;
 		for(TeamDefensiveFoulsStatsPO po: poList){
 			offensiveRebounds += po.getOffensiveRebounds();
-			defensiveRebounds += po.getOffensiveRebounds();
+			defensiveRebounds += po.getDefensiveRebounds();
 			rebounds += po.getRebounds();
 			steals += po.getSteals();
 			blocks += po.getBlocks();

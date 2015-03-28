@@ -37,7 +37,7 @@ public class PlayersBLService_newTest extends TestCase {
 		assertTrue(list.size() == 448);
 	}
 	
-	public void testGetBasic() {
+	public void testGetStats() {
 		Conference con = Conference.NATIONAL;
 		Division div = Division.NATIONAL;
 		Position pos = Position.ALL;
@@ -54,5 +54,7 @@ public class PlayersBLService_newTest extends TestCase {
 			assertTrue(false);
 		}
 	}
+	
+	
 
 }

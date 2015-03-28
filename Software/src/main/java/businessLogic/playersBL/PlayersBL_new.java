@@ -228,40 +228,86 @@ public class PlayersBL_new implements PlayersBLService_new{
 	}
 	
 	private PlayerAdvancedStatsVO average_advanced(ArrayList<PlayerAdvancedStatsPO> poList) {
-		int games = 0;
 		String name = poList.get(0).getName();
 		Teams team = poList.get(0).getTeam();
 		double efficiency = 0;
+		int n_pe = 0;
 		double GmSc = 0;
+		int n_gs = 0;
 		double trueScore = 0;
+		int n_ts = 0;
 		double fieldGoal = 0;
+		int n_fg = 0;
 		double rebounds = 0;
+		int n_rp = 0;
 		double offensiveRebounds = 0;
+		int n_orp = 0;
 		double defensiveRebounds = 0;
+		int n_drp = 0;
 		double assists = 0;
+		int n_ap = 0;
 		double steals = 0;
+		int n_sp = 0;
 		double blocks = 0;
+		int n_bp = 0;
 		double turnovers = 0;
+		int n_tp = 0;
 		double usage = 0;
+		int n_up = 0;
 		for(PlayerAdvancedStatsPO po: poList){
-			games++;
-			efficiency += po.getPlayerEfficiency();
-			GmSc += po.getGmsc();
-			trueScore += po.getTrueScorePercent();
-			fieldGoal += po.getFieldGoalsPercent();
-			rebounds += po.getReboundsPercent();
-			offensiveRebounds += po.getOffensiveReboundsPercent();
-			defensiveRebounds += po.getDefensiveReboundsPercent();
-			assists += po.getAssistsPercent();
-			steals += po.getStealsPercent();
-			blocks += po.getBlockPercent();
-			turnovers += po.getTurnoversPercent();
-			usage += po.getUsagePercent();
+			if(po.getPlayerEfficiency() != null){
+				efficiency += po.getPlayerEfficiency();
+				n_pe++;
+			}
+			if(po.getGmsc() != null){
+				GmSc += po.getGmsc();
+				n_gs++;
+			}
+			if(po.getTrueScorePercent() != null){
+				trueScore += po.getTrueScorePercent();
+				n_ts++;
+			}
+			if(po.getFieldGoalsPercent() != null){
+				fieldGoal += po.getFieldGoalsPercent();
+				n_fg++;
+			}
+			if(po.getReboundsPercent() != null){
+				rebounds += po.getReboundsPercent();
+				n_rp++;
+			}
+			if(po.getOffensiveReboundsPercent() != null){
+				offensiveRebounds += po.getOffensiveReboundsPercent();
+				n_orp++;
+			}
+			if(po.getDefensiveReboundsPercent() != null){
+				defensiveRebounds += po.getDefensiveReboundsPercent();
+				n_drp++;
+			}
+			if(po.getAssistsPercent() != null){
+				assists += po.getAssistsPercent();
+				n_ap++;
+			}
+			if(po.getStealsPercent() != null){
+				steals += po.getStealsPercent();
+				n_sp++;
+			}
+			if(po.getBlockPercent() != null){
+				blocks += po.getBlockPercent();
+				n_bp++;
+			}
+			if(po.getTurnoversPercent() != null){
+				turnovers += po.getTurnoversPercent();
+				n_tp++;
+			}
+			if(po.getUsagePercent() != null){
+				usage += po.getUsagePercent();
+				n_up++;
+			}
 		}
-		PlayerAdvancedStatsVO vo = new PlayerAdvancedStatsVO(name, team, efficiency/games, 
-				GmSc/games, trueScore/games, fieldGoal/games, rebounds/games, 
-				offensiveRebounds/games, defensiveRebounds/games, assists/games,
-				steals/games, blocks/games, turnovers/games, usage/games);
+		PlayerAdvancedStatsVO vo = new PlayerAdvancedStatsVO(name, team, efficiency/n_pe, 
+				GmSc/n_gs, trueScore/n_ts, fieldGoal/n_fg, rebounds/n_rp, 
+				offensiveRebounds/n_orp, defensiveRebounds/n_drp, assists/n_ap,
+				steals/n_sp, blocks/n_bp, turnovers/n_tp, usage/n_up);
 		
 		return vo;
 	}
