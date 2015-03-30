@@ -61,13 +61,13 @@ public class MainFrame extends JFrame {
 		screen = Toolkit.getDefaultToolkit().getScreenSize();
 
 		//和屏幕一样大
-		this.setSize(screen);
+		this.setSize(1000,600);//固定窗口大小
 		
 		setTitle("NBA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(800, 640));
 		GUIUtility.setCenter(this);
-		this.setResizable(true);
+		this.setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
