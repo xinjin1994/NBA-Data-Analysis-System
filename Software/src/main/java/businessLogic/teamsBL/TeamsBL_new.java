@@ -1,6 +1,7 @@
 package businessLogic.teamsBL;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import po.TeamDefensiveFoulsStatsPO;
 import po.TeamOffensiveStatsPO;
@@ -10,12 +11,14 @@ import data.imageData.ImageData;
 import dataService.imageService.ImageService;
 import dataService.teamsDataService.TeamsDataService_new;
 import vo.TeamDefensiveFoulsVO;
+import vo.TeamHotStatsVO;
 import vo.TeamOffensiveStatsVO;
 import vo.TeamRatioGeneralVO;
 import vo.TeamVO;
 import enums.Conference;
 import enums.Division;
 import enums.Teams;
+import enums.Terminology;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import businessLogicService.teamsBLService.PlayersInTeamsService;
@@ -256,6 +259,43 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 				defensiveReboundsEfficiency/games, stealsEfficiency/games, 
 				assistsEfficiency/games);
 		return vo;
+	}
+	
+	
+	
+	//迭代二
+
+	@Override
+	public ArrayList<Date> getAvailableDays(String season, Teams team) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<TeamHotStatsVO> getHotTeams(String season,
+			Terminology term, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamOffensiveStatsVO getOffensiveStats(String season, Date date,
+			Teams team) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamDefensiveFoulsVO getDefensiveStats(String season, Date date,
+			Teams team) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamRatioGeneralVO getRatioStats(String season, Date date, Teams team) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

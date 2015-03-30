@@ -1,5 +1,9 @@
 package helper;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TypeTransform {
 	public static Double str_to_minutes(String min){
 		if(min == null || min.equals("")){
@@ -22,5 +26,23 @@ public class TypeTransform {
 		int m = (int)min;
 		int s = (int)((min - m) * 60);
 		return String.valueOf(m) + ":" + String.valueOf(s);
+	}
+	
+	public static Date str_to_date(String s){
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+		try {
+			Date date = sdf.parse(s);
+			return date;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static String date_to_str(Date d){
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
+		String s = sdf.format(d);
+		return s;
 	}
 }

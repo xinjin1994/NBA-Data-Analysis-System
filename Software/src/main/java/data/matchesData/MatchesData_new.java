@@ -73,5 +73,29 @@ public class MatchesData_new implements MatchesDataService_new {
 			throw new MatchNotFound("比赛不存在");
 		}
 	}
+
+	@Override
+	public ArrayList<String> getAvailableSeasons() {
+		ArrayList<String> seasons = new ArrayList<String>();
+		for(Matches_new match: matches){
+			if(!seasons.contains(match.season)){
+				seasons.add(match.season);
+			}
+		}
+		
+		return seasons;
+	}
+
+	@Override
+	public ArrayList<String> getAvailableDays(String season) {
+		ArrayList<String> days = new ArrayList<String>();
+		for(Matches_new match: matches){
+			if(match.season.equals(season) && !days.contains(match.date)){
+				days.add(match.season);
+			}
+		}
+		
+		return days;
+	}
 	
 }

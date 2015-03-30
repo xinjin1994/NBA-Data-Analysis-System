@@ -14,4 +14,8 @@ public interface MatchesDataService_new {
 	//条件筛选
 	public ArrayList<MatchPO_new> getMatches(String season, String date, Teams team1, 
 			Teams team2) throws MatchNotFound;
+	
+	//迭代二
+	ArrayList<String> getAvailableSeasons();
+	ArrayList<String> getAvailableDays(String season);
 }

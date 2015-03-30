@@ -27,6 +27,7 @@ public class PlayerBasicStatsVO {
 	double turnovers;                                //失误数
 	double personalFouls;                              //犯规数
 	double points;                                   //个人得分
+	double doubleDoubles;                            //两双数
 	ImageIcon portrait;                             //头像
 	
 	public PlayerBasicStatsVO(BasicPlayerStats stats){
@@ -99,6 +100,7 @@ public class PlayerBasicStatsVO {
 		this.turnovers /= games;
 		this.personalFouls /= games;
 		this.points /= games;
+		this.doubleDoubles /= games;
 	}
 	
 	public void addPortrait(ImageIcon image){
@@ -175,6 +177,10 @@ public class PlayerBasicStatsVO {
 
 	public double getPoints() {
 		return points;
+	}
+	
+	public double getDoubleDoubles() {
+		return doubleDoubles;
 	}
 	
 	public String getProperty(Terminology term){

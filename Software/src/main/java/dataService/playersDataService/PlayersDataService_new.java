@@ -25,4 +25,12 @@ public interface PlayersDataService_new {
 	
 	//高级数据
 	public ArrayList<PlayerAdvancedStatsPO> getAdvancedStats(String name) throws PlayerNotFound;
+	
+	//迭代二
+	//获取单场比赛数据
+	public PlayerBasicStatsPO getBasicStats(String season, String date, String player) throws PlayerNotFound;
+	public PlayerAdvancedStatsPO getAdvancedStats(String season, String date, String player) throws PlayerNotFound;
+	
+	//获取比赛日期
+	public ArrayList<String> getAvailableDays(String season, String player) throws PlayerNotFound;
 }

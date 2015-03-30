@@ -112,5 +112,61 @@ public class PlayersData_new implements PlayersDataService_new {
 			throw new PlayerNotFound("该球员未找到");
 		}
 	}
+
+	@Override
+	public PlayerBasicStatsPO getBasicStats(String season, String date,
+			String player) throws PlayerNotFound {
+		for(Players_new p: players){
+			if(p.name.equals(player)){
+				ArrayList<PlayerStats_new> stats = p.stats;
+				for(PlayerStats_new s: stats){
+					if(s.season.equals(season) && s.date.equals(date)){
+						return new PlayerBasicStatsPO(player, s.team, s.basic);
+					}
+				}
+			}
+		}
+		
+		throw new PlayerNotFound("当天没有该球员的比赛");
+	}
+
+	@Override
+	public PlayerAdvancedStatsPO getAdvancedStats(String season, String date,
+			String player) throws PlayerNotFound {
+		for(Players_new p: players){
+			if(p.name.equals(player)){
+				ArrayList<PlayerStats_new> stats = p.stats;
+				for(PlayerStats_new s: stats){
+					if(s.season.equals(season) && s.date.equals(date)){
+						return new PlayerAdvancedStatsPO(player, s.team, s.advanced);
+					}
+				}
+			}
+		}
+		
+		throw new PlayerNotFound("当天没有该球员的比赛");
+	}
+
+	@Override
+	public ArrayList<String> getAvailableDays(String season, String player)
+			throws PlayerNotFound {
+		ArrayList<String> dates = new ArrayList<String>();
+		for(Players_new p: players){
+			if(p.name.equals(player)){
+				ArrayList<PlayerStats_new> stats = p.stats;
+				for(PlayerStats_new s: stats){
+					if(s.season.equals(season)){
+						dates.add(s.date);
+					}
+				}
+			}
+		}
+		
+		if(dates.size() != 0){
+			return dates;
+		}else{
+			throw new PlayerNotFound("该赛季没有该球员的比赛");
+		}
+	}
 	
 }

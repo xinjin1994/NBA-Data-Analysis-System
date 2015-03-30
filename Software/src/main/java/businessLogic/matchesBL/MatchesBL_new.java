@@ -1,6 +1,7 @@
 package businessLogic.matchesBL;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import po.MatchPO_new;
 import dataService.matchesDataService.MatchesDataService_new;
@@ -42,6 +43,71 @@ public class MatchesBL_new implements MatchesBLService {
 		}
 		
 		return voList;
+	}
+	
+	
+	
+	
+	//迭代二
+
+	@Override
+	public ArrayList<String> getAvailableSeasons() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Date> getAvailableDays(String season) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MatchVO getMatch(String season, Date date, String player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MatchVO getMatch(String season, Date date, Teams team) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<MatchVO> getMatch(Teams team, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<MatchVO> getMatch(String player, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<MatchVO> getMatchByDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<MatchVO> getMatchByDate(Date date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<MatchVO> getMatchBySeason() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<MatchVO> getMatchBySeason(String season) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

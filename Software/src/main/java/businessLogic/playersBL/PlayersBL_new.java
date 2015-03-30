@@ -2,6 +2,7 @@ package businessLogic.playersBL;
 
 import helper.TypeTransform;
 
+import java.util.Date;
 import java.util.ArrayList;
 
 import po.PlayerAdvancedStatsPO;
@@ -11,6 +12,7 @@ import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService_new;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
+import vo.PlayerHotStatsVO;
 import vo.PlayerPortraitVO;
 import vo.PlayerVO;
 import enums.Conference;
@@ -200,13 +202,14 @@ public class PlayersBL_new implements PlayersBLService_new{
 			}catch(Exception e){
 				//除0
 			}
-			offensiveRebounds = po.getOffensiveRebounds();
-			defensiveRebounds = po.getDefensiveRebounds();
-			steals = po.getSteals();
-			blocks = po.getBlocks();
-			turnovers = po.getTurnovers();
-			personalFouls = po.getPersonalFouls();
-			points = po.getPoints();
+			offensiveRebounds += po.getOffensiveRebounds();
+			defensiveRebounds += po.getDefensiveRebounds();
+			steals += po.getSteals();
+			blocks += po.getBlocks();
+			turnovers += po.getTurnovers();
+			personalFouls += po.getPersonalFouls();
+			points += po.getPoints();
+
 		}
 		
 		if(fg_num != 0){
@@ -310,6 +313,46 @@ public class PlayersBL_new implements PlayersBLService_new{
 				steals/n_sp, blocks/n_bp, turnovers/n_tp, usage/n_up);
 		
 		return vo;
+	}
+	
+	
+	
+	
+	//迭代二
+
+	@Override
+	public ArrayList<Date> getAvailableDays(String season, String player)
+			throws PlayerNotFound {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<PlayerAdvancedStatsVO> getAdvancedStats(String season,
+			Date date, String player) throws PlayerNotFound {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<PlayerBasicStatsVO> getBasicStats(String season,
+			Date date, String player) throws PlayerNotFound {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season,
+			Date date, String player, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<PlayerHotStatsVO> getHotPlayersBySeason(
+			String season, String player, int num) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
