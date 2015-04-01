@@ -1,5 +1,6 @@
 package helper;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,9 +24,11 @@ public class TypeTransform {
 		if(Math.abs(min) < 0.001){
 			return "0";
 		}
+
+		DecimalFormat format = new DecimalFormat("00");
 		int m = (int)min;
 		int s = (int)((min - m) * 60);
-		return String.valueOf(m) + ":" + String.valueOf(s);
+		return format.format(m) + ":" + format.format(s);
 	}
 	
 	public static Date str_to_date(String s){

@@ -356,7 +356,6 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 	}
 	
 	class CompareTeamHotStats implements Comparator<TeamHotStatsVO> {
-
 		@Override
 		public int compare(TeamHotStatsVO o1, TeamHotStatsVO o2) {
 			if(o1.getStats() > o2.getStats()){
