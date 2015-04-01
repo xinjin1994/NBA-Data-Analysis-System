@@ -1,7 +1,5 @@
 package gui.statistic;
 
-import gui.util.GUIUtility;
-
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
@@ -35,7 +33,7 @@ public class PlayerTableModel_Advanced extends AbstractTableModel {
 	
 	@Override
 	public Class<?> getColumnClass(int col){
-		return Object.class; 
+		return getValueAt(0,col).getClass(); 
 	}
 	
 	public void updateData(ArrayList<PlayerAdvancedStatsVO> data){
@@ -53,40 +51,40 @@ public class PlayerTableModel_Advanced extends AbstractTableModel {
 			result = pl.getName();
 			break;
 		case 1:
-			result = GUIUtility.formatDouble(pl.getEfficiency());
+			result = pl.getEfficiency();
 			break;
 		case 2:
-			result = GUIUtility.formatDouble(pl.getGmSc());
+			result = pl.getGmSc();
 			break;
 		case 3:
-			result = GUIUtility.formatDouble(pl.getTrueScorePercent());
+			result = pl.getTrueScorePercent();
 			break;
 		case 4:
-			result = GUIUtility.formatDouble(pl.getFieldGoalEfficiency());
+			result = pl.getFieldGoalEfficiency();
 			break;
 		case 5:
-			result = GUIUtility.formatDouble(pl.getReboundsPercent());
+			result = pl.getReboundsPercent();
 			break;
 		case 6:
-			result = GUIUtility.formatDouble(pl.getOffensiveReboundsPercent());
+			result = pl.getOffensiveReboundsPercent();
 			break;
 		case 7:
-			result = GUIUtility.formatDouble(pl.getDefensiveReboundsPercent());
+			result = pl.getDefensiveReboundsPercent();
 			break;
 		case 8:
-			result = GUIUtility.formatDouble(pl.getAssistsPercent());
+			result = pl.getAssistsPercent();
 			break;
 		case 9:
-			result = GUIUtility.formatDouble(pl.getStealsPercent());
+			result = pl.getStealsPercent();
 			break;
 		case 10:
-			result = GUIUtility.formatDouble(pl.getBlocksPercent());
+			result = pl.getBlocksPercent();
 			break;
 		case 11:
-			result = GUIUtility.formatDouble(pl.getTurnoversPercent());
+			result = pl.getTurnoversPercent();
 			break;
 		case 12:
-			result = GUIUtility.formatDouble(pl.getUsagePercent());
+			result = pl.getUsagePercent();
 			break;
 		}
 		if(result == null)

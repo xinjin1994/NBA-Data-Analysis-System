@@ -1,7 +1,5 @@
 package gui.statistic;
 
-import gui.util.GUIUtility;
-
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
@@ -35,7 +33,7 @@ public class PlayerTableModel_Basic extends AbstractTableModel {
 	
 	@Override
 	public Class<?> getColumnClass(int col){
-		return Object.class; 
+		return getValueAt(1,col).getClass(); 
 	}
 	
 	public void updateData(ArrayList<PlayerBasicStatsVO> data){
@@ -53,55 +51,55 @@ public class PlayerTableModel_Basic extends AbstractTableModel {
 			result = pl.getName();
 			break;
 		case 1:
-			result = GUIUtility.formatDouble(pl.getGames());
+			result = pl.getGames();
 			break;
 		case 2:
-			result = GUIUtility.formatDouble(pl.getGamesStarting());
+			result = pl.getGamesStarting();
 			break;
 		case 3:
-			result = GUIUtility.formatDouble(pl.getRebounds());
+			result = pl.getRebounds();
 			break;
 		case 4:
-			result = GUIUtility.formatDouble(pl.getAssists());
+			result = pl.getAssists();
 			break;
 		case 5:
 			result = pl.getMinutes();
 			break;
 		case 6:
-			result = GUIUtility.formatDouble(pl.getFieldGoalPercentage());
+			result = pl.getFieldGoalPercentage();
 			break;
 		case 7:
-			result = GUIUtility.formatDouble(pl.getThreePointFieldGoalPercentage());
+			result = pl.getThreePointFieldGoalPercentage();
 			break;
 		case 8:
-			result = GUIUtility.formatDouble(pl.getFreeThrowPercentage());
+			result = pl.getFreeThrowPercentage();
 			break;
 		case 9:
-			result = GUIUtility.formatDouble(pl.getOffensiveRebounds());
+			result = pl.getOffensiveRebounds();
 			break;
 		case 10:
-			result = GUIUtility.formatDouble(pl.getDefensiveRebounds());
+			result = pl.getDefensiveRebounds();
 			break;
 		case 11:
-			result = GUIUtility.formatDouble(pl.getSteals());
+			result = pl.getSteals();
 			break;
 		case 12:
-			result = GUIUtility.formatDouble(pl.getBlocks());
+			result = pl.getBlocks();
 			break;
 		case 13:
-			result = GUIUtility.formatDouble(pl.getTurnovers());
+			result = pl.getTurnovers();
 			break;
 		case 14:
-			result = GUIUtility.formatDouble(pl.getPersonalFouls());
+			result = pl.getPersonalFouls();
 			break;
 		case 15:
-			result = GUIUtility.formatDouble(pl.getPoints());
+			result = pl.getPoints();
 			break;
 		case 16:
-			result = GUIUtility.formatDouble(pl.getPoints()+pl.getRebounds()+pl.getAssists());
+			result = pl.getPoints()+pl.getRebounds()+pl.getAssists();
 			break;
 		case 17:
-			result = GUIUtility.formatDouble(pl.getDoubleDoubles());
+			result = pl.getDoubleDoubles();
 			/*int doubledouble = 0;
 			if(pl.getRebounds() >= 10)
 				doubledouble++;

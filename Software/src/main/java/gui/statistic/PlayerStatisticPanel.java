@@ -10,6 +10,7 @@ import gui.SelfAdjustPanel;
 import gui.enums.PanelType;
 import gui.player.PlayerSearch;
 import gui.player.SearchPlayerPanel;
+import gui.util.LeftAlignTableRenderer;
 import gui.util.ReturnButton;
 
 import java.awt.GridBagConstraints;
@@ -52,7 +53,7 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		playerService = new ObjectCreator().playersBLService();
 		
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
-		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, (int) (pWidth/(10/8.0)), pWidth/10};
+		gbl_pnl_menu.columnWidths = new int[]{pWidth/20, (int) (pWidth/(20/18.0)), pWidth/20};
 		gbl_pnl_menu.rowHeights = new int[]{pHeight/10,pHeight/10, pHeight/10, (int) (pHeight*(6/10.0)), pHeight/10};
 		gbl_pnl_menu.columnWeights = new double[]{1,1,1};
 		gbl_pnl_menu.rowWeights = new double[]{1,1,1,1,1};
@@ -61,6 +62,10 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		getList(Conference.NATIONAL,Division.NATIONAL,Position.ALL);
 
 		tbl_basicList = new JTable(new PlayerTableModel_Basic(basicList_average));
+		tbl_basicList.setDefaultRenderer(int.class, new LeftAlignTableRenderer());
+		tbl_basicList.setDefaultRenderer(Integer.class, new LeftAlignTableRenderer());
+		tbl_basicList.setDefaultRenderer(Double.class, new LeftAlignTableRenderer());
+		tbl_basicList.setDefaultRenderer(double.class, new LeftAlignTableRenderer());
 		tbl_basicList.setFillsViewportHeight(true);
 		tbl_basicList.setAutoCreateRowSorter(true);
 		tbl_basicList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -74,6 +79,10 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		});
 		
 		tbl_advancedList = new JTable(new PlayerTableModel_Advanced(advancedList_average));
+		tbl_advancedList.setDefaultRenderer(int.class, new LeftAlignTableRenderer());
+		tbl_advancedList.setDefaultRenderer(Integer.class, new LeftAlignTableRenderer());
+		tbl_advancedList.setDefaultRenderer(Double.class, new LeftAlignTableRenderer());
+		tbl_advancedList.setDefaultRenderer(double.class, new LeftAlignTableRenderer());
 		tbl_advancedList.setFillsViewportHeight(true);
 		tbl_advancedList.setAutoCreateRowSorter(true);
 		tbl_advancedList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
