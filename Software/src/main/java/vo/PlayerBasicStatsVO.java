@@ -91,9 +91,6 @@ public class PlayerBasicStatsVO {
 		this.minutes = TypeTransform.minutes_to_str(min/games);
 		this.rebounds /= games;
 		this.assists /= games;
-		this.fieldGoalPercentage /= games;
-		this.threePointFieldGoalPercentage /= games;
-		this.freeThrowPercentage /= games;
 		this.offensiveRebounds /= games;
 		this.defensiveRebounds /= games;
 		this.steals /= games;

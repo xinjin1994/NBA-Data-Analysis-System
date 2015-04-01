@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import enums.Conference;
 import enums.Division;
 import enums.Position;
+import enums.Terminology;
 import exceptions.PlayerNotFound;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
@@ -44,8 +45,8 @@ public interface PlayersBLService_new {
 	//*******************************************
 	
 	//热点球员
-	ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season, Date date, String player, int num);
-	ArrayList<PlayerHotStatsVO> getHotPlayersBySeason(String season, String player, int num);
+	ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season, Date date, Terminology term, int num);
+	ArrayList<PlayerHotStatsVO> getHotPlayersBySeason(String season, Terminology term, int num);
 	
 	//获取某个球员某场比赛的数据
 	ArrayList<PlayerAdvancedStatsVO> getAdvancedStats(String season, Date date, String player) throws PlayerNotFound;

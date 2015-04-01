@@ -19,6 +19,7 @@ import enums.Conference;
 import enums.Division;
 import enums.Position;
 import enums.Teams;
+import enums.Terminology;
 import exceptions.PlayerNotFound;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
@@ -340,14 +341,14 @@ public class PlayersBL_new implements PlayersBLService_new{
 
 	@Override
 	public ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season,
-			Date date, String player, int num) {
+			Date date, Terminology term, int num) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ArrayList<PlayerHotStatsVO> getHotPlayersBySeason(
-			String season, String player, int num) {
+			String season, Terminology term, int num) {
 		// TODO Auto-generated method stub
 		return null;
 	}
