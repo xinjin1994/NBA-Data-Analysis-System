@@ -4,6 +4,7 @@ import enums.Position;
 
 public class PlayerBasicStats_new {
 	//某场比赛某个球员的所有基础统计数据
+	boolean isDoubleDouble;                  //两双
 	boolean gamesStarting;                   //是否首发
 	Position position;                       //位置
 	Double minutes;                          //在场时间
@@ -23,6 +24,14 @@ public class PlayerBasicStats_new {
 	Double personalFouls;                    //犯规数
 	Double points;                           //个人得分
 	
+	
+	public boolean isDoubleDouble() {
+		return isDoubleDouble;
+	}
+	
+	public void setIsDoubleDouble(boolean doubledouble) {
+		this.isDoubleDouble=doubledouble;
+	}
 	
 	public boolean isGamesStarting() {
 		return gamesStarting;

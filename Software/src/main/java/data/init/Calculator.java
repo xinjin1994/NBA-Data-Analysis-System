@@ -135,6 +135,7 @@ public class Calculator {
 	
 	private PlayerBasicStats_new getPlayerBasicStats(PlayerStatsPO player){
 		PlayerBasicStats_new player_new=new PlayerBasicStats_new();
+		player_new.setIsDoubleDouble(isDoubleDouble(player));
 		player_new.setGamesStarting(player.isGameStarting());
 		player_new.setPosition(player.position());
 		player_new.setMinutes(TypeTransform.str_to_minutes(player.minutes()));
@@ -340,6 +341,26 @@ public class Calculator {
 		return advanced;
 	}
 	
+	private boolean isDoubleDouble(PlayerStatsPO player){
+    	boolean isDoubleDouble=false;
+    	ArrayList<Integer> doubles=new ArrayList<Integer>();
+    	doubles.add(player.points());
+		doubles.add(player.assists());
+		doubles.add(player.rebounds());
+		doubles.add(player.blocks());
+		doubles.add(player.steals());
+		int count=0;
+		for(Integer i:doubles){
+			if(i>=10){
+				count=count+1;
+			}
+		}
+		if(count>=2){
+			isDoubleDouble=true;
+		}
+    	return isDoubleDouble;
+    }
+	
     private boolean IsDoubleDouble(PlayerBasicStats_new player){
     	boolean isDoubleDouble=false;
     	ArrayList<Double> doubles=new ArrayList<Double>();
@@ -527,7 +548,7 @@ public class Calculator {
     
     private Double TurnoversPercent(PlayerBasicStats_new player){
     	Double turnoversPercent=0.0;
-    	if(player.getFieldGoalsAttempted()+player.getFreeThrowsAttempted()+player.getTurnovers()==0){
+    	if(player.getFieldGoalsAttempted()-player.getThreePointFieldGoalsAttempted()+player.getFreeThrowsAttempted()+player.getTurnovers()==0){
     		return null;
     	}else{
     		turnoversPercent=player.getTurnovers()/(player.getFieldGoalsAttempted()-player.getThreePointFieldGoalsAttempted()+0.44*player.getFreeThrowsAttempted()+player.getTurnovers());
