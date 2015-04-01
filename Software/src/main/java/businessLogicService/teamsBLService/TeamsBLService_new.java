@@ -44,8 +44,8 @@ public interface TeamsBLService_new {
 	public ArrayList<TeamHotStatsVO> getHotTeams(String season, Terminology term, int num);
 	
 	
-	public TeamOffensiveStatsVO getOffensiveStats(String season, Date date, Teams team);
-	public TeamDefensiveFoulsVO getDefensiveStats(String season, Date date, Teams team);
-	public TeamRatioGeneralVO getRatioStats(String season, Date date, Teams team);
+	public TeamOffensiveStatsVO getOffensiveStats(String season, Date date, Teams team) throws TeamNotFound;
+	public TeamDefensiveFoulsVO getDefensiveStats(String season, Date date, Teams team) throws TeamNotFound;
+	public TeamRatioGeneralVO getRatioStats(String season, Date date, Teams team) throws TeamNotFound;
 
 }

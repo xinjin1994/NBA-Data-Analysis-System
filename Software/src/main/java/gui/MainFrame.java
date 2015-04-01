@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import data.init.DataInit;
+
 import java.awt.CardLayout;
 import java.util.EnumMap;
 import java.util.Map;
@@ -81,6 +83,8 @@ public class MainFrame extends JFrame {
 		
 		JPanel pnl_menu = new MenuPanel();
 		pnl_main.add(pnl_menu,PanelType.MENU.toString());
+		
+		new DataInit().init();
 		
 	}
 

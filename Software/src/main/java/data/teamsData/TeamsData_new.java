@@ -3,6 +3,7 @@ package data.teamsData;
 import java.util.ArrayList;
 
 import po.TeamDefensiveFoulsStatsPO;
+import po.TeamHotStatsPO;
 import po.TeamOffensiveStatsPO;
 import po.TeamPO;
 import po.TeamRatioGeneralStatsPO;
@@ -10,6 +11,7 @@ import dataService.teamsDataService.TeamsDataService_new;
 import enums.Conference;
 import enums.Division;
 import enums.Teams;
+import enums.Terminology;
 import exceptions.TeamNotFound;
 
 public class TeamsData_new implements TeamsDataService_new {
@@ -155,5 +157,193 @@ public class TeamsData_new implements TeamsDataService_new {
 		}
 		
 		return poList;
+	}
+	
+	
+	
+	
+	
+	//迭代二
+
+	@Override
+	public ArrayList<String> getAvailableDays(String season, Teams team) {
+		ArrayList<String> dates = new ArrayList<String>();
+		for(Teams_new t: teams){
+			if(t.team == team){
+				for(TeamStats_new s: t.stats){
+					if(!dates.contains(s.date)){
+						dates.add(s.date);
+					}
+				}
+				break;
+			}
+		}
+		
+		return dates;
+	}
+
+	@Override
+	public ArrayList<TeamHotStatsPO> getTeamHotStats(String season,
+			Terminology term) {
+		switch(term){
+		case PTS: return this.getTeamHotStats_points(season);
+		case REB: return this.getTeamHotStats_rebounds(season);
+		case AST: return this.getTeamHotStats_assists(season);
+		case BLK: return this.getTeamHotStats_blocks(season);
+		case STL: return this.getTeamHotStats_steals(season);
+		case FGP: return this.getTeamHotStats_fgp(season);
+		case TPP: return this.getTeamHotStats_tpp(season);
+		case FTP: return this.getTeamHotStats_ftp(season);
+		default: return null;
+		}
+	}
+	
+	private ArrayList<TeamHotStatsPO> getTeamHotStats_points(String season){
+		ArrayList<TeamHotStatsPO> poList = new ArrayList<TeamHotStatsPO>();
+		for(Teams_new team: teams){
+			TeamPO info = team.info;
+			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
+			for(TeamStats_new s: team.stats){
+				if(s.season.equals(season)){
+					po.addStats(s.basic.points);
+				}
+			}
+			poList.add(po);
+		}
+		
+		return poList;
+	}
+	
+	private ArrayList<TeamHotStatsPO> getTeamHotStats_rebounds(String season){
+		ArrayList<TeamHotStatsPO> poList = new ArrayList<TeamHotStatsPO>();
+		for(Teams_new team: teams){
+			TeamPO info = team.info;
+			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
+			for(TeamStats_new s: team.stats){
+				if(s.season.equals(season)){
+					po.addStats(s.basic.rebounds);
+				}
+			}
+			poList.add(po);
+		}
+		
+		return poList;
+	}
+	
+	private ArrayList<TeamHotStatsPO> getTeamHotStats_assists(String season){
+		ArrayList<TeamHotStatsPO> poList = new ArrayList<TeamHotStatsPO>();
+		for(Teams_new team: teams){
+			TeamPO info = team.info;
+			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
+			for(TeamStats_new s: team.stats){
+				if(s.season.equals(season)){
+					po.addStats(s.basic.assists);
+				}
+			}
+			poList.add(po);
+		}
+		
+		return poList;
+	}
+	
+	private ArrayList<TeamHotStatsPO> getTeamHotStats_blocks(String season){
+		ArrayList<TeamHotStatsPO> poList = new ArrayList<TeamHotStatsPO>();
+		for(Teams_new team: teams){
+			TeamPO info = team.info;
+			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
+			for(TeamStats_new s: team.stats){
+				if(s.season.equals(season)){
+					po.addStats(s.basic.blocks);
+				}
+			}
+			poList.add(po);
+		}
+		
+		return poList;
+	}
+	
+	private ArrayList<TeamHotStatsPO> getTeamHotStats_steals(String season){
+		ArrayList<TeamHotStatsPO> poList = new ArrayList<TeamHotStatsPO>();
+		for(Teams_new team: teams){
+			TeamPO info = team.info;
+			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
+			for(TeamStats_new s: team.stats){
+				if(s.season.equals(season)){
+					po.addStats(s.basic.steals);
+				}
+			}
+			poList.add(po);
+		}
+		
+		return poList;
+	}
+	
+	private ArrayList<TeamHotStatsPO> getTeamHotStats_fgp(String season){
+		ArrayList<TeamHotStatsPO> poList = new ArrayList<TeamHotStatsPO>();
+		for(Teams_new team: teams){
+			TeamPO info = team.info;
+			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
+			for(TeamStats_new s: team.stats){
+				if(s.season.equals(season)){
+					po.addStats(s.basic.fieldGoalsMade/s.basic.fieldGoalsAttempted);
+				}
+			}
+			poList.add(po);
+		}
+		
+		return poList;
+	}
+	
+	private ArrayList<TeamHotStatsPO> getTeamHotStats_tpp(String season){
+		ArrayList<TeamHotStatsPO> poList = new ArrayList<TeamHotStatsPO>();
+		for(Teams_new team: teams){
+			TeamPO info = team.info;
+			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
+			for(TeamStats_new s: team.stats){
+				if(s.season.equals(season)){
+					po.addStats(s.basic.threePointFieldGoalsMade/s.basic.threePointFieldGoalsAttempted);
+				}
+			}
+			poList.add(po);
+		}
+		
+		return poList;
+	}
+	
+	private ArrayList<TeamHotStatsPO> getTeamHotStats_ftp(String season){
+		ArrayList<TeamHotStatsPO> poList = new ArrayList<TeamHotStatsPO>();
+		for(Teams_new team: teams){
+			TeamPO info = team.info;
+			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
+			for(TeamStats_new s: team.stats){
+				if(s.season.equals(season)){
+					po.addStats(s.basic.freeThrowsMade/s.basic.freeThrowsAttempted);
+				}
+			}
+			poList.add(po);
+		}
+		
+		return poList;
+	}
+
+	@Override
+	public TeamOffensiveStatsPO getOffensiveStats(String season, String date,
+			Teams team) throws TeamNotFound {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamRatioGeneralStatsPO getRatioGeneralStats(String season,
+			String date, Teams team) throws TeamNotFound {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TeamDefensiveFoulsStatsPO getDefensiveFoulsStats(String season,
+			String date, Teams team) throws TeamNotFound {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

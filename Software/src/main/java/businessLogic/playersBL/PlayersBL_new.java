@@ -184,23 +184,17 @@ public class PlayersBL_new implements PlayersBLService_new{
 			minutes += po.getMinutes();
 			rebounds += po.getRebounds();
 			assists += po.getAssists();
-			try{
+			if(po.getFieldGoalsAttempted() > 0.001){
 				fieldGoalPercentage += po.getFieldGoalsMade()/po.getFieldGoalsAttempted();
 				fg_num++;
-			}catch(Exception e){
-				//除0
 			}
-			try{
+			if(po.getThreePointFieldGoalsAttempted() > 0.001){
 				threePointFieldGoalPercentage += po.getThreePointFieldGoalsMade()/po.getThreePointFieldGoalsAttempted();
 				tp_num++;
-			}catch(Exception e){
-				//除0
 			}
-			try{
+			if(po.getFreeThrowsAttempted() > 0.001){
 				freeThrowPercentage += po.getFreeThrowsMade()/po.getFreeThrowsAttempted();
 				ft_num++;
-			}catch(Exception e){
-				//除0
 			}
 			offensiveRebounds += po.getOffensiveRebounds();
 			defensiveRebounds += po.getDefensiveRebounds();
@@ -299,6 +293,7 @@ public class PlayersBL_new implements PlayersBLService_new{
 				n_bp++;
 			}
 			if(po.getTurnoversPercent() != null){
+				System.out.println(po.getTurnoversPercent());
 				turnovers += po.getTurnoversPercent();
 				n_tp++;
 			}

@@ -1,9 +1,14 @@
 package businessLogic.teamsBL;
 
+import helper.TypeTransform;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import po.TeamDefensiveFoulsStatsPO;
+import po.TeamHotStatsPO;
 import po.TeamOffensiveStatsPO;
 import po.TeamPO;
 import po.TeamRatioGeneralStatsPO;
@@ -267,35 +272,102 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 
 	@Override
 	public ArrayList<Date> getAvailableDays(String season, Teams team) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> days = teamService.getAvailableDays(season, team);
+		ArrayList<Date> result = new ArrayList<Date>();
+		for(String d: days){
+			result.add(TypeTransform.str_to_date(d));
+		}
+		
+		return result;
 	}
 
 	@Override
 	public ArrayList<TeamHotStatsVO> getHotTeams(String season,
 			Terminology term, int num) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<TeamHotStatsPO> poList = teamService.getTeamHotStats(season, term);
+		ArrayList<TeamHotStatsVO> voList = new ArrayList<TeamHotStatsVO>();
+		for(TeamHotStatsPO po: poList){
+			double stats = 0;
+			for(double d: po.getStats()){
+				stats += d;
+			}
+			stats /= poList.size();
+			TeamHotStatsVO vo = new TeamHotStatsVO(po.getTeam(), po.getConference(),
+					po.getDivision(), stats);
+			voList.add(vo);
+		}
+		
+		ArrayList<TeamHotStatsVO> result = this.sort(voList, num);
+		
+		return result;
 	}
 
 	@Override
 	public TeamOffensiveStatsVO getOffensiveStats(String season, Date date,
-			Teams team) {
-		// TODO Auto-generated method stub
-		return null;
+			Teams team) throws TeamNotFound {
+		String d = TypeTransform.date_to_str(date);
+		TeamOffensiveStatsPO po = teamService.getOffensiveStats(season, d, team);
+		TeamOffensiveStatsVO vo = new TeamOffensiveStatsVO(po.getTeam(), 0, po.getPoints(), 
+				po.getFieldGoalsMade(), po.getFieldGoalsAttempted(), 
+				po.getFreeThrowsMade(), po.getFreeThrowsAttempted(), 
+				po.getThreePointFieldGoalsMade(), po.getThreePointFieldGoalsAttempted(), 
+				po.getAssists());
+		
+		return vo;
 	}
 
 	@Override
 	public TeamDefensiveFoulsVO getDefensiveStats(String season, Date date,
-			Teams team) {
-		// TODO Auto-generated method stub
-		return null;
+			Teams team) throws TeamNotFound {
+		String d = TypeTransform.date_to_str(date);
+		TeamDefensiveFoulsStatsPO po = teamService.getDefensiveFoulsStats(season, d, team);
+		TeamDefensiveFoulsVO vo = new TeamDefensiveFoulsVO(po.getTeam(), 0, po.getOffensiveRebounds(), 
+				po.getDefensiveRebounds(), po.getRebounds(), po.getSteals(), po.getBlocks(), 
+				po.getTurnovers(), po.getFouls());
+		
+		return vo;
 	}
 
 	@Override
-	public TeamRatioGeneralVO getRatioStats(String season, Date date, Teams team) {
-		// TODO Auto-generated method stub
-		return null;
+	public TeamRatioGeneralVO getRatioStats(String season, Date date, Teams team) throws TeamNotFound {
+		String d = TypeTransform.date_to_str(date);
+		TeamRatioGeneralStatsPO po = teamService.getRatioGeneralStats(season, d, team);
+		TeamRatioGeneralVO vo = new TeamRatioGeneralVO(po.getTeam(), 0, 
+				po.getFieldGoalsPercentage(), po.getFreeThrowsPercentage(), 
+				po.getThreePointFieldGoalsPercentage(), po.getWins(), po.getOffensiveRounds(), 
+				po.getOffensiveEfficiency(), po.getDefensiveEfficiency(), 
+				po.getOffensiveReboundsEfficiency(), po.getDefensiveReboundsEfficiency(), 
+				po.getStealsEfficiency(), po.getAssistsEfficiency());
+		
+		return vo;
+	}
+	
+	
+	
+	
+	private ArrayList<TeamHotStatsVO> sort(ArrayList<TeamHotStatsVO> list, int num){
+		ArrayList<TeamHotStatsVO> result = new ArrayList<TeamHotStatsVO>();
+		Collections.sort(list, new CompareTeamHotStats());
+		for(int i=0; i<num; i++){
+			result.add(list.get(i));
+		}
+		
+		return result;
+	}
+	
+	class CompareTeamHotStats implements Comparator<TeamHotStatsVO> {
+
+		@Override
+		public int compare(TeamHotStatsVO o1, TeamHotStatsVO o2) {
+			if(o1.getStats() > o2.getStats()){
+				return 1;
+			}else if(o1.getStats() == o2.getStats()){
+				return 0;
+			}else{
+				return 1;
+			}
+		}
+		
 	}
 
 }

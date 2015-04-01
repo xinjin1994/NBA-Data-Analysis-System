@@ -4,6 +4,7 @@ import enums.Conference;
 import enums.Division;
 import enums.Position;
 import exceptions.PlayerNotFound;
+import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
 import gui.enums.PanelType;
@@ -30,7 +31,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.ScrollPaneConstants;
 
-import businessLogic.playersBL.PlayersBL;
+import businessLogicService.playersBLService.PlayersBLService_new;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
 
@@ -44,8 +45,12 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 	private JTable tbl_advancedList;
 	private JTable tbl_basicList;
 	private ButtonGroup btngrp;
+	
+	private PlayersBLService_new playerService;
 
 	public PlayerStatisticPanel() {
+		playerService = new ObjectCreator().playersBLService();
+		
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
 		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, (int) (pWidth/(10/8.0)), pWidth/10};
 		gbl_pnl_menu.rowHeights = new int[]{pHeight/10,pHeight/10, pHeight/10, (int) (pHeight*(6/10.0)), pHeight/10};
@@ -144,15 +149,15 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 
 	public void getList(Conference c, Division d, Position p) {
 		try {
-			basicList_average = new PlayersBL().getBasicPlayersStatsAverage(c,d,p);
-			basicList_total = new PlayersBL().getBasicPlayersStatsTotal(c,d,p);
+			basicList_average = playerService.getBasicPlayersStatsAverage(c,d,p);
+			basicList_total = playerService.getBasicPlayersStatsTotal(c,d,p);
 		} catch (PlayerNotFound e) {
 			basicList_average = new ArrayList<PlayerBasicStatsVO>();
 			basicList_total = new ArrayList<PlayerBasicStatsVO>();
 		}
 		try {
-			advancedList_average = new PlayersBL().getAdvancedPlayersStatsAverage(c,d,p);
-			advancedList_total = new PlayersBL().getAdvancedPlayersStatsTotal(c,d,p);
+			advancedList_average = playerService.getAdvancedPlayersStatsAverage(c,d,p);
+			advancedList_total = playerService.getAdvancedPlayersStatsTotal(c,d,p);
 		} catch (PlayerNotFound e) {
 			advancedList_average = new ArrayList<PlayerAdvancedStatsVO>();
 			advancedList_total = new ArrayList<PlayerAdvancedStatsVO>();
