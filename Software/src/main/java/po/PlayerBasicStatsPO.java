@@ -95,5 +95,8 @@ public class PlayerBasicStatsPO {
 		return stats.getPoints();
 	}
 	
+	public boolean isDoubleDouble() {
+		return stats.isDoubleDouble();
+	}
 	
 }

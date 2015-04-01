@@ -101,7 +101,8 @@ public class PlayerTableModel_Basic extends AbstractTableModel {
 			result = GUIUtility.formatDouble(pl.getPoints()+pl.getRebounds()+pl.getAssists());
 			break;
 		case 17:
-			int doubledouble = 0;
+			result = GUIUtility.formatDouble(pl.getDoubleDoubles());
+			/*int doubledouble = 0;
 			if(pl.getRebounds() >= 10)
 				doubledouble++;
 			if(pl.getAssists() >= 10)
@@ -113,6 +114,7 @@ public class PlayerTableModel_Basic extends AbstractTableModel {
 			if(pl.getSteals() >= 10)
 				doubledouble++;
 			result = String.valueOf(doubledouble);
+			*/
 			break;
 		}
 		if(result == null)

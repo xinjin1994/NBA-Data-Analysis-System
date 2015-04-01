@@ -175,6 +175,7 @@ public class PlayersBL_new implements PlayersBLService_new{
 		double turnovers = 0;
 		double personalFouls = 0;
 		double points = 0;
+		double doubleDoubles = 0;
 		int fg_num = 0;       //两分数
 		int tp_num = 0;       //三分数
 		int ft_num = 0;       //罚球数
@@ -203,7 +204,9 @@ public class PlayersBL_new implements PlayersBLService_new{
 			turnovers += po.getTurnovers();
 			personalFouls += po.getPersonalFouls();
 			points += po.getPoints();
-
+			if(po.isDoubleDouble()){
+				doubleDoubles++;
+			}
 		}
 		
 		if(fg_num != 0){
@@ -219,7 +222,7 @@ public class PlayersBL_new implements PlayersBLService_new{
 		PlayerBasicStatsVO vo = new PlayerBasicStatsVO(name, team, games, gamesStarting, 
 				TypeTransform.minutes_to_str(minutes), rebounds, assists, fieldGoalPercentage,
 				threePointFieldGoalPercentage, freeThrowPercentage, offensiveRebounds, 
-				defensiveRebounds, steals, blocks, turnovers, personalFouls, points);
+				defensiveRebounds, steals, blocks, turnovers, personalFouls, points, doubleDoubles);
 		
 		return vo;
 	}
@@ -293,7 +296,6 @@ public class PlayersBL_new implements PlayersBLService_new{
 				n_bp++;
 			}
 			if(po.getTurnoversPercent() != null){
-				System.out.println(po.getTurnoversPercent());
 				turnovers += po.getTurnoversPercent();
 				n_tp++;
 			}

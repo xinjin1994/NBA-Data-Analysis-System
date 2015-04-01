@@ -65,7 +65,7 @@ public class PlayerBasicStatsVO {
 	public PlayerBasicStatsVO(String name, Teams team, double games, double gamesStarting, 
 			String minutes, double rebounds, double ast, double fgp, double tpp, 
 			double ftp, double or, double dr, double stl, double blk, double tov, 
-			double fouls, double pts){
+			double fouls, double pts, double dd){
 		this.name = name;
 		this.team = team;
 		this.games = games;
@@ -83,6 +83,7 @@ public class PlayerBasicStatsVO {
 		this.turnovers = tov;
 		this.personalFouls = fouls;
 		this.points = pts;
+		this.doubleDoubles = dd;
 	}
 	
 	public void average(){

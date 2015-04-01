@@ -3,6 +3,7 @@ package gui.statistic;
 import enums.Conference;
 import enums.Division;
 import exceptions.TeamNotFound;
+import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
 import gui.enums.PanelType;
@@ -29,6 +30,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
 import businessLogic.teamsBL.TeamsBL;
+import businessLogicService.teamsBLService.TeamsBLService_new;
 import vo.TeamDefensiveStatsVO;
 import vo.TeamFoulsStatsVO;
 import vo.TeamGeneralStatsVO;
@@ -52,8 +54,12 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 	private JTable tbl_offenceList;
 	private JTable tbl_generalratioList;
 	private ButtonGroup btngrp;
+	
+	private TeamsBLService_new teamService;
 
 	public TeamStatisticPanel() {
+		teamService = new ObjectCreator().teamsBLService();
+		
 		setLayout(new BorderLayout());
 		
 		buildList();
@@ -147,8 +153,8 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
  
 	public void buildList() {
 		try {
-			offenceList_average = new TeamsBL().getTeamsOffensiveStatsAverage(Conference.NATIONAL, Division.NATIONAL);
-			offenceList_total = new TeamsBL().getTeamsOffensiveStatsTotal(Conference.NATIONAL, Division.NATIONAL);
+			offenceList_average = teamService.getTeamOffensiveStatsAverage(Conference.NATIONAL, Division.NATIONAL);
+			offenceList_total = teamService.getTeamOffensiveStatsTotal(Conference.NATIONAL, Division.NATIONAL);
 		} catch (TeamNotFound e) {
 			offenceList_average = new ArrayList<TeamOffensiveStatsVO>();
 			offenceList_total = new ArrayList<TeamOffensiveStatsVO>();
