@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import enums.Teams;
 import exceptions.ErrorData;
 import po.PlayerStatsPO;
+import sorter.data.DataSortByDate;
 
-public class MatchPO {
+public class MatchPO implements DataSortByDate {
 	String season;                          //赛季
 	String date;                            //日期
 	Teams homeTeam;                         //主队
@@ -56,7 +57,6 @@ public class MatchPO {
 				}
 				team1Players.add(player1);
 			} catch (ErrorData e) {
-				// TODO Auto-generated catch block
 				//错误数据不处理
 				//e.printStackTrace();
 			}
@@ -70,7 +70,6 @@ public class MatchPO {
 				}
 				team2Players.add(player2);
 			} catch (ErrorData e) {
-				// TODO Auto-generated catch block
 				//错误数据不处理
 				//e.printStackTrace();
 			}
@@ -136,6 +135,16 @@ public class MatchPO {
 		for(int i=0; i<team2Players.size(); i++){
 			team2Players.get(i).print();
 		}
+	}
+
+	@Override
+	public String getSeason() {
+		return season;
+	}
+
+	@Override
+	public String getDate() {
+		return date;
 	}
 	
 }

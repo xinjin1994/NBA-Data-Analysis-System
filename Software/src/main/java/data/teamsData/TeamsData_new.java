@@ -163,6 +163,15 @@ public class TeamsData_new implements TeamsDataService_new {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//迭代二
 
 	@Override
@@ -329,21 +338,73 @@ public class TeamsData_new implements TeamsDataService_new {
 	@Override
 	public TeamOffensiveStatsPO getOffensiveStats(String season, String date,
 			Teams team) throws TeamNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		for(Teams_new tm: teams){
+			if(tm.team == team){
+				ArrayList<TeamStats_new> stats = tm.stats;
+				for(TeamStats_new s: stats){
+					if(s.season.equals(season) && s.date.equals(date)){
+						TeamBasicStats_new basic = s.basic;
+						TeamOffensiveStatsPO po = new TeamOffensiveStatsPO(team, 
+								basic.points, basic.fieldGoalsMade, basic.fieldGoalsAttempted, 
+								basic.freeThrowsMade, basic.fieldGoalsAttempted, 
+								basic.threePointFieldGoalsMade, basic.threePointFieldGoalsAttempted, 
+								basic.assists);
+						return po;
+					}
+				}
+			}
+		}
+		
+		throw new TeamNotFound("该球队当天没有比赛");
 	}
 
 	@Override
 	public TeamRatioGeneralStatsPO getRatioGeneralStats(String season,
 			String date, Teams team) throws TeamNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		for(Teams_new tm: teams){
+			if(tm.team == team){
+				ArrayList<TeamStats_new> stats = tm.stats;
+				for(TeamStats_new s: stats){
+					if(s.season.equals(season) && s.date.equals(date)){
+						TeamBasicStats_new basic = s.basic;
+						TeamAdvancedStats_new advanced = s.advanced;
+						TeamRatioGeneralStatsPO po = new TeamRatioGeneralStatsPO(team, stats.size(), 
+								basic.win==true?1:0 , basic.fieldGoalsMade, basic.fieldGoalsAttempted, 
+								basic.freeThrowsMade, basic.freeThrowsAttempted, 
+								basic.threePointFieldGoalsMade, 
+								basic.threePointFieldGoalsAttempted, basic.offensiveRebounds,
+								advanced.offensiveEfficiency, advanced.defensiveEfficiency, 
+								advanced.offensiveReboudnsEfficiency, 
+								advanced.defensiveReboundsEfficiency, 
+								advanced.stealsEfficiency, advanced.assistsEfficiency);
+						return po;
+					}
+				}
+			}
+		}
+		
+		throw new TeamNotFound("该球队当天没有比赛");
 	}
 
 	@Override
 	public TeamDefensiveFoulsStatsPO getDefensiveFoulsStats(String season,
 			String date, Teams team) throws TeamNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		for(Teams_new tm: teams){
+			if(tm.team == team){
+				ArrayList<TeamStats_new> stats = tm.stats;
+				for(TeamStats_new s: stats){
+					if(s.season.equals(season) && s.date.equals(date)){
+						TeamBasicStats_new basic = s.basic;
+						TeamDefensiveFoulsStatsPO po = new TeamDefensiveFoulsStatsPO(team,
+								stats.size(), basic.offensiveRebounds, basic.defensiveRebounds, 
+								basic.rebounds, basic.steals, basic.blocks, basic.turnovers, 
+								basic.fouls);
+						return po;
+					}
+				}
+			}
+		}
+		
+		throw new TeamNotFound("该球队当天没有比赛");
 	}
 }

@@ -1,7 +1,6 @@
 package data.playersData;
 
 import java.util.ArrayList;
-
 import po.PlayerAdvancedStatsPO;
 import po.PlayerBasicStatsPO;
 import po.PlayerPO;

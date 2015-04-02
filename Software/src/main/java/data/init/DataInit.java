@@ -1,6 +1,7 @@
 package data.init;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import po.MatchPO;
@@ -53,6 +54,7 @@ public class DataInit {
 	
 	private void distributeData(){
 		ArrayList<MatchPO> matches = new data.matchesData.ReadFromTxt().readAllMatches();
+		Collections.sort(matches, new sorter.data.SortByDate());
 		for(MatchPO match: matches){
 			calculator = new Calculator(match);
 			ArrayList<PlayerStats_new> players = calculator.getPlayerStats();
