@@ -19,11 +19,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 
 import businessLogic.playersBL.PlayersBL;
+import businessLogicService.playersBLService.PlayersBLService_new;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerVO;
 import enums.Terminology;
 import exceptions.PlayerNotFound;
+import factory.ObjectCreator;
 
 import java.awt.GridBagLayout;
 
@@ -38,7 +40,7 @@ public class PlayerDetailDialog extends JDialog {
 
 	private static final long serialVersionUID = -8359637791685664538L;
 	private final JPanel contentPanel = new JPanel();
-
+	private PlayersBLService_new playerService = new ObjectCreator().playersBLService();
 	/**
 	 * Create the dialog.
 	 */
@@ -54,7 +56,7 @@ public class PlayerDetailDialog extends JDialog {
 
 		PlayerVO vo = null;
 		try {
-			vo = new PlayersBL().getPlayerInfo(name);
+			vo = playerService.getPlayerInfo(name);
 		} catch (PlayerNotFound e1) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
 		}
@@ -145,7 +147,7 @@ public class PlayerDetailDialog extends JDialog {
 				
 				PlayerBasicStatsVO bs = null;
 				try {
-					bs = new PlayersBL().getBasicPlayerStatsTotal(vo.getName());
+					bs = playerService.getBasicPlayerStatsTotal(vo.getName());
 				} catch (PlayerNotFound e) {
 					JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
 				}

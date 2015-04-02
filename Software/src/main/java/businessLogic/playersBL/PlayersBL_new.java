@@ -71,6 +71,15 @@ public class PlayersBL_new implements PlayersBLService_new{
 		
 		return voList;
 	}
+	
+	@Override
+	public ArrayList<PlayerPortraitVO> getPlayerPortrait(String name)
+			throws PlayerNotFound {
+		ArrayList<PlayerPortraitVO> list = new ArrayList<PlayerPortraitVO>();
+		PlayerPortraitVO vo = new PlayerPortraitVO(name, imageService.getPlayerPortrait(name));
+		list.add(vo);
+		return list;
+	}
 
 	@Override
 	public PlayerVO getPlayerInfo(String name) throws PlayerNotFound {
@@ -124,6 +133,23 @@ public class PlayersBL_new implements PlayersBLService_new{
 		}
 		return voList;
 	}
+	
+	@Override
+	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name)
+			throws PlayerNotFound {
+		ArrayList<PlayerBasicStatsPO> stats = playerService.getBasicStats(name);
+		PlayerBasicStatsVO vo = this.sum_basic(stats);
+		return vo;
+	}
+	
+	@Override
+	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name)
+			throws PlayerNotFound {
+		ArrayList<PlayerBasicStatsPO> stats = playerService.getBasicStats(name);
+		PlayerBasicStatsVO vo = this.sum_basic(stats);
+		vo.average();
+		return vo;
+	}
 
 	@Override
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(
@@ -150,7 +176,13 @@ public class PlayersBL_new implements PlayersBLService_new{
 		return this.getAdvancedPlayersStatsTotal(con, div, pos);
 	}
 	
-	
+	@Override
+	public PlayerAdvancedStatsVO getAdvancedPlayerStats(String name)
+			throws PlayerNotFound {
+		ArrayList<PlayerAdvancedStatsPO> stats = playerService.getAdvancedStats(name);
+		PlayerAdvancedStatsVO vo = this.average_advanced(stats);
+		return vo;
+	}
 	
 	
 	

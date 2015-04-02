@@ -4,6 +4,7 @@ import enums.Conference;
 import enums.Division;
 import enums.Position;
 import exceptions.PlayerNotFound;
+import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
 import gui.enums.PanelType;
@@ -20,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
@@ -29,13 +31,14 @@ import javax.swing.ListCellRenderer;
 import javax.swing.ScrollPaneConstants;
 
 import vo.PlayerPortraitVO;
-import businessLogic.playersBL.PlayersBL;
+import businessLogicService.playersBLService.PlayersBLService_new;
 
 public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 
 	private static final long serialVersionUID = 9090035509234357424L;
 	private JList<PortraitPanel> list;
 
+	private PlayersBLService_new playerService = new ObjectCreator().playersBLService();
 //	Image backgroundImage = null;
 //
 //	//这就是重写paint方法
@@ -82,7 +85,8 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 		
 		ArrayList<PlayerPortraitVO> volist = null;
 		try {
-			volist = new PlayersBL().getPlayersPortrait(Conference.NATIONAL, Division.NATIONAL, Position.ALL);
+			//volist = new PlayersBL().getPlayersPortrait(Conference.NATIONAL, Division.NATIONAL, Position.ALL);
+			volist = playerService.getPlayersPortrait(Conference.NATIONAL, Division.NATIONAL, Position.ALL);
 		} catch (PlayerNotFound e) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
 		}
@@ -145,7 +149,7 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 	public void buildList(Conference c, Division d, Position p) {
 		ArrayList<PlayerPortraitVO> volist = null;
 		try {
-			volist = new PlayersBL().getPlayersPortrait(c,d,p);
+			volist = playerService.getPlayersPortrait(c,d,p);
 		} catch (PlayerNotFound e) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
 		}
@@ -160,7 +164,7 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 	public void filterList(String name) {
 		ArrayList<PlayerPortraitVO> volist = null;
 		try {
-			volist = new PlayersBL().getPlayerPortrait(name);
+			volist = playerService.getPlayerPortrait(name);
 		} catch (PlayerNotFound e) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, "未搜索到球员！");
 			return;

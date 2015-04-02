@@ -17,7 +17,7 @@ import vo.PlayerVO;
 public interface PlayersBLService_new {
 	//获取所有球员头像
 	public ArrayList<PlayerPortraitVO> getPlayersPortrait(Conference con, Division div, Position pos) throws PlayerNotFound;
-	
+	public ArrayList<PlayerPortraitVO> getPlayerPortrait(String name) throws PlayerNotFound;
 	
 	//获取球员基本信息
 	public PlayerVO getPlayerInfo(String name) throws PlayerNotFound;
@@ -30,12 +30,15 @@ public interface PlayersBLService_new {
 			Position pos) throws PlayerNotFound;
 	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsAverage(Conference con, Division div, 
 			Position pos) throws PlayerNotFound;
+	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws PlayerNotFound;
+	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name) throws PlayerNotFound;
 	
 	//高级数据
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(Conference con, 
 			Division div, Position pos) throws PlayerNotFound;
 	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(Conference con, 
 			Division div, Position pos) throws PlayerNotFound;
+	public PlayerAdvancedStatsVO getAdvancedPlayerStats(String name) throws PlayerNotFound;
 	
 	
 	//迭代二内容
