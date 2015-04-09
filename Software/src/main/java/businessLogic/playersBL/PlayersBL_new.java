@@ -2,18 +2,23 @@ package businessLogic.playersBL;
 
 import helper.TypeTransform;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.ArrayList;
 
 import po.PlayerAdvancedStatsPO;
 import po.PlayerBasicStatsPO;
+import po.PlayerHotStatsPO;
 import po.PlayerPO;
+import po.PlayerProgressPO;
 import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService_new;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerHotStatsVO;
 import vo.PlayerPortraitVO;
+import vo.PlayerProgressVO;
 import vo.PlayerVO;
 import enums.Conference;
 import enums.Division;
@@ -353,36 +358,154 @@ public class PlayersBL_new implements PlayersBLService_new{
 	@Override
 	public ArrayList<Date> getAvailableDays(String season, String player)
 			throws PlayerNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Date> result = new ArrayList<Date>();
+		ArrayList<String> dates = playerService.getAvailableDays(season, player);
+		for(String d: dates){
+			result.add(TypeTransform.str_to_date(d));
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public ArrayList<PlayerProgressVO> getPlayerProgress(Terminology term, int num) {
+		ArrayList<PlayerProgressVO> voList = new ArrayList<PlayerProgressVO>();
+		ArrayList<PlayerProgressPO> poList = playerService.getPlayerProgress(term, num);
+		for(PlayerProgressPO po: poList){
+			PlayerProgressVO vo = new PlayerProgressVO(po.getName(), po.getTeam(), 
+					po.getPosition(), po.getStats());
+			voList.add(vo);
+		}
+		
+		ArrayList<PlayerProgressVO> result = this.sort_progress(voList, num);
+		return result;
 	}
 
 	@Override
-	public ArrayList<PlayerAdvancedStatsVO> getAdvancedStats(String season,
+	public PlayerAdvancedStatsVO getAdvancedStats(String season,
 			Date date, String player) throws PlayerNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		PlayerAdvancedStatsPO po = playerService.getAdvancedStats(season,
+				TypeTransform.date_to_str(date), player);
+		return new PlayerAdvancedStatsVO(po.getName(), po.getTeam(), po.getPlayerEfficiency(), 
+				po.getGmsc(), po.getTrueScorePercent(), po.getFieldGoalsPercent(), 
+				po.getRebounds(), po.getOffensiveReboundsPercent(), po.getDefensiveReboundsPercent(), 
+				po.getAssistsPercent(), po.getStealsPercent(), po.getBlockPercent(), 
+				po.getTurnoversPercent(), po.getUsagePercent());
 	}
 
 	@Override
-	public ArrayList<PlayerBasicStatsVO> getBasicStats(String season,
+	public PlayerBasicStatsVO getBasicStats(String season,
 			Date date, String player) throws PlayerNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		PlayerBasicStatsPO po= playerService.getBasicStats(season, 
+				TypeTransform.date_to_str(date), player);
+		double fgp = 0;
+		double tpp = 0;
+		double ftp = 0;
+		if(po.getFieldGoalsAttempted() != 0){
+			fgp = po.getFieldGoalsMade()/po.getFieldGoalsAttempted();
+		}
+		if(po.getThreePointFieldGoalsAttempted() != 0){
+			tpp = po.getThreePointFieldGoalsMade()/po.getThreePointFieldGoalsAttempted();
+		}
+		if(po.getFreeThrowsAttempted() != 0){
+			ftp = po.getFreeThrowsMade()/po.getFreeThrowsAttempted();
+		}
+		return new PlayerBasicStatsVO(po.getName(), po.getTeam(), 0, po.isGamesStarting()==true?1:0, 
+				TypeTransform.minutes_to_str(po.getMinutes()), po.getRebounds(), po.getAssists(), fgp, tpp, ftp, 
+				po.getOffensiveRebounds(), po.getDefensiveRebounds(), 
+				po.getSteals(), po.getBlocks(), po.getTurnovers(), po.getPersonalFouls(), 
+				po.getPoints(), po.isDoubleDouble()==true?1:0);		
 	}
 
 	@Override
 	public ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season,
 			Date date, Terminology term, int num) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PlayerHotStatsPO> poList = playerService.getPlayerHotStats(season, 
+				TypeTransform.date_to_str(date), term);
+		ArrayList<PlayerHotStatsVO> voList = new ArrayList<PlayerHotStatsVO>();
+		for(PlayerHotStatsPO po: poList){
+			double stats = 0;
+			int n = po.getStats().size();
+			for(Double s: po.getStats()){
+				stats += s;
+			}
+			PlayerHotStatsVO vo = new PlayerHotStatsVO(po.getName(), po.getTeam(), 
+					po.getPosition(), stats/n);
+			voList.add(vo);
+		}
+		ArrayList<PlayerHotStatsVO> result = this.sort_hotplayer(voList, num);
+		return result;
 	}
 
 	@Override
 	public ArrayList<PlayerHotStatsVO> getHotPlayersBySeason(
 			String season, Terminology term, int num) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PlayerHotStatsPO> poList = playerService.getPlayerHotStats(season, term);
+		ArrayList<PlayerHotStatsVO> voList = new ArrayList<PlayerHotStatsVO>();
+		for(PlayerHotStatsPO po: poList){
+			double stats = 0;
+			int n = po.getStats().size();
+			for(Double s: po.getStats()){
+				stats += s;
+			}
+			PlayerHotStatsVO vo = new PlayerHotStatsVO(po.getName(), po.getTeam(), 
+					po.getPosition(), stats/n);
+			voList.add(vo);
+		}
+		ArrayList<PlayerHotStatsVO> result = this.sort_hotplayer(voList, num);
+		return result;
+	}
+	
+	
+	private ArrayList<PlayerHotStatsVO> sort_hotplayer(ArrayList<PlayerHotStatsVO> list, int num){
+		ArrayList<PlayerHotStatsVO> result = new ArrayList<PlayerHotStatsVO>();
+		Collections.sort(list, new ComparePlayerHotStats());
+		for(int i=list.size()-1; i>=list.size()-num; i--){
+			PlayerHotStatsVO vo = list.get(i);
+			result.add(vo);
+		}
+		
+		return result;
+	}
+	
+	class ComparePlayerHotStats implements Comparator<PlayerHotStatsVO>{
+
+		@Override
+		public int compare(PlayerHotStatsVO o1, PlayerHotStatsVO o2) {
+			if(o1.getStats() > o2.getStats()){
+				return 1;
+			}else if(o1.getStats() < o2.getStats()){
+				return -1;
+			}else{
+				return 0;
+			}
+		}
+		
+	}
+	
+	private ArrayList<PlayerProgressVO> sort_progress(ArrayList<PlayerProgressVO> list, int num){
+		Collections.sort(list, new ComparePlayerProgress());
+		ArrayList<PlayerProgressVO> voList = new ArrayList<PlayerProgressVO>();
+		for(int i=list.size()-1; i>=list.size()-num; i--){
+			voList.add(list.get(i));
+		}
+		
+		return voList;
+	}
+	
+	class ComparePlayerProgress implements Comparator<PlayerProgressVO>{
+
+		@Override
+		public int compare(PlayerProgressVO o1, PlayerProgressVO o2) {
+			if(o1.getImprovement() > o2.getImprovement()){
+				return 1;
+			}else if(o1.getImprovement() < o2.getImprovement()){
+				return -1;
+			}else{
+				return 0;
+			}
+		}
+		
 	}
 
 }

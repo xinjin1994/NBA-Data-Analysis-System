@@ -29,6 +29,9 @@ public class PlayerBasicStatsVO {
 	double points;                                   //个人得分
 	double doubleDoubles;                            //两双数
 	ImageIcon portrait;                             //头像
+	//double fieldGoalsMade;                           //两分球
+	//double threePointFieldGoalsMade;                //三分球
+	//double freeThrowsMade;                          //罚球
 	
 	public PlayerBasicStatsVO(BasicPlayerStats stats){
 		this.name = stats.name();

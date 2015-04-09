@@ -21,6 +21,10 @@ public class MatchesData_new implements MatchesDataService_new {
 		//do nothing
 	}
 	
+	public static void addData(Matches_new match){
+		matches.add(0, match);
+	}
+	
 	public ArrayList<Matches_new> getData(){
 		//测试用
 		return matches;

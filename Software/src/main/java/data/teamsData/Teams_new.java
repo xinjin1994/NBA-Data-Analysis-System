@@ -23,6 +23,11 @@ public class Teams_new {
 		stats.add(s);
 		games++;
 	}
+	
+	public void addLatestStats(TeamStats_new s){
+		stats.add(0, s);
+		games++;
+	}
 
 	public Teams getTeam() {
 		return team;

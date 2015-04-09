@@ -28,6 +28,24 @@ public class TeamsData_new implements TeamsDataService_new {
 		//do nothing
 	}
 	
+	public static void addData(ArrayList<TeamStats_new> stats){
+		int num = stats.size();
+		for(Teams_new team: teams){
+			for(int i=0; i<stats.size(); i++){
+				if(team.team == stats.get(i).team){
+					team.addLatestStats(stats.get(i));
+					num--;
+					stats.remove(i);
+					break;
+				}
+			}
+			
+			if(num == 0){
+				break;
+			}
+		}
+	}
+	
 	public ArrayList<Teams_new> getData(){
 		//测试用
 		return teams;
@@ -217,7 +235,9 @@ public class TeamsData_new implements TeamsDataService_new {
 					po.addStats(s.basic.points);
 				}
 			}
-			poList.add(po);
+			if(po.getStats().size() != 0){
+				poList.add(po);
+			}
 		}
 		
 		return poList;
@@ -233,7 +253,9 @@ public class TeamsData_new implements TeamsDataService_new {
 					po.addStats(s.basic.rebounds);
 				}
 			}
-			poList.add(po);
+			if(po.getStats().size() != 0){
+				poList.add(po);
+			}
 		}
 		
 		return poList;
@@ -249,7 +271,9 @@ public class TeamsData_new implements TeamsDataService_new {
 					po.addStats(s.basic.assists);
 				}
 			}
-			poList.add(po);
+			if(po.getStats().size() != 0){
+				poList.add(po);
+			}
 		}
 		
 		return poList;
@@ -265,7 +289,9 @@ public class TeamsData_new implements TeamsDataService_new {
 					po.addStats(s.basic.blocks);
 				}
 			}
-			poList.add(po);
+			if(po.getStats().size() != 0){
+				poList.add(po);
+			}
 		}
 		
 		return poList;
@@ -281,7 +307,9 @@ public class TeamsData_new implements TeamsDataService_new {
 					po.addStats(s.basic.steals);
 				}
 			}
-			poList.add(po);
+			if(po.getStats().size() != 0){
+				poList.add(po);
+			}
 		}
 		
 		return poList;
@@ -297,7 +325,9 @@ public class TeamsData_new implements TeamsDataService_new {
 					po.addStats(s.basic.fieldGoalsMade/s.basic.fieldGoalsAttempted);
 				}
 			}
-			poList.add(po);
+			if(po.getStats().size() != 0){
+				poList.add(po);
+			}
 		}
 		
 		return poList;
@@ -313,7 +343,9 @@ public class TeamsData_new implements TeamsDataService_new {
 					po.addStats(s.basic.threePointFieldGoalsMade/s.basic.threePointFieldGoalsAttempted);
 				}
 			}
-			poList.add(po);
+			if(po.getStats().size() != 0){
+				poList.add(po);
+			}
 		}
 		
 		return poList;
@@ -329,7 +361,9 @@ public class TeamsData_new implements TeamsDataService_new {
 					po.addStats(s.basic.freeThrowsMade/s.basic.freeThrowsAttempted);
 				}
 			}
-			poList.add(po);
+			if(po.getStats().size() != 0){
+				poList.add(po);
+			}
 		}
 		
 		return poList;
@@ -346,7 +380,7 @@ public class TeamsData_new implements TeamsDataService_new {
 						TeamBasicStats_new basic = s.basic;
 						TeamOffensiveStatsPO po = new TeamOffensiveStatsPO(team, 
 								basic.points, basic.fieldGoalsMade, basic.fieldGoalsAttempted, 
-								basic.freeThrowsMade, basic.fieldGoalsAttempted, 
+								basic.freeThrowsMade, basic.freeThrowsAttempted, 
 								basic.threePointFieldGoalsMade, basic.threePointFieldGoalsAttempted, 
 								basic.assists);
 						return po;

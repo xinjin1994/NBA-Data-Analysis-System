@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import po.PlayerAdvancedStatsPO;
 import po.PlayerBasicStatsPO;
+import po.PlayerHotStatsPO;
 import po.PlayerPO;
+import po.PlayerProgressPO;
 import enums.Position;
 import enums.Teams;
+import enums.Terminology;
 import exceptions.PlayerNotFound;
 
 public interface PlayersDataService_new {
@@ -33,4 +36,11 @@ public interface PlayersDataService_new {
 	
 	//获取比赛日期
 	public ArrayList<String> getAvailableDays(String season, String player) throws PlayerNotFound;
+	
+	//获取热点数据
+	public ArrayList<PlayerHotStatsPO> getPlayerHotStats(String season, String date, Terminology term);
+	public ArrayList<PlayerHotStatsPO> getPlayerHotStats(String season, Terminology term);
+	
+	//获取进步最快的球员
+	public ArrayList<PlayerProgressPO> getPlayerProgress(Terminology term, int num);
 }

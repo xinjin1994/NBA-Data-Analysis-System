@@ -27,6 +27,14 @@ public class Players_new {
 			team = s.team;
 		}
 	}
+	
+	public void addLatestStats(PlayerStats_new s) {
+		stats.add(0, s);                                 //放在第一个位置
+		games++;
+		if(s.team != team){
+			team = s.team;
+		}
+	}
 
 	public String getName() {
 		return name;

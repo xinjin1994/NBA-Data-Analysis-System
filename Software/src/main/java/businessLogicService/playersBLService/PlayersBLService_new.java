@@ -12,6 +12,7 @@ import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerHotStatsVO;
 import vo.PlayerPortraitVO;
+import vo.PlayerProgressVO;
 import vo.PlayerVO;
 
 public interface PlayersBLService_new {
@@ -42,16 +43,16 @@ public interface PlayersBLService_new {
 	
 	
 	//迭代二内容
-	ArrayList<Date> getAvailableDays(String season, String player) throws PlayerNotFound;
+	public ArrayList<Date> getAvailableDays(String season, String player) throws PlayerNotFound;
 	
 	//进步最大的球员
-	//*******************************************
+	public ArrayList<PlayerProgressVO> getPlayerProgress(Terminology term, int num);
 	
 	//热点球员
-	ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season, Date date, Terminology term, int num);
-	ArrayList<PlayerHotStatsVO> getHotPlayersBySeason(String season, Terminology term, int num);
+	public ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season, Date date, Terminology term, int num);
+	public ArrayList<PlayerHotStatsVO> getHotPlayersBySeason(String season, Terminology term, int num);
 	
 	//获取某个球员某场比赛的数据
-	ArrayList<PlayerAdvancedStatsVO> getAdvancedStats(String season, Date date, String player) throws PlayerNotFound;
-	ArrayList<PlayerBasicStatsVO> getBasicStats(String season, Date date, String player) throws PlayerNotFound;
+	public PlayerAdvancedStatsVO getAdvancedStats(String season, Date date, String player) throws PlayerNotFound;
+	public PlayerBasicStatsVO getBasicStats(String season, Date date, String player) throws PlayerNotFound;
 }

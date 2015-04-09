@@ -1,8 +1,12 @@
 package businessLogicServiceTest.teamsBLService;
 
+import helper.TypeTransform;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 import vo.TeamDefensiveFoulsVO;
+import vo.TeamHotStatsVO;
 import vo.TeamOffensiveStatsVO;
 import vo.TeamRatioGeneralVO;
 import vo.TeamVO;
@@ -12,6 +16,7 @@ import data.init.DataInit;
 import enums.Conference;
 import enums.Division;
 import enums.Teams;
+import enums.Terminology;
 import exceptions.TeamNotFound;
 import junit.framework.TestCase;
 
@@ -79,6 +84,37 @@ public class TeamsBLService_newTest extends TestCase {
 		try {
 			ArrayList<Teams> list = new TeamsBL_new().getTeams(conference, division);
 			System.out.println(list.size());
+		} catch (TeamNotFound e) {
+			assertTrue(false);
+		}
+	}
+	
+	public void testGetAvailableDays(){
+		String season = "13-14";
+		Teams team = Teams.ATL;
+		ArrayList<Date> days = service.getAvailableDays(season, team);
+		for(Date date: days){
+			System.out.println(TypeTransform.date_to_str(date));
+		}
+	}
+	
+	public void testGetHotTeams(){
+		String season = "13-14";
+		Terminology term = Terminology.PTS;
+		int num = 5;
+		ArrayList<TeamHotStatsVO> list = service.getHotTeams(season, term, num);
+		System.out.println(list.size());
+	}
+	
+	public void testGetStats(){
+		String season = "13-14";
+		Date date = TypeTransform.str_to_date("04-01");
+		Teams team = Teams.HOU;
+		try {
+			TeamOffensiveStatsVO vo1 = service.getOffensiveStats(season, date, team);
+			TeamDefensiveFoulsVO vo2 = service.getDefensiveStats(season, date, team);
+			TeamRatioGeneralVO vo3 = service.getRatioStats(season, date, team);
+			assertTrue(vo1 != null && vo2 != null && vo3 != null);
 		} catch (TeamNotFound e) {
 			assertTrue(false);
 		}

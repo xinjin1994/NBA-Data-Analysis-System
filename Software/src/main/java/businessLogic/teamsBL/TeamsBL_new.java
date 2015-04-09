@@ -291,7 +291,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 			for(double d: po.getStats()){
 				stats += d;
 			}
-			stats /= poList.size();
+			stats /= po.getStats().size();
 			TeamHotStatsVO vo = new TeamHotStatsVO(po.getTeam(), po.getConference(),
 					po.getDivision(), stats);
 			voList.add(vo);
@@ -348,7 +348,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 	private ArrayList<TeamHotStatsVO> sort(ArrayList<TeamHotStatsVO> list, int num){
 		ArrayList<TeamHotStatsVO> result = new ArrayList<TeamHotStatsVO>();
 		Collections.sort(list, new CompareTeamHotStats());
-		for(int i=0; i<num; i++){
+		for(int i=list.size()-1; i>=list.size()-num; i--){
 			result.add(list.get(i));
 		}
 		
@@ -363,7 +363,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 			}else if(o1.getStats() == o2.getStats()){
 				return 0;
 			}else{
-				return 1;
+				return -1;
 			}
 		}
 		

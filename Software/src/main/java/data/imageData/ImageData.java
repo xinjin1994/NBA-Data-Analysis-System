@@ -1,5 +1,6 @@
 package data.imageData;
 
+import java.awt.Image;
 import java.io.File;
 
 import javax.swing.ImageIcon;
@@ -52,6 +53,8 @@ public class ImageData implements ImageService {
 	public static void main(String[] args){
 		String name = "LeBron James";
 		ImageIcon image = new ImageData().getPlayerPortrait(name);
+		image.setImage(image.getImage().getScaledInstance(image.getIconWidth()*2, 
+				image.getIconHeight()*2, Image.SCALE_DEFAULT));
 		
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
