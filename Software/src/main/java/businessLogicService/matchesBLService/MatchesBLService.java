@@ -5,6 +5,7 @@ import java.util.Date;
 
 import enums.Teams;
 import exceptions.MatchNotFound;
+import exceptions.StatsNotFound;
 import exceptions.TeamNotFound;
 import vo.MatchVO;
 
@@ -15,20 +16,20 @@ public interface MatchesBLService {
 	public ArrayList<MatchVO> getMatchesVO(String season, String date, Teams team1, Teams team2) throws TeamNotFound, MatchNotFound;
 	
 	//迭代二
-	public ArrayList<String> getAvailableSeasons();
-	public ArrayList<Date> getAvailableDays(String season);
+	public ArrayList<String> getAvailableSeasons() throws StatsNotFound;
+	public ArrayList<Date> getAvailableDays(String season) throws StatsNotFound;
 	
 	//获取单场比赛
-	public MatchVO getMatch(String season, Date date, String player);
-	public MatchVO getMatch(String season, Date date, Teams team);
+	public MatchVO getMatch(String season, Date date, String player) throws MatchNotFound;
+	public MatchVO getMatch(String season, Date date, Teams team) throws MatchNotFound;
 	
 	//获取最近num场比赛
-	public ArrayList<MatchVO> getMatch(Teams team, int num);
-	public ArrayList<MatchVO> getMatch(String player, int num);
+	public ArrayList<MatchVO> getMatch(Teams team, int num) throws MatchNotFound;
+	public ArrayList<MatchVO> getMatch(String player, int num) throws MatchNotFound;
 	
 	//获取某日/赛季比赛
-	public ArrayList<MatchVO> getMatchByDate();                      //当天
-	public ArrayList<MatchVO> getMatchByDate(Date date);
-	public ArrayList<MatchVO> getMatchBySeason();                    //最后一个赛季
-	public ArrayList<MatchVO> getMatchBySeason(String season);
+	public ArrayList<MatchVO> getMatchByDate() throws MatchNotFound;                      //当天
+	public ArrayList<MatchVO> getMatchByDate(String season, Date date) throws MatchNotFound;
+	public ArrayList<MatchVO> getMatchBySeason() throws MatchNotFound;                    //最后一个赛季
+	public ArrayList<MatchVO> getMatchBySeason(String season) throws MatchNotFound;
 }

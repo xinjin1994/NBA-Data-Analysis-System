@@ -1,6 +1,8 @@
 package data.matchesData;
 
 
+import java.util.ArrayList;
+
 import po.MatchPO_new;
 import enums.Teams;
 
@@ -16,7 +18,9 @@ public class Matches_new {
 	String score3;                          //第三节比分
 	String score4;                          //第四节比分
 	String scoreExtra;                      //加时赛比分
-
+    ArrayList<String> homeTeamPlayers;      //主队球员
+    ArrayList<String> guestTeamPlayers;     //客队球员
+	
 	public Matches_new() {
 		
 	}
@@ -33,6 +37,8 @@ public class Matches_new {
 		match.setScore3(score3);
 		match.setScore4(score4);
 		match.setScoreExtra(scoreExtra);
+		match.setHomeTeamPlayers(homeTeamPlayers);
+		match.setGuestTeamPlayers(guestTeamPlayers);
 		
 		return match;
 	}
@@ -78,6 +84,14 @@ public class Matches_new {
 		return scoreExtra;
 	}
 	
+	public ArrayList<String> getHomeTeamPlayers() {
+		return homeTeamPlayers;
+	}
+	
+	public ArrayList<String> getGuestTeamPlayers() {
+		return guestTeamPlayers;
+	}
+	
 	public void setSeason(String season) {
 		this.season = season;
 	}
@@ -118,4 +132,11 @@ public class Matches_new {
 		this.scoreExtra = scoreExtra;
 	}
 	
+	public void setHomeTeamPlayers(ArrayList<String> homeTeamPlayers){
+		this.homeTeamPlayers = homeTeamPlayers;
+	}
+	
+	public void setGuestTeamPlayers(ArrayList<String> guestTeamPlayers){
+		this.guestTeamPlayers = guestTeamPlayers;
+	}
 }

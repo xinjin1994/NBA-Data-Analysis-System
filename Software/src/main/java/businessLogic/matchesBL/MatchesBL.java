@@ -281,11 +281,6 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 		return null;
 	}
 
-	@Override
-	public ArrayList<MatchVO> getMatchByDate(Date date) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ArrayList<MatchVO> getMatchBySeason() {
@@ -295,6 +290,12 @@ public class MatchesBL implements MatchesBLService, PlayerDataInMatchesService, 
 
 	@Override
 	public ArrayList<MatchVO> getMatchBySeason(String season) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<MatchVO> getMatchByDate(String season, Date date) {
 		// TODO Auto-generated method stub
 		return null;
 	}

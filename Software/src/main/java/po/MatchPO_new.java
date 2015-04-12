@@ -1,5 +1,7 @@
 package po;
 
+import java.util.ArrayList;
+
 import enums.Teams;
 
 public class MatchPO_new {
@@ -13,6 +15,24 @@ public class MatchPO_new {
 	String score3;                          //第三节比分
 	String score4;                          //第四节比分
 	String scoreExtra;                      //加时赛比分
+	ArrayList<String> homeTeamPlayers;      //主队球员
+	public ArrayList<String> getHomeTeamPlayers() {
+		return homeTeamPlayers;
+	}
+
+	public void setHomeTeamPlayers(ArrayList<String> homeTeamPlayers) {
+		this.homeTeamPlayers = homeTeamPlayers;
+	}
+
+	public ArrayList<String> getGuestTeamPlayers() {
+		return guestTeamPlayers;
+	}
+
+	public void setGuestTeamPlayers(ArrayList<String> guestTeamPlayers) {
+		this.guestTeamPlayers = guestTeamPlayers;
+	}
+
+	ArrayList<String> guestTeamPlayers;     //客队球员
 	
 	public MatchPO_new() {
 		

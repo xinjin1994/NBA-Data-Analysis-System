@@ -6,6 +6,7 @@ import po.MatchPO_new;
 import dataService.matchesDataService.MatchesDataService_new;
 import enums.Teams;
 import exceptions.MatchNotFound;
+import exceptions.StatsNotFound;
 
 public class MatchesData_new implements MatchesDataService_new {
 	static ArrayList<Matches_new> matches;
@@ -79,7 +80,7 @@ public class MatchesData_new implements MatchesDataService_new {
 	}
 
 	@Override
-	public ArrayList<String> getAvailableSeasons() {
+	public ArrayList<String> getAvailableSeasons() throws StatsNotFound {
 		ArrayList<String> seasons = new ArrayList<String>();
 		for(Matches_new match: matches){
 			if(!seasons.contains(match.season)){
@@ -87,11 +88,15 @@ public class MatchesData_new implements MatchesDataService_new {
 			}
 		}
 		
-		return seasons;
+		if(seasons.size()!=0){
+			return seasons;
+		}else{
+		    throw new StatsNotFound();
+		}
 	}
 
 	@Override
-	public ArrayList<String> getAvailableDays(String season) {
+	public ArrayList<String> getAvailableDays(String season) throws StatsNotFound {
 		ArrayList<String> days = new ArrayList<String>();
 		for(Matches_new match: matches){
 			if(match.season.equals(season) && !days.contains(match.date)){
@@ -99,7 +104,131 @@ public class MatchesData_new implements MatchesDataService_new {
 			}
 		}
 		
-		return days;
+		if(days.size()!=0){
+			return days;
+		}else{
+		    throw new StatsNotFound();
+		}
+	}
+
+	@Override
+	public MatchPO_new getMatches(String season, String date,
+			String player) throws MatchNotFound {
+		MatchPO_new po = new MatchPO_new();
+		int test = 0;
+		for(Matches_new match: matches){
+			if(match.getSeason().equals(season)&&match.getDate().equals(date)){
+				if(match.getHomeTeamPlayers().contains(player)||match.getGuestTeamPlayers().contains(player)){
+					po=match.toPO();
+					test=1;
+				}
+			}
+		}
+		
+		if(test==1){
+		   return po;
+		}else{
+			throw new MatchNotFound("比赛未找到");
+		}
+	}
+
+	@Override
+	public MatchPO_new getMatches(String season, String date,
+			Teams team) throws MatchNotFound {
+		MatchPO_new po = new MatchPO_new();
+		int test = 0;
+		for(Matches_new match: matches){
+			if(match.getHomeTeam()==team||match.getGuestTeam()==team){
+				if(match.getSeason().equals(season)&&match.getDate().equals(date)){
+				    po = match.toPO();
+				    test = 1;
+				}
+			}
+		}
+		
+		if(test==1){
+			return po;
+		}else{
+			throw new MatchNotFound("比赛未找到");
+		}
+	}
+
+	@Override
+	public ArrayList<MatchPO_new> getMatches(Teams team, int num) throws MatchNotFound {
+		ArrayList<MatchPO_new> list = new ArrayList<MatchPO_new>();
+		int count=0;
+		if(num==0){
+			return list;
+		}
+		for(Matches_new match: matches) {
+			if(match.getHomeTeam()==team||match.getGuestTeam()==team){
+				list.add(match.toPO());
+				count++;
+			}
+			if(count==num)
+				break;
+		}
+		
+		if(list.size()!=0){
+			return list;
+		}else{
+			throw new MatchNotFound("比赛未找到");
+		}
+	}
+
+	@Override
+	public ArrayList<MatchPO_new> getMatches(String player, int num) throws MatchNotFound {
+		ArrayList<MatchPO_new> list = new ArrayList<MatchPO_new>();
+		if(num==0){
+			return list;
+		}
+		int count=0;
+		for(Matches_new match: matches) {
+			if(match.getHomeTeamPlayers().contains(player)||match.getGuestTeamPlayers().contains(player)){
+				list.add(match.toPO());
+				count++;
+			}
+			if(count==num)
+				break;
+		}
+		
+		if(list.size()!=0){
+			return list;
+		}else{
+			throw new MatchNotFound("比赛未找到");
+		}
+	}
+
+	@Override
+	public ArrayList<MatchPO_new> getMatches(String season, String date) throws MatchNotFound {
+		ArrayList<MatchPO_new> list = new ArrayList<MatchPO_new>();
+		for(Matches_new match: matches) {
+			if(match.getSeason().equals(season)&&match.getDate().equals(date)){
+				list.add(match.toPO());
+			}
+		}
+		
+		if(list.size()!=0){
+			return list;
+		}else{
+			throw new MatchNotFound("比赛未找到");
+		}
+	}
+	
+	@Override
+	public ArrayList<MatchPO_new> getMatches (String season) throws MatchNotFound {
+		ArrayList<MatchPO_new> list = new ArrayList<MatchPO_new>();
+		for(Matches_new match: matches) {
+			if(match.getSeason().equals(season)){
+				list.add(match.toPO());
+			}
+		}
+		
+		if(list.size()!=0){
+			return list;
+		}else{
+			throw new MatchNotFound("比赛未找到");
+		}
 	}
 	
 }
