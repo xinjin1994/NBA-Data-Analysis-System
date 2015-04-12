@@ -4,5 +4,5 @@ import java.util.ArrayList;
 import po.TeamPO;
 
 public interface ReadTeams {
-	ArrayList<TeamPO> readAllTeams();
+	ArrayList<TeamPO> readAllTeams(String path);
 }

@@ -9,7 +9,7 @@ public enum Terminology {
 	OREB("进攻篮板数"), DREB("防守篮板数"), REB("总篮板数"), 
 	AST("助攻数"), STL("抢断数"),  BLK("盖帽数"), 
 	TOV("失误数"), PF("犯规数"), PTS("个人得分"), 
-	PER("效率"), IMP("近五场提升率"), GMSC("GmSc"), 
+	PER("效率"), DBDB("两双数"), IMP("近五场提升率"), GMSC("GmSc"), 
 	TSP("真实投篮命中率"), FGE("投篮效率"), 
 	REBP("篮板率"), OREBP("进攻篮板率"), DREBP("防守篮板率"), 
 	ASTP("助攻率"), STLP("抢断率"), BLKP("盖帽率"), TOVP("失误率"), 
@@ -30,6 +30,64 @@ public enum Terminology {
 	
 	public String toString(){
 		return terminology;
+	}
+	
+	public static Terminology toEnum_player(String term) {
+		switch(term){
+		case "score": return PTS;
+		case "point": return PTS;
+		case "rebound": return REB;
+		case "assist": return AST;
+		case "blockShot": return BLK;
+		case "steal": return STL;
+		case "foul": return PF;
+		case "fault": return TOV;
+		case "minute": return MIN;
+		case "efficient": return PER;
+		case "shot": return FGP;
+		case "three": return TPP;
+		case "penalty": return FTP;
+		case "doubleTwo": return DBDB;
+		case "realShot": return TSP;
+		case "GmSc": return GMSC;
+		case "shotEfficient": return FGE;
+		case "reboundEfficient": return REBP;
+		case "defendReboundEfficient": return DREB;
+		case "offendReboundEfficient": return OREB;
+		case "assistEfficient": return ASTE;
+		case "stealEfficient": return STLE;
+		case "blockShotEfficient": return BLKP;
+		case "faultEfficient": return TOVP;
+		case "frequency": return USGP;
+		default: return null;
+		}
+	}
+	
+	public static Terminology toEnum_team(String term) {
+		switch(term){
+		case "score": return PTS;
+		case "point": return PTS;
+		case "rebound": return REB;
+		case "assist": return AST;
+		case "blockShot": return BLK;
+		case "steal": return STL;
+		case "foul": return PF;
+		case "fault": return TOV;
+		case "shot": return FGP;
+		case "three": return TPP;
+		case "penalty": return FTP;
+		case "defendRebound": return DREB;
+		case "offendRebound": return OREB;
+		case "winRate": return WINR;
+		case "offendRound": return OFR;
+		case "offendEfficient": return OFE;
+		case "defendEfficient": return DFE;
+		case "offendReboundEfficient": return OREBDE;
+		case "defendReboundEfficient": return DREBDE;
+		case "stealEfficient": return STLE;
+		case "assistEfficient": return ASTE;
+		default: return null;
+		}
 	}
 	
 	static public Terminology[] getPlayerBasic(){

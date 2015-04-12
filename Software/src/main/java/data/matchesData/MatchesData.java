@@ -19,7 +19,7 @@ public class MatchesData implements MatchesDataService {
 		reader = new ObjectCreator().matchesReader();
 		
 		if(matchList == null){
-			matchList = reader.readAllMatches();
+			matchList = reader.readAllMatches(null);
 		}
 	}
 

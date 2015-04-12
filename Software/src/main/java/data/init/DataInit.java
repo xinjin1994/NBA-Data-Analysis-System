@@ -24,7 +24,17 @@ public class DataInit {
 	
 	Calculator calculator;
 	
+	String path;
+	
 	public DataInit(){
+		path = null;
+		playerMap = new HashMap<String, Players_new>();
+		teamMap = new HashMap<Teams, Teams_new>();
+		matchList = new ArrayList<Matches_new>();
+	}
+	
+	public DataInit(String filepath){
+		path = filepath;
 		playerMap = new HashMap<String, Players_new>();
 		teamMap = new HashMap<Teams, Teams_new>();
 		matchList = new ArrayList<Matches_new>();
@@ -38,13 +48,13 @@ public class DataInit {
 	}
 	
 	private void initHashMap(){
-		ArrayList<PlayerPO> players = new data.playersData.ReadFromTxt().readAllPlayers();
+		ArrayList<PlayerPO> players = new data.playersData.ReadFromTxt().readAllPlayers(path);
 		for(PlayerPO player: players){
 			Players_new p = new Players_new(player.name(), player);
 			playerMap.put(player.name(), p);
 		}
 		
-		ArrayList<TeamPO> teams = new data.teamsData.ReadFromTxt().readAllTeams();
+		ArrayList<TeamPO> teams = new data.teamsData.ReadFromTxt().readAllTeams(path);
 		for(TeamPO team: teams){
 			Teams_new t = new Teams_new(team.name(), team);
 			teamMap.put(team.name(), t);
@@ -53,7 +63,7 @@ public class DataInit {
 	}
 	
 	private void distributeData(){
-		ArrayList<MatchPO> matches = new data.matchesData.ReadFromTxt().readAllMatches();
+		ArrayList<MatchPO> matches = new data.matchesData.ReadFromTxt().readAllMatches(path);
 		Collections.sort(matches, new sorter.data.SortByDate());
 		for(MatchPO match: matches){
 			calculator = new Calculator(match);

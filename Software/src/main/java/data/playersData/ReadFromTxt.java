@@ -9,7 +9,8 @@ public class ReadFromTxt implements ReadPlayers {
 	String path = "players/info";
 
 	@Override
-	public ArrayList<PlayerPO> readAllPlayers() {
+	public ArrayList<PlayerPO> readAllPlayers(String filepath) {
+		path = filepath == null ? path : filepath + "/" + path;
 		File file = new File(path);
 		if(file.exists()){
 			File[] fileList = file.listFiles();
@@ -66,7 +67,7 @@ public class ReadFromTxt implements ReadPlayers {
 		long time1 = System.currentTimeMillis();
 		
 		ReadFromTxt reader = new ReadFromTxt();
-		ArrayList<PlayerPO> playerList = reader.readAllPlayers();
+		ArrayList<PlayerPO> playerList = reader.readAllPlayers(null);
 		
 		long time2 = System.currentTimeMillis();
 		

@@ -7,7 +7,8 @@ import po.MatchPO;
 public class ReadFromTxt implements ReadMatches{
 	String path = "matches";
 
-	public ArrayList<MatchPO> readAllMatches() {
+	public ArrayList<MatchPO> readAllMatches(String filepath) {
+		path = filepath == null ? path : filepath + "/" + path;
 		File file = new File(path);
 		if(file.exists()){
 			File[] fileList = file.listFiles();
@@ -69,7 +70,7 @@ public class ReadFromTxt implements ReadMatches{
 		long time1 = System.currentTimeMillis();
 		
 		ReadFromTxt reader = new ReadFromTxt();
-		ArrayList<MatchPO> matchList = reader.readAllMatches();
+		ArrayList<MatchPO> matchList = reader.readAllMatches(null);
 		
 		long time2 = System.currentTimeMillis();
 		

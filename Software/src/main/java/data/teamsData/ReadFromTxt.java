@@ -8,7 +8,9 @@ public class ReadFromTxt implements ReadTeams {
 	String path = "teams/teams";
 
 	@Override
-	public ArrayList<TeamPO> readAllTeams() {
+	public ArrayList<TeamPO> readAllTeams(String filepath) {
+		path = filepath == null ? path : filepath + "/" + path;
+		
 		ArrayList<TeamPO> teamList = null;
 		
 		File file = new File(path);
@@ -46,7 +48,7 @@ public class ReadFromTxt implements ReadTeams {
 	//简单测试
 	public static void main(String[] args){
 		ReadFromTxt reader = new ReadFromTxt();
-		ArrayList<TeamPO> teamList = reader.readAllTeams();
+		ArrayList<TeamPO> teamList = reader.readAllTeams(null);
 		int num = 0;
 		for(int i=0; i<teamList.size(); i++){
 			teamList.get(i).print();

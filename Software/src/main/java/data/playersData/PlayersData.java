@@ -15,7 +15,7 @@ public class PlayersData implements PlayersDataService {
 		reader = new ObjectCreator().playersReader();
 		
 		if(playerList == null){
-			playerList = reader.readAllPlayers();
+			playerList = reader.readAllPlayers(null);
 		}
 	}
 

@@ -18,7 +18,7 @@ public class TeamsData implements TeamsDataService {
 		reader = new ObjectCreator().teamsReader();
 		
 		if(teamList == null){
-			teamList = reader.readAllTeams();
+			teamList = reader.readAllTeams(null);
 		}
 	}
 
