@@ -121,7 +121,7 @@ public class SearchPlayerPanel extends JPanel {
 				DefaultComboBoxModel<Division> model = new DefaultComboBoxModel<Division>();
 				
 				switch(cbbx_conference.getItemAt(cbbx_conference.getSelectedIndex())){
-				case ESTERN:
+				case EASTERN:
 					for(Division d : Division.getEasternDivision())
 						model.addElement(d);
 					break;

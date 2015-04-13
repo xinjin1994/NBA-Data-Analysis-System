@@ -28,7 +28,7 @@ public class TeamsBLServiceTest extends TestCase {
 		Teams team = Teams.ATL;
 		try {
 			TeamVO vo = service.getTeamInfo(team);
-			TeamVO trueValue = new TeamVO(Teams.ATL, "ATL", "Atlanta", Conference.ESTERN, 
+			TeamVO trueValue = new TeamVO(Teams.ATL, "ATL", "Atlanta", Conference.EASTERN, 
 					Division.SOUTHEAST, "Philips Arena", "1949");
 			assertTrue(vo.equals(trueValue));
 		} catch (TeamNotFound e) {
@@ -42,7 +42,7 @@ public class TeamsBLServiceTest extends TestCase {
 	}
 	
 	public void testGetTeams(){
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.CENTRAL;
 		try {
 			ArrayList<TeamVO> list = service.getTeamsInfo(conference, division);
@@ -63,7 +63,7 @@ public class TeamsBLServiceTest extends TestCase {
 	}
 	
 	public void testGetTeamsGeneralStatsTotal(){
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.SOUTHEAST;
 		try {
 			ArrayList<TeamGeneralStatsVO> list = service.getTeamsGeneralStatsTotal(conference, division);
@@ -79,7 +79,7 @@ public class TeamsBLServiceTest extends TestCase {
 	}
 	
 	public void testGetTeamsOffensiveStatsTotal(){
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.SOUTHEAST;
 		try {
 			ArrayList<TeamOffensiveStatsVO> list = service.getTeamsOffensiveStatsTotal(conference, division);
@@ -95,7 +95,7 @@ public class TeamsBLServiceTest extends TestCase {
 	}
 	
 	public void testGetTeamsDefensiveStatsTotal(){
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.SOUTHEAST;
 		try {
 			ArrayList<TeamDefensiveStatsVO> list = service.getTeamsDefensiveStatsTotal(conference, division);
@@ -111,7 +111,7 @@ public class TeamsBLServiceTest extends TestCase {
 	}
 	
 	public void testGetTeamsFoulsStatsTotal(){
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.SOUTHEAST;
 		try {
 			ArrayList<TeamFoulsStatsVO> list = service.getTeamsFoulsStatsTotal(conference, division);
@@ -127,7 +127,7 @@ public class TeamsBLServiceTest extends TestCase {
 	}
 	
 	public void testGetTeamsRatioStatsTotal(){
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.SOUTHEAST;
 		try {
 			ArrayList<TeamRatioStatsVO> list = service.getTeamsRatioStatsTotal(conference, division);

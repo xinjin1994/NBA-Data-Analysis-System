@@ -30,8 +30,8 @@ public class Console {
 		boolean isHigh = false;
 		boolean isDaily = false;
 		
-		Terminology hotField = null;
-		Terminology kingField = null;
+		String hotField = null;
+		String kingField = null;
 		Terminology[] sortField = null;
 		boolean[] asc = null;
 		String[] filters = null;
@@ -56,11 +56,11 @@ public class Console {
 				ci++;
 			}else if(args[ci].equals("-hot")) {
 				isHot = true;
-				hotField = Terminology.toEnum_player(args[ci+1]);
+				hotField = args[ci+1];
 				ci += 2;
 			}else if(args[ci].equals("-king")) {
 				isKing = true;
-				kingField = Terminology.toEnum_player(args[ci+1]);
+				kingField = args[ci+1];
 				ci += 2;
 				if(args[ci].equals("-season")) {
 					isDaily = false;
@@ -133,15 +133,15 @@ public class Console {
 		
 	}
 	
-	private void printPlayerHot(PrintStream out, Terminology hotField, int num) {
+	private void printPlayerHot(PrintStream out, String hotField, int num) {
 		System.out.println("Player King " + hotField + " " + num);
 	}
 	
-	private void printPlayerKing_daily(PrintStream out, Terminology kingField, int num) {
+	private void printPlayerKing_daily(PrintStream out, String kingField, int num) {
 		System.out.println("Player King " + kingField + " daily " + num);
 	}
 	
-	private void printPlayerKing_season(PrintStream out, Terminology kingField, int num) {
+	private void printPlayerKing_season(PrintStream out, String kingField, int num) {
 		System.out.println("Player King " + kingField + " season " + num);
 	}
 	
@@ -190,7 +190,7 @@ public class Console {
 		boolean isHot = false;
 		boolean isHigh = false;
 		
-		Terminology hotField = null;
+		String hotField = null;
 		Terminology[] sortField = null;
 		boolean[] asc = null;
 		int num = 30;
@@ -215,7 +215,7 @@ public class Console {
 				ci++;
 				isHot = false;
 			}else if(args[ci].equals("-hot")) {
-				hotField = Terminology.toEnum_team(args[ci+1]);
+				hotField = args[ci+1];
 				ci += 2;
 				isHot = true;
 			}else {
@@ -297,7 +297,7 @@ public class Console {
 		}
 	}
 	
-	private void printTeamHot(PrintStream out, Terminology hotField, int num) {
+	private void printTeamHot(PrintStream out, String hotField, int num) {
 		System.out.println("Team Hot " + num);
 		System.out.println(hotField);
 	}

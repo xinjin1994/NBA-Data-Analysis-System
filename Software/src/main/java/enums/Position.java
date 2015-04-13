@@ -41,4 +41,13 @@ public enum Position {
 	public String toString(){
 		return position;
 	}
+	
+	public String toAbbr() {
+		switch(this){
+		case FORWARD: return "F";
+		case GUARD: return "G";
+		case CENTER: return "C";
+		default: return "?";
+		}
+	}
 }

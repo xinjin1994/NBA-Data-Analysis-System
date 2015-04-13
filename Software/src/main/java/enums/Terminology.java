@@ -2,7 +2,7 @@ package enums;
 
 public enum Terminology {
 	//各种NBA中的专业术语
-	MIN("在场时间"), 
+	NAME("名字"), TEAM("球队"), GM("比赛场数"), GMSTR("先发场数"), MIN("在场时间"), 
 	FGM("投篮命中数"), FGA("投篮出手数"), FGP("投篮命中率"), 
 	TPM("三分命中数"), TPA("三分出手数"), TPP("三分命中率"), 
 	FTM("罚球命中数"), FTA("罚球出手数"), FTP("罚球命中率"), 

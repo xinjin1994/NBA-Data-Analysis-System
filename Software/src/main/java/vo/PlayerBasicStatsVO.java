@@ -29,9 +29,13 @@ public class PlayerBasicStatsVO {
 	double points;                                   //个人得分
 	double doubleDoubles;                            //两双数
 	ImageIcon portrait;                             //头像
-	//double fieldGoalsMade;                           //两分球
-	//double threePointFieldGoalsMade;                //三分球
-	//double freeThrowsMade;                          //罚球
+	
+	double fieldGoalsMade;                           //两分球
+	double fieldGoalsAttempted;
+	double threePointFieldGoalsMade;                //三分球
+	double threePointFieldGoalsAttempted;
+	double freeThrowsMade;                          //罚球
+	double freeThrowsAttempted;
 	
 	public PlayerBasicStatsVO(BasicPlayerStats stats){
 		this.name = stats.name();
@@ -68,7 +72,8 @@ public class PlayerBasicStatsVO {
 	public PlayerBasicStatsVO(String name, Teams team, double games, double gamesStarting, 
 			String minutes, double rebounds, double ast, double fgp, double tpp, 
 			double ftp, double or, double dr, double stl, double blk, double tov, 
-			double fouls, double pts, double dd){
+			double fouls, double pts, double dd, double fgm, double fga, double tpm, 
+			double tpa, double ftm, double fta){
 		this.name = name;
 		this.team = team;
 		this.games = games;
@@ -87,8 +92,39 @@ public class PlayerBasicStatsVO {
 		this.personalFouls = fouls;
 		this.points = pts;
 		this.doubleDoubles = dd;
+		
+		this.fieldGoalsMade = fgm;
+		this.fieldGoalsAttempted = fga;
+		this.threePointFieldGoalsMade = tpm;
+		this.threePointFieldGoalsAttempted = tpa;
+		this.freeThrowsMade = ftm;
+		this.freeThrowsAttempted = fta;
 	}
 	
+	public double getFieldGoalsMade() {
+		return fieldGoalsMade;
+	}
+
+	public double getFieldGoalsAttempted() {
+		return fieldGoalsAttempted;
+	}
+
+	public double getThreePointFieldGoalsMade() {
+		return threePointFieldGoalsMade;
+	}
+
+	public double getThreePointFieldGoalsAttempted() {
+		return threePointFieldGoalsAttempted;
+	}
+
+	public double getFreeThrowsMade() {
+		return freeThrowsMade;
+	}
+
+	public double getFreeThrowsAttempted() {
+		return freeThrowsAttempted;
+	}
+
 	public void average(){
 		double min = TypeTransform.str_to_minutes(minutes);
 		this.minutes = TypeTransform.minutes_to_str(min/games);
@@ -102,6 +138,12 @@ public class PlayerBasicStatsVO {
 		this.personalFouls /= games;
 		this.points /= games;
 		this.doubleDoubles /= games;
+		this.fieldGoalsMade /= games;
+		this.fieldGoalsAttempted /= games;
+		this.threePointFieldGoalsMade /= games;
+		this.threePointFieldGoalsAttempted /= games;
+		this.freeThrowsMade /= games;
+		this.freeThrowsAttempted /= games;
 	}
 	
 	public void addPortrait(ImageIcon image){
@@ -182,6 +224,13 @@ public class PlayerBasicStatsVO {
 	
 	public double getDoubleDoubles() {
 		return doubleDoubles;
+	}
+	
+	public double getEfficiency() {
+		return points + rebounds + assists + steals + blocks - this.fieldGoalsAttempted
+				+ this.fieldGoalsMade - this.threePointFieldGoalsAttempted
+				+ this.threePointFieldGoalsMade - this.freeThrowsAttempted
+				+ this.freeThrowsAttempted;
 	}
 	
 	public String getProperty(Terminology term){

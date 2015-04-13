@@ -30,7 +30,7 @@ public class TeamsBLService_newTest extends TestCase {
 	}
 	
 	public void testGetInfo() {
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.ATLANTIC;
 		try {
 			ArrayList<TeamVO> list = service.getTeamsInfo(conference, division);
@@ -46,7 +46,7 @@ public class TeamsBLService_newTest extends TestCase {
 	}
 	
 	public void testGetOffensiveStats() {
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.ATLANTIC;
 		try {
 			ArrayList<TeamOffensiveStatsVO> list = service.getTeamOffensiveStatsAverage(conference, division);
@@ -57,7 +57,7 @@ public class TeamsBLService_newTest extends TestCase {
 	}
 	
 	public void testGerDefensiveStats() {
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.ATLANTIC;
 		try {
 			ArrayList<TeamDefensiveFoulsVO> list = service.getTeamDefensiveFoulsStatsAverage(conference, division);
@@ -68,7 +68,7 @@ public class TeamsBLService_newTest extends TestCase {
 	}
 	
 	public void testGetRatioStats() {
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.ATLANTIC;
 		try {
 			ArrayList<TeamRatioGeneralVO> list = service.getTeamRatioGeneralStatsAverage(conference, division);
@@ -79,7 +79,7 @@ public class TeamsBLService_newTest extends TestCase {
 	}
 	
 	public void testGetNames() {
-		Conference conference = Conference.ESTERN;
+		Conference conference = Conference.EASTERN;
 		Division division = Division.ATLANTIC;
 		try {
 			ArrayList<Teams> list = new TeamsBL_new().getTeams(conference, division);

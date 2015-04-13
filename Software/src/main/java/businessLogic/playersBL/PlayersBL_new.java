@@ -12,11 +12,18 @@ import po.PlayerBasicStatsPO;
 import po.PlayerHotStatsPO;
 import po.PlayerPO;
 import po.PlayerProgressPO;
+import po.TeamPO;
+import sorter.Sorter;
+import data.teamsData.TeamsData_new;
 import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService_new;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
+import vo.PlayerHighInfo;
+import vo.PlayerHotInfo;
 import vo.PlayerHotStatsVO;
+import vo.PlayerKingInfo;
+import vo.PlayerNormalInfo;
 import vo.PlayerPortraitVO;
 import vo.PlayerProgressVO;
 import vo.PlayerVO;
@@ -28,10 +35,11 @@ import enums.Terminology;
 import exceptions.PlayerNotFound;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
+import businessLogicService.playersBLService.PlayersBLForTest;
 import businessLogicService.playersBLService.PlayersBLService_new;
 import businessLogicService.teamsBLService.PlayersInTeamsService;
 
-public class PlayersBL_new implements PlayersBLService_new{
+public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	PlayersDataService_new playerService;
 	PlayersInTeamsService teamService;
 	ImageService imageService;
@@ -214,6 +222,12 @@ public class PlayersBL_new implements PlayersBLService_new{
 		double personalFouls = 0;
 		double points = 0;
 		double doubleDoubles = 0;
+		double fgm = 0;
+		double fga = 0;
+		double tpm = 0;
+		double tpa = 0;
+		double ftm = 0;
+		double fta = 0;
 		int fg_num = 0;       //两分数
 		int tp_num = 0;       //三分数
 		int ft_num = 0;       //罚球数
@@ -245,6 +259,12 @@ public class PlayersBL_new implements PlayersBLService_new{
 			if(po.isDoubleDouble()){
 				doubleDoubles++;
 			}
+			fgm += po.getFieldGoalsMade();
+			fga += po.getFieldGoalsAttempted();
+			tpm += po.getThreePointFieldGoalsMade();
+			tpa += po.getThreePointFieldGoalsAttempted();
+			ftm += po.getFreeThrowsMade();
+			fta += po.getFreeThrowsAttempted();
 		}
 		
 		if(fg_num != 0){
@@ -260,7 +280,8 @@ public class PlayersBL_new implements PlayersBLService_new{
 		PlayerBasicStatsVO vo = new PlayerBasicStatsVO(name, team, games, gamesStarting, 
 				TypeTransform.minutes_to_str(minutes), rebounds, assists, fieldGoalPercentage,
 				threePointFieldGoalPercentage, freeThrowPercentage, offensiveRebounds, 
-				defensiveRebounds, steals, blocks, turnovers, personalFouls, points, doubleDoubles);
+				defensiveRebounds, steals, blocks, turnovers, personalFouls, points, doubleDoubles,
+				fgm, fga, tpm, tpa, ftm, fta);
 		
 		return vo;
 	}
@@ -414,7 +435,10 @@ public class PlayersBL_new implements PlayersBLService_new{
 				TypeTransform.minutes_to_str(po.getMinutes()), po.getRebounds(), po.getAssists(), fgp, tpp, ftp, 
 				po.getOffensiveRebounds(), po.getDefensiveRebounds(), 
 				po.getSteals(), po.getBlocks(), po.getTurnovers(), po.getPersonalFouls(), 
-				po.getPoints(), po.isDoubleDouble()==true?1:0);		
+				po.getPoints(), po.isDoubleDouble()==true?1:0, po.getFieldGoalsMade(), 
+						po.getFieldGoalsAttempted(), po.getThreePointFieldGoalsMade(), 
+						po.getThreePointFieldGoalsAttempted(), po.getFieldGoalsMade(), 
+						po.getFreeThrowsAttempted());		
 	}
 
 	@Override
@@ -506,6 +530,282 @@ public class PlayersBL_new implements PlayersBLService_new{
 			}
 		}
 		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//测试用方法
+	
+	private class Filter{
+		Conference con = Conference.NATIONAL;
+		Position pos = Position.ALL;
+		int age1 = 0;
+		int age2 = 99;
+		
+		public Filter(String[] filter) {
+			if(filter == null){
+				return;
+			}
+			
+			for(int i=0; i<filter.length; i++) {
+				String[] fil = filter[i].split("\\.");
+				if(fil[0].equals("position")){
+					pos = Position.toEnum(fil[1]);
+				}else if(fil[0].equals("league")){
+					con = Conference.toEnum_test(fil[1]);
+				}else{
+					if(fil[1].equals("<=22")){
+						age1 = 0;
+						age2 = 22;
+					}else if(fil[1].equals("22<X<=25")){
+						age1 = 22;
+						age2 = 25;
+					}else if(fil[1].equals("25<X<=30")){
+						age1 = 25;
+						age2 = 30;
+					}else{
+						age1 = 30;
+						age2 = 99;
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public ArrayList<PlayerNormalInfo> getPlayerNormalInfo_avg(String[] filter,
+			Terminology[] sortField, boolean[] asc, int num) {
+		Filter fil = new Filter(filter);
+		Conference con = fil.con;
+		Division div = Division.NATIONAL;
+		Position pos = fil.pos;
+		int age1 = fil.age1;
+		int age2 = fil.age2;
+		
+		ArrayList<PlayerNormalInfo> list = new ArrayList<PlayerNormalInfo>();
+		ArrayList<PlayerBasicStatsVO> basic;
+		
+		try {
+			basic = this.getBasicPlayersStatsAverage(con, div, pos);
+			
+			Sorter.playerBasic(basic, Terminology.NAME, true);
+			if(sortField != null){
+				for(int i=sortField.length-1; i>=0; i--){
+					Sorter.playerBasic(basic, sortField[i], asc[i]);
+				}
+			}
+			
+			int n = Math.min(num, basic.size());
+			
+			for(int i=0; i<n; i++){
+				PlayerBasicStatsVO vo = basic.get(i);
+				PlayerPO info = playerService.getPlayerInfo(vo.getName());
+				if(!(age1 < info.age() && info.age() >= age2)){
+					continue;
+				}
+				
+				PlayerNormalInfo normal = new PlayerNormalInfo();
+				normal.setAge(info.age());
+				normal.setAssist(vo.getAssists());
+				normal.setBlockShot(vo.getBlocks());
+				normal.setDefend(vo.getDefensiveRebounds());
+				normal.setEfficiency(vo.getEfficiency());
+				normal.setFault(vo.getTurnovers());
+				normal.setFoul(vo.getPersonalFouls());
+				normal.setMinute(TypeTransform.str_to_minutes(vo.getMinutes()));
+				normal.setName(vo.getName());
+				normal.setNumOfGame((int)vo.getGames());
+				normal.setOffend(vo.getOffensiveRebounds());
+				normal.setPenalty(vo.getFreeThrowPercentage());
+				normal.setPoint(vo.getPoints());
+				normal.setRebound(vo.getRebounds());
+				normal.setShot(vo.getFieldGoalPercentage());
+				normal.setStart((int)(vo.getGamesStarting()*vo.getGames()));
+				normal.setSteal(vo.getSteals());
+				normal.setTeamName(vo.getTeam().toAbbr());
+				normal.setThree(vo.getThreePointFieldGoalPercentage());
+				
+				list.add(normal);
+			}
+			
+			
+		} catch (PlayerNotFound e) {
+			//do nothing
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<PlayerNormalInfo> getPlayerNormalInfo_total(
+			String[] filter, Terminology[] sortField, boolean[] asc, int num) {
+		Filter fil = new Filter(filter);
+		Conference con = fil.con;
+		Division div = Division.NATIONAL;
+		Position pos = fil.pos;
+		int age1 = fil.age1;
+		int age2 = fil.age2;
+		
+		ArrayList<PlayerNormalInfo> list = new ArrayList<PlayerNormalInfo>();
+		ArrayList<PlayerBasicStatsVO> basic;
+		
+		try {
+			basic = this.getBasicPlayersStatsTotal(con, div, pos);
+			
+			Sorter.playerBasic(basic, Terminology.NAME, true);
+			if(sortField != null){
+				for(int i=sortField.length-1; i>=0; i--){
+					Sorter.playerBasic(basic, sortField[i], asc[i]);
+				}
+			}
+			
+			int n = Math.min(num, basic.size());
+			
+			for(int i=0; i<n; i++){
+				PlayerBasicStatsVO vo = basic.get(i);
+				PlayerPO info;
+				
+				try{
+					info = playerService.getPlayerInfo(vo.getName());
+				}catch(PlayerNotFound e){
+					continue;
+				}
+				
+				if(!(age1 < info.age() && info.age() >= age2)){
+					continue;
+				}
+				
+				PlayerNormalInfo normal = new PlayerNormalInfo();
+				normal.setAge(info.age());
+				normal.setAssist(vo.getAssists());
+				normal.setBlockShot(vo.getBlocks());
+				normal.setDefend(vo.getDefensiveRebounds());
+				normal.setEfficiency(vo.getEfficiency());
+				normal.setFault(vo.getTurnovers());
+				normal.setFoul(vo.getPersonalFouls());
+				normal.setMinute(TypeTransform.str_to_minutes(vo.getMinutes()));
+				normal.setName(vo.getName());
+				normal.setNumOfGame((int)vo.getGames());
+				normal.setOffend(vo.getOffensiveRebounds());
+				normal.setPenalty(vo.getFreeThrowPercentage());
+				normal.setPoint(vo.getPoints());
+				normal.setRebound(vo.getRebounds());
+				normal.setShot(vo.getFieldGoalPercentage());
+				normal.setStart((int)(vo.getGamesStarting()*vo.getGames()));
+				normal.setSteal(vo.getSteals());
+				normal.setTeamName(vo.getTeam().toAbbr());
+				normal.setThree(vo.getThreePointFieldGoalPercentage());
+				
+				list.add(normal);
+			}
+			
+			
+		} catch (PlayerNotFound e) {
+			//do nothing
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<PlayerHighInfo> getPlayerHighInfo(Terminology[] sortField,
+			boolean[] asc, int num) {
+		ArrayList<PlayerHighInfo> list = new ArrayList<PlayerHighInfo>();
+		ArrayList<PlayerAdvancedStatsVO> advanced;
+		
+		try {
+			advanced = this.getAdvancedPlayersStatsTotal(Conference.NATIONAL, 
+					Division.NATIONAL, Position.ALL);
+			
+			Sorter.playerAdvanced(advanced, Terminology.NAME, true);
+			if(sortField != null){
+				for(int i=sortField.length-1; i>=0; i--){
+					Sorter.playerAdvanced(advanced, sortField[i], asc[i]);
+				}
+			}
+			
+			int n = Math.min(num, advanced.size());
+			
+			for(int i=0; i<n; i++){
+				PlayerAdvancedStatsVO vo = advanced.get(i);
+				TeamPO teamInfo;
+				PlayerPO playerInfo;
+				try {
+					teamInfo = new TeamsData_new().getTeam(vo.getTeam());
+					playerInfo = playerService.getPlayerInfo(vo.getName());
+				} catch (TeamNotFound | PlayerNotFound e) {
+					continue;
+				}
+				
+				PlayerHighInfo high = new PlayerHighInfo();
+				high.setAssistEfficient(vo.getAssistsPercent());
+				high.setBlockShotEfficient(vo.getBlocksPercent());
+				high.setDefendReboundEfficient(vo.getDefensiveReboundsPercent());
+				high.setFaultEfficient(vo.getTurnoversPercent());
+				high.setFrequency(vo.getUsagePercent());
+				high.setGmSc(vo.getGmSc());
+				high.setLeague(teamInfo.conference().toString_ENG());
+				high.setName(vo.getName());
+				high.setOffendReboundEfficient(vo.getOffensiveReboundsPercent());
+				high.setPosition(playerInfo.position().toAbbr());
+				high.setRealShot(vo.getTrueScorePercent());
+				high.setReboundEfficient(vo.getReboundsPercent());
+				high.setShotEfficient(vo.getFieldGoalEfficiency());
+				high.setStealEfficient(vo.getStealsPercent());
+				high.setTeamName(vo.getTeam().toAbbr());
+				
+				list.add(high);
+			}
+			
+			
+		} catch (PlayerNotFound e) {
+			//do nothing
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<PlayerHotInfo> getPlayerHotInfo(String str_hotField, int num) {
+		Terminology hotField = Terminology.toEnum_player(str_hotField);
+		ArrayList<PlayerHotInfo> list = new ArrayList<PlayerHotInfo>();
+		ArrayList<PlayerHotStatsVO> voList = this.getHotPlayersBySeason("13-14", hotField, num);
+		for(PlayerHotStatsVO vo: voList){
+			double upgrade = playerService.getPlayerProgress_single(vo.getName(), hotField, num);
+			PlayerHotInfo hot = new PlayerHotInfo();
+			hot.setField(str_hotField);
+			hot.setName(vo.getName());
+			hot.setPosition(vo.getPosition().toAbbr());
+			hot.setTeamName(vo.getTeam().toAbbr());
+			hot.setUpgradeRate(upgrade);
+			hot.setValue(vo.getStats());
+			
+			list.add(hot);
+		}
+		return null;
+	}
+
+	@Override
+	public ArrayList<PlayerKingInfo> getPlayerKingInfo_daily(String kingField, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<PlayerKingInfo> getPlayerKingInfo_season(String kingField, int num) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

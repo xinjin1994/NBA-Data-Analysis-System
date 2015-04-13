@@ -48,7 +48,7 @@ public class TeamsDataServiceTest extends TestCase {
 	}
 	
 	public void testGetTeamByConference(){
-		Conference con = Conference.ESTERN;
+		Conference con = Conference.EASTERN;
 		Division div = Division.ATLANTIC;
 		
 		try {

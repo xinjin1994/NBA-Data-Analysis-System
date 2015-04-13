@@ -465,4 +465,29 @@ public class PlayersData_new implements PlayersDataService_new {
 		return list;
 	}
 	
+	@Override
+	public double getPlayerProgress_single(String player, Terminology term, int num){
+		for(Players_new p: players){
+			if(p.name.equals(player)){
+				ArrayList<PlayerStats_new> stats = p.getStats();
+				int n = Math.min(num, stats.size());
+				double result = 0;
+				try{
+					switch(term){
+					case PTS: result = stats.get(0).basic.getPoints()/stats.get(n).basic.getPoints();
+					case AST: result = stats.get(0).basic.getAssists()/stats.get(n).basic.getAssists();
+					case BLK: result = stats.get(0).basic.getBlocks()/stats.get(n).basic.getBlocks();
+					default: return 0;
+					}
+				}catch(Exception e){
+					result = 0;
+				}
+				
+				return result;
+			}
+		}
+		
+		return 0;
+	}
+	
 }

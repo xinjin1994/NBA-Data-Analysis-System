@@ -17,5 +17,5 @@ public interface TeamsBLForTest {
 	public ArrayList<TeamHighInfo> getTeamHighInfo(Terminology[] sortField, 
 			boolean[] asc, int n);
 	
-	public ArrayList<TeamHotInfo> getTeamHotInfo(Terminology hotField, int n);
+	public ArrayList<TeamHotInfo> getTeamHotInfo(String hotField, int n);
 }
