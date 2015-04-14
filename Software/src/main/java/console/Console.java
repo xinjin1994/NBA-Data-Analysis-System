@@ -37,6 +37,57 @@ public class Console {
 		String[] filters = null;
 		int num = 50;
 		
+		while(ci < len) {
+			if(args[ci].equals("-avg")) {
+				isAvg = true;
+				ci++;
+			}else if(args[ci].equals("-total")) {
+				isAvg = false;
+				ci++;
+			}else if(args[ci].equals("-all")) {
+				ci++;
+			}else if(args[ci].equals("-hot")) {
+				isHot = true;
+				hotField = args[ci+1];
+				ci += 2;
+			}else if(args[ci].equals("-king")) {
+				isKing = true;
+				kingField = args[ci+1];
+				ci += 2;
+				if(args[ci].equals("-season")) {
+					isDaily = false;
+					break;
+				}else {
+					isDaily = true;
+					break;
+				}
+			}else if(args[ci].equals("-n")) {
+				num = Integer.parseInt(args[ci+1]);
+				ci += 2;
+			}else if(args[ci].equals("-high")) {
+				isHigh = true;
+				ci++;
+			}else if(args[ci].equals("-filter")) {
+				filters = args[ci+1].split(",");
+				ci += 2;
+			}else if(args[ci].equals("-sort")) {
+				String[] sorts = args[ci+1].split(",");
+				sortField = new Terminology[sorts.length];
+				asc = new boolean[sorts.length];
+				for(int i=0; i<sorts.length; i++){
+					String[] arr = sorts[i].split("\\.");
+					sortField[i] = Terminology.toEnum_player(arr[0]);
+					if(arr[1].equals("asc")){
+						asc[i] = true;
+					}else{
+						asc[i] = false;
+					}
+				}
+				ci += 2;
+			}
+		}
+		
+		/*
 		while(true) {
 			if(ci >= len) break;
 			
@@ -114,6 +165,7 @@ public class Console {
 			
 			break;
 		}
+		*/
 		
 		if(isHot) {
 			printPlayerHot(out, hotField, num);
@@ -195,7 +247,44 @@ public class Console {
 		boolean[] asc = null;
 		int num = 30;
 		
+		while(ci < len){
+			if(args[ci].equals("-total")) {
+				isAvg = false;
+				ci++;
+			}else if(args[ci].equals("-avg")) {
+				isAvg = true;
+				ci++;
+			}else if(args[ci].equals("-all")) {
+				ci++;
+				isHot = false;
+			}else if(args[ci].equals("-hot")) {
+				hotField = args[ci+1];
+				ci += 2;
+				isHot = true;
+			}else if(args[ci].equals("-n")) {
+				num = Integer.parseInt(args[ci+1]);
+				ci += 2;
+			}else if(args[ci].equals("-high")) {
+				isHigh = true;
+				ci++;
+			}else if(args[ci].equals("-sort")) {
+				String[] sorts = args[ci+1].split(",");
+				sortField = new Terminology[sorts.length];
+				asc = new boolean[sorts.length];
+				for(int i=0; i<sorts.length; i++){
+					String[] arr = sorts[i].split("\\.");
+					sortField[i] = Terminology.toEnum_team(arr[0]);
+					if(arr[1].equals("asc")){
+						asc[i] = true;
+					}else{
+						asc[i] = false;
+					}
+				}
+				ci += 2;
+			}
+		}
 		
+		/*
 		while(true) {
 			if(ci >= len) break;
 			
@@ -257,6 +346,7 @@ public class Console {
 			
 			break;
 		}
+		*/
 		
 		if(isHot) {
 			printTeamHot(out, hotField, num);

@@ -780,8 +780,8 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	public ArrayList<PlayerHotInfo> getPlayerHotInfo(String str_hotField, int num) {
 		Terminology hotField = Terminology.toEnum_player(str_hotField);
 		ArrayList<PlayerHotInfo> list = new ArrayList<PlayerHotInfo>();
-		ArrayList<PlayerHotStatsVO> voList = this.getHotPlayersBySeason("13-14", hotField, num);
-		for(PlayerHotStatsVO vo: voList){
+		ArrayList<PlayerProgressVO> voList = this.getPlayerProgress(hotField, num);
+		for(PlayerProgressVO vo: voList){
 			double upgrade = playerService.getPlayerProgress_single(vo.getName(), hotField, num);
 			PlayerHotInfo hot = new PlayerHotInfo();
 			hot.setField(str_hotField);
@@ -789,23 +789,50 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			hot.setPosition(vo.getPosition().toAbbr());
 			hot.setTeamName(vo.getTeam().toAbbr());
 			hot.setUpgradeRate(upgrade);
-			hot.setValue(vo.getStats());
+			hot.setValue(vo.getStats().get(0));
 			
 			list.add(hot);
 		}
-		return null;
+		return list;
 	}
 
 	@Override
-	public ArrayList<PlayerKingInfo> getPlayerKingInfo_daily(String kingField, int num) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<PlayerKingInfo> getPlayerKingInfo_daily(String str_kingField, int num) {
+		Terminology kingField = Terminology.toEnum_player(str_kingField);
+		ArrayList<PlayerKingInfo> list = new ArrayList<PlayerKingInfo>();
+		Date date = new Date();
+		ArrayList<PlayerHotStatsVO> voList = this.getHotPlayersByDay("13-14", date, kingField, num);
+		for(PlayerHotStatsVO vo: voList){
+			PlayerKingInfo king = new PlayerKingInfo();
+			king.setField(str_kingField);
+			king.setName(vo.getName());
+			king.setPosition(vo.getPosition().toAbbr());
+			king.setTeamName(vo.getTeam().toAbbr());
+			king.setValue(vo.getStats());
+			
+			list.add(king);
+		}
+
+		return list;
 	}
 
 	@Override
-	public ArrayList<PlayerKingInfo> getPlayerKingInfo_season(String kingField, int num) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<PlayerKingInfo> getPlayerKingInfo_season(String str_kingField, int num) {
+		Terminology kingField = Terminology.toEnum_player(str_kingField);
+		ArrayList<PlayerKingInfo> list = new ArrayList<PlayerKingInfo>();
+		ArrayList<PlayerHotStatsVO> voList = this.getHotPlayersBySeason("13-14", kingField, num);
+		for(PlayerHotStatsVO vo: voList){
+			PlayerKingInfo king = new PlayerKingInfo();
+			king.setField(str_kingField);
+			king.setName(vo.getName());
+			king.setPosition(vo.getPosition().toAbbr());
+			king.setTeamName(vo.getTeam().toAbbr());
+			king.setValue(vo.getStats());
+			
+			list.add(king);
+		}
+
+		return list;
 	}
 
 }
