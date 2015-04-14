@@ -8,6 +8,7 @@ import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
 import gui.enums.PanelType;
+import gui.player.detial.PlayerDetailDialog;
 import gui.util.ReturnButton;
 
 import java.awt.Component;
