@@ -3,6 +3,7 @@ package gui;
 import gui.enums.PanelType;
 import gui.game.GamePanel;
 import gui.player.PlayerPanel;
+import gui.season.Season;
 import gui.statistic.PlayerStatisticPanel;
 import gui.statistic.StatisticPanel;
 import gui.statistic.TeamStatisticPanel;
@@ -11,16 +12,29 @@ import gui.util.GUIUtility;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Toolkit;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import businessLogic.matchesBL.MatchesBL;
+import businessLogic.matchesBL.MatchesBL_new;
+import businessLogicService.matchesBLService.MatchesBLService;
 import data.init.DataInit;
+import exceptions.StatsNotFound;
 
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -36,8 +50,11 @@ public class MainFrame extends JFrame {
 	//未来可能有有新的窗口
 	public static Frame currentFrame;
 	public static MainFrame mf;
+	public static Season season;
 	private JPanel pnl_main;
 	private CardLayout cardlayout;
+	private JLabel lbl_season;
+	private JComboBox<Season> cbbx_season;
 
 	/**
 	 * Launch the application.
@@ -59,6 +76,8 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		new DataInit().init();
+		
 		currentFrame = mf = this;
 		screen = new Dimension(1280,720);
 
@@ -75,6 +94,33 @@ public class MainFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		JPanel pnl_season = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		lbl_season = new JLabel();
+		pnl_season.add(lbl_season);
+		pnl_season.add(Box.createHorizontalStrut(20));
+		pnl_season.add(new JLabel("切换赛季："));
+		cbbx_season = new JComboBox<Season>();
+		cbbx_season.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				season = cbbx_season.getItemAt(cbbx_season.getSelectedIndex());
+				lbl_season.setText(season.toString());
+			}
+		});
+		pnl_season.add(cbbx_season);
+		MatchesBLService matchbl = new MatchesBL_new();
+		
+		try {
+			ArrayList<String> seasons = matchbl.getAvailableSeasons();
+			for(String s:seasons)
+				cbbx_season.addItem(new Season(s));
+			cbbx_season.setSelectedIndex(0);
+		} catch (StatsNotFound e) {
+			JOptionPane.showMessageDialog(this, "无可用数据！程序退出！");
+			dispose();
+		}
+		contentPane.add(pnl_season,BorderLayout.NORTH);
+		
 		pnl_main = new JPanel();
 		contentPane.add(pnl_main, BorderLayout.CENTER);
 		//cardlayout用来切换不同的版面
@@ -83,8 +129,7 @@ public class MainFrame extends JFrame {
 		
 		JPanel pnl_menu = new MenuPanel();
 		pnl_main.add(pnl_menu,PanelType.MENU.toString());
-		
-		new DataInit().init();
+
 		
 	}
 

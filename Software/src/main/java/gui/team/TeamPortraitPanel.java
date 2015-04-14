@@ -43,16 +43,18 @@ public class TeamPortraitPanel extends JPanel {
 		
 		image.setImage(image.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
 		//this.setSize(150, 180);
-		setLayout(new BorderLayout(0, 0));
+		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
-		JLabel lblTeamname = new JLabel(team.toString());
-		lblTeamname.setFont(new Font("宋体", Font.PLAIN, 20));
-		lblTeamname.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblTeamname, BorderLayout.SOUTH);
+		JLabel lbl_image = new JLabel();
+		lbl_image.setIcon(image);
+		lbl_image.setAlignmentX(0.5f);
+		add(lbl_image);
 		
-		JLabel lblImage = new JLabel();
-		lblImage.setIcon(image);
-		add(lblImage, BorderLayout.CENTER);
+		JLabel lbl_name = new JLabel(team.toString());
+		lbl_name.setFont(new Font("宋体", Font.PLAIN, 20));
+		lbl_name.setAlignmentX(0.5f);
+		lbl_name.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lbl_name);
 		
 		this.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){

@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JList;
@@ -30,7 +31,6 @@ import java.awt.FlowLayout;
 public class TeamPanel extends JPanel {
 	private static final long serialVersionUID = 7485651519540450895L;
 
-	JList<TeamPortrait_div> list;
 	TeamsBLService_new teamService = new ObjectCreator().teamsBLService();
 	ArrayList<TeamVO> teamList;
 
@@ -43,55 +43,41 @@ public class TeamPanel extends JPanel {
 		
 		setLayout(new BorderLayout(0, 0));
 		
-		JSplitPane splitPane_3 = new JSplitPane();
-		splitPane_3.setDividerLocation(this.getWidth()/2);
-		add(splitPane_3, BorderLayout.NORTH);
+		JPanel pnl_title = new JPanel(new GridLayout(1,2));
+		add(pnl_title, BorderLayout.NORTH);
 		
-		JLabel label = new JLabel("东部");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("宋体", Font.PLAIN, 65));
-		splitPane_3.setLeftComponent(label);
+		JLabel lbl_east = new JLabel("东部");
+		lbl_east.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_east.setFont(new Font("宋体", Font.PLAIN, 65));
+		pnl_title.add(lbl_east);
 		
-		JLabel lblNewLabel = new JLabel("西部");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 65));
-		splitPane_3.setRightComponent(lblNewLabel);
+		JLabel lbl_west = new JLabel("西部");
+		lbl_west.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_west.setFont(new Font("宋体", Font.PLAIN, 65));
+		pnl_title.add(lbl_west);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
-		/*
-		JPanel panel = new JPanel();
-		scrollPane.setViewportView(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		*/
-		int height = this.getHeight();
+		JPanel pnl_teams = new JPanel();
+		scrollPane.setViewportView(pnl_teams);
+		pnl_teams.setLayout(new GridLayout(3,2));
+		
 		int width = this.getWidth();
-		TeamPortrait_div[] panelList = new TeamPortrait_div[6];
-		panelList[0] = new TeamPortrait_div(Conference.EASTERN, Division.ATLANTIC);
-		panelList[1] = new TeamPortrait_div(Conference.WESTERN, Division.SOUTHWEST);
-		panelList[2] = new TeamPortrait_div(Conference.EASTERN, Division.CENTRAL);
-		panelList[3] = new TeamPortrait_div(Conference.WESTERN, Division.NORTHWEST);
-		panelList[4] = new TeamPortrait_div(Conference.EASTERN, Division.SOUTHEAST);
-		panelList[5] = new TeamPortrait_div(Conference.WESTERN, Division.PACIFIC);
+		DivisionPanel[] panelList = new DivisionPanel[6];
+		panelList[0] = new DivisionPanel(Conference.EASTERN, Division.ATLANTIC);
+		panelList[1] = new DivisionPanel(Conference.WESTERN, Division.SOUTHWEST);
+		panelList[2] = new DivisionPanel(Conference.EASTERN, Division.CENTRAL);
+		panelList[3] = new DivisionPanel(Conference.WESTERN, Division.NORTHWEST);
+		panelList[4] = new DivisionPanel(Conference.EASTERN, Division.SOUTHEAST);
+		panelList[5] = new DivisionPanel(Conference.WESTERN, Division.PACIFIC);
 		for(int i=0; i<6; i++){
-			panelList[i].setSize(width, height);
-			//panel.add(panelList[i]);
+			panelList[i].setSize(width-20,panelList[i].getPreferredSize().height);
+			panelList[i].setAlignmentX(0.5f);
+			pnl_teams.add(panelList[i]);
 		}
 		
-		list = new JList<TeamPortrait_div>(panelList);
-		list.setCellRenderer(new ListCellRenderer<TeamPortrait_div>(){
-			@Override
-			public Component getListCellRendererComponent(
-					JList<? extends TeamPortrait_div> list, TeamPortrait_div value,
-					int index, boolean isSelected, boolean cellHasFocus) {
-				return value;
-			}
-		});
-		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		list.setVisibleRowCount(3);
-		list.setToolTipText("双击以查看详细信息");
-		scrollPane.setViewportView(list);
+		
 		
 	}
 	
