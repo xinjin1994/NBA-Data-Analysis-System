@@ -16,6 +16,8 @@ public class MatchPO_new {
 	String score4;                          //第四节比分
 	String scoreExtra;                      //加时赛比分
 	ArrayList<String> homeTeamPlayers;      //主队球员
+	ArrayList<String> guestTeamPlayers;     //客队球员
+	
 	public ArrayList<String> getHomeTeamPlayers() {
 		return homeTeamPlayers;
 	}
@@ -31,8 +33,6 @@ public class MatchPO_new {
 	public void setGuestTeamPlayers(ArrayList<String> guestTeamPlayers) {
 		this.guestTeamPlayers = guestTeamPlayers;
 	}
-
-	ArrayList<String> guestTeamPlayers;     //客队球员
 	
 	public MatchPO_new() {
 		

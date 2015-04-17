@@ -395,6 +395,28 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		for(PlayerProgressPO po: poList){
 			PlayerProgressVO vo = new PlayerProgressVO(po.getName(), po.getTeam(), 
 					po.getPosition(), po.getStats());
+			double imp_a = 0;
+			double imp_b = 0;
+			if(po.getStats().size() > num){
+				for(int i=0; i<num; i++){
+					imp_a += po.getStats().get(i);
+				}
+				imp_a /= num;
+				for(int i=num; i<po.getStats().size(); i++){
+					imp_b += po.getStats().get(i);
+				}
+				imp_b /= (po.getStats().size()-num);
+				
+				double imp;
+				if(imp_b > 0.001){
+					imp = (imp_a-imp_b)/imp_b;
+				}else {
+					imp = 0;
+				}
+				vo.setImprovement(imp);
+			}else{
+				vo.setImprovement(0);
+			}
 			voList.add(vo);
 		}
 		
@@ -610,8 +632,15 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			
 			for(int i=0; i<n; i++){
 				PlayerBasicStatsVO vo = basic.get(i);
-				PlayerPO info = playerService.getPlayerInfo(vo.getName());
-				if(!(age1 < info.age() && info.age() >= age2)){
+				PlayerPO info;
+				
+				try{
+					info = playerService.getPlayerInfo(vo.getName());
+				}catch(PlayerNotFound e){
+					continue;
+				}
+				
+				if(!(age1 < info.age() && info.age() <= age2)){
 					continue;
 				}
 				
@@ -682,7 +711,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 					continue;
 				}
 				
-				if(!(age1 < info.age() && info.age() >= age2)){
+				if(!(age1 < info.age() && info.age() <= age2)){
 					continue;
 				}
 				
@@ -782,13 +811,12 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		ArrayList<PlayerHotInfo> list = new ArrayList<PlayerHotInfo>();
 		ArrayList<PlayerProgressVO> voList = this.getPlayerProgress(hotField, num);
 		for(PlayerProgressVO vo: voList){
-			double upgrade = playerService.getPlayerProgress_single(vo.getName(), hotField, num);
 			PlayerHotInfo hot = new PlayerHotInfo();
 			hot.setField(str_hotField);
 			hot.setName(vo.getName());
 			hot.setPosition(vo.getPosition().toAbbr());
 			hot.setTeamName(vo.getTeam().toAbbr());
-			hot.setUpgradeRate(upgrade);
+			hot.setUpgradeRate(vo.getImprovement());
 			hot.setValue(vo.getStats().get(0));
 			
 			list.add(hot);

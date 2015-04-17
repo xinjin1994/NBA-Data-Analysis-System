@@ -419,8 +419,7 @@ public class PlayersData_new implements PlayersDataService_new {
 			}
 			Position position = player.info == null ? Position.UNKNOWN : player.info.position();
 			PlayerProgressPO po = new PlayerProgressPO(player.name, player.team, position);
-			for(int i=0; i<num; i++){
-				PlayerStats_new stats = player.stats.get(i);
+			for(PlayerStats_new stats: player.stats){
 				po.addStats(stats.basic.points);
 			}
 			list.add(po);
@@ -437,8 +436,7 @@ public class PlayersData_new implements PlayersDataService_new {
 			}
 			Position position = player.info == null ? Position.UNKNOWN : player.info.position();
 			PlayerProgressPO po = new PlayerProgressPO(player.name, player.team, position);
-			for(int i=0; i<num; i++){
-				PlayerStats_new stats = player.stats.get(i);
+			for(PlayerStats_new stats: player.stats){
 				po.addStats(stats.basic.blocks);
 			}
 			list.add(po);
@@ -455,8 +453,7 @@ public class PlayersData_new implements PlayersDataService_new {
 			}
 			Position position = player.info == null ? Position.UNKNOWN : player.info.position();
 			PlayerProgressPO po = new PlayerProgressPO(player.name, player.team, position);
-			for(int i=0; i<num; i++){
-				PlayerStats_new stats = player.stats.get(i);
+			for(PlayerStats_new stats: player.stats){
 				po.addStats(stats.basic.assists);
 			}
 			list.add(po);

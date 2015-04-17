@@ -1,5 +1,9 @@
 package vo;
 
+import helper.TypeTransform;
+
+import java.util.Date;
+
 import enums.Teams;
 
 public class MatchVO {
@@ -43,6 +47,10 @@ public class MatchVO {
 	
 	public String getDate(){
 		return date;
+	}
+	
+	public Date getDay(){
+		return TypeTransform.str_to_date(date);
 	}
 
 	public String getScore() {

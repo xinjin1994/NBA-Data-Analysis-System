@@ -19,11 +19,13 @@ public class PlayerProgressVO {
 		this.team = team;
 		this.position = position;
 		this.stats = stats;
+		/*
 		if(stats.get(stats.size()-1)!=0){
 			this.improvement = stats.get(0)/stats.get(stats.size()-1);
 		}else{
 			this.improvement = 0;
 		}
+		*/
 	}
 
 	public String getName() {
@@ -44,6 +46,10 @@ public class PlayerProgressVO {
 
 	public double getImprovement() {
 		return improvement;
+	}
+	
+	public void setImprovement(double imp) {
+		this.improvement = imp;
 	}
 	
 }
