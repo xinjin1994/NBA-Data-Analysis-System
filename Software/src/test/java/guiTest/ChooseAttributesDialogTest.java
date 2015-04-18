@@ -17,7 +17,7 @@ public class ChooseAttributesDialogTest extends TestCase implements AttributesAd
 	public void test(){
 		ArrayList<Map<Terminology,Boolean>> groups = new ArrayList<Map<Terminology,Boolean>>(2);
 		Map<Terminology,Boolean> group_basic = new EnumMap<Terminology,Boolean>(Terminology.class);
-		for(Terminology term:Terminology.getPlayerBasic())
+		for(Terminology term:Terminology.getPlayerSeasonBasic())
 			group_basic.put(term, false);
 		groups.add(group_basic);
 		Map<Terminology,Boolean> group_advanced = new EnumMap<Terminology,Boolean>(Terminology.class);

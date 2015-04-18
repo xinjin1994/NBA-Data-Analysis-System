@@ -81,9 +81,9 @@ public class PlayerMatchStatsPanel extends JPanel implements MatchChangable{
 				
 				labelMap_basic = new EnumMap<Terminology,LabelPanel>(Terminology.class);
 				int i = 0;
-				for(Terminology[] term = Terminology.getPlayerBasic();i < term.length;i++){
+				for(Terminology[] term = Terminology.getPlayerMatchBasic();i < term.length;i++){
 					String unit = "";
-					if(term[i] == Terminology.FGP||term[i] == Terminology.TPP||term[i] == Terminology.FTM)
+					if(term[i] == Terminology.FGP||term[i] == Terminology.TPP||term[i] == Terminology.FTP)
 						unit = "%";
 					LabelPanel labelPanel = new LabelPanel(term[i].toString(),unit);
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
@@ -123,7 +123,7 @@ public class PlayerMatchStatsPanel extends JPanel implements MatchChangable{
 		try {
 			PlayerBasicStatsVO bs = playerService.getBasicStats(season, date, vo.getName());
 			
-			for(Terminology term:Terminology.getPlayerBasic()){
+			for(Terminology term:Terminology.getPlayerMatchBasic()){
 				labelMap_basic.get(term).setValue(bs.getProperty(term));
 			}
 		} catch (PlayerNotFound e) {

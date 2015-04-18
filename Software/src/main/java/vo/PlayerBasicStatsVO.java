@@ -249,7 +249,7 @@ public class PlayerBasicStatsVO {
 			return GUIUtility.formatDouble(this.fieldGoalPercentage);
 		case TPP:
 			return GUIUtility.formatDouble(this.threePointFieldGoalPercentage);
-		case FTM:
+		case FTP:
 			return GUIUtility.formatDouble(this.freeThrowPercentage);
 		case OFR:
 			return GUIUtility.formatDouble(this.offensiveRebounds);
@@ -265,6 +265,12 @@ public class PlayerBasicStatsVO {
 			return GUIUtility.formatDouble(this.personalFouls);
 		case PTS:
 			return GUIUtility.formatDouble(this.points);
+		case FGM:
+			return GUIUtility.formatDouble(this.fieldGoalsMade);
+		case TPM:
+			return GUIUtility.formatDouble(this.threePointFieldGoalsMade);
+		case FTM:
+			return GUIUtility.formatDouble(this.freeThrowsMade);
 		default:
 			return null;
 		}

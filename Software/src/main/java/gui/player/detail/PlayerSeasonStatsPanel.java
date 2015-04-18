@@ -97,7 +97,7 @@ public class PlayerSeasonStatsPanel extends JPanel {
 				
 				labelMap_basic = new EnumMap<Terminology,LabelPanel>(Terminology.class);
 				int i = 0;
-				for(Terminology[] term = Terminology.getPlayerBasic();i < term.length;i++){
+				for(Terminology[] term = Terminology.getPlayerSeasonBasic();i < term.length;i++){
 					String unit = "";
 					if(term[i] == Terminology.FGP||term[i] == Terminology.TPP||term[i] == Terminology.FTM)
 						unit = "%";
@@ -140,7 +140,7 @@ public class PlayerSeasonStatsPanel extends JPanel {
 			else if(type == TOTAL)
 				bs = playerService.getBasicPlayerStatsTotal(vo.getName());
 			
-			for(Terminology term:Terminology.getPlayerBasic()){
+			for(Terminology term:Terminology.getPlayerSeasonBasic()){
 				labelMap_basic.get(term).setValue(bs.getProperty(term));
 			}
 		} catch (PlayerNotFound e) {
