@@ -32,6 +32,8 @@ public class Calculator {
 	Double freeThrowsAttempted_guestteam;
 	Double turnovers_hometeam;
 	Double turnovers_guestteam;
+	ArrayList<String> homeplayer;
+	ArrayList<String> guestplayer;
 	
 	public Calculator(MatchPO match) {
 		this.match = match;
@@ -51,6 +53,8 @@ public class Calculator {
 		this.freeThrowsAttempted_guestteam=0.0;
 		this.turnovers_hometeam=0.0;
 		this.turnovers_guestteam=0.0;
+		this.homeplayer=new ArrayList<String>();
+		this.guestplayer=new ArrayList<String>();
 		ArrayList<PlayerStatsPO> team1player=match.team1Players();
 		ArrayList<PlayerStatsPO> team2player=match.team2Players();
 		for(PlayerStatsPO player1:team1player){
@@ -62,6 +66,7 @@ public class Calculator {
 			twoPointFieldGoalsAttempted_hometeam=twoPointFieldGoalsAttempted_hometeam+player1.fieldGoalsAttempted()-player1.threePointFieldGoalsAttempted();
 			freeThrowsAttempted_hometeam=freeThrowsAttempted_hometeam+player1.fieldGoalsAttempted();
 			turnovers_hometeam=turnovers_hometeam+player1.turnovers();
+			homeplayer.add(player1.name());
 		}
 		for(PlayerStatsPO player2:team2player){
 			minutes_guestteam=minutes_guestteam+TypeTransform.str_to_minutes(player2.minutes());
@@ -72,6 +77,7 @@ public class Calculator {
 			twoPointFieldGoalsAttempted_guestteam=twoPointFieldGoalsAttempted_guestteam+player2.fieldGoalsAttempted()-player2.threePointFieldGoalsAttempted();
 			freeThrowsAttempted_guestteam=freeThrowsAttempted_guestteam+player2.fieldGoalsAttempted();
 			turnovers_guestteam=turnovers_guestteam+player2.turnovers();
+			guestplayer.add(player2.name());
 		}
 	}
 	
@@ -130,6 +136,8 @@ public class Calculator {
 		matchStats.setScore3(match.score3());
 		matchStats.setScore4(match.score4());
 		matchStats.setScoreExtra(match.scoreExtra());
+		matchStats.setHomeTeamPlayers(homeplayer);
+		matchStats.setGuestTeamPlayers(guestplayer);
 		return matchStats;
 	}
 	
