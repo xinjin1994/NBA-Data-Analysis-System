@@ -82,7 +82,15 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			voList.add(vo);
 		}
 		
+		Collections.sort(voList, new SortPortraitByName());
 		return voList;
+	}
+	
+	private class SortPortraitByName implements Comparator<PlayerPortraitVO> {
+		@Override
+		public int compare(PlayerPortraitVO o1, PlayerPortraitVO o2) {
+			return o1.getName().compareTo(o2.getName());
+		}
 	}
 	
 	@Override

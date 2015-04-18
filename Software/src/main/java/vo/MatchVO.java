@@ -50,7 +50,8 @@ public class MatchVO {
 	}
 	
 	public Date getDay(){
-		return TypeTransform.str_to_date(date);
+		Date d = TypeTransform.str_to_date(date);
+		return TypeTransform.addYear(d, season);
 	}
 
 	public String getScore() {

@@ -43,6 +43,17 @@ public class TypeTransform {
 		}
 	}
 	
+	public static Date addYear(Date date, String season){
+		String[] year = season.split("-");
+		int month = date.getMonth();
+		if(month < 4){
+			date.setYear(Integer.parseInt(year[1]));
+		}else{
+			date.setYear(Integer.parseInt(year[0]));
+		}
+		return date;
+	}
+	
 	public static String date_to_str(Date d){
 		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
 		String s = sdf.format(d);

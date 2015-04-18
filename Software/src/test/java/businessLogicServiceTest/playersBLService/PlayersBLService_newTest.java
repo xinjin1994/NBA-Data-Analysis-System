@@ -64,7 +64,7 @@ public class PlayersBLService_newTest extends TestCase {
 	
 	public void testGetAvailableDays(){
 		String season = "13-14";
-		String player = "LeBron James";
+		String player = "Jan Vesely";
 		try {
 			ArrayList<Date> days = service.getAvailableDays(season, player);
 			for(Date date: days){
