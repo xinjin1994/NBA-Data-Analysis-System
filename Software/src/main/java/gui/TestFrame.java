@@ -1,15 +1,25 @@
 package gui;
 
+import data.init.DataInit;
+import enums.Teams;
 import enums.Terminology;
+import exceptions.MatchNotFound;
+import exceptions.PlayerNotFound;
+import gui.match.player.MatchItemPanel;
+import gui.match.player.PlayerMatchPanel;
 import gui.util.AdjustableTable.CheckComboBox;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import businessLogic.matchesBL.MatchesBL_new;
+import businessLogic.playersBL.PlayersBL_new;
 
 public class TestFrame extends JFrame {
 	private static final long serialVersionUID = -4771769317423285893L;
@@ -36,13 +46,24 @@ public class TestFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public TestFrame() {
+		new DataInit().init();
+		
+		this.setSize(new Dimension(200,200));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new FlowLayout());
+		//contentPane.setLayout(new FlowLayout());
 		setContentPane(contentPane);
-		this.add(new CheckComboBox<Terminology>(Terminology.getPlayerBasic()));
+		
+		try {
+			String name = "Jan Vesely";
+			contentPane.add(new PlayerMatchPanel(name,new PlayersBL_new().getAvailableDays("13-14", name)));
+		} catch (PlayerNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

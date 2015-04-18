@@ -1,4 +1,4 @@
-package gui.season;
+package gui.match;
 
 public class Season {
 	public String season;

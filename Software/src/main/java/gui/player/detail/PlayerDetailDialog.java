@@ -1,9 +1,12 @@
-package gui.player.detial;
+package gui.player.detail;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,19 +18,23 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Date;
 
 import businessLogicService.playersBLService.PlayersBLService_new;
 import vo.PlayerVO;
 import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
-
 import gui.MainFrame;
+import gui.match.player.MatchItemPanel;
+import gui.match.player.PlayerMatchPanel;
+import gui.player.detail.PlayerInfoPanel;
 
 public class PlayerDetailDialog extends JDialog {
 
 	private static final long serialVersionUID = -8359637791685664538L;
 	private final JPanel contentPanel = new JPanel();
-	private PlayersBLService_new playerService = new ObjectCreator().playersBLService();
+	private PlayersBLService_new playerbl = new ObjectCreator().playersBLService();
 	/**
 	 * Create the dialog.
 	 */
@@ -43,17 +50,28 @@ public class PlayerDetailDialog extends JDialog {
 
 		PlayerVO vo = null;
 		try {
-			vo = playerService.getPlayerInfo(name);
+			vo = playerbl.getPlayerInfo(name);
 		} catch (PlayerNotFound e1) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
 		}
 		
-		ImageIcon image = vo.getAction();
+		Image source = vo.getAction().getImage();
+		ImageIcon image = new ImageIcon(source.getScaledInstance((int)(440*0.8), (int)(700*0.8), Image.SCALE_FAST));
 		JLabel lbl_photo = new JLabel(image);
 		lbl_photo.setBorder(new LineBorder(Color.BLACK,1));
 		contentPanel.add(lbl_photo,BorderLayout.WEST);
 		{
-			contentPanel.add(new PlayerSeasonPanel(playerService,vo));
+			JPanel pnl_main = new JPanel();
+			pnl_main.setLayout(new BoxLayout(pnl_main,BoxLayout.Y_AXIS));
+			contentPanel.add(pnl_main);
+			pnl_main.add(new PlayerInfoPanel(playerbl,vo));
+			ArrayList<Date> dates;
+			try {
+				dates = playerbl.getAvailableDays(MainFrame.season.season, vo.getName());
+				pnl_main.add(new PlayerMatchPanel(vo.getName(),dates));
+			} catch (PlayerNotFound e) {
+				JOptionPane.showMessageDialog(this, e.toString());
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();

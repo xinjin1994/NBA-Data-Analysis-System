@@ -8,6 +8,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -15,14 +16,6 @@ import javax.swing.JTextField;
 
 public class GUIUtility {
 
-	public static void setCenter(Frame f){
-		int width = f.getWidth();
-		int height = f.getHeight();
-		int swidth = MainFrame.screen.width;
-		int sheight = MainFrame.screen.height;
-	    f.setLocation(swidth/2 - width/2, sheight/2 - height/2);
-	}
-	
 	public static FocusAdapter getFocusAdapter(){
 		return new FocusAdapter() {
 			@Override

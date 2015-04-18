@@ -2,8 +2,8 @@ package gui;
 
 import gui.enums.PanelType;
 import gui.game.GamePanel;
+import gui.match.Season;
 import gui.player.PlayerPanel;
-import gui.season.Season;
 import gui.statistic.PlayerStatisticPanel;
 import gui.statistic.StatisticPanel;
 import gui.statistic.TeamStatisticPanel;

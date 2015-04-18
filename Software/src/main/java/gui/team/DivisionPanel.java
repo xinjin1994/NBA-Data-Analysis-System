@@ -1,41 +1,26 @@
 package gui.team;
 
-import java.awt.Component;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListCellRenderer;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-
 import businessLogicService.teamsBLService.TeamsBLService_new;
 import vo.TeamVO;
 import data.init.DataInit;
 import enums.Conference;
 import enums.Division;
-import enums.Teams;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
-
-import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
 
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
-import javax.swing.JSplitPane;
-
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
 
 public class DivisionPanel extends JPanel {
-
+	private static final long serialVersionUID = -8415790128985762866L;
 	TeamsBLService_new service;
 	
 	public DivisionPanel(Conference conference, Division division) {
