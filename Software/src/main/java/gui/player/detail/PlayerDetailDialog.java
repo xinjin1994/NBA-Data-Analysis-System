@@ -3,7 +3,6 @@ package gui.player.detail;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BoxLayout;
@@ -26,9 +25,8 @@ import vo.PlayerVO;
 import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
-import gui.match.player.MatchItemPanel;
-import gui.match.player.PlayerMatchPanel;
-import gui.player.detail.PlayerInfoPanel;
+import gui.match.player.PlayerMatchStatsPanel;
+import gui.match.player.RecentMatchPanel;
 
 public class PlayerDetailDialog extends JDialog {
 
@@ -64,14 +62,24 @@ public class PlayerDetailDialog extends JDialog {
 			JPanel pnl_main = new JPanel();
 			pnl_main.setLayout(new BoxLayout(pnl_main,BoxLayout.Y_AXIS));
 			contentPanel.add(pnl_main);
-			pnl_main.add(new PlayerInfoPanel(playerbl,vo));
-			ArrayList<Date> dates;
+			
+			JPanel pnl_info = new JPanel();
+			pnl_info.setLayout(new BoxLayout(pnl_info,BoxLayout.X_AXIS));
+			pnl_info.add(new PlayerBasicInfoPanel(vo));
+			pnl_info.add(new PlayerSeasonStatsPanel(playerbl,vo));
+			pnl_main.add(pnl_info);
+			
+			JPanel pnl_match = new JPanel();
+			pnl_match.setLayout(new BoxLayout(pnl_match,BoxLayout.X_AXIS));
+			PlayerMatchStatsPanel pnl_match_stats = new PlayerMatchStatsPanel(playerbl, vo);
 			try {
-				dates = playerbl.getAvailableDays(MainFrame.season.season, vo.getName());
-				pnl_main.add(new PlayerMatchPanel(vo.getName(),dates));
+				ArrayList<Date> dates = playerbl.getAvailableDays(MainFrame.season.season, vo.getName());
+				pnl_main.add(new RecentMatchPanel(vo.getName(),dates, pnl_match_stats));
 			} catch (PlayerNotFound e) {
 				JOptionPane.showMessageDialog(this, e.toString());
 			}
+			pnl_main.add(pnl_match_stats);
+			pnl_main.add(pnl_match);
 		}
 		{
 			JPanel buttonPane = new JPanel();

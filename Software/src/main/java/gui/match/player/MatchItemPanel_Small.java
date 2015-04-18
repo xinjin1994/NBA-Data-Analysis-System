@@ -14,7 +14,7 @@ import vo.MatchVO;
 
 import javax.swing.SwingConstants;
 
-public class MatchItemPanel extends JPanel {
+public class MatchItemPanel_Small extends JPanel {
 	private static final long serialVersionUID = 8710772911966562176L;
 	private MatchVO vo;
 	private JLabel lbl_date;
@@ -23,23 +23,21 @@ public class MatchItemPanel extends JPanel {
 	private JLabel lbl_host_score;
 	private JLabel lbl_guest_score;
 
-	public MatchItemPanel() {
+	public MatchItemPanel_Small(boolean displayDate) {
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
 		lbl_date = new JLabel();
-		lbl_date.setFont(new Font("宋体", Font.PLAIN, 17));
 		lbl_date.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_date.setAlignmentX(0.5f);
-		add(lbl_date,BorderLayout.NORTH);
+		if(displayDate)
+			add(lbl_date,BorderLayout.NORTH);
 		
 		JPanel pnl_team = new JPanel();
 		pnl_team.setLayout(new GridLayout(1,3));
 		lbl_host = new JLabel();
 		lbl_host.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_host.setFont(new Font("Dialog", Font.BOLD, 40));
 		lbl_guest = new JLabel();
 		lbl_guest.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_guest.setFont(new Font("Dialog", Font.BOLD, 40));
 		pnl_team.add(lbl_host);
 		pnl_team.add(Box.createHorizontalGlue());
 		pnl_team.add(lbl_guest);
@@ -49,20 +47,17 @@ public class MatchItemPanel extends JPanel {
 		pnl_score.setLayout(new GridLayout(1,3));
 		lbl_host_score = new JLabel();
 		lbl_host_score.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_host_score.setFont(new Font("宋体", Font.PLAIN, 37));
 		lbl_guest_score = new JLabel();
 		lbl_guest_score.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_guest_score.setFont(new Font("宋体", Font.PLAIN, 37));
 		pnl_score.add(lbl_host_score);
 		JLabel label = new JLabel(":");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("宋体", Font.PLAIN, 37));
 		pnl_score.add(label);
 		pnl_score.add(lbl_guest_score);
 		add(pnl_score,BorderLayout.SOUTH);
 	}
-	public MatchItemPanel(MatchVO vo){
-		this();
+	public MatchItemPanel_Small(MatchVO vo,boolean displayDate){
+		this(displayDate);
 		setMatchVO(vo);
 	}
 	

@@ -5,8 +5,8 @@ import enums.Teams;
 import enums.Terminology;
 import exceptions.MatchNotFound;
 import exceptions.PlayerNotFound;
-import gui.match.player.MatchItemPanel;
-import gui.match.player.PlayerMatchPanel;
+import gui.match.player.MatchItemPanel_Small;
+import gui.match.player.RecentMatchPanel;
 import gui.util.AdjustableTable.CheckComboBox;
 
 import java.awt.BorderLayout;
@@ -56,13 +56,6 @@ public class TestFrame extends JFrame {
 		//contentPane.setLayout(new FlowLayout());
 		setContentPane(contentPane);
 		
-		try {
-			String name = "Jan Vesely";
-			contentPane.add(new PlayerMatchPanel(name,new PlayersBL_new().getAvailableDays("13-14", name)));
-		} catch (PlayerNotFound e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 

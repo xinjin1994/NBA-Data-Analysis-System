@@ -24,7 +24,7 @@ import javax.swing.SwingConstants;
 import vo.MatchVO;
 import businessLogicService.matchesBLService.MatchesBLService;
 
-public class PlayerMatchPanel extends JPanel {
+public class RecentMatchPanel extends JPanel {
 	
 	private static final long serialVersionUID = -6276304921493888018L;
 	private static final String PREV = "PREV";
@@ -36,15 +36,17 @@ public class PlayerMatchPanel extends JPanel {
 	private final String player;
 	private MatchesBLService matchbl = new ObjectCreator().matchesBLService();
 	private JComboBox<ShortDate> cbbx_date;
-	private JPanel pnl_match;
-	private MatchItemPanel pnl_item;
+	private JPanel pnl_view;
+	private MatchItemPanel_Small pnl_item;
 	private JButton btn_prev;
 	private JButton btn_next;
+	private MatchChangable matchChanger;
 
 	/**
 	 * Create the panel.
 	 */
-	public PlayerMatchPanel(String player,ArrayList<Date> availables) {
+	public RecentMatchPanel(String player,ArrayList<Date> availables,MatchChangable matchChanger) {
+		this.matchChanger = matchChanger;
 		this.player = player;
 		ShortDate[] dates = new ShortDate[availables.size()+1];
 		for(int i = 0;i < availables.size();i++)
@@ -68,16 +70,27 @@ public class PlayerMatchPanel extends JPanel {
 		btn_next.setEnabled(false);
 		pnl_date.add(btn_next);
 		
-		pnl_match = new JPanel(new CardLayout());
-		add(pnl_match);
-		pnl_item = new MatchItemPanel();
-		pnl_match.add(pnl_item,HAS_MATCH);
+		pnl_view = new JPanel(new CardLayout());
+		add(pnl_view);
+		JPanel pnl_match = new JPanel(new BorderLayout());
+		pnl_item = new MatchItemPanel_Small(false);
+		pnl_match.add(pnl_item);
+		JButton btn_match = new JButton("查看比赛");
+		pnl_match.add(btn_match,BorderLayout.EAST);
+		btn_match.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		pnl_view.add(pnl_match,HAS_MATCH);
+		
 		JLabel lbl_no_match = new JLabel("无比赛比赛信息");
 		lbl_no_match.setHorizontalAlignment(SwingConstants.CENTER);
-		pnl_match.add(lbl_no_match,NO_MATCH);
+		pnl_view.add(lbl_no_match,NO_MATCH);
 		JLabel lbl_no_match_today = new JLabel("今日该球员无比赛");
 		lbl_no_match_today.setHorizontalAlignment(SwingConstants.CENTER);
-		pnl_match.add(lbl_no_match_today,NO_MATCH_TODAY);
+		pnl_view.add(lbl_no_match_today,NO_MATCH_TODAY);
 		
 		btn_prev.setActionCommand(PREV);
 		cbbx_date.setActionCommand(JUMP);
@@ -92,7 +105,8 @@ public class PlayerMatchPanel extends JPanel {
 			MatchVO vo = matchbl.getMatch(MainFrame.season.season, dates[0].date, player);
 			pnl_item.setMatchVO(vo);
 		} catch (MatchNotFound e) {
-			((CardLayout)pnl_match.getLayout()).show(pnl_match, NO_MATCH_TODAY);
+			((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
+			matchChanger.noMatch();
 		}
 	}
 	
@@ -107,9 +121,10 @@ public class PlayerMatchPanel extends JPanel {
 				cbbx_date.setSelectedIndex(cbbx_date.getSelectedIndex()-1);
 				break;
 			default:
-				if(cbbx_date.getSelectedIndex() == -1)
-					((CardLayout)pnl_match.getLayout()).show(pnl_match, NO_MATCH);
+				if(cbbx_date.getSelectedIndex() == -1){
+					((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH);
 					return;
+				}
 			}
 			if(cbbx_date.getSelectedIndex() == cbbx_date.getItemCount()-1)
 				btn_prev.setEnabled(false);
@@ -124,9 +139,11 @@ public class PlayerMatchPanel extends JPanel {
 			try {
 				MatchVO vo = matchbl.getMatch(MainFrame.season.season, date, player);
 				pnl_item.setMatchVO(vo);
-				((CardLayout)pnl_match.getLayout()).show(pnl_match, HAS_MATCH);
+				((CardLayout)pnl_view.getLayout()).show(pnl_view, HAS_MATCH);
+				matchChanger.setMatch(MainFrame.season.season, date);
 			} catch (MatchNotFound e) {
-				((CardLayout)pnl_match.getLayout()).show(pnl_match, NO_MATCH_TODAY);
+				((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
+				matchChanger.noMatch();
 			}
 		}
 	}

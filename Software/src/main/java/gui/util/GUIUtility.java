@@ -85,7 +85,11 @@ public class GUIUtility {
 	
 	public static String formatDouble(double d){
 		if(d == Double.NaN) return "0.0";
-		DecimalFormat nf = new DecimalFormat("##0.0");
+		DecimalFormat nf;
+		if(d-(int)d > 0.001)
+			nf = new DecimalFormat("##0.0");
+		else
+			nf = new DecimalFormat("##0");
 		nf.setDecimalSeparatorAlwaysShown(false);
 		nf.setMaximumFractionDigits(1);
 		return nf.format(d);
