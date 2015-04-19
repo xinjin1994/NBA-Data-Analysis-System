@@ -3,6 +3,8 @@ package gui.util;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
+import enums.Terminology;
+
 public class LabelPanel extends JPanel {
 	private static final long serialVersionUID = -7726946355631726343L;
 	private JLabel lbl_value;
@@ -16,9 +18,12 @@ public class LabelPanel extends JPanel {
 	public LabelPanel(String name,String unit) {
 		this(name,"",unit);
 	}
-	/**
-	 * @wbp.parser.constructor
-	 */
+	public LabelPanel(Terminology term,boolean average) {
+		this(term,"",average);
+	}
+	public LabelPanel(Terminology term, String value,boolean average) {
+		this((average?"场均":"")+term.toString(),value,Terminology.getUnit(term));
+	}
 	public LabelPanel(String name,String value,String unit) {
 		
 		JLabel lbl_name = new JLabel(name+":");

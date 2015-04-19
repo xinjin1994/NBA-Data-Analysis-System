@@ -104,6 +104,51 @@ public enum Terminology {
 		return new Terminology[]{PTS,FGM,TPM,FTM,REB,AST,MIN,FGP,TPP,FTP,OFR,DFR,STL,BLK,TOV,PF};
 	}
 	
+	static public Terminology[] getPlayerSeasonHot(){
+		//场均得分，场均篮板，场均助攻，场均盖帽，场均抢断，三分命中率，投篮命中率，罚球命中率
+		return new Terminology[]{PTS,REB,AST,BLK,STL,TPP,FGP,FTP};
+	}
+	
+	static public Terminology[] getPlayerTodayHot(){
+		//得分，篮板，助攻，盖帽，抢断
+		return new Terminology[]{PTS,REB,AST,BLK,STL};
+	}
+	
+	static public Terminology[] getPlayerSeasonProgress(){
+		//场均得分，场均篮板，场均助攻
+		return new Terminology[]{PTS,REB,AST};
+	}
+	
+	static public String getUnit(Terminology term){
+		switch(term){
+		case ASTE:
+		case ASTP:
+		case BLKP:
+		case DREBP:
+		case DFE:
+		case FGE:
+		case FGP:
+		case FTP:
+		case GMSC:
+		case IMP:
+		case OREBDE:
+		case OREBP:
+		case PER:
+		case REBP:
+		case STLE:
+		case STLP:
+		case TOVP:
+		case TPP:
+		case TSP:
+		case USGP:
+		case WINR:
+			return "%";
+		default:
+			return "";
+		
+		}
+	}
+	
 	static public Terminology[] getTeamOffence(){
 		return null;//TODO
 	}

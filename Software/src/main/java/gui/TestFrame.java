@@ -5,8 +5,10 @@ import enums.Teams;
 import enums.Terminology;
 import exceptions.MatchNotFound;
 import exceptions.PlayerNotFound;
+import gui.hot.HotPlayerPanel;
 import gui.match.player.MatchItemPanel_Small;
 import gui.match.player.RecentMatchPanel;
+import gui.util.VerticalLabel;
 import gui.util.AdjustableTable.CheckComboBox;
 
 import java.awt.BorderLayout;
@@ -15,6 +17,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -53,10 +56,13 @@ public class TestFrame extends JFrame {
 		this.setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//contentPane.setLayout(new FlowLayout());
+		contentPane.setLayout(new FlowLayout());
 		setContentPane(contentPane);
 		
-		
+		contentPane.add(new JLabel("1"));
+		if(true)
+		return;
+		contentPane.add(new JLabel("2"));
 	}
 
 }

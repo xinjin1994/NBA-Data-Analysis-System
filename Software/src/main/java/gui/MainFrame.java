@@ -2,6 +2,7 @@ package gui;
 
 import gui.enums.PanelType;
 import gui.game.GamePanel;
+import gui.hot.HotPanel;
 import gui.match.Season;
 import gui.player.PlayerPanel;
 import gui.statistic.PlayerStatisticPanel;
@@ -158,6 +159,9 @@ public class MainFrame extends JFrame {
 				break;
 			case TEAM_STATISTIC:
 				panel = new TeamStatisticPanel();
+				break;
+			case HOT:
+				panel = new HotPanel();
 				break;
 			}
 			panels.put(type, panel);

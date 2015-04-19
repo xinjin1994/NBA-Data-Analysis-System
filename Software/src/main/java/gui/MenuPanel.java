@@ -64,7 +64,7 @@ public class MenuPanel extends SelfAdjustPanel {
 		btn_statistic.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.mf.gotoPanel(PanelType.STATISTIC);
+				MainFrame.mf.gotoPanel(PanelType.HOT);
 			}
 		});
 		GridBagConstraints gbc_btn_statistic = new GridBagConstraints();

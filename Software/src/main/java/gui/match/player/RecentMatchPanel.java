@@ -3,7 +3,7 @@ package gui.match.player;
 import exceptions.MatchNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
-import gui.match.ShortDate;
+import gui.util.ShortDate;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -51,7 +51,7 @@ public class RecentMatchPanel extends JPanel {
 		ShortDate[] dates = new ShortDate[availables.size()+1];
 		for(int i = 0;i < availables.size();i++)
 			dates[i+1] = new ShortDate(availables.get(i));
-		dates[0] = new ShortDate(Calendar.getInstance().getTime());
+		dates[0] = new ShortDate();
 		
 		this.setLayout(new BorderLayout());
 		
