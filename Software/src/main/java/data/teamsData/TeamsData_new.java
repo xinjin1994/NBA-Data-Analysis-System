@@ -325,7 +325,7 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
 			for(TeamStats_new s: team.stats){
 				if(s.season.equals(season)){
-					po.addStats(s.basic.fieldGoalsMade/s.basic.fieldGoalsAttempted);
+					po.addStats(100*s.basic.fieldGoalsMade/s.basic.fieldGoalsAttempted);
 				}
 			}
 			if(po.getStats().size() != 0){
@@ -343,7 +343,7 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
 			for(TeamStats_new s: team.stats){
 				if(s.season.equals(season)){
-					po.addStats(s.basic.threePointFieldGoalsMade/s.basic.threePointFieldGoalsAttempted);
+					po.addStats(100*s.basic.threePointFieldGoalsMade/s.basic.threePointFieldGoalsAttempted);
 				}
 			}
 			if(po.getStats().size() != 0){
@@ -361,7 +361,7 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 			TeamHotStatsPO po = new TeamHotStatsPO(team.team, info.conference(), info.division());
 			for(TeamStats_new s: team.stats){
 				if(s.season.equals(season)){
-					po.addStats(s.basic.freeThrowsMade/s.basic.freeThrowsAttempted);
+					po.addStats(100*s.basic.freeThrowsMade/s.basic.freeThrowsAttempted);
 				}
 			}
 			if(po.getStats().size() != 0){

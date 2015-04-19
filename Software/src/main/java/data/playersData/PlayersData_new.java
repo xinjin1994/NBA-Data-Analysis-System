@@ -338,7 +338,7 @@ public class PlayersData_new implements PlayersDataService_new {
 				if(seasonOK && dateOK){
 					PlayerBasicStats_new basic = s.basic;
 					if(basic.fieldGoalsAttempted != 0){
-						po.addStats(basic.fieldGoalsMade/basic.fieldGoalsAttempted);
+						po.addStats(100*basic.fieldGoalsMade/basic.fieldGoalsAttempted);
 					}
 				}
 			}
@@ -363,7 +363,7 @@ public class PlayersData_new implements PlayersDataService_new {
 				if(seasonOK && dateOK){
 					PlayerBasicStats_new basic = s.basic;
 					if(basic.threePointFieldGoalsAttempted != 0){
-						po.addStats(basic.threePointFieldGoalsMade/basic.threePointFieldGoalsAttempted);
+						po.addStats(100*basic.threePointFieldGoalsMade/basic.threePointFieldGoalsAttempted);
 					}
 				}
 			}
@@ -388,7 +388,7 @@ public class PlayersData_new implements PlayersDataService_new {
 				if(seasonOK && dateOK){
 					PlayerBasicStats_new basic = s.basic;
 					if(basic.freeThrowsAttempted != 0){
-						po.addStats(basic.freeThrowsMade/basic.freeThrowsAttempted);
+						po.addStats(100*basic.freeThrowsMade/basic.freeThrowsAttempted);
 					}
 				}
 			}

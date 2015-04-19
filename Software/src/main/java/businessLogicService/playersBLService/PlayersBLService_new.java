@@ -55,4 +55,11 @@ public interface PlayersBLService_new {
 	//获取某个球员某场比赛的数据
 	public PlayerAdvancedStatsVO getAdvancedStats(String season, Date date, String player) throws PlayerNotFound;
 	public PlayerBasicStatsVO getBasicStats(String season, Date date, String player) throws PlayerNotFound;
+	
+	
+	
+	
+	
+	//关注球员
+	//public void favouritePlayers(String name);
 }
