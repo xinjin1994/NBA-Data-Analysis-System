@@ -100,7 +100,7 @@ public class MatchesData_new implements MatchesDataService_new {
 		ArrayList<String> days = new ArrayList<String>();
 		for(Matches_new match: matches){
 			if(match.season.equals(season) && !days.contains(match.date)){
-				days.add(match.season);
+				days.add(match.date);
 			}
 		}
 		
