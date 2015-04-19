@@ -23,7 +23,19 @@ public class TeamNormalInfo implements Serializable {
 	private double	foul;                                    //犯规数
 	
 	public TeamNormalInfo() {
-		
+		numOfGame=0;
+		point=0.0;                                
+	    shot=0.0;                                 
+		three=0.0;                              
+		penalty=0.0;                           
+		offendRebound=0.0;                        
+		defendRebound=0.0;                         
+		rebound=0.0;                           
+		assist=0.0;                                 
+		blockShot=0.0;                            
+		steal=0.0;                                 
+		fault=0.0;                                 
+		foul=0.0;  
 	}
 
 	public String getTeamName() {

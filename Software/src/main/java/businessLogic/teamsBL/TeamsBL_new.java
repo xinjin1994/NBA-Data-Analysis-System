@@ -2,6 +2,12 @@ package businessLogic.teamsBL;
 
 import helper.TypeTransform;
 
+
+
+
+
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,11 +18,20 @@ import po.TeamHotStatsPO;
 import po.TeamOffensiveStatsPO;
 import po.TeamPO;
 import po.TeamRatioGeneralStatsPO;
+import sorter.teams.highinfo.HighInfoSorter;
+import sorter.teams.normalinfo.NormalInfoSorter;
 import data.imageData.ImageData;
+import data.matchesData.MatchesData_new;
+import data.teamsData.TeamsData_new;
 import dataService.imageService.ImageService;
+import dataService.matchesDataService.MatchesDataService_new;
+import dataService.teamsDataService.TeamsDataForTest;
 import dataService.teamsDataService.TeamsDataService_new;
 import vo.TeamDefensiveFoulsVO;
+import vo.TeamHighInfo;
+import vo.TeamHotInfo;
 import vo.TeamHotStatsVO;
+import vo.TeamNormalInfo;
 import vo.TeamOffensiveStatsVO;
 import vo.TeamRatioGeneralVO;
 import vo.TeamVO;
@@ -24,18 +39,22 @@ import enums.Conference;
 import enums.Division;
 import enums.Teams;
 import enums.Terminology;
+import exceptions.StatsNotFound;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import businessLogicService.teamsBLService.PlayersInTeamsService;
+import businessLogicService.teamsBLService.TeamsBLForTest;
 import businessLogicService.teamsBLService.TeamsBLService_new;
 
-public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
+public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, TeamsBLForTest{
 	TeamsDataService_new teamService;
 	ImageService imageService;
+	TeamsDataForTest teamForTest;
 	
 	public TeamsBL_new(){
 		teamService = new ObjectCreator().teamsDataService_new();
 		imageService = new ImageData();
+		teamForTest = new TeamsData_new();
 	}
 
 	@Override
@@ -367,6 +386,88 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService {
 			}
 		}
 		
+	}
+
+	@Override
+	public ArrayList<TeamNormalInfo> getTeamNormalInfo_avg(
+			Terminology[] sortField, boolean[] asc, int n) {
+		ArrayList<TeamNormalInfo> list=teamForTest.getTeamNormalInfo_avg();
+		ArrayList<TeamNormalInfo> result=new ArrayList<TeamNormalInfo>();
+		for(int i=(sortField.length-1);i>=0;i--){
+			if(asc[i]){
+				NormalInfoSorter.teamNormalInfo_asc(list, sortField[i]);
+			}else{
+				NormalInfoSorter.teamNormalInfo_desc(list, sortField[i]);
+			}
+		}
+		for(int i=0;i<n;i++){
+			result.add(list.get(i));
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<TeamNormalInfo> getTeamNormalInfo_total(
+			Terminology[] sortField, boolean[] asc, int n) {
+		ArrayList<TeamNormalInfo> list=teamForTest.getTeamNormalInfo_total();
+		ArrayList<TeamNormalInfo> result=new ArrayList<TeamNormalInfo>();
+		for(int i=(sortField.length-1);i>=0;i--){
+			if(asc[i]){
+				NormalInfoSorter.teamNormalInfo_asc(list, sortField[i]);
+			}else{
+				NormalInfoSorter.teamNormalInfo_desc(list, sortField[i]);
+			}
+		}
+		for(int i=0;i<n;i++){
+			result.add(list.get(i));
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<TeamHighInfo> getTeamHighInfo(Terminology[] sortField,
+			boolean[] asc, int n) {
+		ArrayList<TeamHighInfo> list=teamForTest.getTeamHighInfo();
+		ArrayList<TeamHighInfo> result=new ArrayList<TeamHighInfo>();
+		for(int i=(sortField.length-1);i>=0;i--){
+			if(asc[i]){
+				HighInfoSorter.teamHighInfo_asc(list, sortField[i]);
+			}else{
+				HighInfoSorter.teamHighInfo_desc(list, sortField[i]);
+			}
+		}
+		for(int i=0;i<n;i++){
+			result.add(list.get(i));
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<TeamHotInfo> getTeamHotInfo(String hotField, int n) {
+		MatchesDataService_new match=new MatchesData_new();
+		try {
+			ArrayList<String> season=match.getAvailableSeasons();
+			String max="13-14";
+			for(String i:season){
+				if(max.compareTo(i)<0){
+					max=i;
+				}
+			}
+			ArrayList<TeamHotStatsVO> list=getHotTeams(max,Terminology.toEnum_team(hotField),n);
+			ArrayList<TeamHotInfo> result=new ArrayList<TeamHotInfo>();
+			for(TeamHotStatsVO stat:list){
+				TeamHotInfo hot=new TeamHotInfo();
+				hot.setTeamName(stat.getTeam().toEnglish());
+				hot.setLeague(stat.getConference().toString());
+				hot.setField(hotField);
+				hot.setValue(stat.getStats());
+				result.add(hot);
+			}
+			return result;
+		} catch (StatsNotFound e) {
+			e.printStackTrace();
+			return null;
+		}		
 	}
 
 }

@@ -7,6 +7,9 @@ import po.TeamHotStatsPO;
 import po.TeamOffensiveStatsPO;
 import po.TeamPO;
 import po.TeamRatioGeneralStatsPO;
+import vo.TeamHighInfo;
+import vo.TeamNormalInfo;
+import dataService.teamsDataService.TeamsDataForTest;
 import dataService.teamsDataService.TeamsDataService_new;
 import enums.Conference;
 import enums.Division;
@@ -14,7 +17,7 @@ import enums.Teams;
 import enums.Terminology;
 import exceptions.TeamNotFound;
 
-public class TeamsData_new implements TeamsDataService_new {
+public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 	static ArrayList<Teams_new> teams;
 	
 	public TeamsData_new(ArrayList<Teams_new> teams) {
@@ -441,4 +444,124 @@ public class TeamsData_new implements TeamsDataService_new {
 		
 		throw new TeamNotFound("该球队当天没有比赛");
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public ArrayList<TeamNormalInfo> getTeamNormalInfo_avg() {
+		ArrayList<TeamNormalInfo> list=getTeamNormalInfo_total();
+		for(TeamNormalInfo info:list){
+			int games=info.getNumOfGame();
+			if(games==0){
+				continue;
+			}
+			info.setPoint(info.getPoint()/games);
+			info.setOffendRebound(info.getOffendRebound()/games);
+			info.setDefendRebound(info.getDefendRebound()/games);
+			info.setRebound(info.getRebound()/games);
+			info.setAssist(info.getAssist()/games);
+			info.setBlockShot(info.getBlockShot()/games);
+			info.setSteal(info.getSteal()/games);
+			info.setFault(info.getFault()/games);
+			info.setFoul(info.getFoul()/games);
+		}
+		return list;
+	}
+
+	@Override
+	public ArrayList<TeamNormalInfo> getTeamNormalInfo_total() {
+		ArrayList<TeamNormalInfo> list=new ArrayList<TeamNormalInfo>();
+		for(Teams_new tm:teams){
+			TeamNormalInfo nor=new TeamNormalInfo();
+			nor.setTeamName(tm.getTeam().toEnglish());
+			nor.setNumOfGame(tm.getGames());
+	        if(tm.getGames()==0){
+	        	list.add(nor);
+	        	continue;
+	        }else{
+			int numOfShot=0;
+			int numOfThree=0;
+			int numOfPenalty=0;
+			for(TeamStats_new stat:tm.getStats()){
+				double	shot=0.0;                                
+				double	three=0.0;                                  
+				double	penalty=0.0;
+				if(stat.basic.fieldGoalsAttempted==0){
+					numOfShot++;
+				}else{
+					shot=stat.basic.fieldGoalsMade/stat.basic.fieldGoalsAttempted;
+				}
+				if(stat.basic.threePointFieldGoalsAttempted==0){
+					numOfThree++;
+				}else{
+					three=stat.basic.threePointFieldGoalsMade/stat.basic.threePointFieldGoalsAttempted;
+				}
+				if(stat.basic.freeThrowsAttempted==0){
+					numOfPenalty++;
+				}else{
+					penalty=stat.basic.freeThrowsMade/stat.basic.freeThrowsAttempted;
+				}
+				nor.setPoint(nor.getPoint()+stat.basic.getPoints());
+				nor.setShot(nor.getShot()+shot);
+				nor.setThree(nor.getThree()+three);
+				nor.setPenalty(nor.getPenalty()+penalty);
+				nor.setOffendRebound(nor.getOffendRebound()+stat.basic.offensiveRebounds);
+				nor.setDefendRebound(nor.getDefendRebound()+stat.basic.defensiveRebounds);
+				nor.setRebound(nor.getRebound()+stat.basic.rebounds);
+				nor.setAssist(nor.getAssist()+stat.basic.assists);
+				nor.setBlockShot(nor.getBlockShot()+stat.basic.blocks);
+				nor.setSteal(nor.getSteal()+stat.basic.steals);
+				nor.setFault(nor.getFault()+stat.basic.turnovers);
+				nor.setFoul(nor.getFoul()+stat.basic.fouls);
+			}
+			nor.setShot(nor.getShot()/(tm.getGames()-numOfShot));
+			nor.setThree(nor.getThree()/(tm.getGames()-numOfThree));
+			nor.setPenalty(nor.getPenalty()/(tm.getGames()-numOfPenalty));
+			list.add(nor);
+	        }
+		}
+		return list;
+	}
+
+	@Override
+	public ArrayList<TeamHighInfo> getTeamHighInfo() {
+		ArrayList<TeamHighInfo> list=new ArrayList<TeamHighInfo>();
+		for(Teams_new tm:teams){
+			TeamHighInfo high=new TeamHighInfo();
+			high.setTeamName(tm.getTeam().toEnglish());
+			if(tm.games==0){
+				list.add(high);
+				continue;
+			}
+			for(TeamStats_new stat:tm.getStats()){
+				TeamAdvancedStats_new adv=stat.advanced;
+				high.setWinRate(high.getWinRate()+adv.winningRate);
+				high.setOffendRound(high.getOffendRebound()+adv.offensiveRounds);
+				high.setOffendEfficient(high.getOffendEfficient()+adv.offensiveEfficiency);
+				high.setDefendEfficient(high.getDefendEfficient()+adv.defensiveEfficiency);
+				high.setOffendReboundEfficient(high.getOffendReboundEfficient()+adv.offensiveReboudnsEfficiency);
+				high.setDefendReboundEfficient(high.getDefendReboundEfficient()+adv.defensiveReboundsEfficiency);
+				high.setAssistEfficient(high.getAssistEfficient()+adv.assistsEfficiency);
+				high.setStealEfficient(high.getStealEfficient()+adv.stealsEfficiency);
+			}
+			high.setWinRate(high.getWinRate()/tm.games);
+			high.setOffendRound(high.getOffendRebound()/tm.games);
+			high.setOffendEfficient(high.getOffendEfficient()/tm.games);
+			high.setDefendEfficient(high.getDefendEfficient()/tm.games);
+			high.setOffendReboundEfficient(high.getOffendReboundEfficient()/tm.games);
+			high.setDefendReboundEfficient(high.getDefendReboundEfficient()/tm.games);
+			high.setAssistEfficient(high.getAssistEfficient()/tm.games);
+			high.setStealEfficient(high.getStealEfficient()/tm.games);
+			list.add(high);
+		}
+		return list;
+	}
+	
 }
