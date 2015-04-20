@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -63,6 +64,7 @@ public class HotPlayerItemPanel extends JPanel {
 			}
 		});
 		
+		add(Box.createVerticalGlue());
 	}
 	public HotPlayerItemPanel(String season,Date date,Terminology term) {
 		players = playerbl.getHotPlayersByDay(season, date, term, RANK_NUMBER);

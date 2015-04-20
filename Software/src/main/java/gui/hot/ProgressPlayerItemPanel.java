@@ -46,7 +46,7 @@ public class ProgressPlayerItemPanel extends JPanel {
 		add(lbl_team);
 		
 		ArrayList<Double> stats = players.get(0).getStats();
-		JLabel lbl_stats1 = new JLabel("场均"+term.toString()+":"+GUIUtility.formatDouble(stats.get(0))+", "
+		JLabel lbl_stats1 = new JLabel("近5场"+term.toString()+":"+GUIUtility.formatDouble(stats.get(0))+", "
 				+GUIUtility.formatDouble(stats.get(1))+","+GUIUtility.formatDouble(stats.get(2))+", "
 				+GUIUtility.formatDouble(stats.get(3))+", "+GUIUtility.formatDouble(stats.get(4)));
 		lbl_stats1.setAlignmentX(0.5f);

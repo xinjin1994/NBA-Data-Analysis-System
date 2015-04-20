@@ -8,7 +8,7 @@ public enum Terminology {
 	FTM("罚球命中数"), FTA("罚球出手数"), FTP("罚球命中率"), 
 	OREB("进攻篮板数"), DREB("防守篮板数"), REB("篮板数"), 
 	AST("助攻数"), STL("抢断数"),  BLK("盖帽数"), 
-	TOV("失误数"), PF("犯规数"), PTS("个人得分"), 
+	TOV("失误数"), PF("犯规数"), PTS("得分"), 
 	PER("效率"), DBDB("两双数"), IMP("近五场提升率"), GMSC("GmSc"), 
 	TSP("真实投篮命中率"), FGE("投篮效率"), 
 	REBP("篮板率"), OREBP("进攻篮板率"), DREBP("防守篮板率"), 
@@ -105,6 +105,11 @@ public enum Terminology {
 	}
 	
 	static public Terminology[] getPlayerSeasonHot(){
+		//场均得分，场均篮板，场均助攻，场均盖帽，场均抢断，三分命中率，投篮命中率，罚球命中率
+		return new Terminology[]{PTS,REB,AST,BLK,STL,TPP,FGP,FTP};
+	}
+	
+	static public Terminology[] getTeamHot(){
 		//场均得分，场均篮板，场均助攻，场均盖帽，场均抢断，三分命中率，投篮命中率，罚球命中率
 		return new Terminology[]{PTS,REB,AST,BLK,STL,TPP,FGP,FTP};
 	}

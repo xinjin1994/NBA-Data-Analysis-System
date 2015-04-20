@@ -8,6 +8,7 @@ import gui.util.ShortDate;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 import businessLogicService.matchesBLService.MatchesBLService;
 
@@ -40,6 +42,7 @@ public class HotPlayerPanel extends JPanel {
 
 	public HotPlayerPanel() {
 		setLayout(new BorderLayout());
+		setBorder(new LineBorder(Color.BLACK));
 		{
 			JPanel pnl_choose = new JPanel();
 			add(pnl_choose, BorderLayout.NORTH);
