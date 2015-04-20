@@ -6,7 +6,7 @@ public enum Terminology {
 	FGM("投篮命中数"), FGA("投篮出手数"), FGP("投篮命中率"), 
 	TPM("三分命中数"), TPA("三分出手数"), TPP("三分命中率"), 
 	FTM("罚球命中数"), FTA("罚球出手数"), FTP("罚球命中率"), 
-	OREB("进攻篮板数"), DREB("防守篮板数"), REB("总篮板数"), 
+	OREB("进攻篮板数"), DREB("防守篮板数"), REB("篮板数"), 
 	AST("助攻数"), STL("抢断数"),  BLK("盖帽数"), 
 	TOV("失误数"), PF("犯规数"), PTS("个人得分"), 
 	PER("效率"), DBDB("两双数"), IMP("近五场提升率"), GMSC("GmSc"), 
@@ -114,7 +114,7 @@ public enum Terminology {
 		return new Terminology[]{PTS,REB,AST,BLK,STL};
 	}
 	
-	static public Terminology[] getPlayerSeasonProgress(){
+	static public Terminology[] getPlayerProgress(){
 		//场均得分，场均篮板，场均助攻
 		return new Terminology[]{PTS,REB,AST};
 	}

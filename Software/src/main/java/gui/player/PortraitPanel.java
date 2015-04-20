@@ -1,7 +1,6 @@
 package gui.player;
 
-import gui.util.TextRigidArea;
-
+import javax.swing.Box;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -70,8 +69,8 @@ public class PortraitPanel extends JPanel {
 		
 		this.setBorder(new CompoundBorder(new LineBorder(new Color(0, 0, 0)), new EmptyBorder(5, 8, 5, 8)));
 
-		TextRigidArea pnl_fill = new TextRigidArea((int)(SIZE.width*portion),(int)(SIZE.height*portion),"没有头像",Color.WHITE);
-		add(pnl_fill);
+		//TextRigidArea pnl_fill = new TextRigidArea((int)(SIZE.width*portion),(int)(SIZE.height*portion),"没有头像",Color.WHITE);
+		add(Box.createRigidArea(new Dimension((int)(SIZE.width*portion),(int)(SIZE.height*portion))));
 		
 		JLabel lblName = new JLabel(name);
 		lblName.setAlignmentX(Component.CENTER_ALIGNMENT);

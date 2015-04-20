@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -105,21 +106,25 @@ public class HotPlayerPanel extends JPanel {
 	
 	private void setSeasonHot(){
 		Terminology[] terms = Terminology.getPlayerSeasonHot();
-		JPanel pnl_season = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel pnl_season = new JPanel();
+		pnl_season.setLayout(new BoxLayout(pnl_season,BoxLayout.X_AXIS));
 		for(Terminology term:terms){
+			pnl_season.add(Box.createHorizontalGlue());
 			pnl_season.add(new HotPlayerItemPanel(MainFrame.season.season,term));
 		}
-		
+		pnl_season.add(Box.createHorizontalGlue());
 		pnl_hot.add(pnl_season, SEASON);
 	}
 	private void setTodayHot(){
 		if(matchToday){
 			Terminology[] terms = Terminology.getPlayerTodayHot();
-			JPanel pnl_day = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			JPanel pnl_day = new JPanel();
+			pnl_day.setLayout(new BoxLayout(pnl_day,BoxLayout.X_AXIS));
 			for(Terminology term:terms){
+				pnl_day.add(Box.createHorizontalGlue());
 				pnl_day.add(new HotPlayerItemPanel(MainFrame.season.season,Calendar.getInstance().getTime(),term));
 			}
-			
+			pnl_day.add(Box.createHorizontalGlue());
 			pnl_hot.add(pnl_day, TODAY);
 		}else{
 			JLabel lbl_no_match = new JLabel("今日无比赛");
@@ -129,11 +134,13 @@ public class HotPlayerPanel extends JPanel {
 	}
 	private void setDayHot(Date date){
 		Terminology[] terms = Terminology.getPlayerTodayHot();
-		JPanel pnl_day = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel pnl_day = new JPanel();
+		pnl_day.setLayout(new BoxLayout(pnl_day,BoxLayout.X_AXIS));
 		for(Terminology term:terms){
+			pnl_day.add(Box.createHorizontalGlue());
 			pnl_day.add(new HotPlayerItemPanel(MainFrame.season.season,date,term));
 		}
-		
+		pnl_day.add(Box.createHorizontalGlue());
 		pnl_hot.add(pnl_day, JUMP);
 	}
 	

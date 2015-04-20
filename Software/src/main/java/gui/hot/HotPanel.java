@@ -15,6 +15,7 @@ public class HotPanel extends JPanel {
 		
 		JPanel pnl_main = new JPanel();
 		pnl_main.setLayout(new GridLayout(3, 0, 0, 0));
+		add(pnl_main);
 		
 		pnl_main.add(new HotPlayerPanel());
 		

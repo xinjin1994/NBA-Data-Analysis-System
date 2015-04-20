@@ -17,6 +17,8 @@ public class TextRigidArea extends JPanel {
 		lblPic.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPic.setBackground(background);
 		lblPic.setPreferredSize(size);
+		lblPic.setMaximumSize(size);
+		lblPic.setSize(size);
 		setLayout(new BorderLayout());
 		setBackground(background);
 		add(lblPic);

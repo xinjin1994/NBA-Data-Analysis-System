@@ -1,8 +1,9 @@
 package gui.hot;
 
 import enums.Terminology;
+
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,10 +21,14 @@ public class ProgressPlayerPanel extends JPanel {
 		JLabel lbl_title = new JLabel("进步球员");
 		pnl_title.add(lbl_title);
 		
-		JPanel pnl_progress = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		for(Terminology term:Terminology.getPlayerSeasonProgress()){
+		JPanel pnl_progress = new JPanel();
+		pnl_progress.setLayout(new BoxLayout(pnl_progress,BoxLayout.X_AXIS));
+		add(pnl_progress);
+		for(Terminology term:Terminology.getPlayerProgress()){
+			pnl_progress.add(Box.createHorizontalGlue());
 			pnl_progress.add(new ProgressPlayerItemPanel(term));
 		}
+		pnl_progress.add(Box.createHorizontalGlue());
 	}
 	
 	
