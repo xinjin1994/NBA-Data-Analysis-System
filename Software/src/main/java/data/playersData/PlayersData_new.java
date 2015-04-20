@@ -405,7 +405,7 @@ public class PlayersData_new implements PlayersDataService_new {
 			int num) {
 		switch(term){
 		case PTS: return this.getPlayerProgress_points(num);
-		case BLK: return this.getPlayerProgress_blocks(num);
+		case REB: return this.getPlayerProgress_rebounds(num);
 		case AST: return this.getPlayerProgress_assists(num);
 		default: return null;
 		}
@@ -428,7 +428,7 @@ public class PlayersData_new implements PlayersDataService_new {
 		return list;
 	}
 	
-	private ArrayList<PlayerProgressPO> getPlayerProgress_blocks(int num){
+	private ArrayList<PlayerProgressPO> getPlayerProgress_rebounds(int num){
 		ArrayList<PlayerProgressPO> list = new ArrayList<PlayerProgressPO>();
 		for(Players_new player: players){
 			if(player.stats.size() < num){
@@ -437,7 +437,7 @@ public class PlayersData_new implements PlayersDataService_new {
 			Position position = player.info == null ? Position.UNKNOWN : player.info.position();
 			PlayerProgressPO po = new PlayerProgressPO(player.name, player.team, position);
 			for(PlayerStats_new stats: player.stats){
-				po.addStats(stats.basic.blocks);
+				po.addStats(stats.basic.rebounds);
 			}
 			list.add(po);
 		}
