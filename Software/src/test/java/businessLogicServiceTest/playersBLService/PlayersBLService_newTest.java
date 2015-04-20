@@ -118,7 +118,7 @@ public class PlayersBLService_newTest extends TestCase {
 	
 	public void testGetProgress(){
 		Terminology term = Terminology.PTS;
-		int num = 5;
+		int num = 10;
 		ArrayList<PlayerProgressVO> list = service.getPlayerProgress(term, num);
 		System.out.println(list.size());
 	}

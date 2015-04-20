@@ -9,7 +9,7 @@ public class TeamHighInfo implements Serializable {
 	private static final long serialVersionUID = 6372142487416004188L;
 	private String	teamName;                               //球队名称（缩写）
 	private double	winRate;                                //胜率
-	private double	offendRebound;                            //进攻回合数
+	private double	offendRound;                            //进攻回合数
 	private double	offendEfficient;                        //进攻效率
 	private double	defendEfficient;                        //防守效率
 	private double	offendReboundEfficient;                 //进攻篮板效率
@@ -19,7 +19,7 @@ public class TeamHighInfo implements Serializable {
 	
 	public TeamHighInfo() {
 		winRate=0.0;
-		offendRebound=0.0;
+		offendRound=0.0;
 		offendEfficient=0.0;
 		defendEfficient=0.0;
 		offendReboundEfficient=0.0;
@@ -44,12 +44,12 @@ public class TeamHighInfo implements Serializable {
 		this.winRate = winRate;
 	}
 
-	public double getOffendRebound() {
-		return offendRebound;
+	public double getOffendRound() {
+		return offendRound;
 	}
 
-	public void setOffendRound(double offendRebound) {
-		this.offendRebound = offendRebound;
+	public void setOffendRound(double offendRound) {
+		this.offendRound = offendRound;
 	}
 
 	public double getOffendEfficient() {

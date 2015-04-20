@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import vo.TeamHighInfo;
 
-public class SortByOffendRebound implements Comparator<TeamHighInfo> {
+public class SortByOffendRound implements Comparator<TeamHighInfo> {
 
 	@Override
 	public int compare(TeamHighInfo o1, TeamHighInfo o2) {

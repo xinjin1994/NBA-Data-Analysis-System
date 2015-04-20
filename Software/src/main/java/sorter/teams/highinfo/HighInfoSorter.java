@@ -16,7 +16,7 @@ public class HighInfoSorter {
 		case DREBDE: Collections.sort(list, new SortByDefendReboundEfficient()); break;
 		case OFE: Collections.sort(list, new SortByOffendEfficient()); break;
 		case OREBDE: Collections.sort(list, new SortByOffendReboundEfficient()); break;
-		case OFR: Collections.sort(list, new SortByOffendRebound()); break;
+		case OFR: Collections.sort(list, new SortByOffendRound()); break;
 		case STLE: Collections.sort(list, new SortByStealEfficient()); break;
 		case WINR: Collections.sort(list, new SortByWinRate()); break;
 		default: ;
@@ -33,7 +33,7 @@ public class HighInfoSorter {
 		case DREBDE: Collections.sort(list, Collections.reverseOrder(new SortByDefendReboundEfficient())); break;
 		case OFE: Collections.sort(list, Collections.reverseOrder(new SortByOffendEfficient())); break;
 		case OREBDE: Collections.sort(list, Collections.reverseOrder(new SortByOffendReboundEfficient())); break;
-		case OFR: Collections.sort(list, Collections.reverseOrder(new SortByOffendRebound())); break;
+		case OFR: Collections.sort(list, Collections.reverseOrder(new SortByOffendRound())); break;
 		case STLE: Collections.sort(list, Collections.reverseOrder(new SortByStealEfficient())); break;
 		case WINR: Collections.sort(list, Collections.reverseOrder(new SortByWinRate())); break;
 		default: ;

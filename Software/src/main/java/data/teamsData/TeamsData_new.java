@@ -543,7 +543,7 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 			for(TeamStats_new stat:tm.getStats()){
 				TeamAdvancedStats_new adv=stat.advanced;
 				high.setWinRate(high.getWinRate()+adv.winningRate);
-				high.setOffendRound(high.getOffendRebound()+adv.offensiveRounds);
+				high.setOffendRound(high.getOffendRound()+adv.offensiveRounds);
 				high.setOffendEfficient(high.getOffendEfficient()+adv.offensiveEfficiency);
 				high.setDefendEfficient(high.getDefendEfficient()+adv.defensiveEfficiency);
 				high.setOffendReboundEfficient(high.getOffendReboundEfficient()+adv.offensiveReboudnsEfficiency);
@@ -552,7 +552,7 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 				high.setStealEfficient(high.getStealEfficient()+adv.stealsEfficiency);
 			}
 			high.setWinRate(high.getWinRate()/tm.games);
-			high.setOffendRound(high.getOffendRebound()/tm.games);
+			high.setOffendRound(high.getOffendRound()/tm.games);
 			high.setOffendEfficient(high.getOffendEfficient()/tm.games);
 			high.setDefendEfficient(high.getDefendEfficient()/tm.games);
 			high.setOffendReboundEfficient(high.getOffendReboundEfficient()/tm.games);
