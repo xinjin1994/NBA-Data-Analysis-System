@@ -1,12 +1,8 @@
 package businessLogicService.playersBLService;
 
 import java.util.ArrayList;
-
 import enums.Terminology;
-import vo.PlayerHighInfo;
-import vo.PlayerHotInfo;
-import vo.PlayerKingInfo;
-import vo.PlayerNormalInfo;
+import test.data.*;
 
 public interface PlayersBLForTest {
 	public ArrayList<PlayerNormalInfo> getPlayerNormalInfo_avg(String[] filter, 

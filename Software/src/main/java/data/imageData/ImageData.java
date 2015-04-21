@@ -2,6 +2,8 @@ package data.imageData;
 
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -12,6 +14,14 @@ import dataService.imageService.ImageService;
 import enums.Teams;
 
 public class ImageData implements ImageService {
+	
+	static HashMap<String, ImageIcon> playerPortraitList;
+	
+	public ImageData(){
+		if(ImageData.playerPortraitList == null){
+			playerPortraitList = new HashMap<String, ImageIcon>();
+		}
+	}
 
 	@Override
 	public ImageIcon getPlayerAction(String name) {
@@ -25,11 +35,17 @@ public class ImageData implements ImageService {
 
 	@Override
 	public ImageIcon getPlayerPortrait(String name) {
+		ImageIcon image = playerPortraitList.get(name);
+		if(image != null){
+			return image;
+		}
+		
 		String filename = "players/portrait/" + name + ".png";
 		if(!fileExists(filename)){
 			filename = "players/portrait/portrait.png";
 		}
-		ImageIcon image = new ImageIcon(filename);
+		image = new ImageIcon(filename);
+		playerPortraitList.put(name, image);
 		return image;
 	}
 

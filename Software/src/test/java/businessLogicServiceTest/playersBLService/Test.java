@@ -1,13 +1,9 @@
 package businessLogicServiceTest.playersBLService;
 
 import java.util.ArrayList;
-
+import test.data.*;
 import data.init.DataInit;
 import enums.Terminology;
-import vo.PlayerHighInfo;
-import vo.PlayerHotInfo;
-import vo.PlayerKingInfo;
-import vo.PlayerNormalInfo;
 import businessLogic.playersBL.PlayersBL_new;
 import businessLogicService.playersBLService.PlayersBLForTest;
 import junit.framework.TestCase;

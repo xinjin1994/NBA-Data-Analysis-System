@@ -9,6 +9,7 @@ import java.util.Date;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerHotStatsVO;
+import vo.PlayerPortraitVO;
 import vo.PlayerProgressVO;
 import vo.PlayerVO;
 import data.init.DataInit;
@@ -121,6 +122,28 @@ public class PlayersBLService_newTest extends TestCase {
 		int num = 10;
 		ArrayList<PlayerProgressVO> list = service.getPlayerProgress(term, num);
 		System.out.println(list.size());
+	}
+	
+	public void testFavouritePlayers(){
+		Conference con = Conference.NATIONAL;
+		Division div = Division.NATIONAL;
+		Position pos = Position.ALL;
+		service.favouritePlayers("Kobe Bryant");
+		service.favouritePlayers("Kobe Bryant");
+		service.favouritePlayers("Kobe Bryant");
+		service.favouritePlayers("LeBron James");
+		service.favouritePlayers("LeBron James");
+		try {
+			ArrayList<PlayerPortraitVO> list = service.getPlayersPortrait(con, div, pos);
+			for(PlayerPortraitVO vo: list){
+				if(vo.getName().equals("Kobe Bryant")){
+					System.out.println(vo.getVisits());
+				}
+			}
+			System.out.println(list.size());
+		} catch (PlayerNotFound e) {
+			assertTrue(false);
+		}
 	}
 
 }

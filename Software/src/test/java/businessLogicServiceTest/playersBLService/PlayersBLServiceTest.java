@@ -48,7 +48,7 @@ public class PlayersBLServiceTest extends TestCase {
 		
 	public void testGetBasicPlayersStatsTotal_Single() {
 		try {
-			PlayerBasicStatsVO stats = service.getBasicPlayerStatsTotal("Alex Len");
+			PlayerBasicStatsVO stats = service.getBasicPlayerStatsTotal("Hilton Armstrong");
 			stats.print();
 			assertTrue(stats != null);
 		} catch (PlayerNotFound e) {

@@ -46,5 +46,15 @@ public class MatchesBLService_newTest extends TestCase {
 		}
 	}
 	
+	public void testGetMatch(){
+		try {
+			ArrayList<MatchVO> list = service.getMatch("Hilton Armstrong", 5);
+			System.out.println(list.size());
+		} catch (MatchNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 }

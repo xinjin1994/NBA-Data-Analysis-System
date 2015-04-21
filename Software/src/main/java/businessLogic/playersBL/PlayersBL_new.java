@@ -2,6 +2,11 @@ package businessLogic.playersBL;
 
 import helper.TypeTransform;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -17,13 +22,10 @@ import sorter.Sorter;
 import data.teamsData.TeamsData_new;
 import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService_new;
+import vo.FavouritePlayers;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
-import vo.PlayerHighInfo;
-import vo.PlayerHotInfo;
 import vo.PlayerHotStatsVO;
-import vo.PlayerKingInfo;
-import vo.PlayerNormalInfo;
 import vo.PlayerPortraitVO;
 import vo.PlayerProgressVO;
 import vo.PlayerVO;
@@ -38,16 +40,19 @@ import factory.ObjectCreator;
 import businessLogicService.playersBLService.PlayersBLForTest;
 import businessLogicService.playersBLService.PlayersBLService_new;
 import businessLogicService.teamsBLService.PlayersInTeamsService;
+import test.data.*;
 
 public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	PlayersDataService_new playerService;
 	PlayersInTeamsService teamService;
 	ImageService imageService;
+	FavouritePlayers favourites;
 	
 	public PlayersBL_new(){
 		playerService = new ObjectCreator().playersDataService_new();
 		teamService = new ObjectCreator().playersInTeamsService();
 		imageService = new ObjectCreator().imageService();
+		readFavourite();
 	}
 
 	private ArrayList<String> getPlayers(Conference con, Division div, Position pos)
@@ -79,17 +84,24 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		ArrayList<String> names = this.getPlayers(con, div, pos);
 		for(String name: names){
 			PlayerPortraitVO vo = new PlayerPortraitVO(name, imageService.getPlayerPortrait(name));
+			vo.setVisits(favourites.getVisits(name));
 			voList.add(vo);
 		}
 		
-		Collections.sort(voList, new SortPortraitByName());
+		Collections.sort(voList, new SortPortrait());
 		return voList;
 	}
 	
-	private class SortPortraitByName implements Comparator<PlayerPortraitVO> {
+	private class SortPortrait implements Comparator<PlayerPortraitVO> {
 		@Override
 		public int compare(PlayerPortraitVO o1, PlayerPortraitVO o2) {
-			return o1.getName().compareTo(o2.getName());
+			if(o1.getVisits() > o2.getVisits()){
+				return -1;
+			}else if(o1.getVisits() < o2.getVisits()){
+				return 1;
+			}else{
+				return o1.getName().compareTo(o2.getName());
+			}
 		}
 	}
 	
@@ -668,7 +680,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 				normal.setPoint(vo.getPoints());
 				normal.setRebound(vo.getRebounds());
 				normal.setShot(vo.getFieldGoalPercentage());
-				normal.setStart((int)(vo.getGamesStarting()*vo.getGames()));
+				normal.setStart((int)(vo.getGamesStarting()));
 				normal.setSteal(vo.getSteals());
 				normal.setTeamName(vo.getTeam().toAbbr());
 				normal.setThree(vo.getThreePointFieldGoalPercentage());
@@ -739,7 +751,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 				normal.setPoint(vo.getPoints());
 				normal.setRebound(vo.getRebounds());
 				normal.setShot(vo.getFieldGoalPercentage());
-				normal.setStart((int)(vo.getGamesStarting()*vo.getGames()));
+				normal.setStart((int)(vo.getGamesStarting()));
 				normal.setSteal(vo.getSteals());
 				normal.setTeamName(vo.getTeam().toAbbr());
 				normal.setThree(vo.getThreePointFieldGoalPercentage());
@@ -825,7 +837,11 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			hot.setPosition(vo.getPosition().toAbbr());
 			hot.setTeamName(vo.getTeam().toAbbr());
 			hot.setUpgradeRate(vo.getImprovement());
-			hot.setValue(vo.getStats().get(0));
+			double avg = 0;
+			for(Double n: vo.getStats()){
+				avg += n;
+			}
+			hot.setValue(avg/vo.getStats().size());
 			
 			list.add(hot);
 		}
@@ -869,6 +885,50 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		}
 
 		return list;
+	}
+
+	
+	
+	
+	
+	
+	@Override
+	public void favouritePlayers(String name) {
+		favourites.addPlayers(name);
+		System.out.println(favourites.getVisits("Kobe Bryant"));
+		saveFavourite();
+	}
+	
+	private void readFavourite(){
+		String path = "favouritePlayers.ser";
+		File file = new File(path);
+		if(!file.exists()){
+			favourites = new FavouritePlayers();
+		}else{
+			try{
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				favourites = (FavouritePlayers)ois.readObject();
+				ois.close();
+				fis.close();
+			}catch(Exception e){
+				favourites = new FavouritePlayers();
+			}
+		}
+	}
+	
+	private void saveFavourite(){
+		String path = "favouritePlayers.ser";
+		File file = new File(path);
+		try{
+			FileOutputStream fos = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(favourites);
+			oos.close();
+			fos.close();
+		}catch(Exception e){
+			favourites = new FavouritePlayers();
+		}
 	}
 
 }

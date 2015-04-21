@@ -61,5 +61,5 @@ public interface PlayersBLService_new {
 	
 	
 	//关注球员
-	//public void favouritePlayers(String name);
+	public void favouritePlayers(String name);
 }

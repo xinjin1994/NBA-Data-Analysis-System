@@ -47,7 +47,10 @@ public enum Position {
 		case FORWARD: return "F";
 		case GUARD: return "G";
 		case CENTER: return "C";
-		default: return "?";
+		case CF: return "C/F";
+		case CG: return "C/G";
+		case FG: return "F/G";
+		default: return "C/F/G";
 		}
 	}
 }
