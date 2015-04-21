@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,7 +16,9 @@ import businessLogicService.playersBLService.PlayersBLService_new;
 import enums.Terminology;
 import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
+import gui.MainFrame;
 import gui.player.PortraitPanel;
+import gui.player.detail.PlayerExtraStats;
 import gui.util.GUIUtility;
 
 public class ProgressPlayerItemPanel extends JPanel {
@@ -60,9 +63,10 @@ public class ProgressPlayerItemPanel extends JPanel {
 		btn_rank.setAlignmentX(0.5f);
 		add(btn_rank);
 		btn_rank.addActionListener(new ActionListener(){
+			@SuppressWarnings("static-access")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				new PlayerCompareDialog(MainFrame.mf.season.season, term, new ArrayList<PlayerExtraStats>(players)).setVisible(true);
 			}
 		});
 		

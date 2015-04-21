@@ -7,6 +7,7 @@ import gui.util.LabelPanel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -23,12 +24,11 @@ import javax.swing.JRadioButton;
 import businessLogicService.playersBLService.PlayersBLService_new;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
-import vo.PlayerVO;
 
-public class PlayerSeasonStatsPanel extends JPanel {
+public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 	private static final long serialVersionUID = -1843553808115256738L;
 	private PlayersBLService_new playerService;
-	private PlayerVO vo;
+	private String name;
 	private static final String AVERAGE = "AVERAGE";
 	private static final String TOTAL = "TOTAL";
 	private static final String BASIC = "BASIC";
@@ -36,10 +36,14 @@ public class PlayerSeasonStatsPanel extends JPanel {
 	private EnumMap<Terminology,LabelPanel> labelMap_basic;
 	private EnumMap<Terminology,LabelPanel> labelMap_advanced;
 	private JPanel pnl_stats;
+	private JRadioButton rdibtn_basic;
+	private JRadioButton rdibtn_advanced;
 
-	public PlayerSeasonStatsPanel(PlayersBLService_new playerService,PlayerVO vo) {
+	public PlayerSeasonStatsPanel(PlayersBLService_new playerService,String name) {
+		super(playerService,name);
+		
 		this.playerService = playerService;
-		this.vo = vo;
+		this.name = name;
 		{
 			JPanel pnl_seaStats = new JPanel(new BorderLayout());
 			add(pnl_seaStats);
@@ -48,12 +52,12 @@ public class PlayerSeasonStatsPanel extends JPanel {
 			pnl_seaTitle.setLayout(new FlowLayout(FlowLayout.LEADING));
 			pnl_seaTitle.add(new JLabel("赛季数据"));
 			
-			JRadioButton rdibtn_basic = new JRadioButton("基础数据");
+			rdibtn_basic = new JRadioButton("基础数据");
 			rdibtn_basic.setActionCommand(BASIC);
 			rdibtn_basic.addActionListener(new StatsRadioButtonListener());
 			pnl_seaTitle.add(rdibtn_basic);
 			
-			JRadioButton rdibtn_advanced = new JRadioButton("进阶数据");
+			rdibtn_advanced = new JRadioButton("进阶数据");
 			rdibtn_advanced.setActionCommand(ADVANCED);
 			rdibtn_advanced.addActionListener(new StatsRadioButtonListener());
 			pnl_seaTitle.add(rdibtn_advanced);
@@ -131,14 +135,30 @@ public class PlayerSeasonStatsPanel extends JPanel {
 			((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, BASIC);
 		}
 	}
+	public PlayerSeasonStatsPanel(PlayersBLService_new playerService,String name,Terminology term) {
+		this(playerService,name);
+		LabelPanel lbl = null;
+		if(labelMap_basic.containsKey(term)){
+			lbl = labelMap_basic.get(term);
+			rdibtn_basic.setEnabled(true);
+			((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, BASIC);
+		}
+		else if(labelMap_advanced.containsKey(term)){
+			lbl = labelMap_advanced.get(term);
+			rdibtn_advanced.setEnabled(true);
+			((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, ADVANCED);
+		}
+		else return;
+		lbl.setColor(Color.RED);
+	}
 	
 	private void setBasicStats(String type){
 		PlayerBasicStatsVO bs = null;
 		try {
 			if(type == AVERAGE)
-				bs = playerService.getBasicPlayerStatsAverage(vo.getName());
+				bs = playerService.getBasicPlayerStatsAverage(name);
 			else if(type == TOTAL)
-				bs = playerService.getBasicPlayerStatsTotal(vo.getName());
+				bs = playerService.getBasicPlayerStatsTotal(name);
 			
 			for(Terminology term:Terminology.getPlayerSeasonBasic()){
 				labelMap_basic.get(term).setValue(bs.getProperty(term));
@@ -153,7 +173,7 @@ public class PlayerSeasonStatsPanel extends JPanel {
 	private void setAdvancedStats(){
 		PlayerAdvancedStatsVO bs;
 		try {
-			bs = playerService.getAdvancedPlayerStats(vo.getName());
+			bs = playerService.getAdvancedPlayerStats(name);
 
 			for(Terminology term:Terminology.getPlayerAdvanced()){
 				labelMap_advanced.get(term).setValue(bs.getProperty(term));

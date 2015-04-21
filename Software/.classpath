@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="target/classes" path="src/main/java">
 		<attributes>
@@ -25,6 +25,6 @@
 	<classpathentry kind="lib" path="batik-all-1.7.jar"/>
 	<classpathentry kind="lib" path="junit-4.12.jar"/>
 	<classpathentry kind="lib" path="forms-1.3.0.jar" sourcepath="forms-1.3.0-src.zip"/>
-	<classpathentry kind="lib" path="F:/学习/GitHub/Software-III/Software/testData.jar"/>
+	<classpathentry kind="lib" path="testData.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -19,6 +19,7 @@ import enums.Terminology;
 import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.player.PortraitPanel;
+import gui.player.detail.PlayerExtraStats;
 import gui.util.GUIUtility;
 import gui.util.LabelPanel;
 
@@ -27,6 +28,8 @@ public class HotPlayerItemPanel extends JPanel {
 	private static final int RANK_NUMBER = 5;
 	private static PlayersBLService_new playerbl = new ObjectCreator().playersBLService();
 	private ArrayList<PlayerHotStatsVO> players;
+	private String season;
+	private Date date;
 
 	private void construct(Terminology term,boolean average) {
 		if(players.size() == 0){
@@ -60,17 +63,23 @@ public class HotPlayerItemPanel extends JPanel {
 		btn_rank.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				if(average)
+					new PlayerCompareDialog(season, term, new ArrayList<PlayerExtraStats>(players)).setVisible(true);
+				else
+					new PlayerCompareDialog(season, date, term, new ArrayList<PlayerExtraStats>(players)).setVisible(true);
 			}
 		});
 		
 		add(Box.createVerticalGlue());
 	}
 	public HotPlayerItemPanel(String season,Date date,Terminology term) {
+		this.season = season;
+		this.date = date;
 		players = playerbl.getHotPlayersByDay(season, date, term, RANK_NUMBER);
 		construct(term,false);
 	}
 	public HotPlayerItemPanel(String season,Terminology term){
+		this.season = season;
 		players = playerbl.getHotPlayersBySeason(season, term, RANK_NUMBER);
 		construct(term,true);
 	}

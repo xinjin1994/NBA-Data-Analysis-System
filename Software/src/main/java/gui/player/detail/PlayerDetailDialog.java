@@ -66,12 +66,12 @@ public class PlayerDetailDialog extends JDialog {
 			JPanel pnl_info = new JPanel();
 			pnl_info.setLayout(new BoxLayout(pnl_info,BoxLayout.X_AXIS));
 			pnl_info.add(new PlayerBasicInfoPanel(vo));
-			pnl_info.add(new PlayerSeasonStatsPanel(playerbl,vo));
+			pnl_info.add(new PlayerSeasonStatsPanel(playerbl,vo.getName()));
 			pnl_main.add(pnl_info);
 			
 			JPanel pnl_match = new JPanel();
 			pnl_match.setLayout(new BoxLayout(pnl_match,BoxLayout.X_AXIS));
-			PlayerMatchStatsPanel pnl_match_stats = new PlayerMatchStatsPanel(playerbl, vo);
+			PlayerMatchStatsPanel pnl_match_stats = new PlayerMatchStatsPanel(playerbl, vo.getName());
 			try {
 				ArrayList<Date> dates = playerbl.getAvailableDays(MainFrame.season.season, vo.getName());
 				pnl_main.add(new RecentMatchPanel(vo.getName(),dates, pnl_match_stats));
