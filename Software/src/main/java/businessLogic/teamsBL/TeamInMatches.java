@@ -56,7 +56,7 @@ public class TeamInMatches {
 				basic.wins/basic.games, advanced.offensiveRounds, 
 				advanced.offensiveEfficiency, advanced.defensiveEfficiency, 
 				advanced.offensiveReboudnsEfficiency, advanced.defensiveReboundsEfficiency,
-				advanced.stealsEfficiency, advanced.assistsEfficiency);
+				advanced.stealsEfficiency, advanced.assistsEfficiency, 0);
 	}
 	
 	public TeamDefensiveFoulsVO getDefensiveFoulsVO(){

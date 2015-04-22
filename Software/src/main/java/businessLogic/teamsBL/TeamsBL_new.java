@@ -243,13 +243,14 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	private TeamRatioGeneralVO sum_ratio(ArrayList<TeamRatioGeneralStatsPO> poList){
 		Teams team = poList.get(0).getTeam();
 		int games = poList.get(0).getGames();
+		int wins = poList.get(0).getWins();
 		int fg_num = 0;
 		int ft_num = 0;
 		int tp_num = 0;
 		double fieldGoalsPercentage = 0;
 		double freeThrowsPercentage = 0;
 		double threePointFieldGoalsPercentage = 0;
-		double winningRating = 0;
+		double winningRating = (double)wins/games;
 		double offensiveRounds = 0;
 		double offensiveEfficiency = 0;
 		double defensiveEfficiency = 0;
@@ -261,7 +262,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 			fieldGoalsPercentage += po.getFieldGoalsPercentage();
 			freeThrowsPercentage += po.getFreeThrowsPercentage();
 			threePointFieldGoalsPercentage += po.getThreePointFieldGoalsPercentage();
-			winningRating += po.getWinningRating();
+			//winningRating += po.getWinningRating();
 		    offensiveRounds += po.getOffensiveRounds();
 			offensiveEfficiency += po.getOffensiveEfficiency();
 			defensiveEfficiency += po.getDefensiveEfficiency();
@@ -285,7 +286,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 				winningRating/games, offensiveRounds, offensiveEfficiency/games, 
 				defensiveEfficiency/games, offensiveReboundsEfficiency/games, 
 				defensiveReboundsEfficiency/games, stealsEfficiency/games, 
-				assistsEfficiency/games);
+				assistsEfficiency/games, wins);
 		return vo;
 	}
 	
@@ -360,7 +361,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 				po.getThreePointFieldGoalsPercentage(), po.getWins(), po.getOffensiveRounds(), 
 				po.getOffensiveEfficiency(), po.getDefensiveEfficiency(), 
 				po.getOffensiveReboundsEfficiency(), po.getDefensiveReboundsEfficiency(), 
-				po.getStealsEfficiency(), po.getAssistsEfficiency());
+				po.getStealsEfficiency(), po.getAssistsEfficiency(), po.getWins());
 		
 		return vo;
 	}
