@@ -43,7 +43,7 @@ public class HotTeamItemPanel extends JPanel {
 		
 		try {
 			TeamVO vo = teambl.getTeamInfo(teams.get(0).getTeam());
-			add(new PortraitPanel(vo.getImage(),vo.getName().toString(),0.5));
+			add(new PortraitPanel(vo.getImage(),vo.getTeam().toString(),0.5));
 		} catch (TeamNotFound e) {
 			add(new PortraitPanel(teams.get(0).getTeam().toString(),0.5));
 		}

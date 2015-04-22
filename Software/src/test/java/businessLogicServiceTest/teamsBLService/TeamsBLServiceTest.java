@@ -49,7 +49,7 @@ public class TeamsBLServiceTest extends TestCase {
 			Teams[] trueValue = new Teams[]{Teams.CHI, Teams.CLE, Teams.DET, Teams.IND, Teams.MIL};
 			ArrayList<Teams> teamsGet = new ArrayList<Teams>();
 			for(TeamVO team: list){
-				teamsGet.add(team.getName());
+				teamsGet.add(team.getTeam());
 			}
 		
 			assertTrue(teamsGet.size() == trueValue.length);

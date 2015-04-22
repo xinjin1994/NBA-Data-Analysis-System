@@ -3,6 +3,7 @@ package gui.hot;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import vo.PlayerExtraStatsVO;
 import vo.PlayerHotStatsVO;
 import vo.PlayerVO;
 import businessLogicService.playersBLService.PlayersBLService_new;
@@ -19,7 +21,6 @@ import enums.Terminology;
 import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.player.PortraitPanel;
-import gui.player.detail.PlayerExtraStats;
 import gui.util.GUIUtility;
 import gui.util.LabelPanel;
 
@@ -64,9 +65,10 @@ public class HotPlayerItemPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(average)
-					new PlayerCompareDialog(season, term, new ArrayList<PlayerExtraStats>(players)).setVisible(true);
+					new PlayerCompareDialog("赛季"+term.toString()+"排名",season, term, new ArrayList<PlayerExtraStatsVO>(players)).setVisible(true);
 				else
-					new PlayerCompareDialog(season, date, term, new ArrayList<PlayerExtraStats>(players)).setVisible(true);
+					new PlayerCompareDialog(new SimpleDateFormat("MM月dd日").format(date)+term.toString()+"排名",season, 
+							date, term, new ArrayList<PlayerExtraStatsVO>(players)).setVisible(true);
 			}
 		});
 		

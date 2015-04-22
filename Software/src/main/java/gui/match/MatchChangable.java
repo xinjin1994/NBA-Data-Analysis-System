@@ -1,4 +1,4 @@
-package gui.match.player;
+package gui.match;
 
 import java.util.Date;
 

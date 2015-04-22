@@ -2,9 +2,8 @@ package vo;
 
 import enums.Position;
 import enums.Teams;
-import gui.player.detail.PlayerExtraStats;
 
-public class PlayerHotStatsVO implements PlayerExtraStats{
+public class PlayerHotStatsVO implements PlayerExtraStatsVO{
 	//此类存放热点球员的筛选数据
 	String name;
 	Teams team;

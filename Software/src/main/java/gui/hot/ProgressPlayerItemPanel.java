@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import vo.PlayerExtraStatsVO;
 import vo.PlayerProgressVO;
 import vo.PlayerVO;
 import businessLogicService.playersBLService.PlayersBLService_new;
@@ -18,7 +19,6 @@ import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.player.PortraitPanel;
-import gui.player.detail.PlayerExtraStats;
 import gui.util.GUIUtility;
 
 public class ProgressPlayerItemPanel extends JPanel {
@@ -28,7 +28,7 @@ public class ProgressPlayerItemPanel extends JPanel {
 	private ArrayList<PlayerProgressVO> players;
 
 	public ProgressPlayerItemPanel(Terminology term) {
-		players = playerbl.getPlayerProgress(term, RANK_NUMBER);
+		players = playerbl.getPlayerProgress(MainFrame.season.season,term, RANK_NUMBER);
 		
 		if(players.size() == 0){
 			setLayout(new BorderLayout());
@@ -66,7 +66,7 @@ public class ProgressPlayerItemPanel extends JPanel {
 			@SuppressWarnings("static-access")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new PlayerCompareDialog(MainFrame.mf.season.season, term, new ArrayList<PlayerExtraStats>(players)).setVisible(true);
+				new PlayerCompareDialog(term.toString()+"进步排名",MainFrame.mf.season.season, term, new ArrayList<PlayerExtraStatsVO>(players)).setVisible(true);
 			}
 		});
 		

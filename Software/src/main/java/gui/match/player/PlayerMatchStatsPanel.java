@@ -2,7 +2,9 @@ package gui.match.player;
 
 import enums.Terminology;
 import exceptions.PlayerNotFound;
+import exceptions.TermNotFound;
 import gui.MainFrame;
+import gui.match.MatchChangable;
 import gui.player.detail.PlayerStatsPanel;
 import gui.util.LabelPanel;
 
@@ -151,19 +153,26 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 			}
 		} catch (PlayerNotFound e) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());
+			e.printStackTrace();
+		} catch (TermNotFound e) {
+			JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());
+			e.printStackTrace();
 		}
 	}
 	
 
 	private void setAdvancedStats(){
 		try {
-			PlayerAdvancedStatsVO bs = playerService.getAdvancedPlayerStats(name);
+			PlayerAdvancedStatsVO bs = playerService.getAdvancedPlayerStats(MainFrame.season.season,name);
 
 			for(Terminology term:Terminology.getPlayerAdvanced()){
 				labelMap_advanced.get(term).setValue(bs.getProperty(term));
 			}
 		} catch (PlayerNotFound e) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());
+		} catch (TermNotFound e) {
+			JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());
+			e.printStackTrace();
 		}
 		
 	}

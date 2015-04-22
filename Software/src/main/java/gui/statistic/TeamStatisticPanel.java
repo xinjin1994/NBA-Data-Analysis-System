@@ -153,8 +153,8 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
  
 	public void buildList() {
 		try {
-			offenceList_average = teamService.getTeamOffensiveStatsAverage(Conference.NATIONAL, Division.NATIONAL);
-			offenceList_total = teamService.getTeamOffensiveStatsTotal(Conference.NATIONAL, Division.NATIONAL);
+			offenceList_average = teamService.getTeamOffensiveStatsAverage(MainFrame.season.season,Conference.NATIONAL, Division.NATIONAL);
+			offenceList_total = teamService.getTeamOffensiveStatsTotal(MainFrame.season.season,Conference.NATIONAL, Division.NATIONAL);
 		} catch (TeamNotFound e) {
 			offenceList_average = new ArrayList<TeamOffensiveStatsVO>();
 			offenceList_total = new ArrayList<TeamOffensiveStatsVO>();

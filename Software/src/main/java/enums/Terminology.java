@@ -20,7 +20,7 @@ public enum Terminology {
 	OREBDE("进攻篮板效率"), DREBDE("防守篮板效率"), 
 	STLE("抢断效率"), ASTE("助攻效率"),
 	
-	ATTENDED("参赛场数"),PREMIERE("先发场数");
+	ATTENDED("参赛场数"),PREMIERE("先发场数"),GMWIN("获胜场数");
 	
 	String terminology;
 	
@@ -122,6 +122,26 @@ public enum Terminology {
 	static public Terminology[] getPlayerProgress(){
 		//场均得分，场均篮板，场均助攻
 		return new Terminology[]{PTS,REB,AST};
+	}
+	
+	static public Terminology[] getTeamOffensive(){
+		return new Terminology[]{PTS,FGM,FGA,FTM,FTA,TPM,TPA,AST};
+	}
+	
+	static public Terminology[] getTeamDefensive(){
+		return new Terminology[]{OREB,DREB,REB,STL,BLK};
+	}
+	
+	static public Terminology[] getTeamFouls(){
+		return new Terminology[]{TOV,PF};
+	}
+	
+	static public Terminology[] getTeamRatio(){
+		return new Terminology[]{FGP,FTP,TPP,WINR};
+	}
+	
+	static public Terminology[] getTeamGeneral(){
+		return new Terminology[]{OFR,OFE,DFE,OREBDE,DREBDE,STLE,ASTE};
 	}
 	
 	static public String getUnit(Terminology term){

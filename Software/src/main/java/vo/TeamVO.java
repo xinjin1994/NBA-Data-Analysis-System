@@ -35,7 +35,7 @@ public class TeamVO {
 		return image;
 	}
 
-	public Teams getName() {
+	public Teams getTeam() {
 		return name;
 	}
 

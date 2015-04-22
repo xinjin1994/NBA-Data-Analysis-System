@@ -6,8 +6,8 @@ import enums.Terminology;
 import exceptions.MatchNotFound;
 import exceptions.PlayerNotFound;
 import gui.hot.HotPlayerPanel;
-import gui.match.player.MatchItemPanel_Small;
-import gui.match.player.RecentMatchPanel;
+import gui.match.MatchItemPanel_Small;
+import gui.match.RecentMatchPanel;
 import gui.util.VerticalLabel;
 import gui.util.AdjustableTable.CheckComboBox;
 

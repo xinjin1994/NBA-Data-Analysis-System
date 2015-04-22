@@ -1,9 +1,9 @@
-package gui.player.detail;
+package vo;
 
 import enums.Position;
 import enums.Teams;
 
-public interface PlayerExtraStats {
+public interface PlayerExtraStatsVO {
 	public String getName();
 
 	public Teams getTeam();

@@ -25,8 +25,8 @@ import vo.PlayerVO;
 import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
+import gui.match.RecentMatchPanel;
 import gui.match.player.PlayerMatchStatsPanel;
-import gui.match.player.RecentMatchPanel;
 
 public class PlayerDetailDialog extends JDialog {
 

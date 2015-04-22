@@ -158,15 +158,15 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 
 	public void getList(Conference c, Division d, Position p) {
 		try {
-			basicList_average = playerService.getBasicPlayersStatsAverage(c,d,p);
-			basicList_total = playerService.getBasicPlayersStatsTotal(c,d,p);
+			basicList_average = playerService.getBasicPlayersStatsAverage(MainFrame.season.season,c,d,p);
+			basicList_total = playerService.getBasicPlayersStatsTotal(MainFrame.season.season,c,d,p);
 		} catch (PlayerNotFound e) {
 			basicList_average = new ArrayList<PlayerBasicStatsVO>();
 			basicList_total = new ArrayList<PlayerBasicStatsVO>();
 		}
 		try {
-			advancedList_average = playerService.getAdvancedPlayersStatsAverage(c,d,p);
-			advancedList_total = playerService.getAdvancedPlayersStatsTotal(c,d,p);
+			advancedList_average = playerService.getAdvancedPlayersStatsAverage(MainFrame.season.season,c,d,p);
+			advancedList_total = playerService.getAdvancedPlayersStatsTotal(MainFrame.season.season,c,d,p);
 		} catch (PlayerNotFound e) {
 			advancedList_average = new ArrayList<PlayerAdvancedStatsVO>();
 			advancedList_total = new ArrayList<PlayerAdvancedStatsVO>();

@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 import enums.Position;
 import enums.Teams;
-import gui.player.detail.PlayerExtraStats;
 
-public class PlayerProgressVO implements PlayerExtraStats{
+public class PlayerProgressVO implements PlayerExtraStatsVO{
 	String name;
 	Teams team;
 	Position position;

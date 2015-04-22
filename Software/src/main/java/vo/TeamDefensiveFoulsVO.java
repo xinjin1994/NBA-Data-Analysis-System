@@ -1,8 +1,11 @@
 package vo;
 
 import enums.Teams;
+import enums.Terminology;
+import exceptions.TermNotFound;
+import gui.util.GUIUtility;
 
-public class TeamDefensiveFoulsVO {
+public class TeamDefensiveFoulsVO implements StatsVO{
 	//
 	Teams team;
 	int games;
@@ -71,6 +74,46 @@ public class TeamDefensiveFoulsVO {
 
 	public double getFouls() {
 		return fouls;
+	}
+
+	@Override
+	public String getProperty(Terminology term) throws TermNotFound {
+		/*
+		this.offensiveRebounds /= games;
+		this.defensiveRebounds /= games;
+		this.rebounds /= games;
+		this.steals /= games;
+		this.blocks /= games;
+		this.turnovers /= games;
+		this.fouls /= games;
+		*/
+		double d;
+		switch(term){
+		case OREB:
+			d =  this.offensiveRebounds;
+			break;
+		case DREB:
+			d = this.defensiveRebounds;
+			break;
+		case REB:
+			d = this.rebounds;
+			break;
+		case STL:
+			d = steals;
+			break;
+		case BLK:
+			d = blocks;
+			break;
+		case TOV:
+			d = turnovers;
+			break;
+		case PF:
+			d = fouls;
+			break;
+		default:
+			throw new TermNotFound(term);
+		}
+		return GUIUtility.formatDouble(d);
 	}
 	
 }

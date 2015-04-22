@@ -7,8 +7,9 @@ import helper.TypeTransform;
 import businessLogic.playersBL.BasicPlayerStats;
 import enums.Teams;
 import enums.Terminology;
+import exceptions.TermNotFound;
 
-public class PlayerBasicStatsVO {
+public class PlayerBasicStatsVO implements StatsVO{
 	//
 	String name;                                     //姓名
 	Teams team;                                      //所属球队
@@ -233,7 +234,7 @@ public class PlayerBasicStatsVO {
 				+ this.freeThrowsAttempted;
 	}
 	
-	public String getProperty(Terminology term){
+	public String getProperty(Terminology term) throws TermNotFound{
 		switch(term){
 		case ATTENDED:
 			return GUIUtility.formatDouble(this.games);
@@ -272,7 +273,7 @@ public class PlayerBasicStatsVO {
 		case FTM:
 			return GUIUtility.formatDouble(this.freeThrowsMade);
 		default:
-			return null;
+			throw new TermNotFound(term);
 		}
 	}
 	

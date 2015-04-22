@@ -4,10 +4,11 @@ import javax.swing.ImageIcon;
 
 import enums.Teams;
 import enums.Terminology;
+import exceptions.TermNotFound;
 import gui.util.GUIUtility;
 import businessLogic.playersBL.AdvancedPlayerStats;
 
-public class PlayerAdvancedStatsVO {
+public class PlayerAdvancedStatsVO implements StatsVO{
 	//
 	String name;                                    //姓名
 	Teams team;                                     //所属球队
@@ -125,7 +126,7 @@ public class PlayerAdvancedStatsVO {
 		return usagePercent*100;
 	}
 	
-	public String getProperty(Terminology term){
+	public String getProperty(Terminology term) throws TermNotFound{
 		switch(term){
 		case PER:
 			return GUIUtility.formatDouble(this.efficiency);
@@ -152,7 +153,7 @@ public class PlayerAdvancedStatsVO {
 		case USGP:
 			return GUIUtility.formatDouble(this.usagePercent);
 		default:
-			return null;
+			throw new TermNotFound(term);
 		}
 	}
 	

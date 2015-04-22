@@ -1,4 +1,4 @@
-package gui.match.player;
+package gui.match;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -31,8 +31,19 @@ public class MatchItemPanel_Small extends JPanel {
 		if(displayDate)
 			add(lbl_date,BorderLayout.NORTH);
 		
+		
 		JPanel pnl_team = new JPanel();
-		pnl_team.setLayout(new GridLayout(1,3));
+		pnl_team.setLayout(new GridLayout(3,3));
+		add(pnl_team);
+		
+		JLabel hostLabel = new JLabel("主队");
+		hostLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel guestLabel = new JLabel("客队");
+		guestLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		pnl_team.add(hostLabel);
+		pnl_team.add(Box.createHorizontalGlue());
+		pnl_team.add(guestLabel);
+		
 		lbl_host = new JLabel();
 		lbl_host.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_guest = new JLabel();
@@ -40,20 +51,16 @@ public class MatchItemPanel_Small extends JPanel {
 		pnl_team.add(lbl_host);
 		pnl_team.add(Box.createHorizontalGlue());
 		pnl_team.add(lbl_guest);
-		add(pnl_team);
 
-		JPanel pnl_score = new JPanel();
-		pnl_score.setLayout(new GridLayout(1,3));
 		lbl_host_score = new JLabel();
 		lbl_host_score.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_guest_score = new JLabel();
 		lbl_guest_score.setHorizontalAlignment(SwingConstants.CENTER);
-		pnl_score.add(lbl_host_score);
+		pnl_team.add(lbl_host_score);
 		JLabel label = new JLabel(":");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		pnl_score.add(label);
-		pnl_score.add(lbl_guest_score);
-		add(pnl_score,BorderLayout.SOUTH);
+		pnl_team.add(label);
+		pnl_team.add(lbl_guest_score);
 	}
 	public MatchItemPanel_Small(MatchVO vo,boolean displayDate){
 		this(displayDate);
