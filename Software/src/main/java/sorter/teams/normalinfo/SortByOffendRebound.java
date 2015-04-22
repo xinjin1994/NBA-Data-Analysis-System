@@ -2,7 +2,7 @@ package sorter.teams.normalinfo;
 
 import java.util.Comparator;
 
-import vo.TeamNormalInfo;
+import test.data.*;
 
 public class SortByOffendRebound implements Comparator<TeamNormalInfo> {
 

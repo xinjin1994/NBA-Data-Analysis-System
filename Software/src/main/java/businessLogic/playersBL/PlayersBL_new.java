@@ -22,19 +22,21 @@ import sorter.Sorter;
 import data.teamsData.TeamsData_new;
 import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService_new;
-import vo.FavouritePlayers;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
 import vo.PlayerHotStatsVO;
 import vo.PlayerPortraitVO;
 import vo.PlayerProgressVO;
 import vo.PlayerVO;
+import vo.Title;
 import enums.Conference;
 import enums.Division;
 import enums.Position;
 import enums.Teams;
 import enums.Terminology;
+import exceptions.NoTitle;
 import exceptions.PlayerNotFound;
+import exceptions.StatsNotFound;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import businessLogicService.playersBLService.PlayersBLForTest;
@@ -47,6 +49,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	PlayersInTeamsService teamService;
 	ImageService imageService;
 	FavouritePlayers favourites;
+	TitleManager titles;
 	
 	public PlayersBL_new(){
 		playerService = new ObjectCreator().playersDataService_new();
@@ -140,13 +143,13 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	}
 
 	@Override
-	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsTotal(
+	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsTotal(String season, 
 			Conference con, Division div, Position pos) throws PlayerNotFound {
 		ArrayList<PlayerBasicStatsVO> voList = new ArrayList<PlayerBasicStatsVO>();
 		ArrayList<String> players = this.getPlayers(con, div, pos);
 		for(String name: players){
 			try{
-				ArrayList<PlayerBasicStatsPO> stats = playerService.getBasicStats(name);
+				ArrayList<PlayerBasicStatsPO> stats = playerService.getBasicStats(season, name);
 				PlayerBasicStatsVO vo = this.sum_basic(stats);
 				voList.add(vo);
 			}catch(PlayerNotFound e){
@@ -158,9 +161,9 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	}
 
 	@Override
-	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsAverage(
+	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsAverage(String season, 
 			Conference con, Division div, Position pos) throws PlayerNotFound {
-		ArrayList<PlayerBasicStatsVO> voList = this.getBasicPlayersStatsTotal(con, div, pos);
+		ArrayList<PlayerBasicStatsVO> voList = this.getBasicPlayersStatsTotal(season, con, div, pos);
 		for(PlayerBasicStatsVO vo: voList){
 			vo.average();
 		}
@@ -168,30 +171,30 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	}
 	
 	@Override
-	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name)
+	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String season, String name)
 			throws PlayerNotFound {
-		ArrayList<PlayerBasicStatsPO> stats = playerService.getBasicStats(name);
+		ArrayList<PlayerBasicStatsPO> stats = playerService.getBasicStats(season, name);
 		PlayerBasicStatsVO vo = this.sum_basic(stats);
 		return vo;
 	}
 	
 	@Override
-	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name)
+	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String season, String name)
 			throws PlayerNotFound {
-		ArrayList<PlayerBasicStatsPO> stats = playerService.getBasicStats(name);
+		ArrayList<PlayerBasicStatsPO> stats = playerService.getBasicStats(season, name);
 		PlayerBasicStatsVO vo = this.sum_basic(stats);
 		vo.average();
 		return vo;
 	}
 
 	@Override
-	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(
+	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(String season, 
 			Conference con, Division div, Position pos) throws PlayerNotFound {
 		ArrayList<PlayerAdvancedStatsVO> voList = new ArrayList<PlayerAdvancedStatsVO>();
 		ArrayList<String> players = this.getPlayers(con, div, pos);
 		for(String name: players){
 			try{
-				ArrayList<PlayerAdvancedStatsPO> stats = playerService.getAdvancedStats(name);
+				ArrayList<PlayerAdvancedStatsPO> stats = playerService.getAdvancedStats(season, name);
 				PlayerAdvancedStatsVO vo = this.average_advanced(stats);
 				voList.add(vo);
 			}catch(PlayerNotFound e){
@@ -203,16 +206,16 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	}
 
 	@Override
-	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(
+	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(String season, 
 			Conference con, Division div, Position pos) throws PlayerNotFound {
 		//高级数据没有平均和总和的区别
-		return this.getAdvancedPlayersStatsTotal(con, div, pos);
+		return this.getAdvancedPlayersStatsTotal(season, con, div, pos);
 	}
 	
 	@Override
-	public PlayerAdvancedStatsVO getAdvancedPlayerStats(String name)
+	public PlayerAdvancedStatsVO getAdvancedPlayerStats(String season, String name)
 			throws PlayerNotFound {
-		ArrayList<PlayerAdvancedStatsPO> stats = playerService.getAdvancedStats(name);
+		ArrayList<PlayerAdvancedStatsPO> stats = playerService.getAdvancedStats(season, name);
 		PlayerAdvancedStatsVO vo = this.average_advanced(stats);
 		return vo;
 	}
@@ -409,9 +412,9 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	}
 	
 	@Override
-	public ArrayList<PlayerProgressVO> getPlayerProgress(Terminology term, int num) {
+	public ArrayList<PlayerProgressVO> getPlayerProgress(String season, Terminology term, int num) {
 		ArrayList<PlayerProgressVO> voList = new ArrayList<PlayerProgressVO>();
-		ArrayList<PlayerProgressPO> poList = playerService.getPlayerProgress(term, num);
+		ArrayList<PlayerProgressPO> poList = playerService.getPlayerProgress(season, term, num);
 		for(PlayerProgressPO po: poList){
 			PlayerProgressVO vo = new PlayerProgressVO(po.getName(), po.getTeam(), 
 					po.getPosition(), po.getStats());
@@ -624,6 +627,15 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			}
 		}
 	}
+	
+	private String latestSeason(){
+		try {
+			ArrayList<String> seasons = new ObjectCreator().matchesBLService().getAvailableSeasons();
+			return seasons.get(0);
+		} catch (StatsNotFound e) {
+			return null;
+		}
+	}
 
 	@Override
 	public ArrayList<PlayerNormalInfo> getPlayerNormalInfo_avg(String[] filter,
@@ -639,7 +651,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		ArrayList<PlayerBasicStatsVO> basic;
 		
 		try {
-			basic = this.getBasicPlayersStatsAverage(con, div, pos);
+			basic = this.getBasicPlayersStatsAverage(latestSeason(), con, div, pos);
 			
 			Sorter.playerBasic(basic, Terminology.NAME, true);
 			if(sortField != null){
@@ -710,7 +722,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		ArrayList<PlayerBasicStatsVO> basic;
 		
 		try {
-			basic = this.getBasicPlayersStatsTotal(con, div, pos);
+			basic = this.getBasicPlayersStatsTotal(latestSeason(), con, div, pos);
 			
 			Sorter.playerBasic(basic, Terminology.NAME, true);
 			if(sortField != null){
@@ -774,7 +786,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		ArrayList<PlayerAdvancedStatsVO> advanced;
 		
 		try {
-			advanced = this.getAdvancedPlayersStatsTotal(Conference.NATIONAL, 
+			advanced = this.getAdvancedPlayersStatsTotal(latestSeason(), Conference.NATIONAL, 
 					Division.NATIONAL, Position.ALL);
 			
 			Sorter.playerAdvanced(advanced, Terminology.NAME, true);
@@ -829,7 +841,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	public ArrayList<PlayerHotInfo> getPlayerHotInfo(String str_hotField, int num) {
 		Terminology hotField = Terminology.toEnum_player(str_hotField);
 		ArrayList<PlayerHotInfo> list = new ArrayList<PlayerHotInfo>();
-		ArrayList<PlayerProgressVO> voList = this.getPlayerProgress(hotField, num);
+		ArrayList<PlayerProgressVO> voList = this.getPlayerProgress(latestSeason(), hotField, num);
 		for(PlayerProgressVO vo: voList){
 			PlayerHotInfo hot = new PlayerHotInfo();
 			hot.setField(str_hotField);
@@ -928,6 +940,54 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			fos.close();
 		}catch(Exception e){
 			favourites = new FavouritePlayers();
+		}
+	}
+
+	@Override
+	public ArrayList<Title> getTitles(String name) throws NoTitle{
+		ArrayList<Title> titleList;
+		readTitle();
+		titleList = titles.getTitles(name);
+		if(titleList == null){
+			throw new NoTitle();
+		}else{
+			return titleList;
+		}
+		
+	}
+	
+	private void readTitle(){
+		if(titles != null){
+			return;
+		}
+		
+		File file = new File("titles.ser");
+		if(file.exists()){
+			try{
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				titles = (TitleManager)ois.readObject();
+				ois.close();
+				fis.close();
+			}catch(Exception e){
+				titles = new TitleManager();
+			}
+		}else{
+			titles.calculateData();
+			saveTitles();
+		}
+	}
+	
+	private void saveTitles(){
+		File file = new File("titles.ser");
+		try{
+			FileOutputStream fos = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(titles);
+			oos.close();
+			fos.close();
+		}catch(Exception e){
+			titles = new TitleManager();
 		}
 	}
 

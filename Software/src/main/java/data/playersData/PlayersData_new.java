@@ -94,13 +94,15 @@ public class PlayersData_new implements PlayersDataService_new {
 	}
 
 	@Override
-	public ArrayList<PlayerBasicStatsPO> getBasicStats(String name)
+	public ArrayList<PlayerBasicStatsPO> getBasicStats(String season, String name)
 			throws PlayerNotFound {
 		ArrayList<PlayerBasicStatsPO> poList = new ArrayList<PlayerBasicStatsPO>();
 		for(Players_new player: players){
 			if(player.name.equals(name)){
 				ArrayList<PlayerStats_new> statsList = player.getStats();
 				for(PlayerStats_new stats: statsList){
+					if(season != null && !stats.season.equals(season))
+						continue;
 					PlayerBasicStatsPO po = new PlayerBasicStatsPO(name, player.team, 
 							stats.getBasic());
 					poList.add(po);
@@ -116,13 +118,15 @@ public class PlayersData_new implements PlayersDataService_new {
 	}
 
 	@Override
-	public ArrayList<PlayerAdvancedStatsPO> getAdvancedStats(String name)
+	public ArrayList<PlayerAdvancedStatsPO> getAdvancedStats(String season, String name)
 			throws PlayerNotFound {
 		ArrayList<PlayerAdvancedStatsPO> poList = new ArrayList<PlayerAdvancedStatsPO>();
 		for(Players_new player: players){
 			if(player.name.equals(name)){
 				ArrayList<PlayerStats_new> statsList = player.getStats();
 				for(PlayerStats_new stats: statsList){
+					if(season != null && !stats.season.equals(season))
+						continue;
 					PlayerAdvancedStatsPO po = new PlayerAdvancedStatsPO(name, player.team, 
 							stats.getAdvanced());
 					poList.add(po);
@@ -401,26 +405,28 @@ public class PlayersData_new implements PlayersDataService_new {
 	}
 
 	@Override
-	public ArrayList<PlayerProgressPO> getPlayerProgress(Terminology term,
+	public ArrayList<PlayerProgressPO> getPlayerProgress(String season, Terminology term,
 			int num) {
 		switch(term){
-		case PTS: return this.getPlayerProgress_points(num);
-		case REB: return this.getPlayerProgress_rebounds(num);
-		case AST: return this.getPlayerProgress_assists(num);
+		case PTS: return this.getPlayerProgress_points(season, num);
+		case REB: return this.getPlayerProgress_rebounds(season, num);
+		case AST: return this.getPlayerProgress_assists(season, num);
 		default: return null;
 		}
 	}
 	
-	private ArrayList<PlayerProgressPO> getPlayerProgress_points(int num){
+	private ArrayList<PlayerProgressPO> getPlayerProgress_points(String season, int num){
 		ArrayList<PlayerProgressPO> list = new ArrayList<PlayerProgressPO>();
 		for(Players_new player: players){
-			if(player.stats.size() < num){
-				continue;
-			}
 			Position position = player.info == null ? Position.UNKNOWN : player.info.position();
 			PlayerProgressPO po = new PlayerProgressPO(player.name, player.team, position);
 			for(PlayerStats_new stats: player.stats){
+				if(season != null && !stats.season.equals(season))
+					continue;
 				po.addStats(stats.basic.points);
+			}
+			if(po.getStats().size() < num){
+				continue;
 			}
 			list.add(po);
 		}
@@ -428,16 +434,18 @@ public class PlayersData_new implements PlayersDataService_new {
 		return list;
 	}
 	
-	private ArrayList<PlayerProgressPO> getPlayerProgress_rebounds(int num){
+	private ArrayList<PlayerProgressPO> getPlayerProgress_rebounds(String season, int num){
 		ArrayList<PlayerProgressPO> list = new ArrayList<PlayerProgressPO>();
 		for(Players_new player: players){
-			if(player.stats.size() < num){
-				continue;
-			}
 			Position position = player.info == null ? Position.UNKNOWN : player.info.position();
 			PlayerProgressPO po = new PlayerProgressPO(player.name, player.team, position);
 			for(PlayerStats_new stats: player.stats){
+				if(season != null && !stats.season.equals(season))
+					continue;
 				po.addStats(stats.basic.rebounds);
+			}
+			if(po.getStats().size() < num){
+				continue;
 			}
 			list.add(po);
 		}
@@ -445,16 +453,18 @@ public class PlayersData_new implements PlayersDataService_new {
 		return list;
 	}
 
-	private ArrayList<PlayerProgressPO> getPlayerProgress_assists(int num){
+	private ArrayList<PlayerProgressPO> getPlayerProgress_assists(String season, int num){
 		ArrayList<PlayerProgressPO> list = new ArrayList<PlayerProgressPO>();
 		for(Players_new player: players){
-			if(player.stats.size() < num){
-				continue;
-			}
 			Position position = player.info == null ? Position.UNKNOWN : player.info.position();
 			PlayerProgressPO po = new PlayerProgressPO(player.name, player.team, position);
 			for(PlayerStats_new stats: player.stats){
+				if(season != null && !stats.season.equals(season))
+					continue;
 				po.addStats(stats.basic.assists);
+			}
+			if(po.getStats().size() < num){
+				continue;
 			}
 			list.add(po);
 		}

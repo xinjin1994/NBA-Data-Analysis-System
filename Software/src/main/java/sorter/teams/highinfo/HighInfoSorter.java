@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import enums.Terminology;
-import vo.TeamHighInfo;
+import test.data.*;
 
 public class HighInfoSorter {
 	public static ArrayList<TeamHighInfo> teamHighInfo_asc(ArrayList<TeamHighInfo> list,

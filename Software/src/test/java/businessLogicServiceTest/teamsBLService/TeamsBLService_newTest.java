@@ -23,10 +23,12 @@ import junit.framework.TestCase;
 public class TeamsBLService_newTest extends TestCase {
 
 	TeamsBLService_new service = new TeamsBL_new();
+	String season;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
 		new DataInit().init();
+		season = "13-14";
 	}
 	
 	public void testGetInfo() {
@@ -49,7 +51,7 @@ public class TeamsBLService_newTest extends TestCase {
 		Conference conference = Conference.EASTERN;
 		Division division = Division.ATLANTIC;
 		try {
-			ArrayList<TeamOffensiveStatsVO> list = service.getTeamOffensiveStatsAverage(conference, division);
+			ArrayList<TeamOffensiveStatsVO> list = service.getTeamOffensiveStatsAverage(season, conference, division);
 			System.out.println(list.size());
 		} catch (TeamNotFound e) {
 			assertTrue(false);
@@ -60,7 +62,7 @@ public class TeamsBLService_newTest extends TestCase {
 		Conference conference = Conference.EASTERN;
 		Division division = Division.ATLANTIC;
 		try {
-			ArrayList<TeamDefensiveFoulsVO> list = service.getTeamDefensiveFoulsStatsAverage(conference, division);
+			ArrayList<TeamDefensiveFoulsVO> list = service.getTeamDefensiveFoulsStatsAverage(season, conference, division);
 			System.out.println(list.size());
 		} catch (TeamNotFound e) {
 			assertTrue(false);
@@ -71,7 +73,7 @@ public class TeamsBLService_newTest extends TestCase {
 		Conference conference = Conference.EASTERN;
 		Division division = Division.ATLANTIC;
 		try {
-			ArrayList<TeamRatioGeneralVO> list = service.getTeamRatioGeneralStatsAverage(conference, division);
+			ArrayList<TeamRatioGeneralVO> list = service.getTeamRatioGeneralStatsAverage(season, conference, division);
 			System.out.println(list.size());
 		} catch (TeamNotFound e) {
 			assertTrue(false);

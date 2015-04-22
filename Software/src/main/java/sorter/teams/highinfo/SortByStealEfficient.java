@@ -2,7 +2,7 @@ package sorter.teams.highinfo;
 
 import java.util.Comparator;
 
-import vo.TeamHighInfo;
+import test.data.*;
 
 public class SortByStealEfficient implements Comparator<TeamHighInfo> {
 

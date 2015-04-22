@@ -2,9 +2,8 @@ package sorter.teams.normalinfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
 import enums.Terminology;
-import vo.TeamNormalInfo;
+import test.data.*;
 
 public class NormalInfoSorter {
 	public static ArrayList<TeamNormalInfo> teamNormalInfo_asc(ArrayList<TeamNormalInfo> list,

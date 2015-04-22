@@ -19,9 +19,9 @@ public interface TeamsDataService_new {
 	ArrayList<TeamPO> getAllTeams();
 	
 	ArrayList<Teams> getTeamNames(Conference conference, Division division);
-	ArrayList<TeamOffensiveStatsPO> getOffensiveStats(Teams team) throws TeamNotFound;
-	ArrayList<TeamRatioGeneralStatsPO> getRatioGeneralStats(Teams team) throws TeamNotFound;
-	ArrayList<TeamDefensiveFoulsStatsPO> getDefensiveFoulsStats(Teams team) throws TeamNotFound;
+	ArrayList<TeamOffensiveStatsPO> getOffensiveStats(String season, Teams team) throws TeamNotFound;
+	ArrayList<TeamRatioGeneralStatsPO> getRatioGeneralStats(String season, Teams team) throws TeamNotFound;
+	ArrayList<TeamDefensiveFoulsStatsPO> getDefensiveFoulsStats(String season, Teams team) throws TeamNotFound;
 	
 	//迭代二
 	//比赛日期

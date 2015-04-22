@@ -7,8 +7,6 @@ import po.TeamHotStatsPO;
 import po.TeamOffensiveStatsPO;
 import po.TeamPO;
 import po.TeamRatioGeneralStatsPO;
-import vo.TeamHighInfo;
-import vo.TeamNormalInfo;
 import dataService.teamsDataService.TeamsDataForTest;
 import dataService.teamsDataService.TeamsDataService_new;
 import enums.Conference;
@@ -16,6 +14,7 @@ import enums.Division;
 import enums.Teams;
 import enums.Terminology;
 import exceptions.TeamNotFound;
+import test.data.*;
 
 public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 	static ArrayList<Teams_new> teams;
@@ -108,13 +107,15 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 	}
 
 	@Override
-	public ArrayList<TeamOffensiveStatsPO> getOffensiveStats(Teams team)
+	public ArrayList<TeamOffensiveStatsPO> getOffensiveStats(String season, Teams team)
 			throws TeamNotFound {
 		ArrayList<TeamOffensiveStatsPO> poList = new ArrayList<TeamOffensiveStatsPO>();
 		for(Teams_new t: teams){
 			if(t.team == team){
 				ArrayList<TeamStats_new> stats = t.stats;
 				for(TeamStats_new s: stats){
+					if(season != null && !s.season.equals(season))
+						continue;
 					TeamBasicStats_new basic = s.getBasic();
 					TeamOffensiveStatsPO po = new TeamOffensiveStatsPO(team, basic.points, 
 							basic.fieldGoalsMade, basic.fieldGoalsAttempted, basic.freeThrowsMade, 
@@ -129,7 +130,7 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 	}
 
 	@Override
-	public ArrayList<TeamRatioGeneralStatsPO> getRatioGeneralStats(Teams team)
+	public ArrayList<TeamRatioGeneralStatsPO> getRatioGeneralStats(String season, Teams team)
 			throws TeamNotFound {
 		ArrayList<TeamRatioGeneralStatsPO> poList = new ArrayList<TeamRatioGeneralStatsPO>();
 		for(Teams_new t: teams){
@@ -137,11 +138,15 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 				ArrayList<TeamStats_new> stats = t.stats;
 				int wins = 0;
 				for(TeamStats_new s: stats){
+					if(season != null && !s.season.equals(season))
+						continue;
 					if(s.basic.win){
 						wins++;
 					}
 				}
 				for(TeamStats_new s: stats){
+					if(season != null && !s.season.equals(season))
+						continue;
 					TeamBasicStats_new basic = s.basic;
 					TeamAdvancedStats_new advanced = s.advanced;
 					TeamRatioGeneralStatsPO po = new TeamRatioGeneralStatsPO(team, stats.size(), 
@@ -160,13 +165,15 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 	}
 
 	@Override
-	public ArrayList<TeamDefensiveFoulsStatsPO> getDefensiveFoulsStats(
+	public ArrayList<TeamDefensiveFoulsStatsPO> getDefensiveFoulsStats(String season, 
 			Teams team) throws TeamNotFound {
 		ArrayList<TeamDefensiveFoulsStatsPO> poList = new ArrayList<TeamDefensiveFoulsStatsPO>();
 		for(Teams_new t: teams){
 			if(t.team == team){
 				ArrayList<TeamStats_new> stats = t.stats;
 				for(TeamStats_new s: stats){
+					if(season != null && !s.season.equals(season))
+						continue;
 					TeamBasicStats_new basic = s.basic;
 					TeamDefensiveFoulsStatsPO po = new TeamDefensiveFoulsStatsPO(team,
 							stats.size(), basic.offensiveRebounds, basic.defensiveRebounds, 

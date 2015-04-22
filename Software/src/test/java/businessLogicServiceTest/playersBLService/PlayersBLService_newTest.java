@@ -1,8 +1,6 @@
 package businessLogicServiceTest.playersBLService;
 
 import helper.TypeTransform;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,10 +23,12 @@ import junit.framework.TestCase;
 public class PlayersBLService_newTest extends TestCase {
 
 	PlayersBLService_new service = new PlayersBL_new();
+	String season;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
 		new DataInit().init();
+		season = "13-14";
 	}
 	
 	public void testGetPlayerInfo() {
@@ -50,13 +50,13 @@ public class PlayersBLService_newTest extends TestCase {
 		Division div = Division.NATIONAL;
 		Position pos = Position.ALL;
 		try {
-			ArrayList<PlayerBasicStatsVO> basic = service.getBasicPlayersStatsAverage(con, div, pos);
+			ArrayList<PlayerBasicStatsVO> basic = service.getBasicPlayersStatsAverage(season, con, div, pos);
 			System.out.println(basic.size());
 		} catch (PlayerNotFound e) {
 			assertTrue(false);
 		}
 		try {
-			ArrayList<PlayerAdvancedStatsVO> advanced = service.getAdvancedPlayersStatsAverage(con, div, pos);
+			ArrayList<PlayerAdvancedStatsVO> advanced = service.getAdvancedPlayersStatsAverage(season, con, div, pos);
 			System.out.println(advanced.size());
 		} catch (PlayerNotFound e) {
 			assertTrue(false);
@@ -120,7 +120,7 @@ public class PlayersBLService_newTest extends TestCase {
 	public void testGetProgress(){
 		Terminology term = Terminology.PTS;
 		int num = 10;
-		ArrayList<PlayerProgressVO> list = service.getPlayerProgress(term, num);
+		ArrayList<PlayerProgressVO> list = service.getPlayerProgress(season, term, num);
 		System.out.println(list.size());
 	}
 	

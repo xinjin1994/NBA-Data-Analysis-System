@@ -24,10 +24,10 @@ public interface PlayersDataService_new {
 	
 	//获取数据
 	//基本数据
-	public ArrayList<PlayerBasicStatsPO> getBasicStats(String name) throws PlayerNotFound;
+	public ArrayList<PlayerBasicStatsPO> getBasicStats(String season, String name) throws PlayerNotFound;
 	
 	//高级数据
-	public ArrayList<PlayerAdvancedStatsPO> getAdvancedStats(String name) throws PlayerNotFound;
+	public ArrayList<PlayerAdvancedStatsPO> getAdvancedStats(String season, String name) throws PlayerNotFound;
 	
 	//迭代二
 	//获取单场比赛数据
@@ -42,6 +42,6 @@ public interface PlayersDataService_new {
 	public ArrayList<PlayerHotStatsPO> getPlayerHotStats(String season, Terminology term);
 	
 	//获取进步最快的球员
-	public ArrayList<PlayerProgressPO> getPlayerProgress(Terminology term, int num);
+	public ArrayList<PlayerProgressPO> getPlayerProgress(String season, Terminology term, int num);
 	public double getPlayerProgress_single(String player, Terminology term, int num);
 }

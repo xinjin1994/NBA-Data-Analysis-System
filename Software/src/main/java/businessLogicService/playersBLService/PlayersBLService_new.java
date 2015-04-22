@@ -7,6 +7,7 @@ import enums.Conference;
 import enums.Division;
 import enums.Position;
 import enums.Terminology;
+import exceptions.NoTitle;
 import exceptions.PlayerNotFound;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
@@ -14,6 +15,7 @@ import vo.PlayerHotStatsVO;
 import vo.PlayerPortraitVO;
 import vo.PlayerProgressVO;
 import vo.PlayerVO;
+import vo.Title;
 
 public interface PlayersBLService_new {
 	//获取所有球员头像
@@ -27,26 +29,26 @@ public interface PlayersBLService_new {
 	
 	//获取球员比赛数据
 	//基本数据
-	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsTotal(Conference con, Division div, 
+	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsTotal(String season, Conference con, Division div, 
 			Position pos) throws PlayerNotFound;
-	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsAverage(Conference con, Division div, 
+	public ArrayList<PlayerBasicStatsVO> getBasicPlayersStatsAverage(String season, Conference con, Division div, 
 			Position pos) throws PlayerNotFound;
-	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String name) throws PlayerNotFound;
-	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String name) throws PlayerNotFound;
+	public PlayerBasicStatsVO getBasicPlayerStatsTotal(String season, String name) throws PlayerNotFound;
+	public PlayerBasicStatsVO getBasicPlayerStatsAverage(String season, String name) throws PlayerNotFound;
 	
 	//高级数据
-	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(Conference con, 
+	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsTotal(String season, Conference con, 
 			Division div, Position pos) throws PlayerNotFound;
-	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(Conference con, 
+	public ArrayList<PlayerAdvancedStatsVO> getAdvancedPlayersStatsAverage(String season, Conference con, 
 			Division div, Position pos) throws PlayerNotFound;
-	public PlayerAdvancedStatsVO getAdvancedPlayerStats(String name) throws PlayerNotFound;
+	public PlayerAdvancedStatsVO getAdvancedPlayerStats(String season, String name) throws PlayerNotFound;
 	
 	
 	//迭代二内容
 	public ArrayList<Date> getAvailableDays(String season, String player) throws PlayerNotFound;
 	
 	//进步最大的球员
-	public ArrayList<PlayerProgressVO> getPlayerProgress(Terminology term, int num);
+	public ArrayList<PlayerProgressVO> getPlayerProgress(String season, Terminology term, int num);
 	
 	//热点球员
 	public ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season, Date date, Terminology term, int num);
@@ -62,4 +64,7 @@ public interface PlayersBLService_new {
 	
 	//关注球员
 	public void favouritePlayers(String name);
+	
+	//头衔
+	public ArrayList<Title> getTitles(String name) throws NoTitle;
 }

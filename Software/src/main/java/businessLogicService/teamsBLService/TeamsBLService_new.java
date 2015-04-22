@@ -24,19 +24,19 @@ public interface TeamsBLService_new {
 	//获取球队数据
 	//总数
 	//进攻数据
-	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsTotal(Conference conference, Division division) throws TeamNotFound;
+	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsTotal(String season, Conference conference, Division division) throws TeamNotFound;
 	//比率、总和数据
-	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsTotal(Conference conference, Division division) throws TeamNotFound;
+	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsTotal(String season, Conference conference, Division division) throws TeamNotFound;
 	//防守犯规数据
-	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsTotal(Conference conference, Division division) throws TeamNotFound;
+	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsTotal(String season, Conference conference, Division division) throws TeamNotFound;
 	
 	//场均
 	//进攻数据
-	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsAverage(Conference conference, Division division) throws TeamNotFound;
+	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsAverage(String season, Conference conference, Division division) throws TeamNotFound;
 	//比率、总和数据
-	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsAverage(Conference conference, Division division) throws TeamNotFound;
+	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsAverage(String season, Conference conference, Division division) throws TeamNotFound;
 	//防守犯规数据
-	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsAverage(Conference conference, Division division) throws TeamNotFound;
+	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsAverage(String season, Conference conference, Division division) throws TeamNotFound;
 	
 	
 	//迭代二
@@ -47,5 +47,10 @@ public interface TeamsBLService_new {
 	public TeamOffensiveStatsVO getOffensiveStats(String season, Date date, Teams team) throws TeamNotFound;
 	public TeamDefensiveFoulsVO getDefensiveStats(String season, Date date, Teams team) throws TeamNotFound;
 	public TeamRatioGeneralVO getRatioStats(String season, Date date, Teams team) throws TeamNotFound;
+	
+	//某球队单个赛季数据
+	public TeamOffensiveStatsVO getTeamOffensiveStatsAverage(String season, Teams team) throws TeamNotFound;
+	public TeamRatioGeneralVO getTeamRatioGeneralStatsAverage(String season, Teams team) throws TeamNotFound;
+	public TeamDefensiveFoulsVO getTeamDefensiveFoulsStatsAverage(String season, Teams team) throws TeamNotFound;
 
 }

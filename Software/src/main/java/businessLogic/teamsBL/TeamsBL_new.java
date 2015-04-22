@@ -28,10 +28,7 @@ import dataService.matchesDataService.MatchesDataService_new;
 import dataService.teamsDataService.TeamsDataForTest;
 import dataService.teamsDataService.TeamsDataService_new;
 import vo.TeamDefensiveFoulsVO;
-import vo.TeamHighInfo;
-import vo.TeamHotInfo;
 import vo.TeamHotStatsVO;
-import vo.TeamNormalInfo;
 import vo.TeamOffensiveStatsVO;
 import vo.TeamRatioGeneralVO;
 import vo.TeamVO;
@@ -45,6 +42,7 @@ import factory.ObjectCreator;
 import businessLogicService.teamsBLService.PlayersInTeamsService;
 import businessLogicService.teamsBLService.TeamsBLForTest;
 import businessLogicService.teamsBLService.TeamsBLService_new;
+import test.data.*;
 
 public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, TeamsBLForTest{
 	TeamsDataService_new teamService;
@@ -96,12 +94,12 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	}
 
 	@Override
-	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsTotal(
+	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsTotal(String season,
 			Conference conference, Division division) throws TeamNotFound {
 		ArrayList<Teams> teamNames = teamService.getTeamNames(conference, division);
 		ArrayList<TeamOffensiveStatsVO> voList = new ArrayList<TeamOffensiveStatsVO>();
 		for(Teams team: teamNames){
-			ArrayList<TeamOffensiveStatsPO> poList = teamService.getOffensiveStats(team);
+			ArrayList<TeamOffensiveStatsPO> poList = teamService.getOffensiveStats(season, team);
 			TeamOffensiveStatsVO vo = this.sum_offensive(poList);
 			voList.add(vo);
 		}
@@ -110,12 +108,12 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	}
 
 	@Override
-	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsTotal(
+	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsTotal(String season,
 			Conference conference, Division division) throws TeamNotFound {
 		ArrayList<Teams> teamNames = teamService.getTeamNames(conference, division);
 		ArrayList<TeamRatioGeneralVO> voList = new ArrayList<TeamRatioGeneralVO>();
 		for(Teams team: teamNames){
-			ArrayList<TeamRatioGeneralStatsPO> poList = teamService.getRatioGeneralStats(team);
+			ArrayList<TeamRatioGeneralStatsPO> poList = teamService.getRatioGeneralStats(season, team);
 			TeamRatioGeneralVO vo = this.sum_ratio(poList);
 			voList.add(vo);
 		}
@@ -124,12 +122,12 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	}
 
 	@Override
-	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsTotal(
+	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsTotal(String season,
 			Conference conference, Division division) throws TeamNotFound {
 		ArrayList<Teams> teamNames = teamService.getTeamNames(conference, division);
 		ArrayList<TeamDefensiveFoulsVO> voList = new ArrayList<TeamDefensiveFoulsVO>();
 		for(Teams team: teamNames){
-			ArrayList<TeamDefensiveFoulsStatsPO> poList = teamService.getDefensiveFoulsStats(team);
+			ArrayList<TeamDefensiveFoulsStatsPO> poList = teamService.getDefensiveFoulsStats(season, team);
 			TeamDefensiveFoulsVO vo = this.sum_defensive(poList);
 			voList.add(vo);
 		}
@@ -138,9 +136,9 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	}
 
 	@Override
-	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsAverage(
+	public ArrayList<TeamOffensiveStatsVO> getTeamOffensiveStatsAverage(String season,
 			Conference conference, Division division) throws TeamNotFound {
-		ArrayList<TeamOffensiveStatsVO> voList = this.getTeamOffensiveStatsTotal(conference, division);
+		ArrayList<TeamOffensiveStatsVO> voList = this.getTeamOffensiveStatsTotal(season, conference, division);
 		for(TeamOffensiveStatsVO vo: voList){
 			vo.average();
 		}
@@ -149,15 +147,16 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	}
 
 	@Override
-	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsAverage(
+	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsAverage(String season,
 			Conference conference, Division division) throws TeamNotFound {
-		return this.getTeamRatioGeneralStatsTotal(conference, division);
+		return this.getTeamRatioGeneralStatsTotal(season, conference, division);
 	}
 
 	@Override
-	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsAverage(
+	public ArrayList<TeamDefensiveFoulsVO> getTeamDefensiveFoulsStatsAverage(String season,
 			Conference conference, Division division) throws TeamNotFound {
-		ArrayList<TeamDefensiveFoulsVO> voList = this.getTeamDefensiveFoulsStatsTotal(conference, division);
+		ArrayList<TeamDefensiveFoulsVO> voList = this.getTeamDefensiveFoulsStatsTotal(season, 
+				conference, division);
 		for(TeamDefensiveFoulsVO vo: voList){
 			vo.average();
 		}
@@ -468,6 +467,27 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 			e.printStackTrace();
 			return null;
 		}		
+	}
+
+	@Override
+	public TeamOffensiveStatsVO getTeamOffensiveStatsAverage(String season, Teams team) throws TeamNotFound {
+		ArrayList<TeamOffensiveStatsPO> poList = teamService.getOffensiveStats(season, team);
+		TeamOffensiveStatsVO vo = this.sum_offensive(poList);
+		return vo;
+	}
+
+	@Override
+	public TeamRatioGeneralVO getTeamRatioGeneralStatsAverage(String season, Teams team) throws TeamNotFound {
+		ArrayList<TeamRatioGeneralStatsPO> poList = teamService.getRatioGeneralStats(season, team);
+		TeamRatioGeneralVO vo = this.sum_ratio(poList);
+		return vo;
+	}
+
+	@Override
+	public TeamDefensiveFoulsVO getTeamDefensiveFoulsStatsAverage(String season, Teams team) throws TeamNotFound {
+		ArrayList<TeamDefensiveFoulsStatsPO> poList = teamService.getDefensiveFoulsStats(season, team);
+		TeamDefensiveFoulsVO vo = this.sum_defensive(poList);
+		return vo;
 	}
 
 }
