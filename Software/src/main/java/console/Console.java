@@ -2,17 +2,19 @@ package console;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+
 import businessLogic.playersBL.PlayersBL_new;
+import businessLogic.teamsBL.TeamsBL_new;
 import businessLogicService.playersBLService.PlayersBLForTest;
 import businessLogicService.teamsBLService.TeamsBLForTest;
 import data.init.DataInit;
 import enums.Terminology;
-
 import test.data.*;
 
 public class Console {
 	
-	PlayersBLForTest service = new PlayersBL_new();
+	PlayersBLForTest playerService = new PlayersBL_new();
+	TeamsBLForTest teamService = new TeamsBL_new();
 	
 	public void excute(PrintStream out, String[] args) {
 		if(args[0].equals("--datasource")) {
@@ -21,6 +23,7 @@ public class Console {
 			new DataInit().init();
 			excute_player(out, args);
 		}else {
+			new DataInit().init();
 			excute_team(out, args);
 		}
 	}
@@ -126,7 +129,7 @@ public class Console {
 	
 	private void printPlayerHot(PrintStream out, String hotField, int num) {
 		//System.out.println("Player King " + hotField + " " + num);
-		ArrayList<PlayerHotInfo> list = service.getPlayerHotInfo(hotField, num);
+		ArrayList<PlayerHotInfo> list = playerService.getPlayerHotInfo(hotField, num);
 		for(PlayerHotInfo info: list){
 			out.println(info);
 		}
@@ -134,7 +137,7 @@ public class Console {
 	
 	private void printPlayerKing_daily(PrintStream out, String kingField, int num) {
 		//System.out.println("Player King " + kingField + " daily " + num);
-		ArrayList<PlayerKingInfo> list = service.getPlayerKingInfo_daily(kingField, num);
+		ArrayList<PlayerKingInfo> list = playerService.getPlayerKingInfo_daily(kingField, num);
 		for(PlayerKingInfo info: list){
 			out.println(info);
 		}
@@ -142,7 +145,7 @@ public class Console {
 	
 	private void printPlayerKing_season(PrintStream out, String kingField, int num) {
 		//System.out.println("Player King " + kingField + " season " + num);
-		ArrayList<PlayerKingInfo> list = service.getPlayerKingInfo_season(kingField, num);
+		ArrayList<PlayerKingInfo> list = playerService.getPlayerKingInfo_season(kingField, num);
 		for(PlayerKingInfo info: list){
 			out.println(info);
 		}
@@ -157,7 +160,7 @@ public class Console {
 			System.out.println(asc[i]);
 		}
 		*/
-		ArrayList<PlayerHighInfo> list = service.getPlayerHighInfo(sortField, asc, num);
+		ArrayList<PlayerHighInfo> list = playerService.getPlayerHighInfo(sortField, asc, num);
 		for(PlayerHighInfo info: list){
 			out.println(info);
 		}
@@ -175,7 +178,7 @@ public class Console {
 			System.out.println(asc[i]);
 		}
 		*/
-		ArrayList<PlayerNormalInfo> list = service.getPlayerNormalInfo_avg(filter, sortField, asc, num);
+		ArrayList<PlayerNormalInfo> list = playerService.getPlayerNormalInfo_avg(filter, sortField, asc, num);
 		for(PlayerNormalInfo info: list){
 			out.println(info);
 		}
@@ -193,7 +196,7 @@ public class Console {
 			System.out.println(asc[i]);
 		}
 		*/
-		ArrayList<PlayerNormalInfo> list = service.getPlayerNormalInfo_total(filter, sortField, asc, num);
+		ArrayList<PlayerNormalInfo> list = playerService.getPlayerNormalInfo_total(filter, sortField, asc, num);
 		for(PlayerNormalInfo info: list){
 			out.println(info);
 		}
@@ -282,34 +285,58 @@ public class Console {
 	
 	private void printTeamNormal_avg(PrintStream out, Terminology[] sortField, 
 			boolean[] asc, int num) {
+		/*
 		System.out.println("Team Normal AVG " + num);
 		for(int i=0; i<sortField.length; i++){
 			System.out.println(sortField[i]);
 			System.out.println(asc[i]);
 		}
+		*/
+		ArrayList<TeamNormalInfo> list = teamService.getTeamNormalInfo_avg(sortField, asc, num);
+		for(TeamNormalInfo info: list){
+			out.println(info);
+		}
 	}
 	
 	private void printTeamNormal_total(PrintStream out, Terminology[] sortField, 
 			boolean[] asc, int num) {
+		/*
 		System.out.println("Team Normal TOTAL " + num);
 		for(int i=0; i<sortField.length; i++){
 			System.out.println(sortField[i]);
 			System.out.println(asc[i]);
 		}
+		*/
+		ArrayList<TeamNormalInfo> list = teamService.getTeamNormalInfo_total(sortField, asc, num);
+		for(TeamNormalInfo info: list){
+			out.println(info);
+		}
 	}
 	
 	private void printTeamHigh(PrintStream out, Terminology[] sortField, 
 			boolean[] asc, int num) {
+		/*
 		System.out.println("Team High " + num);
 		for(int i=0; i<sortField.length; i++){
 			System.out.println(sortField[i]);
 			System.out.println(asc[i]);
 		}
+		*/
+		ArrayList<TeamHighInfo> list = teamService.getTeamHighInfo(sortField, asc, num);
+		for(TeamHighInfo info: list){
+			out.println(info);
+		}
 	}
 	
 	private void printTeamHot(PrintStream out, String hotField, int num) {
+		/*
 		System.out.println("Team Hot " + num);
 		System.out.println(hotField);
+		*/
+		ArrayList<TeamHotInfo> list = teamService.getTeamHotInfo(hotField, num);
+		for(TeamHotInfo info: list){
+			out.println(info);
+		}
 	}
 	
 	public static void main(String[] args) {

@@ -8,6 +8,7 @@ import helper.TypeTransform;
 
 
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -149,7 +150,11 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	@Override
 	public ArrayList<TeamRatioGeneralVO> getTeamRatioGeneralStatsAverage(String season,
 			Conference conference, Division division) throws TeamNotFound {
-		return this.getTeamRatioGeneralStatsTotal(season, conference, division);
+		ArrayList<TeamRatioGeneralVO> list = this.getTeamRatioGeneralStatsTotal(season, conference, division);
+		for(TeamRatioGeneralVO vo: list){
+			vo.average();
+		}
+		return list;
 	}
 
 	@Override
@@ -469,10 +474,14 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 		}		
 	}
 
+	
+	//某球队某赛季的数据
+	
 	@Override
 	public TeamOffensiveStatsVO getTeamOffensiveStatsAverage(String season, Teams team) throws TeamNotFound {
 		ArrayList<TeamOffensiveStatsPO> poList = teamService.getOffensiveStats(season, team);
 		TeamOffensiveStatsVO vo = this.sum_offensive(poList);
+		vo.average();
 		return vo;
 	}
 
@@ -480,11 +489,37 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	public TeamRatioGeneralVO getTeamRatioGeneralStatsAverage(String season, Teams team) throws TeamNotFound {
 		ArrayList<TeamRatioGeneralStatsPO> poList = teamService.getRatioGeneralStats(season, team);
 		TeamRatioGeneralVO vo = this.sum_ratio(poList);
+		vo.average();
 		return vo;
 	}
 
 	@Override
 	public TeamDefensiveFoulsVO getTeamDefensiveFoulsStatsAverage(String season, Teams team) throws TeamNotFound {
+		ArrayList<TeamDefensiveFoulsStatsPO> poList = teamService.getDefensiveFoulsStats(season, team);
+		TeamDefensiveFoulsVO vo = this.sum_defensive(poList);
+		vo.average();
+		return vo;
+	}
+
+	@Override
+	public TeamOffensiveStatsVO getTeamOffensiveStatsTotal(String season,
+			Teams team) throws TeamNotFound {
+		ArrayList<TeamOffensiveStatsPO> poList = teamService.getOffensiveStats(season, team);
+		TeamOffensiveStatsVO vo = this.sum_offensive(poList);
+		return vo;
+	}
+
+	@Override
+	public TeamRatioGeneralVO getTeamRatioGeneralStatsTotal(String season,
+			Teams team) throws TeamNotFound {
+		ArrayList<TeamRatioGeneralStatsPO> poList = teamService.getRatioGeneralStats(season, team);
+		TeamRatioGeneralVO vo = this.sum_ratio(poList);
+		return vo;
+	}
+
+	@Override
+	public TeamDefensiveFoulsVO getTeamDefensiveFoulsStatsTotal(String season,
+			Teams team) throws TeamNotFound {
 		ArrayList<TeamDefensiveFoulsStatsPO> poList = teamService.getDefensiveFoulsStats(season, team);
 		TeamDefensiveFoulsVO vo = this.sum_defensive(poList);
 		return vo;

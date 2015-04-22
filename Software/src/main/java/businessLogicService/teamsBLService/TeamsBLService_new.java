@@ -52,5 +52,8 @@ public interface TeamsBLService_new {
 	public TeamOffensiveStatsVO getTeamOffensiveStatsAverage(String season, Teams team) throws TeamNotFound;
 	public TeamRatioGeneralVO getTeamRatioGeneralStatsAverage(String season, Teams team) throws TeamNotFound;
 	public TeamDefensiveFoulsVO getTeamDefensiveFoulsStatsAverage(String season, Teams team) throws TeamNotFound;
+	public TeamOffensiveStatsVO getTeamOffensiveStatsTotal(String season, Teams team) throws TeamNotFound;
+	public TeamRatioGeneralVO getTeamRatioGeneralStatsTotal(String season, Teams team) throws TeamNotFound;
+	public TeamDefensiveFoulsVO getTeamDefensiveFoulsStatsTotal(String season, Teams team) throws TeamNotFound;
 
 }

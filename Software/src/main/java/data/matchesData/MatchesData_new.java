@@ -86,6 +86,8 @@ public class MatchesData_new implements MatchesDataService_new {
 			if(!seasons.contains(match.season)){
 				seasons.add(match.season);
 			}
+			if(match.season.equals(matches.get(matches.size()-1)))
+				break;
 		}
 		
 		if(seasons.size()!=0){
