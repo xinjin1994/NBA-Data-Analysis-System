@@ -1,7 +1,7 @@
 package gui.player.detail;
 
 import gui.util.GUIUtility;
-import gui.util.LabelPanel;
+import gui.util.NamedLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,7 +17,7 @@ public class PlayerBasicInfoPanel extends JPanel {
 		GridBagLayout gbl_pnl_basic = new GridBagLayout();
 		setLayout(gbl_pnl_basic);
 		{
-			LabelPanel labelPanel = new LabelPanel("姓名",vo.getName(),"");
+			NamedLabel labelPanel = new NamedLabel("姓名",vo.getName(),"");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.insets = new Insets(0, 0, 5, 0);
 			gbc_labelPanel.gridwidth = 2;
@@ -26,21 +26,21 @@ public class PlayerBasicInfoPanel extends JPanel {
 			add(labelPanel, gbc_labelPanel);
 		}
 		{
-			LabelPanel labelPanel = new LabelPanel("球衣号",vo.getNumber(),"");
+			NamedLabel labelPanel = new NamedLabel("球衣号",vo.getNumber(),"");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.gridx = 0;
 			gbc_labelPanel.gridy = 1;
 			add(labelPanel, gbc_labelPanel);
 		}
 		{
-			LabelPanel labelPanel = new LabelPanel("位置",vo.getPosition().toString(),"");
+			NamedLabel labelPanel = new NamedLabel("位置",vo.getPosition().toString(),"");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.gridx = 1;
 			gbc_labelPanel.gridy = 1;
 			add(labelPanel, gbc_labelPanel);
 		}
 		{
-			LabelPanel labelPanel = new LabelPanel("身高",GUIUtility.formatDouble(vo.getHeight_Inch())+"/"+GUIUtility.formatDouble(vo.getHeight_Foot()),"（英尺/英寸）");
+			NamedLabel labelPanel = new NamedLabel("身高",GUIUtility.formatDouble(vo.getHeight_Inch())+"/"+GUIUtility.formatDouble(vo.getHeight_Foot()),"（英尺/英寸）");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.gridwidth = 2;
 			gbc_labelPanel.gridx = 0;
@@ -48,7 +48,7 @@ public class PlayerBasicInfoPanel extends JPanel {
 			add(labelPanel, gbc_labelPanel);
 		}
 		{
-			LabelPanel labelPanel = new LabelPanel("体重",GUIUtility.formatDouble(vo.getWeight_Pounds()),"磅");
+			NamedLabel labelPanel = new NamedLabel("体重",GUIUtility.formatDouble(vo.getWeight_Pounds()),"磅");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.gridwidth = 2;
 			gbc_labelPanel.gridx = 0;
@@ -56,7 +56,7 @@ public class PlayerBasicInfoPanel extends JPanel {
 			add(labelPanel, gbc_labelPanel);
 		}
 		{
-			LabelPanel labelPanel = new LabelPanel("生日",vo.getBirthday(),"");
+			NamedLabel labelPanel = new NamedLabel("生日",vo.getBirthday(),"");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.gridwidth = 2;
 			gbc_labelPanel.gridx = 0;
@@ -64,21 +64,21 @@ public class PlayerBasicInfoPanel extends JPanel {
 			add(labelPanel, gbc_labelPanel);
 		}
 		{
-			LabelPanel labelPanel = new LabelPanel("年龄",String.valueOf(vo.getAge()),"");
+			NamedLabel labelPanel = new NamedLabel("年龄",String.valueOf(vo.getAge()),"");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.gridx = 0;
 			gbc_labelPanel.gridy = 5;
 			add(labelPanel, gbc_labelPanel);
 		}
 		{
-			LabelPanel labelPanel = new LabelPanel("球龄",String.valueOf(vo.getExp()),"年");
+			NamedLabel labelPanel = new NamedLabel("球龄",String.valueOf(vo.getExp()),"年");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.gridx = 1;
 			gbc_labelPanel.gridy = 5;
 			add(labelPanel, gbc_labelPanel);
 		}
 		{
-			LabelPanel labelPanel = new LabelPanel("毕业学校",vo.getSchool(),"");
+			NamedLabel labelPanel = new NamedLabel("毕业学校",vo.getSchool(),"");
 			GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 			gbc_labelPanel.gridwidth = 2;
 			gbc_labelPanel.gridx = 0;

@@ -22,7 +22,7 @@ import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.player.PortraitPanel;
 import gui.util.GUIUtility;
-import gui.util.LabelPanel;
+import gui.util.NamedLabel;
 
 public class HotPlayerItemPanel extends JPanel {
 	private static final long serialVersionUID = -8038316105498505686L;
@@ -39,7 +39,7 @@ public class HotPlayerItemPanel extends JPanel {
 		}
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
-		add(new LabelPanel(term,GUIUtility.formatDouble(players.get(0).getStats()),average));
+		add(new NamedLabel(term,GUIUtility.formatDouble(players.get(0).getStats()),average));
 		
 		try {
 			PlayerVO vo = playerbl.getPlayerInfo(players.get(0).getName());

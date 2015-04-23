@@ -4,7 +4,7 @@ import enums.Terminology;
 import exceptions.PlayerNotFound;
 import exceptions.TermNotFound;
 import gui.MainFrame;
-import gui.util.LabelPanel;
+import gui.util.NamedLabel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -34,8 +34,8 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 	private static final String TOTAL = "TOTAL";
 	private static final String BASIC = "BASIC";
 	private static final String ADVANCED = "ADVANCED";
-	private EnumMap<Terminology,LabelPanel> labelMap_basic;
-	private EnumMap<Terminology,LabelPanel> labelMap_advanced;
+	private EnumMap<Terminology,NamedLabel> labelMap_basic;
+	private EnumMap<Terminology,NamedLabel> labelMap_advanced;
 	private JPanel pnl_stats;
 	private JRadioButton rdibtn_basic;
 	private JRadioButton rdibtn_advanced;
@@ -100,13 +100,13 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 				btngrp_type.add(rdibtn_total);
 				btngrp_type.setSelected(rdibtn_total.getModel(), true);
 				
-				labelMap_basic = new EnumMap<Terminology,LabelPanel>(Terminology.class);
+				labelMap_basic = new EnumMap<Terminology,NamedLabel>(Terminology.class);
 				int i = 0;
 				for(Terminology[] term = Terminology.getPlayerSeasonBasic();i < term.length;i++){
 					String unit = "";
 					if(term[i] == Terminology.FGP||term[i] == Terminology.TPP||term[i] == Terminology.FTM)
 						unit = "%";
-					LabelPanel labelPanel = new LabelPanel(term[i].toString(),unit);
+					NamedLabel labelPanel = new NamedLabel(term[i].toString(),unit);
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = i%2;
 					gbc_labelPanel.gridy = i/2+1;
@@ -121,10 +121,10 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 				GridBagLayout gbl_pnl_advanced = new GridBagLayout();
 				pnl_advanced.setLayout(gbl_pnl_advanced);
 				
-				labelMap_advanced = new EnumMap<Terminology,LabelPanel>(Terminology.class);
+				labelMap_advanced = new EnumMap<Terminology,NamedLabel>(Terminology.class);
 				int i = 0;
 				for(Terminology[] term = Terminology.getPlayerAdvanced();i < term.length;i++){
-					LabelPanel labelPanel = new LabelPanel(term[i].toString(),"%");
+					NamedLabel labelPanel = new NamedLabel(term[i].toString(),"%");
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = i%2;
 					gbc_labelPanel.gridy = i/2;
@@ -138,7 +138,7 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 	}
 	public PlayerSeasonStatsPanel(PlayersBLService_new playerService,String name,Terminology term) {
 		this(playerService,name);
-		LabelPanel lbl = null;
+		NamedLabel lbl = null;
 		if(labelMap_basic.containsKey(term)){
 			lbl = labelMap_basic.get(term);
 			rdibtn_basic.setEnabled(true);
@@ -150,7 +150,7 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 			((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, ADVANCED);
 		}
 		else return;
-		lbl.setColor(Color.RED);
+		lbl.setForeground(Color.RED);
 	}
 	
 	private void setBasicStats(String type){
@@ -162,7 +162,7 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 				bs = playerService.getBasicPlayerStatsTotal(MainFrame.season.season,name);
 			
 			for(Terminology term:Terminology.getPlayerSeasonBasic()){
-				labelMap_basic.get(term).setValue(bs.getProperty(term));
+				labelMap_basic.get(term).setText(bs.getProperty(term));
 			}
 		} catch (PlayerNotFound e) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());
@@ -181,7 +181,7 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 			bs = playerService.getAdvancedPlayerStats(MainFrame.season.season,name);
 
 			for(Terminology term:Terminology.getPlayerAdvanced()){
-				labelMap_advanced.get(term).setValue(bs.getProperty(term));
+				labelMap_advanced.get(term).setText(bs.getProperty(term));
 			}
 		} catch (PlayerNotFound e) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());
@@ -192,14 +192,14 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 		
 	}
 
-	class TypeRadioButtonListener implements ActionListener{
+	private class TypeRadioButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			setBasicStats(ae.getActionCommand());
 		}
 	}
 
-	class StatsRadioButtonListener implements ActionListener{
+	private class StatsRadioButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, ae.getActionCommand());

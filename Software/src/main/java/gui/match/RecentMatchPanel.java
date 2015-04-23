@@ -32,21 +32,20 @@ public class RecentMatchPanel extends JPanel {
 	private static final String HAS_MATCH = "HAS_MATCH";
 	private static final String NO_MATCH = "NO_MATCH";
 	private static final String NO_MATCH_TODAY = "NO_MATCH_TODAY";
-	private final String player;
 	private MatchesBLService matchbl = new ObjectCreator().matchesBLService();
 	private JComboBox<ShortDate> cbbx_date;
 	private JPanel pnl_view;
 	private MatchItemPanel_Small pnl_item;
 	private JButton btn_prev;
 	private JButton btn_next;
-	private MatchChangable matchChanger;
+	private MatchChangeable matchChanger;
 
 	/**
 	 * Create the panel.
 	 */
-	public RecentMatchPanel(String player,ArrayList<Date> availables,MatchChangable matchChanger) {
+	public RecentMatchPanel(ArrayList<Date> availables,MatchChangeable matchChanger) {
 		this.matchChanger = matchChanger;
-		this.player = player;
+
 		ShortDate[] dates = new ShortDate[availables.size()+1];
 		for(int i = 0;i < availables.size();i++)
 			dates[i+1] = new ShortDate(availables.get(i));
@@ -75,7 +74,9 @@ public class RecentMatchPanel extends JPanel {
 		pnl_item = new MatchItemPanel_Small(false);
 		pnl_match.add(pnl_item);
 		JButton btn_match = new JButton("查看比赛");
-		pnl_match.add(btn_match,BorderLayout.EAST);
+		JPanel pnl_btn = new JPanel();
+		pnl_btn.add(btn_match);
+		pnl_match.add(pnl_btn,BorderLayout.SOUTH);
 		btn_match.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -101,7 +102,7 @@ public class RecentMatchPanel extends JPanel {
 		
 		cbbx_date.setSelectedIndex(0);
 		try {
-			MatchVO vo = matchbl.getMatch(MainFrame.season.season, dates[0].date, player);
+			MatchVO vo = matchChanger.getMatch(matchbl,MainFrame.season.season, dates[0].date);
 			pnl_item.setMatchVO(vo);
 		} catch (MatchNotFound e) {
 			((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
@@ -136,7 +137,7 @@ public class RecentMatchPanel extends JPanel {
 			Date date = cbbx_date.getItemAt(cbbx_date.getSelectedIndex()).date;
 			
 			try {
-				MatchVO vo = matchbl.getMatch(MainFrame.season.season, date, player);
+				MatchVO vo = matchChanger.getMatch(matchbl,MainFrame.season.season, date);
 				pnl_item.setMatchVO(vo);
 				((CardLayout)pnl_view.getLayout()).show(pnl_view, HAS_MATCH);
 				matchChanger.setMatch(MainFrame.season.season, date);

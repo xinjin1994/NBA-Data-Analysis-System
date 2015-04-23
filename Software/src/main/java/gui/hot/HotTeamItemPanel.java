@@ -20,7 +20,7 @@ import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.player.PortraitPanel;
 import gui.util.GUIUtility;
-import gui.util.LabelPanel;
+import gui.util.NamedLabel;
 
 public class HotTeamItemPanel extends JPanel {
 	private static final long serialVersionUID = -8038316105498505686L;
@@ -37,7 +37,7 @@ public class HotTeamItemPanel extends JPanel {
 		}
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
-		LabelPanel lbl_stat = new LabelPanel(term,GUIUtility.formatDouble(teams.get(0).getStats()),true);
+		NamedLabel lbl_stat = new NamedLabel(term,GUIUtility.formatDouble(teams.get(0).getStats()),true);
 		lbl_stat.setAlignmentX(0.5f);
 		add(lbl_stat);
 		

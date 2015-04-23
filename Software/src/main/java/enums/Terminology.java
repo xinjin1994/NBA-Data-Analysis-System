@@ -137,7 +137,7 @@ public enum Terminology {
 	}
 	
 	static public Terminology[] getTeamRatio(){
-		return new Terminology[]{FGP,FTP,TPP,WINR};
+		return new Terminology[]{FGP,FTP,TPP};
 	}
 	
 	static public Terminology[] getTeamGeneral(){
@@ -149,6 +149,7 @@ public enum Terminology {
 		case ASTE:
 		case ASTP:
 		case BLKP:
+		case DREBDE:
 		case DREBP:
 		case DFE:
 		case FGE:
@@ -156,6 +157,7 @@ public enum Terminology {
 		case FTP:
 		case GMSC:
 		case IMP:
+		case OFE:
 		case OREBDE:
 		case OREBP:
 		case PER:
@@ -174,7 +176,4 @@ public enum Terminology {
 		}
 	}
 	
-	static public Terminology[] getTeamOffence(){
-		return null;//TODO
-	}
 }

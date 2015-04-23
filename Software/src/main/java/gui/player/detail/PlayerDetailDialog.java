@@ -39,6 +39,8 @@ public class PlayerDetailDialog extends JDialog {
 	public PlayerDetailDialog(String name) {
 		super(MainFrame.currentFrame);
 		
+		playerbl.favouritePlayers(name);
+		
 		setTitle("球员详情");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
@@ -74,7 +76,7 @@ public class PlayerDetailDialog extends JDialog {
 			PlayerMatchStatsPanel pnl_match_stats = new PlayerMatchStatsPanel(playerbl, vo.getName());
 			try {
 				ArrayList<Date> dates = playerbl.getAvailableDays(MainFrame.season.season, vo.getName());
-				pnl_main.add(new RecentMatchPanel(vo.getName(),dates, pnl_match_stats));
+				pnl_main.add(new RecentMatchPanel(dates, pnl_match_stats));
 			} catch (PlayerNotFound e) {
 				JOptionPane.showMessageDialog(this, e.toString());
 			}

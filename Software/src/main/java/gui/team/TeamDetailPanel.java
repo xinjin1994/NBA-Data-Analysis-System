@@ -21,5 +21,7 @@ public class TeamDetailPanel extends JPanel {
 		pnl_row1.add(lbl_icon);
 		
 		pnl_row1.add(new TeamBasicInfoPanel(infovo));
+		
+		add(new TeamSeasonStatsPanel(teambl,infovo.getTeam()));
 	}
 }
