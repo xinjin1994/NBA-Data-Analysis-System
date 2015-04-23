@@ -9,6 +9,7 @@ public class TeamRatioGeneralVO implements StatsVO{
 	//
 	Teams team;
 	int games;
+	int wins;
 	double fieldGoalsPercentage;                        //投篮命中率
 	double freeThrowsPercentage;                        //罚球命中率
 	double threePointFieldGoalsPercentage;              //三分命中率
@@ -23,7 +24,7 @@ public class TeamRatioGeneralVO implements StatsVO{
 	
 	public TeamRatioGeneralVO(Teams team, int games, double fgp, double ftp, double tgp, 
 			double wr, double offRounds, double off, double def, double offRebd, 
-			double defRebd, double stl, double ast){
+			double defRebd, double stl, double ast, int wins){
 		this.team = team;
 		this.games = games;
 		this.fieldGoalsPercentage = fgp;
@@ -37,6 +38,7 @@ public class TeamRatioGeneralVO implements StatsVO{
 		this.defensiveReboundsEfficiency = defRebd;
 		this.stealsEfficiency = stl;
 		this.assistsEfficiency = ast;
+		this.wins = wins;
 	}
 	
 	public void average(){
@@ -152,6 +154,10 @@ public class TeamRatioGeneralVO implements StatsVO{
 			throw new TermNotFound(term);
 		}
 		return GUIUtility.formatDouble(d);
+	}
+	
+	public int getWins(){
+		return wins;
 	}
 	
 }
