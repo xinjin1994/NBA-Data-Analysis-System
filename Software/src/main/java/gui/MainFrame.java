@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements PanelRefreshable{
 
 	private static final long serialVersionUID = 2292455670620751734L;
 	private JPanel contentPane;
@@ -177,5 +177,11 @@ public class MainFrame extends JFrame {
 	}
 	static public int getPanelHeight(){
 		return mf.getHeight();
+	}
+
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
+		
 	}
 }
