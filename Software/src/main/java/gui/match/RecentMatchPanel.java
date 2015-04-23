@@ -46,10 +46,20 @@ public class RecentMatchPanel extends JPanel {
 	public RecentMatchPanel(ArrayList<Date> availables,MatchChangeable matchChanger) {
 		this.matchChanger = matchChanger;
 
-		ShortDate[] dates = new ShortDate[availables.size()+1];
-		for(int i = 0;i < availables.size();i++)
-			dates[i+1] = new ShortDate(availables.get(i));
-		dates[0] = new ShortDate();
+		ShortDate today = new ShortDate();
+		ShortDate day = new ShortDate(availables.get(0));
+		ShortDate[] datelist;
+		if(today.equals(day)){
+			datelist = new ShortDate[availables.size()];
+			for(int i = 0;i < datelist.length;i++)
+				datelist[i] = new ShortDate(availables.get(i));
+		}
+		else{
+			datelist = new ShortDate[availables.size()+1];
+			datelist[0] = today;
+			for(int i = 0;i < availables.size();i++)
+				datelist[i+1] = new ShortDate(availables.get(i));
+		}
 		
 		this.setLayout(new BorderLayout());
 		
@@ -61,7 +71,7 @@ public class RecentMatchPanel extends JPanel {
 			btn_prev.setEnabled(false);
 		pnl_date.add(btn_prev);
 		pnl_date.add(Box.createHorizontalGlue());
-		cbbx_date = new JComboBox<ShortDate>(dates);
+		cbbx_date = new JComboBox<ShortDate>(datelist);
 		pnl_date.add(cbbx_date);
 		pnl_date.add(Box.createHorizontalGlue());
 		btn_next = new JButton("▶");
@@ -88,7 +98,7 @@ public class RecentMatchPanel extends JPanel {
 		JLabel lbl_no_match = new JLabel("无比赛比赛信息");
 		lbl_no_match.setHorizontalAlignment(SwingConstants.CENTER);
 		pnl_view.add(lbl_no_match,NO_MATCH);
-		JLabel lbl_no_match_today = new JLabel("今日该球员无比赛");
+		JLabel lbl_no_match_today = new JLabel("今日该相关无比赛");
 		lbl_no_match_today.setHorizontalAlignment(SwingConstants.CENTER);
 		pnl_view.add(lbl_no_match_today,NO_MATCH_TODAY);
 		
@@ -102,7 +112,7 @@ public class RecentMatchPanel extends JPanel {
 		
 		cbbx_date.setSelectedIndex(0);
 		try {
-			MatchVO vo = matchChanger.getMatch(matchbl,MainFrame.season.season, dates[0].date);
+			MatchVO vo = matchChanger.getMatch(matchbl,MainFrame.season.season, datelist[0].date);
 			pnl_item.setMatchVO(vo);
 		} catch (MatchNotFound e) {
 			((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);

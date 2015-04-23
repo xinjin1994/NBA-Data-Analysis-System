@@ -1,4 +1,4 @@
-package gui.match.player;
+package gui.player.detail;
 
 import enums.Terminology;
 import exceptions.MatchNotFound;
@@ -6,7 +6,6 @@ import exceptions.PlayerNotFound;
 import exceptions.TermNotFound;
 import gui.MainFrame;
 import gui.match.MatchChangeable;
-import gui.player.detail.PlayerStatsPanel;
 import gui.util.NamedLabel;
 
 import java.awt.BorderLayout;

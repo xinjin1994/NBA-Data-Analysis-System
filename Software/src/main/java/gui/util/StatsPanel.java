@@ -33,21 +33,32 @@ public class StatsPanel extends JPanel{
 	public StatsPanel(LayoutManager l){
 		super(l);
 	}
+	
+	public void setKeyProperty(Terminology term,Color c){
+		NamedLabel nl = map.get(term);
+		if(nl != null)
+			nl.setForeground(c);
+	}
 
-	public static JPanel createTeamStatsPanel(TeamOffensiveStatsVO offvo,TeamDefensiveFoulsVO deffovo,TeamRatioGeneralVO ragevo){
+	public static StatsPanel createTeamStatsPanel(TeamOffensiveStatsVO offvo,TeamDefensiveFoulsVO deffovo,TeamRatioGeneralVO ragevo){
 		StatsPanel pnl_stats = new StatsPanel();
 		pnl_stats.setLayout(new BoxLayout(pnl_stats,BoxLayout.X_AXIS));
 		
 		StatsPanel pnl = buildStatsPanel("进攻数据：",Terminology.getTeamOffensive(),offvo,2);
 		pnl_stats.map.putAll(pnl.map);
+		pnl_stats.add(pnl);
 		pnl = buildStatsPanel("防守数据：",Terminology.getTeamDefensive(),deffovo,2);
 		pnl_stats.map.putAll(pnl.map);
+		pnl_stats.add(pnl);
 		pnl = buildStatsPanel("犯规数据：",Terminology.getTeamFouls(),deffovo,1);
 		pnl_stats.map.putAll(pnl.map);
+		pnl_stats.add(pnl);
 		pnl = buildStatsPanel("比率：",Terminology.getTeamRatio(),ragevo,1);
 		pnl_stats.map.putAll(pnl.map);
+		pnl_stats.add(pnl);
 		pnl = buildStatsPanel("综合数据：",Terminology.getTeamGeneral(),ragevo,2);
 		pnl_stats.map.putAll(pnl.map);
+		pnl_stats.add(pnl);
 		
 		return pnl_stats;
 	}

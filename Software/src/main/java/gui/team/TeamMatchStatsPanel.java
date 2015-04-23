@@ -2,17 +2,13 @@ package gui.team;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Date;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import vo.MatchVO;
@@ -22,13 +18,10 @@ import vo.TeamRatioGeneralVO;
 import businessLogicService.matchesBLService.MatchesBLService;
 import businessLogicService.teamsBLService.TeamsBLService_new;
 import enums.Teams;
-import enums.Terminology;
 import exceptions.MatchNotFound;
 import exceptions.TeamNotFound;
-import exceptions.TermNotFound;
 import gui.MainFrame;
 import gui.match.MatchChangeable;
-import gui.util.NamedLabel;
 import gui.util.StatsPanel;
 
 public class TeamMatchStatsPanel extends TeamStatsPanel implements MatchChangeable{
@@ -53,24 +46,13 @@ public class TeamMatchStatsPanel extends TeamStatsPanel implements MatchChangeab
 		
 		pnl_stats = new JPanel(new CardLayout());
 		add(pnl_stats);
-		{// average stats
-			
-			
-		}
-		{// total stats
-			try {
-				TeamOffensiveStatsVO offvo = teambl.getTeamOffensiveStatsTotal(MainFrame.season.season, team);
-				TeamDefensiveFoulsVO deffovo = teambl.getTeamDefensiveFoulsStatsTotal(MainFrame.season.season, team);
-				TeamRatioGeneralVO ragevo = teambl.getTeamRatioGeneralStatsTotal(MainFrame.season.season, team);
-				
-				pnl_stats.add(StatsPanel.createTeamStatsPanel(offvo, deffovo, ragevo),TOTAL);
-			} catch (TeamNotFound e) {
-				JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());
-				e.printStackTrace();
-			}
-		}
 		
+		JLabel lbl_nomatch = new JLabel("今日球队无比赛");
+		lbl_nomatch.setAlignmentX(0.5f);
+		lbl_nomatch.setHorizontalAlignment(SwingConstants.CENTER);
+		pnl_stats.add(lbl_nomatch, NO_MATCH);
 		
+		noMatch();
 	}
 
 	@Override
@@ -91,8 +73,7 @@ public class TeamMatchStatsPanel extends TeamStatsPanel implements MatchChangeab
 
 	@Override
 	public void noMatch() {
-		// TODO Auto-generated method stub
-		
+		((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, NO_MATCH);
 	}
 
 	@Override

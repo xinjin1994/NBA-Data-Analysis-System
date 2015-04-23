@@ -5,7 +5,7 @@ import enums.Teams;
 import enums.Terminology;
 import exceptions.MatchNotFound;
 import exceptions.PlayerNotFound;
-import gui.hot.HotPlayerPanel;
+import gui.hot.HotPlayerPanel_today;
 import gui.match.MatchItemPanel_Small;
 import gui.match.RecentMatchPanel;
 import gui.util.VerticalLabel;

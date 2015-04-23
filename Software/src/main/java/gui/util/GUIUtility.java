@@ -87,11 +87,11 @@ public class GUIUtility {
 		if(d == Double.NaN) return "0.0";
 		DecimalFormat nf;
 		if(d-(int)d > 0.001)
-			nf = new DecimalFormat("##0.0");
+			nf = new DecimalFormat("##0.00");
 		else
 			nf = new DecimalFormat("##0");
 		nf.setDecimalSeparatorAlwaysShown(false);
-		nf.setMaximumFractionDigits(1);
+		nf.setMaximumFractionDigits(2);
 		return nf.format(d);
 	}
 }

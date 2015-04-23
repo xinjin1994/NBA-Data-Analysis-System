@@ -58,7 +58,7 @@ public class HotTeamItemPanel extends JPanel {
 		btn_rank.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				new TeamCompareDialog("赛季球队"+term.toString()+"排名", MainFrame.season.season, term, teams).setVisible(true);;
 			}
 		});
 		

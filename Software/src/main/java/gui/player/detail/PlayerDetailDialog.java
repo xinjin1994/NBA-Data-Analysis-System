@@ -2,12 +2,10 @@ package gui.player.detail;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Image;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,7 +22,6 @@ import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.match.RecentMatchPanel;
-import gui.match.player.PlayerMatchStatsPanel;
 
 public class PlayerDetailDialog extends JDialog {
 
@@ -82,22 +77,6 @@ public class PlayerDetailDialog extends JDialog {
 			}
 			pnl_main.add(pnl_match_stats);
 			pnl_main.add(pnl_match);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton btn_confirm = new JButton("OK");
-				btn_confirm.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						dispose();
-					}
-				});
-				btn_confirm.setActionCommand("OK");
-				buttonPane.add(btn_confirm);
-				getRootPane().setDefaultButton(btn_confirm);
-			}
 		}
 		
 		pack();

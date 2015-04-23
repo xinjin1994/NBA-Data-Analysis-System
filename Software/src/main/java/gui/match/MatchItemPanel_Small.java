@@ -1,6 +1,7 @@
 package gui.match;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
 
@@ -46,18 +47,23 @@ public class MatchItemPanel_Small extends JPanel {
 		
 		lbl_host = new JLabel();
 		lbl_host.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_host.setFont(new Font(lbl_host.getFont().getName(),Font.BOLD,25));
 		lbl_guest = new JLabel();
 		lbl_guest.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_guest.setFont(new Font(lbl_guest.getFont().getName(),Font.BOLD,25));
 		pnl_team.add(lbl_host);
 		pnl_team.add(Box.createHorizontalGlue());
 		pnl_team.add(lbl_guest);
 
 		lbl_host_score = new JLabel();
 		lbl_host_score.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_host_score.setFont(new Font(lbl_host_score.getFont().getName(),Font.BOLD,25));
 		lbl_guest_score = new JLabel();
 		lbl_guest_score.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_guest_score.setFont(new Font(lbl_guest_score.getFont().getName(),Font.BOLD,25));
 		pnl_team.add(lbl_host_score);
 		JLabel label = new JLabel(":");
+		label.setFont(new Font(label.getFont().getName(),Font.BOLD,25));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		pnl_team.add(label);
 		pnl_team.add(lbl_guest_score);

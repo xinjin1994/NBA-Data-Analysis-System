@@ -7,12 +7,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-
 import vo.TeamVO;
 import enums.Teams;
 
@@ -40,11 +37,7 @@ public class TeamPortraitPanel extends JPanel {
 		this.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				//if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
-					JDialog dia = new JDialog();
-					dia.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					dia.getContentPane().add(new TeamDetailPanel(vo));
-					dia.pack();
-					dia.setVisible(true);
+					new TeamDetailDialog(vo).setVisible(true);
 				}
 			
 		});

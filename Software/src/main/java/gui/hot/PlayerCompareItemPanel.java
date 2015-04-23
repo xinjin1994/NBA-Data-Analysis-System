@@ -18,9 +18,9 @@ import enums.Teams;
 import enums.Terminology;
 import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
-import gui.match.player.PlayerMatchStatsPanel;
 import gui.player.PortraitPanel;
 import gui.player.detail.PlayerDetailDialog;
+import gui.player.detail.PlayerMatchStatsPanel;
 import gui.player.detail.PlayerSeasonStatsPanel;
 import gui.player.detail.PlayerStatsPanel;
 
