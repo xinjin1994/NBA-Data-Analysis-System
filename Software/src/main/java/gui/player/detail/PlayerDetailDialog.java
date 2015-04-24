@@ -48,6 +48,8 @@ public class PlayerDetailDialog extends JDialog {
 			vo = playerbl.getPlayerInfo(name);
 		} catch (PlayerNotFound e1) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
+			e1.printStackTrace();
+			dispose();
 		}
 		
 		Image source = vo.getAction().getImage();

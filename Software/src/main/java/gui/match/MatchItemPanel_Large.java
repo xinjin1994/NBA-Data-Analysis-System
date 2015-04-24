@@ -1,11 +1,14 @@
 package gui.match;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.text.SimpleDateFormat;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,23 +33,25 @@ public class MatchItemPanel_Large extends JPanel {
 	private JLabel lbl_guest_score;
 	private JLabel lbl_host_icon;
 	private JLabel lbl_guest_icon;
+	private JLabel lbl_hostCon;
+	private JLabel lbl_guestCon;
 
 	public MatchItemPanel_Large(boolean displaydate) {
 		this.setLayout(new BorderLayout());
 		
 		JPanel pnl_match = new JPanel();
-		pnl_match.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+		pnl_match.setLayout(new BoxLayout(pnl_match,BoxLayout.Y_AXIS));
 		add(pnl_match);
 		
 		lbl_date = new JLabel();
 		lbl_date.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_date.setAlignmentX(0.5f);
 		if(displaydate)
-			pnl_match.add(lbl_date,BorderLayout.NORTH);
+			add(lbl_date,BorderLayout.NORTH);
 		
 		
 		JPanel pnl_team = new JPanel();
-		pnl_team.setLayout(new GridLayout(4,3));
+		pnl_team.setLayout(new GridLayout(5,3));
 		pnl_match.add(pnl_team);
 		
 		JLabel hostLabel = new JLabel("主队");
@@ -62,24 +67,38 @@ public class MatchItemPanel_Large extends JPanel {
 		lbl_guest_icon = new JLabel();
 		lbl_guest_icon.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lbl_host_icon,BorderLayout.WEST);
-		pnl_team.add(Box.createHorizontalGlue());
 		add(lbl_guest_icon,BorderLayout.EAST);
+		
+		lbl_hostCon = new JLabel();
+		lbl_hostCon.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_hostCon.setFont(new Font(lbl_hostCon.getFont().getName(),Font.BOLD,15));
+		lbl_guestCon = new JLabel();
+		lbl_guestCon.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_guestCon.setFont(new Font(lbl_guestCon.getFont().getName(),Font.BOLD,15));
+		pnl_team.add(lbl_hostCon);
+		pnl_team.add(Box.createHorizontalGlue());
+		pnl_team.add(lbl_guestCon);
 		
 		lbl_host = new JLabel();
 		lbl_host.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_host.setFont(new Font(lbl_host.getFont().getName(),Font.BOLD,25));
 		lbl_guest = new JLabel();
 		lbl_guest.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_guest.setFont(new Font(lbl_guest.getFont().getName(),Font.BOLD,25));
 		pnl_team.add(lbl_host);
 		pnl_team.add(Box.createHorizontalGlue());
 		pnl_team.add(lbl_guest);
 
 		lbl_host_score = new JLabel();
 		lbl_host_score.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_host_score.setFont(new Font(lbl_host_score.getFont().getName(),Font.BOLD,25));
 		lbl_guest_score = new JLabel();
 		lbl_guest_score.setHorizontalAlignment(SwingConstants.CENTER);
-		pnl_team.add(lbl_host_score);
+		lbl_guest_score.setFont(new Font(lbl_guest_score.getFont().getName(),Font.BOLD,25));
 		JLabel label = new JLabel(":");
+		label.setFont(new Font(label.getFont().getName(),Font.BOLD,25));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
+		pnl_team.add(lbl_host_score);
 		pnl_team.add(label);
 		pnl_team.add(lbl_guest_score);
 	}
@@ -97,11 +116,16 @@ public class MatchItemPanel_Large extends JPanel {
 			TeamVO hostvo = teambl.getTeamInfo(vo.getTeam1());
 			TeamVO guestvo = teambl.getTeamInfo(vo.getTeam2());
 			
-			lbl_host_icon.setIcon(hostvo.getImage());
-			lbl_guest_icon.setIcon(guestvo.getImage());
+			lbl_host_icon.setIcon(new ImageIcon(hostvo.getImage().getImage().getScaledInstance(
+					150,150,Image.SCALE_SMOOTH)));
+			lbl_guest_icon.setIcon(new ImageIcon(guestvo.getImage().getImage().getScaledInstance(
+					150,150,Image.SCALE_SMOOTH)));
 			
-			lbl_host.setText(hostvo.getConference().toString()+"  "+vo.getTeam1().toString());
-			lbl_guest.setText(guestvo.getConference().toString()+"  "+vo.getTeam2().toString());
+			lbl_hostCon.setText(hostvo.getConference().toString());
+			lbl_guestCon.setText(guestvo.getConference().toString());
+			
+			lbl_host.setText(vo.getTeam1().toString());
+			lbl_guest.setText(vo.getTeam2().toString());
 		} catch (TeamNotFound e) {
 			JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());
 			e.printStackTrace();
@@ -112,4 +136,7 @@ public class MatchItemPanel_Large extends JPanel {
 		lbl_guest_score.setText(score[1]);
 	}
 
+	public MatchVO getMatch(){
+		return vo;
+	}
 }

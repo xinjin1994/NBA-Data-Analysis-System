@@ -1,8 +1,8 @@
 package gui;
 
 import gui.enums.PanelType;
-import gui.game.GamePanel;
 import gui.hot.HotPanel;
+import gui.match.MatchPanel;
 import gui.match.Season;
 import gui.player.PlayerPanel;
 import gui.statistic.PlayerStatisticPanel;
@@ -147,9 +147,6 @@ public class MainFrame extends JFrame implements PanelRefreshable{
 			case MENU:
 				panel = new MenuPanel();
 				break;
-			case GAME:
-				panel=new GamePanel();
-				break;
 			case PLAYER:
 				panel = new PlayerPanel();
 				break;
@@ -164,6 +161,9 @@ public class MainFrame extends JFrame implements PanelRefreshable{
 				break;
 			case HOT:
 				panel = new HotPanel();
+				break;
+			case MATCH:
+				panel = new MatchPanel();
 				break;
 			}
 			panels.put(type, panel);

@@ -3,8 +3,10 @@ package gui.match;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
+
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 
 import vo.MatchVO;
@@ -35,9 +37,10 @@ public class MatchList extends JList<MatchItemPanel_Large> {
 			}
 		});
 		setLayoutOrientation(JList.VERTICAL);
+		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
-	private static MatchItemPanel_Large[] toArray(
+	public static MatchItemPanel_Large[] toArray(
 			ArrayList<MatchVO> matchlist) {
 		MatchItemPanel_Large[] list = new MatchItemPanel_Large[matchlist.size()];
 		for(int i = 0;i < list.length;i++)

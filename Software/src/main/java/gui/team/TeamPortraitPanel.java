@@ -1,5 +1,6 @@
 package gui.team;
 
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -10,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 import vo.TeamVO;
 import enums.Teams;
 
@@ -39,6 +41,14 @@ public class TeamPortraitPanel extends JPanel {
 				//if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
 					new TeamDetailDialog(vo).setVisible(true);
 				}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				setCursor(Cursor.getDefaultCursor());
+			}
 			
 		});
 		

@@ -8,6 +8,7 @@ import exceptions.PlayerNotFound;
 import gui.hot.HotPlayerPanel_today;
 import gui.match.MatchItemPanel_Small;
 import gui.match.RecentMatchPanel;
+import gui.player.PlayerLabel;
 import gui.util.VerticalLabel;
 import gui.util.AdjustableTable.CheckComboBox;
 
@@ -59,10 +60,7 @@ public class TestFrame extends JFrame {
 		contentPane.setLayout(new FlowLayout());
 		setContentPane(contentPane);
 		
-		contentPane.add(new JLabel("1"));
-		if(true)
-		return;
-		contentPane.add(new JLabel("2"));
+		contentPane.add(new PlayerLabel("Andre Iguodala"));
 	}
 
 }
