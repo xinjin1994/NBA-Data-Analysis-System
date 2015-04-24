@@ -78,7 +78,13 @@ public class DataInit {
 			
 			ArrayList<TeamStats_new> teams = calculator.getTeamStats();
 			for(TeamStats_new team: teams){
-				teamMap.get(team.getTeam()).addStats(team);
+				Teams team_enum;
+				if(team.getTeam().equals(Teams.NOH)){
+					team_enum = Teams.NOP;
+				}else{
+					team_enum = team.getTeam();
+				}
+				teamMap.get(team_enum).addStats(team);
 			}
 			
 			matchList.add(calculator.getMatchStats());

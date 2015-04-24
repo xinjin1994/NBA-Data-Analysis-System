@@ -19,6 +19,7 @@ import po.PlayerPO;
 import po.PlayerProgressPO;
 import po.TeamPO;
 import sorter.Sorter;
+import data.matchesData.MatchesData_new;
 import data.teamsData.TeamsData_new;
 import dataService.imageService.ImageService;
 import dataService.playersDataService.PlayersDataService_new;
@@ -36,7 +37,6 @@ import enums.Teams;
 import enums.Terminology;
 import exceptions.NoTitle;
 import exceptions.PlayerNotFound;
-import exceptions.StatsNotFound;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import businessLogicService.playersBLService.PlayersBLForTest;
@@ -489,8 +489,10 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	@Override
 	public ArrayList<PlayerHotStatsVO> getHotPlayersByDay(String season,
 			Date date, Terminology term, int num) {
-		ArrayList<PlayerHotStatsPO> poList = playerService.getPlayerHotStats(season, 
-				TypeTransform.date_to_str(date), term);
+		//season = MatchesData_new.getLastSeason();
+		//String str_date = MatchesData_new.getLastDay();
+		String str_date = TypeTransform.date_to_str(date);
+		ArrayList<PlayerHotStatsPO> poList = playerService.getPlayerHotStats(season, str_date, term);
 		ArrayList<PlayerHotStatsVO> voList = new ArrayList<PlayerHotStatsVO>();
 		for(PlayerHotStatsPO po: poList){
 			double stats = 0;
@@ -509,6 +511,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	@Override
 	public ArrayList<PlayerHotStatsVO> getHotPlayersBySeason(
 			String season, Terminology term, int num) {
+		//season = MatchesData_new.getLastSeason();
 		ArrayList<PlayerHotStatsPO> poList = playerService.getPlayerHotStats(season, term);
 		ArrayList<PlayerHotStatsVO> voList = new ArrayList<PlayerHotStatsVO>();
 		for(PlayerHotStatsPO po: poList){
@@ -627,15 +630,6 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			}
 		}
 	}
-	
-	private String latestSeason(){
-		try {
-			ArrayList<String> seasons = new ObjectCreator().matchesBLService().getAvailableSeasons();
-			return seasons.get(0);
-		} catch (StatsNotFound e) {
-			return null;
-		}
-	}
 
 	@Override
 	public ArrayList<PlayerNormalInfo> getPlayerNormalInfo_avg(String[] filter,
@@ -651,7 +645,8 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		ArrayList<PlayerBasicStatsVO> basic;
 		
 		try {
-			basic = this.getBasicPlayersStatsAverage(latestSeason(), con, div, pos);
+			String season = MatchesData_new.getLastSeason();
+			basic = this.getBasicPlayersStatsAverage(season, con, div, pos);
 			
 			Sorter.playerBasic(basic, Terminology.NAME, true);
 			if(sortField != null){
@@ -722,7 +717,8 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		ArrayList<PlayerBasicStatsVO> basic;
 		
 		try {
-			basic = this.getBasicPlayersStatsTotal(latestSeason(), con, div, pos);
+			String season = MatchesData_new.getLastSeason();
+			basic = this.getBasicPlayersStatsTotal(season, con, div, pos);
 			
 			Sorter.playerBasic(basic, Terminology.NAME, true);
 			if(sortField != null){
@@ -786,7 +782,8 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		ArrayList<PlayerAdvancedStatsVO> advanced;
 		
 		try {
-			advanced = this.getAdvancedPlayersStatsTotal(latestSeason(), Conference.NATIONAL, 
+			String season = MatchesData_new.getLastSeason();
+			advanced = this.getAdvancedPlayersStatsTotal(season, Conference.NATIONAL, 
 					Division.NATIONAL, Position.ALL);
 			
 			Sorter.playerAdvanced(advanced, Terminology.NAME, true);
@@ -841,7 +838,8 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	public ArrayList<PlayerHotInfo> getPlayerHotInfo(String str_hotField, int num) {
 		Terminology hotField = Terminology.toEnum_player(str_hotField);
 		ArrayList<PlayerHotInfo> list = new ArrayList<PlayerHotInfo>();
-		ArrayList<PlayerProgressVO> voList = this.getPlayerProgress(latestSeason(), hotField, num);
+		String season = MatchesData_new.getLastSeason();
+		ArrayList<PlayerProgressVO> voList = this.getPlayerProgress(season, hotField, num);
 		for(PlayerProgressVO vo: voList){
 			PlayerHotInfo hot = new PlayerHotInfo();
 			hot.setField(str_hotField);
@@ -864,8 +862,9 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	public ArrayList<PlayerKingInfo> getPlayerKingInfo_daily(String str_kingField, int num) {
 		Terminology kingField = Terminology.toEnum_player(str_kingField);
 		ArrayList<PlayerKingInfo> list = new ArrayList<PlayerKingInfo>();
-		Date date = new Date();
-		ArrayList<PlayerHotStatsVO> voList = this.getHotPlayersByDay("13-14", date, kingField, num);
+		String season = MatchesData_new.getLastSeason();
+		Date date = TypeTransform.str_to_date(MatchesData_new.getLastDay());
+		ArrayList<PlayerHotStatsVO> voList = this.getHotPlayersByDay(season, date, kingField, num);
 		for(PlayerHotStatsVO vo: voList){
 			PlayerKingInfo king = new PlayerKingInfo();
 			king.setField(str_kingField);
@@ -884,7 +883,8 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	public ArrayList<PlayerKingInfo> getPlayerKingInfo_season(String str_kingField, int num) {
 		Terminology kingField = Terminology.toEnum_player(str_kingField);
 		ArrayList<PlayerKingInfo> list = new ArrayList<PlayerKingInfo>();
-		ArrayList<PlayerHotStatsVO> voList = this.getHotPlayersBySeason("13-14", kingField, num);
+		String season = MatchesData_new.getLastSeason();
+		ArrayList<PlayerHotStatsVO> voList = this.getHotPlayersBySeason(season, kingField, num);
 		for(PlayerHotStatsVO vo: voList){
 			PlayerKingInfo king = new PlayerKingInfo();
 			king.setField(str_kingField);

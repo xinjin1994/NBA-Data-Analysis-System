@@ -47,9 +47,9 @@ public class TypeTransform {
 		String[] year = season.split("-");
 		int month = date.getMonth();
 		if(month < 4){
-			date.setYear(Integer.parseInt(year[1])+2000);
+			date.setYear(Integer.parseInt(year[1])+100);
 		}else{
-			date.setYear(Integer.parseInt(year[0])+2000);
+			date.setYear(Integer.parseInt(year[0])+100);
 		}
 		return date;
 	}

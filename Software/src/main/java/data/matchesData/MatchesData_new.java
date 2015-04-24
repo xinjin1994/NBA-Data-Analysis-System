@@ -10,11 +10,15 @@ import exceptions.StatsNotFound;
 
 public class MatchesData_new implements MatchesDataService_new {
 	static ArrayList<Matches_new> matches;
+	static String lastSeason;
+	static String lastDay;
 	
 	public MatchesData_new(ArrayList<Matches_new> matches) {
 		//仅用于数据初始化
 		if(MatchesData_new.matches == null){
 			MatchesData_new.matches = matches;
+			lastSeason = matches.get(0).season;
+			lastDay = matches.get(0).date;
 		}
 	}
 	
@@ -22,8 +26,18 @@ public class MatchesData_new implements MatchesDataService_new {
 		//do nothing
 	}
 	
+	public static String getLastSeason(){
+		return lastSeason;
+	}
+	
+	public static String getLastDay(){
+		return lastDay;
+	}
+	
 	public static void addData(Matches_new match){
 		matches.add(0, match);
+		lastSeason = match.season;
+		lastDay = match.date;
 	}
 	
 	public ArrayList<Matches_new> getData(){
@@ -101,6 +115,8 @@ public class MatchesData_new implements MatchesDataService_new {
 	public ArrayList<String> getAvailableDays(String season) throws StatsNotFound {
 		ArrayList<String> days = new ArrayList<String>();
 		for(Matches_new match: matches){
+		//for(int i=0; i<matches.size(); i++){
+			//Matches_new match = matches.get(i);
 			if(match.season.equals(season) && !days.contains(match.date)){
 				days.add(match.date);
 			}

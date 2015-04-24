@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import data.init.DataInit;
 import enums.Terminology;
-import vo.TeamHighInfo;
-import vo.TeamHotInfo;
-import vo.TeamNormalInfo;
+import test.data.*;
 import businessLogic.teamsBL.TeamsBL_new;
 import businessLogicService.teamsBLService.TeamsBLForTest;
 

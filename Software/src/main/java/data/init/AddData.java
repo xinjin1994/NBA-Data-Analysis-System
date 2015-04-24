@@ -18,6 +18,10 @@ public class AddData {
 		File file = new File(path);
 		if(file.exists()){
 			MatchPO matchPO = new data.matchesData.ReadFromTxt().readFromOneFile(file);
+			while(matchPO == null){
+				matchPO = new data.matchesData.ReadFromTxt().readFromOneFile(file);
+			}
+			System.out.println("Add Data " + path);
 			Calculator cal = new Calculator(matchPO);
 			Matches_new match = cal.getMatchStats();
 			ArrayList<PlayerStats_new> players = cal.getPlayerStats();

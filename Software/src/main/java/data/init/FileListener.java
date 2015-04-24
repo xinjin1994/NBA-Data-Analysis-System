@@ -1,6 +1,8 @@
 package data.init;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,8 +16,10 @@ public class FileListener {
 	WatchService watcher;
 	Path path;
 	AddData addData;
+	String filepath;
 	
 	public FileListener(String filepath) throws IOException {
+		this.filepath = filepath;
 		path = Paths.get(filepath);
 		watcher = FileSystems.getDefault().newWatchService();
 		path.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
@@ -33,8 +37,12 @@ public class FileListener {
 				}
 				
 				WatchEvent<Path> e = (WatchEvent<Path>)event;
-				Path filepath = e.context();
-				addData.AddMatch(filepath.toAbsolutePath().toString());
+				
+				Path filepath_Path = e.context();
+				String filename = filepath_Path.getFileName().toString();
+				String newFile = filepath + "\\" + filename;
+				addData.AddMatch(newFile);
+				System.out.println("Add File " + newFile);
 			}
 			
 			if(!key.reset()){
@@ -42,5 +50,16 @@ public class FileListener {
 			}
 		}
 	}
+	
+	/*
+	public static void main(String[] args){
+		try {
+			new FileListener("D:\\下载").start();
+		} catch (InterruptedException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+	}
+	*/
 
 }

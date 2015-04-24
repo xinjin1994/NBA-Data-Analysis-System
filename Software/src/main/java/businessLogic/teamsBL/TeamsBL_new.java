@@ -1,19 +1,10 @@
 package businessLogic.teamsBL;
 
 import helper.TypeTransform;
-
-
-
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-
 import po.TeamDefensiveFoulsStatsPO;
 import po.TeamHotStatsPO;
 import po.TeamOffensiveStatsPO;
@@ -25,7 +16,6 @@ import data.imageData.ImageData;
 import data.matchesData.MatchesData_new;
 import data.teamsData.TeamsData_new;
 import dataService.imageService.ImageService;
-import dataService.matchesDataService.MatchesDataService_new;
 import dataService.teamsDataService.TeamsDataForTest;
 import dataService.teamsDataService.TeamsDataService_new;
 import vo.TeamDefensiveFoulsVO;
@@ -37,7 +27,6 @@ import enums.Conference;
 import enums.Division;
 import enums.Teams;
 import enums.Terminology;
-import exceptions.StatsNotFound;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import businessLogicService.teamsBLService.PlayersInTeamsService;
@@ -449,30 +438,18 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 
 	@Override
 	public ArrayList<TeamHotInfo> getTeamHotInfo(String hotField, int n) {
-		MatchesDataService_new match=new MatchesData_new();
-		try {
-			ArrayList<String> season=match.getAvailableSeasons();
-			String max="13-14";
-			for(String i:season){
-				if(max.compareTo(i)<0){
-					max=i;
-				}
-			}
-			ArrayList<TeamHotStatsVO> list=getHotTeams(max,Terminology.toEnum_team(hotField),n);
-			ArrayList<TeamHotInfo> result=new ArrayList<TeamHotInfo>();
-			for(TeamHotStatsVO stat:list){
-				TeamHotInfo hot=new TeamHotInfo();
-				hot.setTeamName(stat.getTeam().toEnglish());
-				hot.setLeague(stat.getConference().toString());
-				hot.setField(hotField);
-				hot.setValue(stat.getStats());
-				result.add(hot);
-			}
-			return result;
-		} catch (StatsNotFound e) {
-			e.printStackTrace();
-			return null;
-		}		
+		String season = MatchesData_new.getLastSeason();
+		ArrayList<TeamHotStatsVO> list=getHotTeams(season,Terminology.toEnum_team(hotField),n);
+		ArrayList<TeamHotInfo> result=new ArrayList<TeamHotInfo>();
+		for(TeamHotStatsVO stat:list){
+			TeamHotInfo hot=new TeamHotInfo();
+			hot.setTeamName(stat.getTeam().toEnglish());
+			hot.setLeague(stat.getConference().toString());
+			hot.setField(hotField);
+			hot.setValue(stat.getStats());
+			result.add(hot);
+		}
+		return result;		
 	}
 
 	
