@@ -145,5 +145,18 @@ public class PlayersBLService_newTest extends TestCase {
 			assertTrue(false);
 		}
 	}
+	
+	public void testGetPlayerStats(){
+		String name = "LeBron James";
+		String season = "13-14";
+		try {
+			PlayerBasicStatsVO basic = service.getBasicPlayerStatsAverage(season, name);
+			PlayerAdvancedStatsVO advanced = service.getAdvancedPlayerStats(season, name);
+			System.out.println();
+		} catch (PlayerNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

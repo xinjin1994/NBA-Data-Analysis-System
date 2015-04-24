@@ -2,6 +2,7 @@ package vo;
 
 import helper.TypeTransform;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import enums.Teams;
@@ -18,9 +19,12 @@ public class MatchVO {
 	String score3;
 	String score4;
 	String scoreExtra;
+	ArrayList<String> homeTeamPlayers;
+	ArrayList<String> guestTeamPlayers;
 	
 	public MatchVO(String season, String date, Teams team1, Teams team2, String score, 
-			String score1, String score2, String score3, String score4, String scoreExtra){
+			String score1, String score2, String score3, String score4, String scoreExtra, 
+			ArrayList<String> homeTeamPlayers, ArrayList<String> guestTeamPlayers){
 		this.team1 = team1;
 		this.team2 = team2;
 		this.date = date;
@@ -31,6 +35,8 @@ public class MatchVO {
 		this.score4 = score4;
 		this.scoreExtra = scoreExtra;
 		this.season = season;
+		this.homeTeamPlayers = homeTeamPlayers;
+		this.guestTeamPlayers = guestTeamPlayers;
 	}
 
 	public Teams getTeam1() {
@@ -77,8 +83,14 @@ public class MatchVO {
 	public String getScoreExtra() {
 		return scoreExtra;
 	}
-	
-	
+
+	public ArrayList<String> getHomeTeamPlayers() {
+		return homeTeamPlayers;
+	}
+
+	public ArrayList<String> getGuestTeamPlayers() {
+		return guestTeamPlayers;
+	}
 
 	public void print(){
 		System.out.println(this.getDate() + "\n" +

@@ -236,7 +236,7 @@ public class Calculator {
 		Double fouls=0.0;                            	
 		Double points=0.0;
 		String[] point=match.score().split("-");
-		if(point[0].compareTo(point[1])>=0){
+		if(Integer.parseInt(point[0])>=Integer.parseInt(point[1])){
 			win=true;
 		}
 		ArrayList<PlayerStatsPO> team1player=match.team1Players();
@@ -295,7 +295,7 @@ public class Calculator {
 		Double fouls=0.0;                            	
 		Double points=0.0;
 		String[] point=match.score().split("-");
-		if(point[0].compareTo(point[1])<0){
+		if(Integer.parseInt(point[0])<=Integer.parseInt(point[1])){
 			win=true;
 		}
 		ArrayList<PlayerStatsPO> team2player=match.team1Players();

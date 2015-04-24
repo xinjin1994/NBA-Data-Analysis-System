@@ -2,20 +2,23 @@ package businessLogicServiceTest.matchesBLService;
 
 import java.util.ArrayList;
 
+import data.init.DataInit;
 import vo.MatchVO;
 import enums.Teams;
 import exceptions.MatchNotFound;
 import exceptions.TeamNotFound;
 import businessLogic.matchesBL.MatchesBL;
+import businessLogic.matchesBL.MatchesBL_new;
 import businessLogicService.matchesBLService.MatchesBLService;
 import junit.framework.TestCase;
 
 public class MatchesBLServiceTest extends TestCase {
 
-	MatchesBLService service = new MatchesBL();
+	MatchesBLService service = new MatchesBL_new();
 	
 	protected void setUp() throws Exception {
 		super.setUp();
+		new DataInit().init();
 	}
 	
 	private boolean MatchVOEqual(MatchVO match1, MatchVO match2){
@@ -40,7 +43,7 @@ public class MatchesBLServiceTest extends TestCase {
 		try {
 			MatchVO match = service.getMatchVO("13-14", "01-02", team1, team2);
 			MatchVO trueValue = new MatchVO("13-14", "01-02", team1, team2, "99-91", "22-26", 
-					"31-15", "16-32", "30-18", "无");
+					"31-15", "16-32", "30-18", "无", null, null);
 			assertTrue(this.MatchVOEqual(match, trueValue));
 			
 		} catch (TeamNotFound | MatchNotFound e) {
@@ -53,7 +56,7 @@ public class MatchesBLServiceTest extends TestCase {
 		try {
 			MatchVO match = service.getMatchVO("13-14", "02-20", team1, team2);
 			MatchVO trueValue = new MatchVO("13-14", "02-20", team1, team2, "99-102", "24-20", 
-					"19-27", "24-24", "22-18", "10-13");
+					"19-27", "24-24", "22-18", "10-13", null, null);
 			assertTrue(this.MatchVOEqual(match, trueValue));
 		} catch (TeamNotFound | MatchNotFound e) {
 			assertTrue(false);

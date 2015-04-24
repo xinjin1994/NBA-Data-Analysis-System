@@ -52,6 +52,22 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 		//测试用
 		return teams;
 	}
+	
+	private int getGames(String season, Teams team){
+		int games = 0;
+		for(int i=0; i<teams.size(); i++){
+			Teams_new t = teams.get(i);
+			if(t.team == team){
+				for(int j=0; j<t.stats.size(); j++){
+					TeamStats_new stats = t.stats.get(i);
+					if(stats.season.equals(season)){
+						games++;
+					}
+				}
+			}
+		}
+		return games;
+	}
 
 	@Override
 	public TeamPO getTeam(Teams team) throws TeamNotFound {
@@ -149,7 +165,7 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 						continue;
 					TeamBasicStats_new basic = s.basic;
 					TeamAdvancedStats_new advanced = s.advanced;
-					TeamRatioGeneralStatsPO po = new TeamRatioGeneralStatsPO(team, stats.size(), 
+					TeamRatioGeneralStatsPO po = new TeamRatioGeneralStatsPO(team, stats.size(),
 							wins, basic.fieldGoalsMade, basic.fieldGoalsAttempted, basic.freeThrowsMade,
 							basic.freeThrowsAttempted, basic.threePointFieldGoalsMade, 
 							basic.threePointFieldGoalsAttempted, basic.offensiveRebounds,

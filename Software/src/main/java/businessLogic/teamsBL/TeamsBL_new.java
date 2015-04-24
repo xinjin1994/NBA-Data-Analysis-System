@@ -205,7 +205,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	
 	private TeamDefensiveFoulsVO sum_defensive(ArrayList<TeamDefensiveFoulsStatsPO> poList){
 		Teams team = poList.get(0).getTeam();
-		int games = poList.get(0).getGames();
+		int games = poList.size();
 		double offensiveRebounds = 0;
 		double defensiveRebounds = 0;
 		double rebounds = 0;
@@ -231,7 +231,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 	
 	private TeamRatioGeneralVO sum_ratio(ArrayList<TeamRatioGeneralStatsPO> poList){
 		Teams team = poList.get(0).getTeam();
-		int games = poList.get(0).getGames();
+		int games = poList.size();
 		int wins = poList.get(0).getWins();
 		int fg_num = 0;
 		int ft_num = 0;
@@ -239,7 +239,6 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 		double fieldGoalsPercentage = 0;
 		double freeThrowsPercentage = 0;
 		double threePointFieldGoalsPercentage = 0;
-		double winningRating = (double)wins/games;
 		double offensiveRounds = 0;
 		double offensiveEfficiency = 0;
 		double defensiveEfficiency = 0;
@@ -251,7 +250,6 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 			fieldGoalsPercentage += po.getFieldGoalsPercentage();
 			freeThrowsPercentage += po.getFreeThrowsPercentage();
 			threePointFieldGoalsPercentage += po.getThreePointFieldGoalsPercentage();
-			//winningRating += po.getWinningRating();
 		    offensiveRounds += po.getOffensiveRounds();
 			offensiveEfficiency += po.getOffensiveEfficiency();
 			defensiveEfficiency += po.getDefensiveEfficiency();
@@ -272,7 +270,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 		
 		TeamRatioGeneralVO vo = new TeamRatioGeneralVO(team, games, fieldGoalsPercentage/fg_num, 
 				freeThrowsPercentage/ft_num, threePointFieldGoalsPercentage/tp_num, 
-				winningRating/games, offensiveRounds, offensiveEfficiency/games, 
+				offensiveRounds, offensiveEfficiency/games, 
 				defensiveEfficiency/games, offensiveReboundsEfficiency/games, 
 				defensiveReboundsEfficiency/games, stealsEfficiency/games, 
 				assistsEfficiency/games, wins);
@@ -347,7 +345,7 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 		TeamRatioGeneralStatsPO po = teamService.getRatioGeneralStats(season, d, team);
 		TeamRatioGeneralVO vo = new TeamRatioGeneralVO(po.getTeam(), 0, 
 				po.getFieldGoalsPercentage(), po.getFreeThrowsPercentage(), 
-				po.getThreePointFieldGoalsPercentage(), po.getWins(), po.getOffensiveRounds(), 
+				po.getThreePointFieldGoalsPercentage(), po.getOffensiveRounds(), 
 				po.getOffensiveEfficiency(), po.getDefensiveEfficiency(), 
 				po.getOffensiveReboundsEfficiency(), po.getDefensiveReboundsEfficiency(), 
 				po.getStealsEfficiency(), po.getAssistsEfficiency(), po.getWins());

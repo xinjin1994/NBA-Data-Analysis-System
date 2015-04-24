@@ -49,8 +49,8 @@ public class MatchesData_new implements MatchesDataService_new {
 	public MatchPO_new getMatch(String season, String date, Teams team1,
 			Teams team2) throws MatchNotFound {
 		for(Matches_new match: matches){
-			boolean seasonOK = match.season.equals(season);
-			boolean dateOK = match.date.equals(date);
+			boolean seasonOK = season == null || match.season.equals(season);
+			boolean dateOK = date == null || match.date.equals(date);
 			boolean teamOK = (match.homeTeam == team1 && match.guestTeam == team2)
 					      || (match.homeTeam == team2 && match.guestTeam == team1);
 			

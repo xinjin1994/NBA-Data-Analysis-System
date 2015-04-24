@@ -23,14 +23,13 @@ public class TeamRatioGeneralVO implements StatsVO{
 	double assistsEfficiency;                     //助攻（效）率
 	
 	public TeamRatioGeneralVO(Teams team, int games, double fgp, double ftp, double tgp, 
-			double wr, double offRounds, double off, double def, double offRebd, 
+			double offRounds, double off, double def, double offRebd, 
 			double defRebd, double stl, double ast, int wins){
 		this.team = team;
 		this.games = games;
 		this.fieldGoalsPercentage = fgp;
 		this.freeThrowsPercentage = ftp;
 		this.threePointFieldGoalsPercentage = tgp;
-		this.winningRating = wr;
 		this.offensiveRounds = offRounds;
 		this.offensiveEfficiency = off;
 		this.defensiveEfficiency = def;
@@ -66,7 +65,7 @@ public class TeamRatioGeneralVO implements StatsVO{
 	}
 
 	public double getWinningRating() {
-		return winningRating;
+		return (double)100*wins/games;
 	}
 
 	public double getOffensiveRounds() {

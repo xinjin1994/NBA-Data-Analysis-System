@@ -53,7 +53,7 @@ public class TeamInMatches {
 				basic.fieldGoalsMade/basic.fieldGoalsAttempted,
 				basic.freeThrowsMade/basic.freeThrowsAttempted,
 				basic.threePointFieldGoalsMade/basic.threePointFieldGoalsAttempted,
-				basic.wins/basic.games, advanced.offensiveRounds, 
+				advanced.offensiveRounds, 
 				advanced.offensiveEfficiency, advanced.defensiveEfficiency, 
 				advanced.offensiveReboudnsEfficiency, advanced.defensiveReboundsEfficiency,
 				advanced.stealsEfficiency, advanced.assistsEfficiency, 0);

@@ -70,8 +70,8 @@ public class TeamsBLService_newTest extends TestCase {
 	}
 	
 	public void testGetRatioStats() {
-		Conference conference = Conference.EASTERN;
-		Division division = Division.ATLANTIC;
+		Conference conference = Conference.NATIONAL;
+		Division division = Division.NATIONAL;
 		try {
 			ArrayList<TeamRatioGeneralVO> list = service.getTeamRatioGeneralStatsAverage(season, conference, division);
 			System.out.println(list.size());
@@ -119,6 +119,20 @@ public class TeamsBLService_newTest extends TestCase {
 			assertTrue(vo1 != null && vo2 != null && vo3 != null);
 		} catch (TeamNotFound e) {
 			assertTrue(false);
+		}
+	}
+	
+	public void testGetSeasonData(){
+		String season = "13-14";
+		Teams team = Teams.OKC;
+		try {
+			TeamOffensiveStatsVO list1 = service.getTeamOffensiveStatsAverage(season, team);
+			TeamDefensiveFoulsVO list2 = service.getTeamDefensiveFoulsStatsAverage(season, team);
+			TeamRatioGeneralVO list3 = service.getTeamRatioGeneralStatsAverage(season, team);
+			System.out.println();
+		} catch (TeamNotFound e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

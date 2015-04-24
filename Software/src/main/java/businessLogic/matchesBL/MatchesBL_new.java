@@ -30,7 +30,7 @@ public class MatchesBL_new implements MatchesBLService {
 		MatchPO_new po = matchService.getMatch(season, date, team1, team2);
 		MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 				po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-				po.getScore4(), po.getScoreExtra());
+				po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 		return vo;
 	}
 
@@ -42,7 +42,7 @@ public class MatchesBL_new implements MatchesBLService {
 		for(MatchPO_new po: poList){
 			MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 					po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-					po.getScore4(), po.getScoreExtra());
+					po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 			voList.add(vo);
 		}
 		
@@ -77,7 +77,7 @@ public class MatchesBL_new implements MatchesBLService {
 		MatchPO_new po = matchService.getMatches(season, TypeTransform.date_to_str(date), player);
 		MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 				po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-				po.getScore4(), po.getScoreExtra());
+				po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 		
 		return vo;
 	}
@@ -87,7 +87,7 @@ public class MatchesBL_new implements MatchesBLService {
 		MatchPO_new po = matchService.getMatches(season, TypeTransform.date_to_str(date), team);
 		MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 				po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-				po.getScore4(), po.getScoreExtra());
+				po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 		
 		return vo;
 	}
@@ -99,7 +99,7 @@ public class MatchesBL_new implements MatchesBLService {
 		for(MatchPO_new po: polist){
 			MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 					po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-					po.getScore4(), po.getScoreExtra());
+					po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 			volist.add(vo);
 		}
 		
@@ -113,7 +113,7 @@ public class MatchesBL_new implements MatchesBLService {
 		for(MatchPO_new po: polist){
 			MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 					po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-					po.getScore4(), po.getScoreExtra());
+					po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 			volist.add(vo);
 		}
 		
@@ -133,7 +133,7 @@ public class MatchesBL_new implements MatchesBLService {
 		for(MatchPO_new po: polist){
 			MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 					po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-					po.getScore4(), po.getScoreExtra());
+					po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 			volist.add(vo);
 		}
 		
@@ -147,7 +147,7 @@ public class MatchesBL_new implements MatchesBLService {
 		for(MatchPO_new po: polist){
 			MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 					po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-					po.getScore4(), po.getScoreExtra());
+					po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 			volist.add(vo);
 		}
 		
@@ -165,7 +165,7 @@ public class MatchesBL_new implements MatchesBLService {
 		for(MatchPO_new po: polist){
 			MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 					po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-					po.getScore4(), po.getScoreExtra());
+					po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 			volist.add(vo);
 		}
 		
@@ -179,7 +179,7 @@ public class MatchesBL_new implements MatchesBLService {
 		for(MatchPO_new po: polist){
 			MatchVO vo = new MatchVO(po.getSeason(), po.getDate(), po.getHomeTeam(), po.getGuestTeam(),
 					po.getScore(), po.getScore1(), po.getScore2(), po.getScore3(),
-					po.getScore4(), po.getScoreExtra());
+					po.getScore4(), po.getScoreExtra(), po.getHomeTeamPlayers(), po.getGuestTeamPlayers());
 			volist.add(vo);
 		}
 		
