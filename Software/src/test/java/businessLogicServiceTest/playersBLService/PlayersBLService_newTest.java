@@ -149,7 +149,7 @@ public class PlayersBLService_newTest extends TestCase {
 	}
 	
 	public void testGetPlayerStats(){
-		String name = "LeBron James";
+		String name = "Norris Cole";
 		String season = "13-14";
 		try {
 			PlayerBasicStatsVO basic = service.getBasicPlayerStatsAverage(season, name);

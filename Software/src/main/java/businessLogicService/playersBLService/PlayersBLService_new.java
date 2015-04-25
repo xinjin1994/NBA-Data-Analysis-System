@@ -67,6 +67,8 @@ public interface PlayersBLService_new {
 	//获取某场比赛某个球员的位置
 	public Position getPlayerPosition(String season, Date date, String name);
 	
+	public Teams getTeam(String player) throws PlayerNotFound;
+	
 	//关注球员
 	public void favouritePlayers(String name);
 	

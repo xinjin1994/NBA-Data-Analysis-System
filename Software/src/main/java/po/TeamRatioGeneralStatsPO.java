@@ -94,6 +94,18 @@ public class TeamRatioGeneralStatsPO {
 		return p;
 	}
 
+	public double getFieldGoalsMade() {
+		return fieldGoalsMade;
+	}
+
+	public double getFreeThrowsMade() {
+		return freeThrowsMade;
+	}
+
+	public double getThreePointFieldGoalsMade() {
+		return threePointFieldGoalsMade;
+	}
+
 	public double getOffensiveRounds() {
 		return offensiveRounds;
 	}
@@ -133,7 +145,5 @@ public class TeamRatioGeneralStatsPO {
 	public double getThreePointFieldGoalsAttempted() {
 		return threePointFieldGoalsAttempted;
 	}
-	
-	
 	
 }

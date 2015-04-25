@@ -71,10 +71,9 @@ public class PlayerBasicStatsVO implements StatsVO{
 	}
 	
 	public PlayerBasicStatsVO(String name, Teams team, double games, double gamesStarting, 
-			String minutes, double rebounds, double ast, double fgp, double tpp, 
-			double ftp, double or, double dr, double stl, double blk, double tov, 
-			double fouls, double pts, double dd, double fgm, double fga, double tpm, 
-			double tpa, double ftm, double fta){
+			String minutes, double rebounds, double ast,double or, double dr, double stl, 
+			double blk, double tov, double fouls, double pts, double dd, double fgm, double fga, 
+			double tpm, double tpa, double ftm, double fta){
 		this.name = name;
 		this.team = team;
 		this.games = games;
@@ -82,9 +81,6 @@ public class PlayerBasicStatsVO implements StatsVO{
 		this.minutes = minutes;
 		this.rebounds = rebounds;
 		this.assists = ast;
-		this.fieldGoalPercentage = fgp;
-		this.threePointFieldGoalPercentage = tpp;
-		this.freeThrowPercentage = ftp;
 		this.offensiveRebounds = or;
 		this.defensiveRebounds = dr;
 		this.steals = stl;
@@ -100,6 +96,24 @@ public class PlayerBasicStatsVO implements StatsVO{
 		this.threePointFieldGoalsAttempted = tpa;
 		this.freeThrowsMade = ftm;
 		this.freeThrowsAttempted = fta;
+		
+		if(this.fieldGoalsAttempted > 0.001){
+			this.fieldGoalPercentage = this.fieldGoalsMade/this.fieldGoalsAttempted;
+		}else{
+			this.fieldGoalPercentage = 0;
+		}
+		
+		if(this.threePointFieldGoalsAttempted > 0.001){
+			this.threePointFieldGoalPercentage = this.threePointFieldGoalsMade/this.threePointFieldGoalsAttempted;
+		}else{
+			this.threePointFieldGoalPercentage = 0;
+		}
+		
+		if(this.freeThrowsAttempted > 0.001){
+			this.freeThrowPercentage = this.freeThrowsMade/this.freeThrowsAttempted;
+		}else{
+			this.freeThrowPercentage = 0;
+		}
 	}
 	
 	public double getFieldGoalsMade() {

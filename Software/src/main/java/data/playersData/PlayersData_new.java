@@ -496,5 +496,16 @@ public class PlayersData_new implements PlayersDataService_new {
 		
 		return 0;
 	}
+
+	@Override
+	public Teams getTeam(String player) throws PlayerNotFound {
+		for(Players_new p: players){
+			if(p.name.equals(player)){
+				return p.getTeam();
+			}
+		}
+		
+		throw new PlayerNotFound("");
+	}
 	
 }

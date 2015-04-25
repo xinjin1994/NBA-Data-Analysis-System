@@ -229,14 +229,11 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	private PlayerBasicStatsVO sum_basic(ArrayList<PlayerBasicStatsPO> poList) {
 		String name = poList.get(0).getName();
 		Teams team = poList.get(0).getTeam();
-		double games = 0;
+		double games = poList.size();
 		double gamesStarting = 0;
 		double minutes = 0;
 		double rebounds = 0;
 		double assists = 0;
-		double fieldGoalPercentage = 0;
-		double threePointFieldGoalPercentage = 0;
-		double freeThrowPercentage = 0;
 		double offensiveRebounds = 0;
 		double defensiveRebounds = 0;
 		double steals = 0;
@@ -251,27 +248,11 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		double tpa = 0;
 		double ftm = 0;
 		double fta = 0;
-		int fg_num = 0;       //两分数
-		int tp_num = 0;       //三分数
-		int ft_num = 0;       //罚球数
 		for(PlayerBasicStatsPO po: poList){
-			games++;
 			gamesStarting = po.isGamesStarting() ? gamesStarting + 1 : gamesStarting;
 			minutes += po.getMinutes();
 			rebounds += po.getRebounds();
 			assists += po.getAssists();
-			if(po.getFieldGoalsAttempted() > 0.001){
-				fieldGoalPercentage += po.getFieldGoalsMade()/po.getFieldGoalsAttempted();
-				fg_num++;
-			}
-			if(po.getThreePointFieldGoalsAttempted() > 0.001){
-				threePointFieldGoalPercentage += po.getThreePointFieldGoalsMade()/po.getThreePointFieldGoalsAttempted();
-				tp_num++;
-			}
-			if(po.getFreeThrowsAttempted() > 0.001){
-				freeThrowPercentage += po.getFreeThrowsMade()/po.getFreeThrowsAttempted();
-				ft_num++;
-			}
 			offensiveRebounds += po.getOffensiveRebounds();
 			defensiveRebounds += po.getDefensiveRebounds();
 			steals += po.getSteals();
@@ -290,19 +271,8 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			fta += po.getFreeThrowsAttempted();
 		}
 		
-		if(fg_num != 0){
-			fieldGoalPercentage /= fg_num;
-		}
-		if(tp_num != 0){
-			threePointFieldGoalPercentage /= tp_num;
-		}
-		if(ft_num != 0){
-			freeThrowPercentage /= ft_num;
-		}
-		
 		PlayerBasicStatsVO vo = new PlayerBasicStatsVO(name, team, games, gamesStarting, 
-				TypeTransform.minutes_to_str(minutes), rebounds, assists, fieldGoalPercentage,
-				threePointFieldGoalPercentage, freeThrowPercentage, offensiveRebounds, 
+				TypeTransform.minutes_to_str(minutes), rebounds, assists, offensiveRebounds, 
 				defensiveRebounds, steals, blocks, turnovers, personalFouls, points, doubleDoubles,
 				fgm, fga, tpm, tpa, ftm, fta);
 		
@@ -460,24 +430,12 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	}
 
 	@Override
-	public PlayerBasicStatsVO getBasicStats(String season,
-			Date date, String player) throws PlayerNotFound {
+	public PlayerBasicStatsVO getBasicStats(String season,Date date, String player) 
+			throws PlayerNotFound {
 		PlayerBasicStatsPO po= playerService.getBasicStats(season, 
 				TypeTransform.date_to_str(date), player);
-		double fgp = 0;
-		double tpp = 0;
-		double ftp = 0;
-		if(po.getFieldGoalsAttempted() != 0){
-			fgp = po.getFieldGoalsMade()/po.getFieldGoalsAttempted();
-		}
-		if(po.getThreePointFieldGoalsAttempted() != 0){
-			tpp = po.getThreePointFieldGoalsMade()/po.getThreePointFieldGoalsAttempted();
-		}
-		if(po.getFreeThrowsAttempted() != 0){
-			ftp = po.getFreeThrowsMade()/po.getFreeThrowsAttempted();
-		}
 		return new PlayerBasicStatsVO(po.getName(), po.getTeam(), 0, po.isGamesStarting()==true?1:0, 
-				TypeTransform.minutes_to_str(po.getMinutes()), po.getRebounds(), po.getAssists(), fgp, tpp, ftp, 
+				TypeTransform.minutes_to_str(po.getMinutes()), po.getRebounds(), po.getAssists(),
 				po.getOffensiveRebounds(), po.getDefensiveRebounds(), 
 				po.getSteals(), po.getBlocks(), po.getTurnovers(), po.getPersonalFouls(), 
 				po.getPoints(), po.isDoubleDouble()==true?1:0, po.getFieldGoalsMade(), 
@@ -1016,6 +974,11 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		} catch (PlayerNotFound e) {
 			return Position.UNKNOWN;
 		}
+	}
+
+	@Override
+	public Teams getTeam(String player) throws PlayerNotFound {
+		return playerService.getTeam(player);
 	}
 
 }

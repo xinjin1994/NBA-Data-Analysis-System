@@ -235,12 +235,12 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 		Teams team = poList.get(0).getTeam();
 		int games = poList.size();
 		int wins = poList.get(0).getWins();
-		int fg_num = 0;
-		int ft_num = 0;
-		int tp_num = 0;
-		double fieldGoalsPercentage = 0;
-		double freeThrowsPercentage = 0;
-		double threePointFieldGoalsPercentage = 0;
+		double fieldMade = 0;
+		double fieldAttempted = 0;
+		double freeMade = 0;
+		double freeAttempted = 0;
+		double threeMade = 0;
+		double threeAttempted = 0;
 		double offensiveRounds = 0;
 		double offensiveEfficiency = 0;
 		double defensiveEfficiency = 0;
@@ -249,9 +249,12 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 		double stealsEfficiency = 0;
 		double assistsEfficiency = 0;
 		for(TeamRatioGeneralStatsPO po: poList){
-			fieldGoalsPercentage += po.getFieldGoalsPercentage();
-			freeThrowsPercentage += po.getFreeThrowsPercentage();
-			threePointFieldGoalsPercentage += po.getThreePointFieldGoalsPercentage();
+			fieldMade += po.getFieldGoalsMade();
+			fieldAttempted += po.getFieldGoalsAttempted();
+			threeMade += po.getThreePointFieldGoalsMade();
+			threeAttempted += po.getThreePointFieldGoalsAttempted();
+			freeMade += po.getFreeThrowsMade();
+			freeAttempted += po.getFreeThrowsAttempted();
 		    offensiveRounds += po.getOffensiveRounds();
 			offensiveEfficiency += po.getOffensiveEfficiency();
 			defensiveEfficiency += po.getDefensiveEfficiency();
@@ -259,19 +262,29 @@ public class TeamsBL_new implements TeamsBLService_new, PlayersInTeamsService, T
 			defensiveReboundsEfficiency += po.getDefensiveReboundsEfficiency();
 			stealsEfficiency += po.getStealsEfficiency();
 			assistsEfficiency += po.getAssistsEfficiency();
-			if(po.getFieldGoalsAttempted() != 0){
-				fg_num++;
-			}
-			if(po.getFreeThrowsAttempted() != 0){
-				ft_num++;
-			}
-			if(po.getThreePointFieldGoalsAttempted() != 0){
-				tp_num++;
-			}
 		}
 		
-		TeamRatioGeneralVO vo = new TeamRatioGeneralVO(team, games, fieldGoalsPercentage/fg_num, 
-				freeThrowsPercentage/ft_num, threePointFieldGoalsPercentage/tp_num, 
+		double fieldGoalsPercentage;
+		double threePointFieldGoalsPercentage;
+		double freeThrowsPercentage;
+		if(fieldMade > 0.001){
+			fieldGoalsPercentage = fieldMade/fieldAttempted;
+		}else{
+			fieldGoalsPercentage = 0;
+		}
+		if(threeMade > 0.001){
+			threePointFieldGoalsPercentage = threeMade/threeAttempted;
+		}else{
+			threePointFieldGoalsPercentage = 0;
+		}
+		if(freeMade > 0.001){
+			freeThrowsPercentage = freeMade/freeAttempted;
+		}else{
+			freeThrowsPercentage = 0;
+		}
+		
+		TeamRatioGeneralVO vo = new TeamRatioGeneralVO(team, games, fieldGoalsPercentage, 
+				freeThrowsPercentage, threePointFieldGoalsPercentage,
 				offensiveRounds, offensiveEfficiency/games, 
 				defensiveEfficiency/games, offensiveReboundsEfficiency/games, 
 				defensiveReboundsEfficiency/games, stealsEfficiency/games, 

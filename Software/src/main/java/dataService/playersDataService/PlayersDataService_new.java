@@ -44,4 +44,6 @@ public interface PlayersDataService_new {
 	//获取进步最快的球员
 	public ArrayList<PlayerProgressPO> getPlayerProgress(String season, Terminology term, int num);
 	public double getPlayerProgress_single(String player, Terminology term, int num);
+	
+	public Teams getTeam(String player) throws PlayerNotFound;
 }
