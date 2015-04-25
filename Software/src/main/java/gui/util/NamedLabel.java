@@ -1,5 +1,7 @@
 package gui.util;
 
+import java.awt.Font;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -43,5 +45,9 @@ public class NamedLabel extends JLabel {
 	public String getvalue() {
 		return value;
 	}
-
+	
+	public void setFontSize(int size){
+		this.setFont(new Font(this.getFont().getName(),Font.BOLD,size));
+	}
+	
 }

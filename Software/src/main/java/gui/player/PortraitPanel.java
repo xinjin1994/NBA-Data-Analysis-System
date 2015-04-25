@@ -17,6 +17,7 @@ import java.awt.Component;
 
 import javax.swing.border.CompoundBorder;
 
+import enums.Position;
 import vo.PlayerPortraitVO;
 
 public class PortraitPanel extends JPanel {
@@ -61,6 +62,12 @@ public class PortraitPanel extends JPanel {
 		lblName.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(lblName);
 	}
+	public PortraitPanel(ImageIcon image, String name,double portion,Position position) {
+		this(image,name,portion);
+		JLabel lbl_position = new JLabel(position.toString());
+		lbl_position.setAlignmentX(0.5f);
+		add(lbl_position);
+	}
 	public PortraitPanel(String name,double portion) {
 		this.name = name;
 		
@@ -82,6 +89,12 @@ public class PortraitPanel extends JPanel {
 		this(playerPortraitVO.getPortrait(),playerPortraitVO.getName());
 	}
 
+	public PortraitPanel(String name,double portion,Position position) {
+		this(name,portion);
+		JLabel lbl_position = new JLabel(position.toString());
+		lbl_position.setAlignmentX(0.5f);
+		add(lbl_position);
+	}
 	public String getName() {
 		return name;
 	}
