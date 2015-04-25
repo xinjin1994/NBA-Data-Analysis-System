@@ -20,6 +20,7 @@ import vo.Title;
 
 public interface PlayersBLService_new {
 	//获取所有球员头像
+	public ArrayList<PlayerPortraitVO> getPlayersPortrait(char ch) throws PlayerNotFound;
 	public ArrayList<PlayerPortraitVO> getPlayersPortrait(Conference con, Division div, Position pos) throws PlayerNotFound;
 	public ArrayList<PlayerPortraitVO> getPlayerPortrait(String name) throws PlayerNotFound;
 	

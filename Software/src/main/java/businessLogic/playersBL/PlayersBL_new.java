@@ -111,9 +111,35 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	@Override
 	public ArrayList<PlayerPortraitVO> getPlayerPortrait(String name)
 			throws PlayerNotFound {
+		ArrayList<String> names = this.getPlayers(Conference.NATIONAL, Division.NATIONAL, Position.ALL);
 		ArrayList<PlayerPortraitVO> list = new ArrayList<PlayerPortraitVO>();
-		PlayerPortraitVO vo = new PlayerPortraitVO(name, imageService.getPlayerPortrait(name));
-		list.add(vo);
+		for(String nm: names){
+			if(nm.toLowerCase().contains(name.toLowerCase())){
+				PlayerPortraitVO vo = new PlayerPortraitVO(nm, imageService.getPlayerPortrait(nm));
+				vo.setVisits(favourites.getVisits(nm));
+				list.add(vo);
+			}
+		}
+		
+		Collections.sort(list, new SortPortrait());
+		return list;
+	}
+	
+	@Override
+	public ArrayList<PlayerPortraitVO> getPlayersPortrait(char ch) throws PlayerNotFound {
+		ArrayList<String> names = this.getPlayers(Conference.NATIONAL, Division.NATIONAL, Position.ALL);
+		ArrayList<PlayerPortraitVO> list = new ArrayList<PlayerPortraitVO>();
+		for(String name: names){
+			String[] arr = name.split(" ");
+			char c = arr[1].charAt(0);
+			if(c == ch + 32 || c == ch){
+				PlayerPortraitVO vo = new PlayerPortraitVO(name, imageService.getPlayerPortrait(name));
+				vo.setVisits(favourites.getVisits(name));
+				list.add(vo);
+			}
+		}
+		
+		Collections.sort(list, new SortPortrait());
 		return list;
 	}
 
