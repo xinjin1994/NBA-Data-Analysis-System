@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import enums.Teams;
+import enums.Terminology;
+import exceptions.TermNotFound;
 
 public class MatchVO {
 	//
@@ -64,6 +66,21 @@ public class MatchVO {
 		return score;
 	}
 
+	public String getScore(int i) throws TermNotFound{
+		switch(i){
+		case 1:
+			return score1;
+		case 2:
+			return score2;
+		case 3:
+			return score3;
+		case 4:
+			return score4;
+		default:
+			throw new TermNotFound(Terminology.PTS);
+		}
+	}
+	
 	public String getScore1() {
 		return score1;
 	}

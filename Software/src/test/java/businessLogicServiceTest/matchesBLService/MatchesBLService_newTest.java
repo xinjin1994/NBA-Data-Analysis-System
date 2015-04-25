@@ -35,9 +35,9 @@ public class MatchesBLService_newTest extends TestCase {
 	
 	public void testGetMatchesVO() {
 		String season = null;
-		String date = "03-02";
+		String date = null;
 		Teams team1 = Teams.ALL;
-		Teams team2 = Teams.ATL;
+		Teams team2 = Teams.ALL;
 		try {
 			ArrayList<MatchVO> list = service.getMatchesVO(season, date, team1, team2);
 			assertTrue(list.size() == 1);
