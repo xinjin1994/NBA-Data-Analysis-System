@@ -1,6 +1,7 @@
 package businessLogicServiceTest.playersBLService;
 
 import helper.TypeTransform;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import data.init.DataInit;
 import enums.Conference;
 import enums.Division;
 import enums.Position;
+import enums.Teams;
 import enums.Terminology;
 import exceptions.PlayerNotFound;
 import businessLogic.playersBL.PlayersBL_new;
@@ -157,6 +159,12 @@ public class PlayersBLService_newTest extends TestCase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void testGetTeamMembers(){
+		Teams team = Teams.MIA;
+		ArrayList<PlayerVO> members = service.getTeamMembers(team);
+		System.out.println(members.size());
 	}
 
 }

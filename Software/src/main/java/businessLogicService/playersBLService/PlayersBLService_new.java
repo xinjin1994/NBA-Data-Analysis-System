@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import enums.Conference;
 import enums.Division;
 import enums.Position;
+import enums.Teams;
 import enums.Terminology;
 import exceptions.NoTitle;
 import exceptions.PlayerNotFound;
@@ -60,7 +61,11 @@ public interface PlayersBLService_new {
 	
 	
 	
+	//获取某个球队的球员名单
+	public ArrayList<PlayerVO> getTeamMembers(Teams team);
 	
+	//获取某场比赛某个球员的位置
+	public Position getPlayerPosition(String season, Date date, String name);
 	
 	//关注球员
 	public void favouritePlayers(String name);

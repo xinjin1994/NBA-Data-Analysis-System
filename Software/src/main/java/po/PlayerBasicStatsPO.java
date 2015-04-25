@@ -1,3 +1,4 @@
+
 package po;
 
 import data.playersData.PlayerBasicStats_new;
@@ -98,5 +99,4 @@ public class PlayerBasicStatsPO {
 	public boolean isDoubleDouble() {
 		return stats.isDoubleDouble();
 	}
-	
 }

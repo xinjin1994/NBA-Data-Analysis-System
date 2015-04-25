@@ -991,4 +991,31 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		}
 	}
 
+	@Override
+	public ArrayList<PlayerVO> getTeamMembers(Teams team) {
+		try {
+			ArrayList<String> members = playerService.getPlayers(team, Position.ALL);
+			ArrayList<PlayerVO> list = new ArrayList<PlayerVO>();
+			for(String name: members){
+				PlayerVO vo = this.getPlayerInfo(name);
+				list.add(vo);
+			}
+			return list;
+		} catch (PlayerNotFound e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
+	@Override
+	public Position getPlayerPosition(String season, Date date, String name) {
+		try {
+			PlayerBasicStatsPO po = playerService.getBasicStats(season, TypeTransform.date_to_str(date), name);
+			return po.getPosition();
+		} catch (PlayerNotFound e) {
+			return Position.UNKNOWN;
+		}
+	}
+
 }

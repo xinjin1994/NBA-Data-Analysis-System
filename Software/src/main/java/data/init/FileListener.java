@@ -17,12 +17,13 @@ public class FileListener {
 	Path path;
 	AddData addData;
 	String filepath;
+	boolean createFile = false;
 	
 	public FileListener(String filepath) throws IOException {
 		this.filepath = filepath;
 		path = Paths.get(filepath);
 		watcher = FileSystems.getDefault().newWatchService();
-		path.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+		path.register(watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY);
 		addData = new AddData();
 	}
 	
@@ -36,13 +37,19 @@ public class FileListener {
 					continue;
 				}
 				
-				WatchEvent<Path> e = (WatchEvent<Path>)event;
+				if(kind == StandardWatchEventKinds.ENTRY_CREATE){
+					createFile = true;
+				}
 				
-				Path filepath_Path = e.context();
-				String filename = filepath_Path.getFileName().toString();
-				String newFile = filepath + "\\" + filename;
-				addData.AddMatch(newFile);
-				System.out.println("Add File " + newFile);
+				if(kind == StandardWatchEventKinds.ENTRY_MODIFY && createFile == true){
+					WatchEvent<Path> e = (WatchEvent<Path>)event;
+					createFile = false;
+					Path filepath_Path = e.context();
+					String filename = filepath_Path.getFileName().toString();
+					String newFile = filepath + "\\" + filename;
+					addData.AddMatch(newFile);
+					System.out.println("Add File " + newFile);
+				}
 			}
 			
 			if(!key.reset()){
