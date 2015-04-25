@@ -124,7 +124,7 @@ public class TeamsBLService_newTest extends TestCase {
 	
 	public void testGetSeasonData(){
 		String season = "13-14";
-		Teams team = Teams.OKC;
+		Teams team = Teams.BOS;
 		try {
 			TeamOffensiveStatsVO list1 = service.getTeamOffensiveStatsAverage(season, team);
 			TeamDefensiveFoulsVO list2 = service.getTeamDefensiveFoulsStatsAverage(season, team);

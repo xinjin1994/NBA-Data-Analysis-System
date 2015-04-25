@@ -17,6 +17,7 @@ import data.teamsData.TeamsData_new;
 import data.teamsData.Teams_new;
 import enums.Teams;
 
+
 public class DataInit {
 	HashMap<String, Players_new> playerMap;
 	HashMap<Teams, Teams_new> teamMap;
@@ -78,13 +79,7 @@ public class DataInit {
 			
 			ArrayList<TeamStats_new> teams = calculator.getTeamStats();
 			for(TeamStats_new team: teams){
-				Teams team_enum;
-				if(team.getTeam().equals(Teams.NOH)){
-					team_enum = Teams.NOP;
-				}else{
-					team_enum = team.getTeam();
-				}
-				teamMap.get(team_enum).addStats(team);
+				teamMap.get(team.getTeam()).addStats(team);
 			}
 			
 			matchList.add(calculator.getMatchStats());
