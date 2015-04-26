@@ -7,12 +7,9 @@ import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
-import gui.enums.PanelType;
 import gui.player.PlayerSearch;
 import gui.player.SearchPlayerPanel;
 import gui.util.LeftAlignTableRenderer;
-import gui.util.ReturnButton;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -135,18 +132,6 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		pnl_selection.add(rdibtn_total);
 		add(pnl_selection, gbc_pnl_selection);
 		
-		ReturnButton btn_return = new ReturnButton();
-		GridBagConstraints gbc_btn_return = new GridBagConstraints();
-		btn_return.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				MainFrame.mf.gotoPanel(PanelType.STATISTIC);
-			}
-		});
-		gbc_btn_return.gridx = 1;
-		gbc_btn_return.gridy = 4;
-		gbc_btn_return.anchor = GridBagConstraints.SOUTHWEST;
-		add(btn_return,gbc_btn_return);
 	}
 	
 	class RadioButtonListener implements ActionListener{

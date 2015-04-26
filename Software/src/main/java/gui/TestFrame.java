@@ -9,6 +9,7 @@ import gui.hot.HotPlayerPanel_today;
 import gui.match.MatchItemPanel_Small;
 import gui.match.RecentMatchPanel;
 import gui.player.PlayerLabel;
+import gui.util.GUIUtility;
 import gui.util.VerticalLabel;
 import gui.util.AdjustableTable.CheckComboBox;
 
@@ -50,7 +51,7 @@ public class TestFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public TestFrame() {
-		new DataInit().init();
+		//new DataInit().init();
 		
 		this.setSize(new Dimension(200,200));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,7 +61,7 @@ public class TestFrame extends JFrame {
 		contentPane.setLayout(new FlowLayout());
 		setContentPane(contentPane);
 		
-		contentPane.add(new PlayerLabel("Andre Iguodala"));
+		contentPane.add(new JLabel(GUIUtility.formatDouble(37.101d)));
 	}
 
 }

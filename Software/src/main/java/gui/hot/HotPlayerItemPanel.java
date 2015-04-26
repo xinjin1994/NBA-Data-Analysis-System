@@ -39,7 +39,9 @@ public class HotPlayerItemPanel extends JPanel {
 		}
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
-		add(new NamedLabel(term,GUIUtility.formatDouble(players.get(0).getStats()),average));
+		NamedLabel lbl_stat = new NamedLabel(term,GUIUtility.formatDouble(players.get(0).getStats()),average);
+		lbl_stat.setAlignmentX(0.5f);
+		add(lbl_stat);
 		
 		try {
 			PlayerVO vo = playerbl.getPlayerInfo(players.get(0).getName());

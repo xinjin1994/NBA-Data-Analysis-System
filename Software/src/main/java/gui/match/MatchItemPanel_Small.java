@@ -3,6 +3,8 @@ package gui.match;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
 import javax.swing.Box;
@@ -67,6 +69,15 @@ public class MatchItemPanel_Small extends JPanel {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		pnl_team.add(label);
 		pnl_team.add(lbl_guest_score);
+		
+		this.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent me){
+				if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 2){
+					new MatchDialog(vo).setVisible(true);
+				}
+			}
+		});
 	}
 	public MatchItemPanel_Small(MatchVO vo,boolean displayDate){
 		this(displayDate);

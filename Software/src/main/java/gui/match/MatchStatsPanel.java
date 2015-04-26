@@ -4,6 +4,7 @@ import exceptions.PlayerNotFound;
 import exceptions.TermNotFound;
 import factory.ObjectCreator;
 import gui.player.PortraitPanel;
+import gui.player.detail.PlayerDetailDialog;
 import gui.player.detail.PlayerMatchStatsPanel;
 import gui.team.TeamMatchStatsPanel;
 import gui.util.NamedLabel;
@@ -147,8 +148,13 @@ public class MatchStatsPanel extends JPanel{
 		}
 		@Override
 		public void mouseClicked(MouseEvent me){
-			pnl.add(new PlayerMatchStatsPanel(playerbl,list.getSelectedValue().getName(),season,date),"M");
-			((CardLayout)pnl.getLayout()).show(pnl, "M");
+			if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 1){
+				pnl.add(new PlayerMatchStatsPanel(playerbl,list.getSelectedValue().getName(),season,date),"M");
+				((CardLayout)pnl.getLayout()).show(pnl, "M");
+			}
+			else if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 2){
+				new PlayerDetailDialog(list.getSelectedValue().getName()).setVisible(true);
+			}
 		}
 	}
 }

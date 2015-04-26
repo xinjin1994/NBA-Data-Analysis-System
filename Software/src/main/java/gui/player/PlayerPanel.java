@@ -7,9 +7,7 @@ import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
-import gui.enums.PanelType;
 import gui.player.detail.PlayerDetailDialog;
-import gui.util.ReturnButton;
 
 import java.awt.Component;
 import java.awt.Graphics;
@@ -17,8 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -122,19 +118,6 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 		gbc_pnl_search.gridy = 1;
 		gbc_pnl_search.fill = GridBagConstraints.HORIZONTAL;
 		add(pnl_search, gbc_pnl_search);
-		
-		ReturnButton btn_return = new ReturnButton();
-		btn_return.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				MainFrame.mf.gotoPanel(PanelType.MENU);
-			}
-		});
-		GridBagConstraints gbc_btn_return = new GridBagConstraints();
-		gbc_btn_return.gridx = 1;
-		gbc_btn_return.gridy = 4;
-		gbc_btn_return.anchor = GridBagConstraints.SOUTHWEST;
-		add(btn_return,gbc_btn_return);
 		
 		list.addMouseListener(new MouseAdapter(){
 			@Override

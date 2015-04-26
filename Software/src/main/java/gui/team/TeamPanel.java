@@ -3,11 +3,8 @@ package gui.team;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-
-import javax.swing.JList;
 
 import vo.TeamVO;
 import data.init.DataInit;
@@ -24,9 +21,6 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.JScrollPane;
-import javax.swing.ListCellRenderer;
-
-import java.awt.FlowLayout;
 
 public class TeamPanel extends JPanel {
 	private static final long serialVersionUID = 7485651519540450895L;

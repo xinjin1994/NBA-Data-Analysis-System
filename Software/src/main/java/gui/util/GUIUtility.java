@@ -1,21 +1,9 @@
 package gui.util;
 
-import gui.MainFrame;
-
-import java.awt.Component;
-import java.awt.Frame;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 public class GUIUtility {
-
+/*
 	public static FocusAdapter getFocusAdapter(){
 		return new FocusAdapter() {
 			@Override
@@ -82,7 +70,7 @@ public class GUIUtility {
 			}			
 		}		
 	}
-	
+	*/
 	public static String formatDouble(double d){
 		if(d == Double.NaN) return "0.0";
 		DecimalFormat nf;

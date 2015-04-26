@@ -1,6 +1,6 @@
 package gui;
 
-import gui.enums.PanelType;
+import enums.PanelType;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
