@@ -39,7 +39,7 @@ public class MatchPO implements DataSortByDate {
 		if(arr2.length == 5){
 			scoreExtra = arr2[4];
 		}else{
-			scoreExtra = "无";
+			scoreExtra = null;
 		}
 	}
 	

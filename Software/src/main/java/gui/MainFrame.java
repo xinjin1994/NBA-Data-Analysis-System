@@ -1,3 +1,4 @@
+
 package gui;
 
 import gui.match.Season;
@@ -125,3 +126,4 @@ public class MainFrame extends FrameRefreshable{
 		dia.dispose();
 	}
 }
+

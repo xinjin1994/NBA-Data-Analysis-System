@@ -1,3 +1,4 @@
+
 package gui.player;
 
 import enums.Conference;
@@ -161,3 +162,4 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 	}
 
 }
+
