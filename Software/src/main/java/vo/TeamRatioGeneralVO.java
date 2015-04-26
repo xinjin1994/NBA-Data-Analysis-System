@@ -38,6 +38,7 @@ public class TeamRatioGeneralVO implements StatsVO{
 		this.stealsEfficiency = stl;
 		this.assistsEfficiency = ast;
 		this.wins = wins;
+		this.winningRating = (double)wins/games;
 	}
 	
 	public void average(){
@@ -65,7 +66,7 @@ public class TeamRatioGeneralVO implements StatsVO{
 	}
 
 	public double getWinningRating() {
-		return (double)100*wins/games;
+		return 100*winningRating;
 	}
 
 	public double getOffensiveRounds() {
@@ -114,40 +115,40 @@ public class TeamRatioGeneralVO implements StatsVO{
 		double d;
 		switch(term){
 		case FGP:
-			d = this.fieldGoalsPercentage;
+			d = this.getFieldGoalsPercentage();
 			break;
 		case FTP:
-			d = this.freeThrowsPercentage;
+			d = this.getFreeThrowsPercentage();
 			break;
 		case TPP:
-			d = this.threePointFieldGoalsPercentage;
+			d = this.getThreePointFieldGoalsPercentage();
 			break;
 		case WINR:
-			d = this.winningRating;
+			d = this.getWinningRating();
 			break;
 		case OFR:
-			d = this.offensiveRounds;
+			d = this.getOffensiveRounds();
 			break;
 		case OFE:
-			d = this.offensiveEfficiency;
+			d = this.getOffensiveEfficiency();
 			break;
 		case DFE:
-			d = this.defensiveEfficiency;
+			d = this.getDefensiveEfficiency();
 			break;
 		case OREBDE:
-			d = this.offensiveReboundsEfficiency;
+			d = this.getOffensiveReboundsEfficiency();
 			break;
 		case DREBDE:
-			d = this.defensiveReboundsEfficiency;
+			d = this.getDefensiveReboundsEfficiency();
 			break;
 		case STLE:
-			d = this.stealsEfficiency;
+			d = this.getStealsEfficiency();
 			break;
 		case ASTE:
-			d = this.assistsEfficiency;
+			d = this.getAssistsEfficiency();
 			break;
 		case GMWIN:
-			d = Math.round(this.winningRating*games);
+			d =this.getWins();
 			break;
 		default:
 			throw new TermNotFound(term);

@@ -129,29 +129,29 @@ public class PlayerAdvancedStatsVO implements StatsVO{
 	public String getProperty(Terminology term) throws TermNotFound{
 		switch(term){
 		case PER:
-			return GUIUtility.formatDouble(this.efficiency);
+			return GUIUtility.formatDouble(this.getEfficiency());
 		case GMSC:
-			return GUIUtility.formatDouble(this.GmSc);
+			return GUIUtility.formatDouble(this.getGmSc());
 		case TSP:
-			return GUIUtility.formatDouble(this.trueScorePercent);
+			return GUIUtility.formatDouble(this.getTrueScorePercent());
 		case FGE:
-			return GUIUtility.formatDouble(this.fieldGoalEfficiency);
+			return GUIUtility.formatDouble(this.getFieldGoalEfficiency());
 		case REBP:
-			return GUIUtility.formatDouble(this.reboundsPercent);
+			return GUIUtility.formatDouble(this.getReboundsPercent());
 		case OREBP:
-			return GUIUtility.formatDouble(this.offensiveReboundsPercent);
+			return GUIUtility.formatDouble(this.getOffensiveReboundsPercent());
 		case DREBP:
-			return GUIUtility.formatDouble(this.defensiveReboundsPercent);
+			return GUIUtility.formatDouble(this.getDefensiveReboundsPercent());
 		case ASTP:
-			return GUIUtility.formatDouble(this.assistsPercent);
+			return GUIUtility.formatDouble(this.getAssistsPercent());
 		case STLP:
-			return GUIUtility.formatDouble(this.stealsPercent);
+			return GUIUtility.formatDouble(this.getStealsPercent());
 		case BLKP:
-			return GUIUtility.formatDouble(this.blocksPercent);
+			return GUIUtility.formatDouble(this.getBlocksPercent());
 		case TOVP:
-			return GUIUtility.formatDouble(this.turnoversPercent);
+			return GUIUtility.formatDouble(this.getTurnoversPercent());
 		case USGP:
-			return GUIUtility.formatDouble(this.usagePercent);
+			return GUIUtility.formatDouble(this.getUsagePercent());
 		default:
 			throw new TermNotFound(term);
 		}

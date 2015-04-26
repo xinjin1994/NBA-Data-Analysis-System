@@ -255,37 +255,37 @@ public class PlayerBasicStatsVO implements StatsVO{
 		case PREMIERE:
 			return GUIUtility.formatDouble(this.gamesStarting);
 		case REB:
-			return GUIUtility.formatDouble(this.rebounds);
+			return GUIUtility.formatDouble(this.getRebounds());
 		case AST:
-			return GUIUtility.formatDouble(this.assists);
+			return GUIUtility.formatDouble(this.getAssists());
 		case MIN:
 			return minutes;
 		case FGP:
-			return GUIUtility.formatDouble(this.fieldGoalPercentage);
+			return GUIUtility.formatDouble(this.getFieldGoalPercentage());
 		case TPP:
-			return GUIUtility.formatDouble(this.threePointFieldGoalPercentage);
+			return GUIUtility.formatDouble(this.getThreePointFieldGoalPercentage());
 		case FTP:
-			return GUIUtility.formatDouble(this.freeThrowPercentage);
+			return GUIUtility.formatDouble(this.getFreeThrowPercentage());
 		case OFR:
-			return GUIUtility.formatDouble(this.offensiveRebounds);
+			return GUIUtility.formatDouble(this.getOffensiveRebounds());
 		case DFR:
-			return GUIUtility.formatDouble(this.defensiveRebounds);
+			return GUIUtility.formatDouble(this.getDefensiveRebounds());
 		case TOV:
-			return GUIUtility.formatDouble(this.turnovers);
+			return GUIUtility.formatDouble(this.getTurnovers());
 		case STL:
-			return GUIUtility.formatDouble(this.steals);
+			return GUIUtility.formatDouble(this.getSteals());
 		case BLK:
-			return GUIUtility.formatDouble(this.blocks);
+			return GUIUtility.formatDouble(this.getBlocks());
 		case PF:
-			return GUIUtility.formatDouble(this.personalFouls);
+			return GUIUtility.formatDouble(this.getPersonalFouls());
 		case PTS:
-			return GUIUtility.formatDouble(this.points);
+			return GUIUtility.formatDouble(this.getPoints());
 		case FGM:
-			return GUIUtility.formatDouble(this.fieldGoalsMade);
+			return GUIUtility.formatDouble(this.getFieldGoalsMade());
 		case TPM:
-			return GUIUtility.formatDouble(this.threePointFieldGoalsMade);
+			return GUIUtility.formatDouble(this.getThreePointFieldGoalsMade());
 		case FTM:
-			return GUIUtility.formatDouble(this.freeThrowsMade);
+			return GUIUtility.formatDouble(this.getFreeThrowsMade());
 		default:
 			throw new TermNotFound(term);
 		}

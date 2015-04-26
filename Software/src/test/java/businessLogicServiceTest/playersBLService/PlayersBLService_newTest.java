@@ -149,10 +149,10 @@ public class PlayersBLService_newTest extends TestCase {
 	}
 	
 	public void testGetPlayerStats(){
-		String name = "Norris Cole";
+		String name = "Adonis Thomas";
 		String season = "13-14";
 		try {
-			PlayerBasicStatsVO basic = service.getBasicPlayerStatsAverage(season, name);
+			PlayerBasicStatsVO basic = service.getBasicPlayerStatsTotal(season, name);
 			PlayerAdvancedStatsVO advanced = service.getAdvancedPlayerStats(season, name);
 			System.out.println();
 		} catch (PlayerNotFound e) {
