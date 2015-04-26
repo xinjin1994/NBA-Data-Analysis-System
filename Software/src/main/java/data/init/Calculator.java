@@ -298,7 +298,7 @@ public class Calculator {
 		if(Integer.parseInt(point[0])<=Integer.parseInt(point[1])){
 			win=true;
 		}
-		ArrayList<PlayerStatsPO> team2player=match.team1Players();
+		ArrayList<PlayerStatsPO> team2player=match.team2Players();
 		for(PlayerStatsPO playerpo:team2player){
 			fieldGoalsMade=fieldGoalsMade+playerpo.fieldGoalsMade();                          
 			fieldGoalsAttempted=fieldGoalsAttempted+playerpo.fieldGoalsAttempted();              		
