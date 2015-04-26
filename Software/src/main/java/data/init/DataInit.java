@@ -1,5 +1,6 @@
 package data.init;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,6 +33,24 @@ public class DataInit {
 		playerMap = new HashMap<String, Players_new>();
 		teamMap = new HashMap<Teams, Teams_new>();
 		matchList = new ArrayList<Matches_new>();
+		
+		Thread t = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				String path = "matches";
+				try {
+					FileListener listener = new FileListener(path);
+					while(true){
+						listener.start();
+					}
+				} catch (IOException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		t.start();
 	}
 	
 	public DataInit(String filepath){
@@ -39,6 +58,24 @@ public class DataInit {
 		playerMap = new HashMap<String, Players_new>();
 		teamMap = new HashMap<Teams, Teams_new>();
 		matchList = new ArrayList<Matches_new>();
+		
+		Thread t = new Thread(new Runnable(){
+			@Override
+			public void run() {
+				String path = filepath + "/matches";
+				try {
+					FileListener listener = new FileListener(path);
+					while(true){
+						listener.start();
+					}
+				} catch (IOException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		t.start();
 	}
 	
 	public void init(){

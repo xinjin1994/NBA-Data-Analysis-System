@@ -142,6 +142,9 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 			}
 		}
 		
+		if(poList.size() == 0){
+			throw new TeamNotFound("");
+		}
 		return poList;
 	}
 
@@ -177,6 +180,9 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 			}
 		}
 		
+		if(poList.size() == 0){
+			throw new TeamNotFound("");
+		}
 		return poList;
 	}
 
@@ -200,6 +206,9 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 			}
 		}
 		
+		if(poList.size() == 0){
+			throw new TeamNotFound("");
+		}
 		return poList;
 	}
 	

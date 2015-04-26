@@ -46,4 +46,5 @@ public interface PlayersDataService_new {
 	public double getPlayerProgress_single(String player, Terminology term, int num);
 	
 	public Teams getTeam(String player) throws PlayerNotFound;
+	public Teams getTeam(String season, String date, String player) throws PlayerNotFound;
 }

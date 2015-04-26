@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 import gui.util.GUIUtility;
 import helper.TypeTransform;
 import businessLogic.playersBL.BasicPlayerStats;
+import enums.Position;
 import enums.Teams;
 import enums.Terminology;
 import exceptions.TermNotFound;
@@ -13,6 +14,7 @@ public class PlayerBasicStatsVO implements StatsVO{
 	//
 	String name;                                     //姓名
 	Teams team;                                      //所属球队
+	Position position;                               //位置
 	double games;                                    //参赛场数
 	double gamesStarting;                            //先发场数
 	String minutes;                                  //在场时间
@@ -70,12 +72,13 @@ public class PlayerBasicStatsVO implements StatsVO{
 		this.points = stats.points();
 	}
 	
-	public PlayerBasicStatsVO(String name, Teams team, double games, double gamesStarting, 
+	public PlayerBasicStatsVO(String name, Teams team, Position position, double games, double gamesStarting, 
 			String minutes, double rebounds, double ast,double or, double dr, double stl, 
 			double blk, double tov, double fouls, double pts, double dd, double fgm, double fga, 
 			double tpm, double tpa, double ftm, double fta){
 		this.name = name;
 		this.team = team;
+		this.position = position;
 		this.games = games;
 		this.gamesStarting = gamesStarting;
 		this.minutes = minutes;
@@ -175,6 +178,10 @@ public class PlayerBasicStatsVO implements StatsVO{
 
 	public Teams getTeam() {
 		return team;
+	}
+	
+	public Position getPosition(){
+		return position;
 	}
 
 	public double getGames() {

@@ -507,5 +507,23 @@ public class PlayersData_new implements PlayersDataService_new {
 		
 		throw new PlayerNotFound("");
 	}
+
+	@Override
+	public Teams getTeam(String season, String date, String player)
+			throws PlayerNotFound {
+		for(Players_new p: players){
+			if(p.name.equals(player)){
+				for(PlayerStats_new stats: p.stats){
+					if(stats.season.equals(season) && stats.date.equals(date)){
+						return stats.team;
+					}
+				}
+				
+				break;
+			}
+		}
+		
+		throw new PlayerNotFound("");
+	}
 	
 }
