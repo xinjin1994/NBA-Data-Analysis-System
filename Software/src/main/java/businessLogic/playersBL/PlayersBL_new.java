@@ -255,6 +255,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	private PlayerBasicStatsVO sum_basic(ArrayList<PlayerBasicStatsPO> poList) {
 		String name = poList.get(0).getName();
 		Teams team = poList.get(0).getTeam();
+		Position position = poList.get(0).getPosition();
 		double games = poList.size();
 		double gamesStarting = 0;
 		double minutes = 0;
@@ -297,7 +298,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			fta += po.getFreeThrowsAttempted();
 		}
 		
-		PlayerBasicStatsVO vo = new PlayerBasicStatsVO(name, team, games, gamesStarting, 
+		PlayerBasicStatsVO vo = new PlayerBasicStatsVO(name, team, position, games, gamesStarting, 
 				TypeTransform.minutes_to_str(minutes), rebounds, assists, offensiveRebounds, 
 				defensiveRebounds, steals, blocks, turnovers, personalFouls, points, doubleDoubles,
 				fgm, fga, tpm, tpa, ftm, fta);
@@ -460,7 +461,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 			throws PlayerNotFound {
 		PlayerBasicStatsPO po= playerService.getBasicStats(season, 
 				TypeTransform.date_to_str(date), player);
-		return new PlayerBasicStatsVO(po.getName(), po.getTeam(), 0, po.isGamesStarting()==true?1:0, 
+		return new PlayerBasicStatsVO(po.getName(), po.getTeam(), po.getPosition(), 0, po.isGamesStarting()==true?1:0, 
 				TypeTransform.minutes_to_str(po.getMinutes()), po.getRebounds(), po.getAssists(),
 				po.getOffensiveRebounds(), po.getDefensiveRebounds(), 
 				po.getSteals(), po.getBlocks(), po.getTurnovers(), po.getPersonalFouls(), 
@@ -1000,6 +1001,12 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 		} catch (PlayerNotFound e) {
 			return Position.UNKNOWN;
 		}
+	}
+	
+	@Override
+	public Teams getTeam(String season, Date date, String name)
+			throws PlayerNotFound {
+		return playerService.getTeam(season, TypeTransform.date_to_str(date), name);
 	}
 
 	@Override

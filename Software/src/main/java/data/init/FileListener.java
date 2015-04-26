@@ -1,5 +1,7 @@
 package data.init;
 
+import gui.MainFrame;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -48,6 +50,7 @@ public class FileListener {
 					String filename = filepath_Path.getFileName().toString();
 					String newFile = filepath + "\\" + filename;
 					addData.AddMatch(newFile);
+					MainFrame.refreshAll();
 					System.out.println("Add File " + newFile);
 				}
 			}
