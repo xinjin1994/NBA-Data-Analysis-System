@@ -8,7 +8,7 @@ import exceptions.PlayerNotFound;
 import gui.hot.HotPlayerPanel_today;
 import gui.match.MatchItemPanel_Small;
 import gui.match.RecentMatchPanel;
-import gui.player.PlayerLabel;
+import gui.team.TeamLabel;
 import gui.util.GUIUtility;
 import gui.util.VerticalLabel;
 import gui.util.AdjustableTable.CheckComboBox;

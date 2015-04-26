@@ -65,7 +65,7 @@ public class MainFrame extends FrameRefreshable{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(800, 640));
-		this.setResizable(false);
+		//this.setResizable(false);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

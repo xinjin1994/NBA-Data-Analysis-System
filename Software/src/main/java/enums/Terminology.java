@@ -2,7 +2,7 @@ package enums;
 
 public enum Terminology {
 	//各种NBA中的专业术语
-	NAME("名字"), TEAM("球队"), GM("比赛场数"), GMSTR("先发场数"), MIN("在场时间"), 
+	NAME("名字"), TEAM("球队"),POSITION("位置"), GM("比赛场数"), GMSTR("先发场数"), MIN("在场时间"), 
 	FGM("投篮命中数"), FGA("投篮出手数"), FGP("投篮命中率"), 
 	TPM("三分命中数"), TPA("三分出手数"), TPP("三分命中率"), 
 	FTM("罚球命中数"), FTA("罚球出手数"), FTP("罚球命中率"), 
@@ -101,7 +101,7 @@ public enum Terminology {
 	
 	static public Terminology[] getPlayerMatchBasic(){
 		//得分、投篮命中数、三分命中数、罚球命中数、篮板数、助攻数、在场时间、投篮命中率、三分命中率、罚球命中率、进攻数、防守数、抢断数、盖帽数、犯规数、失误数、
-		return new Terminology[]{PTS,FGM,TPM,FTM,REB,AST,MIN,FGP,TPP,FTP,OFR,DFR,STL,BLK,TOV,PF};
+		return new Terminology[]{TEAM,POSITION,PTS,FGM,TPM,FTM,REB,AST,MIN,FGP,TPP,FTP,OFR,DFR,STL,BLK,TOV,PF};
 	}
 	
 	static public Terminology[] getPlayerSeasonHot(){

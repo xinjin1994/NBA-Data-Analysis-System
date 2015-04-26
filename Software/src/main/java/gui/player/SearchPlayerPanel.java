@@ -91,7 +91,7 @@ public class SearchPlayerPanel extends JPanel {
 		gbc_label_position.gridy = 0;
 		add(label_position, gbc_label_position);
 		
-		cbbx_position = new JComboBox<Position>(Position.values());
+		cbbx_position = new JComboBox<Position>(Position.getPlayerPositions());
 		GridBagConstraints gbc_cbbx_position = new GridBagConstraints();
 		gbc_cbbx_position.anchor = GridBagConstraints.WEST;
 		gbc_cbbx_position.insets = new Insets(0, 0, 0, 30);

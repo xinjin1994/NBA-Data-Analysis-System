@@ -54,13 +54,6 @@ public class ToolsPanel extends JPanel{
 		add(Box.createHorizontalStrut(20));
 		add(new JLabel("切换赛季："));
 		cbbx_season = new JComboBox<Season>();
-		cbbx_season.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				MainFrame.season = cbbx_season.getItemAt(cbbx_season.getSelectedIndex());
-				lbl_season.setText(MainFrame.season.toString());
-			}
-		});
 		cbbx_season.setMaximumSize(new Dimension(50,50));
 		add(cbbx_season);
 		MatchesBLService matchbl = new MatchesBL_new();
@@ -87,9 +80,13 @@ public class ToolsPanel extends JPanel{
 		});
 		add(btn_return);
 		
+		MainFrame.season = cbbx_season.getItemAt(cbbx_season.getSelectedIndex());
+		lbl_season.setText(MainFrame.season.toString());
 		cbbx_season.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				MainFrame.season = cbbx_season.getItemAt(cbbx_season.getSelectedIndex());
+				lbl_season.setText(MainFrame.season.toString());
 				MainFrame.refreshAll();
 			}
 		});

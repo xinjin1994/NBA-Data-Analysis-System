@@ -53,4 +53,8 @@ public enum Position {
 		default: return "C/F/G";
 		}
 	}
+	
+	public static Position[] getPlayerPositions(){
+		return new Position[]{ALL,FORWARD,CENTER,GUARD};
+	}
 }
