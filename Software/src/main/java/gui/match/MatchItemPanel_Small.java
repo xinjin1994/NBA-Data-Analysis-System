@@ -1,5 +1,7 @@
 package gui.match;
 
+import gui.MainFrame;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -74,7 +76,7 @@ public class MatchItemPanel_Small extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent me){
 				if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 2){
-					new MatchDialog(vo).setVisible(true);
+					MainFrame.showDialog(new MatchDialog(vo));
 				}
 			}
 		});

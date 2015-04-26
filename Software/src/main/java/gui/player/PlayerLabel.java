@@ -1,11 +1,12 @@
 package gui.player;
 
-import gui.player.detail.PlayerDetailDialog;
+import gui.MainFrame;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JLabel;
 
 public class PlayerLabel extends JLabel {
@@ -19,7 +20,7 @@ public class PlayerLabel extends JLabel {
 		this.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e){
-				new PlayerDetailDialog(name).setVisible(true);
+				MainFrame.showDialog(new PlayerDialog(name));
 			}
 			
 			@Override

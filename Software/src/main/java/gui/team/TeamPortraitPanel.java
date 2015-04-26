@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import vo.TeamVO;
 import enums.Teams;
+import gui.MainFrame;
 
 public class TeamPortraitPanel extends JPanel {
 	private static final long serialVersionUID = -3815129792429001677L;
@@ -39,7 +40,7 @@ public class TeamPortraitPanel extends JPanel {
 		this.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				//if(e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1){
-					new TeamDetailDialog(vo).setVisible(true);
+					MainFrame.showDialog(new TeamDialog(vo));
 				}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {

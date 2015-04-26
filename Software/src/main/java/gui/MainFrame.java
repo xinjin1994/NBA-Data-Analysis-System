@@ -5,7 +5,6 @@ import gui.match.Season;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Frame;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,18 +14,18 @@ import data.init.DataInit;
 import enums.PanelType;
 
 import java.awt.CardLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
-public class MainFrame extends JFrame implements Refreshable{
+public class MainFrame extends FrameRefreshable{
 
 	private static final long serialVersionUID = 2292455670620751734L;
-	private JPanel contentPane;
-	
+	private static ArrayList<FrameRefreshable> refreshList = new ArrayList<FrameRefreshable>();
 	//用来保存屏幕的大小
 	public static Dimension screen;
-	//保留cardlayout中panel与对应字符串的配对关系
-	//未来可能有有新的窗口
-	public static Frame currentFrame;
-	public static MainFrame mf;
+	public static FrameRefreshable currentFrame;
+	private static MainFrame mf;
 	public static Season season;
 	private JPanel pnl_main;
 	private CardLayout cardlayout;
@@ -53,6 +52,7 @@ public class MainFrame extends JFrame implements Refreshable{
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		super("NBA数据查询系统");
 		new DataInit().init();
 		
 		currentFrame = mf = this;
@@ -62,11 +62,10 @@ public class MainFrame extends JFrame implements Refreshable{
 		this.setSize(screen);//固定窗口大小
 		this.setLocationRelativeTo(null);
 		
-		setTitle("NBA");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(800, 640));
 		this.setResizable(false);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -84,13 +83,20 @@ public class MainFrame extends JFrame implements Refreshable{
 		contentPane.add(pnl_tools,BorderLayout.NORTH);
 		
 		gotoPanel(PanelType.MENU);
+		
+		this.addWindowListener(new WindowAdapter(){
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				screen = pnl_main.getSize();
+			}
+		});
 	}
 
 	//通过枚举类型来切换版面的集中式控制
-	public void gotoPanel(PanelType type){
-		pnl_tools.addPanel(type);
-		pnl_tools.pushPanel(type);
-		pnl_tools.showPanel(type);
+	public static void gotoPanel(PanelType type){
+		mf.pnl_tools.addPanel(type);
+		mf.pnl_tools.pushPanel(type);
+		mf.pnl_tools.showPanel(type);
 	}
 	
 	static public int getPanelWidth(){
@@ -100,9 +106,22 @@ public class MainFrame extends JFrame implements Refreshable{
 		return mf.getHeight();
 	}
 
-	@Override
+	public static void refreshAll(){
+		mf.refresh();
+	}
 	public void refresh() {
 		pnl_tools.refresh();
+		for(FrameRefreshable f:refreshList)
+			f.refresh();
 	}
 
+	public static void showDialog(FrameRefreshable dia){
+		dia.setVisible(true);
+		refreshList.add(dia);
+	}
+	
+	public static void disposeDialog(FrameRefreshable dia){
+		refreshList.remove(dia);
+		dia.dispose();
+	}
 }

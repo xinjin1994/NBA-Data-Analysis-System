@@ -1,17 +1,25 @@
 package gui.match;
 
-import java.awt.Dimension;
+import gui.FrameRefreshable;
 
-import javax.swing.JDialog;
+import java.awt.Dimension;
 
 import vo.MatchVO;
 
-public class MatchDialog extends JDialog {
+public class MatchDialog extends FrameRefreshable {
 	private static final long serialVersionUID = -6180266678801351408L;
-
+	
 	public MatchDialog(MatchVO vo){
-		this.setContentPane(new MatchStatsPanel(vo));
+		super("比赛详情");
+		
 		setMinimumSize(new Dimension(1181,700));
 		setMaximumSize(new Dimension(1600,730));
+
+		this.setContentPane(new MatchStatsPanel(vo));
+	}
+
+	@Override
+	public void refresh() {
+		//do nothing
 	}
 }

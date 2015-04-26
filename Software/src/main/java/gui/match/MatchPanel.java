@@ -1,8 +1,11 @@
 package gui.match;
 
+import gui.MainFrame;
+
 import java.awt.BorderLayout;
-import javax.swing.JDialog;
+
 import javax.swing.JPanel;
+
 import vo.MatchVO;
 
 public class MatchPanel extends JPanel implements MatchVOChangeable{
@@ -17,8 +20,7 @@ public class MatchPanel extends JPanel implements MatchVOChangeable{
 
 	@Override
 	public void changeMatch(MatchVO vo) {
-		JDialog dia = new MatchDialog(vo);
-		dia.setVisible(true);
+		MainFrame.showDialog(new MatchDialog(vo));
 	}
 
 	@Override

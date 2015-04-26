@@ -18,11 +18,12 @@ import enums.Teams;
 import enums.Terminology;
 import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
+import gui.MainFrame;
+import gui.player.PlayerDialog;
+import gui.player.PlayerMatchStatsPanel;
+import gui.player.PlayerSeasonStatsPanel;
+import gui.player.PlayerStatsPanel;
 import gui.player.PortraitPanel;
-import gui.player.detail.PlayerDetailDialog;
-import gui.player.detail.PlayerMatchStatsPanel;
-import gui.player.detail.PlayerSeasonStatsPanel;
-import gui.player.detail.PlayerStatsPanel;
 
 public class PlayerCompareItemPanel extends JPanel {
 	private static final long serialVersionUID = -8038316105498505686L;
@@ -57,7 +58,7 @@ public class PlayerCompareItemPanel extends JPanel {
 		btn_rank.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new PlayerDetailDialog(name).setVisible(true);
+				MainFrame.showDialog(new PlayerDialog(name));
 			}
 		});
 		

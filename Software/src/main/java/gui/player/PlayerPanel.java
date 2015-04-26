@@ -7,7 +7,6 @@ import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
-import gui.player.detail.PlayerDetailDialog;
 
 import java.awt.Component;
 import java.awt.Graphics;
@@ -124,7 +123,7 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 			public void mouseClicked(MouseEvent me){
 				if(me.getClickCount() == 2 && me.getButton() == MouseEvent.BUTTON1)
 					if(list.getSelectedValue()!=null)
-						new PlayerDetailDialog(list.getSelectedValue().getName()).setVisible(true);
+						MainFrame.showDialog(new PlayerDialog(list.getSelectedValue().getName()));
 			}
 		});
 	}

@@ -35,7 +35,7 @@ public class MenuPanel extends SelfAdjustPanel {
 		btn_player.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.mf.gotoPanel(PanelType.PLAYER);
+				MainFrame.gotoPanel(PanelType.PLAYER);
 			}
 		});
 		pnl_menu.add(btn_player);
@@ -44,7 +44,7 @@ public class MenuPanel extends SelfAdjustPanel {
 		btn_team.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.mf.gotoPanel(PanelType.TEAM);
+				MainFrame.gotoPanel(PanelType.TEAM);
 			}
 		});
 		pnl_menu.add(btn_team);
@@ -53,7 +53,7 @@ public class MenuPanel extends SelfAdjustPanel {
 		btn_match.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.mf.gotoPanel(PanelType.MATCH);
+				MainFrame.gotoPanel(PanelType.MATCH);
 			}
 		});
 		pnl_menu.add(btn_match);
@@ -62,7 +62,7 @@ public class MenuPanel extends SelfAdjustPanel {
 		btn_statistic.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.mf.gotoPanel(PanelType.STATISTIC);
+				MainFrame.gotoPanel(PanelType.STATISTIC);
 			}
 		});
 		pnl_menu.add(btn_statistic);
@@ -71,7 +71,7 @@ public class MenuPanel extends SelfAdjustPanel {
 		btn_hot.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainFrame.mf.gotoPanel(PanelType.HOT);
+				MainFrame.gotoPanel(PanelType.HOT);
 			}
 		});
 		pnl_menu.add(btn_hot);

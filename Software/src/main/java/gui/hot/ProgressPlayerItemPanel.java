@@ -63,10 +63,9 @@ public class ProgressPlayerItemPanel extends JPanel {
 		btn_rank.setAlignmentX(0.5f);
 		add(btn_rank);
 		btn_rank.addActionListener(new ActionListener(){
-			@SuppressWarnings("static-access")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new PlayerCompareDialog(term.toString()+"进步排名",MainFrame.mf.season.season, term, new ArrayList<PlayerExtraStatsVO>(players)).setVisible(true);
+				new PlayerCompareDialog(term.toString()+"进步排名",MainFrame.season.season, term, new ArrayList<PlayerExtraStatsVO>(players)).setVisible(true);
 			}
 		});
 		

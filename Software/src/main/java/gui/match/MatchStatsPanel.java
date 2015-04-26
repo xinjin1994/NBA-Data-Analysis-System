@@ -3,9 +3,10 @@ package gui.match;
 import exceptions.PlayerNotFound;
 import exceptions.TermNotFound;
 import factory.ObjectCreator;
+import gui.MainFrame;
+import gui.player.PlayerDialog;
+import gui.player.PlayerMatchStatsPanel;
 import gui.player.PortraitPanel;
-import gui.player.detail.PlayerDetailDialog;
-import gui.player.detail.PlayerMatchStatsPanel;
 import gui.team.TeamMatchStatsPanel;
 import gui.util.NamedLabel;
 import helper.TypeTransform;
@@ -153,7 +154,7 @@ public class MatchStatsPanel extends JPanel{
 				((CardLayout)pnl.getLayout()).show(pnl, "M");
 			}
 			else if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 2){
-				new PlayerDetailDialog(list.getSelectedValue().getName()).setVisible(true);
+				MainFrame.showDialog(new PlayerDialog(list.getSelectedValue().getName()));
 			}
 		}
 	}

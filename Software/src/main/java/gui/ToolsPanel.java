@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 import businessLogic.matchesBL.MatchesBL_new;
 import businessLogicService.matchesBLService.MatchesBLService;
 
-public class ToolsPanel extends JPanel implements Refreshable{
+public class ToolsPanel extends JPanel{
 	private static final long serialVersionUID = 8036099557199056090L;
 	private Map<PanelType,JPanel> panels = new EnumMap<PanelType,JPanel>(PanelType.class);
 	private JPanel pnl_main;
@@ -71,7 +71,7 @@ public class ToolsPanel extends JPanel implements Refreshable{
 			cbbx_season.setSelectedIndex(0);
 		} catch (StatsNotFound e) {
 			JOptionPane.showMessageDialog(this, "无可用数据！程序退出！");
-			MainFrame.currentFrame.dispose();
+			MainFrame.disposeDialog(MainFrame.currentFrame);
 		}
 		
 		add(Box.createHorizontalGlue());
@@ -89,7 +89,7 @@ public class ToolsPanel extends JPanel implements Refreshable{
 		cbbx_season.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				MainFrame.mf.refresh();
+				MainFrame.refreshAll();
 			}
 		});
 	}
@@ -141,11 +141,10 @@ public class ToolsPanel extends JPanel implements Refreshable{
 		((CardLayout)pnl_main.getLayout()).show(pnl_main, type.toString());
 	}
 	
-	public void removePanel(Refreshable pnl) {
+	public void removePanel(FrameRefreshable pnl) {
 		refreshList.remove(pnl);
 	}
 
-	@Override
 	public void refresh() {
 		panels.clear();
 		for(PanelType t:refreshList){

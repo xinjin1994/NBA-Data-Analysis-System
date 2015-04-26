@@ -23,7 +23,7 @@ import exceptions.TermNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.player.PortraitPanel;
-import gui.team.TeamDetailDialog;
+import gui.team.TeamDialog;
 import gui.util.NamedLabel;
 import gui.util.StatsPanel;
 
@@ -95,12 +95,7 @@ public class TeamCompareItemPanel extends JPanel {
 		btn_rank.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					new TeamDetailDialog(vo.getTeam()).setVisible(true);
-				} catch (TeamNotFound e) {
-					JOptionPane.showMessageDialog(MainFrame.currentFrame, e);
-					e.printStackTrace();
-				}
+				MainFrame.showDialog(new TeamDialog(vo));
 			}
 		});
 	}
