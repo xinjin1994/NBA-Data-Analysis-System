@@ -29,27 +29,20 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
-import businessLogic.teamsBL.TeamsBL;
 import businessLogicService.teamsBLService.TeamsBLService_new;
-import vo.TeamDefensiveStatsVO;
-import vo.TeamFoulsStatsVO;
-import vo.TeamGeneralStatsVO;
+import vo.TeamDefensiveFoulsVO;
 import vo.TeamOffensiveStatsVO;
-import vo.TeamRatioStatsVO;
+import vo.TeamRatioGeneralVO;
 
 public class TeamStatisticPanel extends SelfAdjustPanel{
 
 	private static final long serialVersionUID = 9090035509234357424L;
 	private ArrayList<TeamOffensiveStatsVO> offenceList_average;
 	private ArrayList<TeamOffensiveStatsVO> offenceList_total;
-	private ArrayList<TeamDefensiveStatsVO> defenseList_average;
-	private ArrayList<TeamDefensiveStatsVO> defenseList_total;
-	private ArrayList<TeamFoulsStatsVO> foulList_average;
-	private ArrayList<TeamFoulsStatsVO> foulList_total;
-	private ArrayList<TeamRatioStatsVO> ratioList_average;
-	private ArrayList<TeamRatioStatsVO> ratioList_total;
-	private ArrayList<TeamGeneralStatsVO> generalList_average;
-	private ArrayList<TeamGeneralStatsVO> generalList_total;
+	private ArrayList<TeamDefensiveFoulsVO> defenseList_average;
+	private ArrayList<TeamDefensiveFoulsVO> defenseList_total;
+	private ArrayList<TeamRatioGeneralVO> ratioList_average;
+	private ArrayList<TeamRatioGeneralVO> ratioList_total;
 	private JTable tbl_defensefoulList;
 	private JTable tbl_offenceList;
 	private JTable tbl_generalratioList;
@@ -77,7 +70,7 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 			}
 		});
 		
-		tbl_defensefoulList = new JTable(new TeamTableModel_DefenseFoul(defenseList_average,foulList_average));
+		tbl_defensefoulList = new JTable(new TeamTableModel_DefenseFoul(defenseList_average));
 		tbl_defensefoulList.setFillsViewportHeight(true);
 		tbl_defensefoulList.setAutoCreateRowSorter(true);
 		tbl_defensefoulList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -90,7 +83,7 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 			}
 		});
 
-		tbl_generalratioList = new JTable(new TeamTableModel_GeneralRatio(ratioList_average,generalList_average));
+		tbl_generalratioList = new JTable(new TeamTableModel_GeneralRatio(ratioList_average));
 		tbl_generalratioList.setFillsViewportHeight(true);
 		tbl_generalratioList.setAutoCreateRowSorter(true);
 		tbl_generalratioList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -160,45 +153,31 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 			offenceList_total = new ArrayList<TeamOffensiveStatsVO>();
 		}
 		try {
-			defenseList_average = new TeamsBL().getTeamsDefensiveStatsAverage(Conference.NATIONAL, Division.NATIONAL);
-			defenseList_total = new TeamsBL().getTeamsDefensiveStatsTotal(Conference.NATIONAL, Division.NATIONAL);
+			defenseList_average = teamService.getTeamDefensiveFoulsStatsAverage(MainFrame.season.season,Conference.NATIONAL, Division.NATIONAL);
+			defenseList_total = teamService.getTeamDefensiveFoulsStatsTotal(MainFrame.season.season,Conference.NATIONAL, Division.NATIONAL);
 		} catch (TeamNotFound e) {
-			defenseList_average = new ArrayList<TeamDefensiveStatsVO>();
-			defenseList_total = new ArrayList<TeamDefensiveStatsVO>();
+			defenseList_average = new ArrayList<TeamDefensiveFoulsVO>();
+			defenseList_total = new ArrayList<TeamDefensiveFoulsVO>();
 		}
 		try {
-			foulList_average = new TeamsBL().getTeamsFoulsStatsAverage(Conference.NATIONAL, Division.NATIONAL);
-			foulList_total = new TeamsBL().getTeamsFoulsStatsTotal(Conference.NATIONAL, Division.NATIONAL);
+			ratioList_average = teamService.getTeamRatioGeneralStatsAverage(MainFrame.season.season,Conference.NATIONAL, Division.NATIONAL);
+			ratioList_total = teamService.getTeamRatioGeneralStatsTotal(MainFrame.season.season,Conference.NATIONAL, Division.NATIONAL);
 		} catch (TeamNotFound e) {
-			foulList_average = new ArrayList<TeamFoulsStatsVO>();
-			foulList_total = new ArrayList<TeamFoulsStatsVO>();
-		}
-		try {
-			ratioList_average = new TeamsBL().getTeamsRatioStatsAverage(Conference.NATIONAL, Division.NATIONAL);
-			ratioList_total = new TeamsBL().getTeamsRatioStatsTotal(Conference.NATIONAL, Division.NATIONAL);
-		} catch (TeamNotFound e) {
-			ratioList_average = new ArrayList<TeamRatioStatsVO>();
-			ratioList_total = new ArrayList<TeamRatioStatsVO>();
-		}
-		try {
-			generalList_average = new TeamsBL().getTeamsGeneralStatsAverage(Conference.NATIONAL, Division.NATIONAL);
-			generalList_total = new TeamsBL().getTeamsGeneralStatsTotal(Conference.NATIONAL, Division.NATIONAL);
-		} catch (TeamNotFound e) {
-			generalList_average = new ArrayList<TeamGeneralStatsVO>();
-			generalList_total = new ArrayList<TeamGeneralStatsVO>();
+			ratioList_average = new ArrayList<TeamRatioGeneralVO>();
+			ratioList_total = new ArrayList<TeamRatioGeneralVO>();
 		}
 	}
 	private void setList(){
 		switch(btngrp.getSelection().getActionCommand()){
 		case "AVERAGE":
 			((TeamTableModel_Offence)tbl_offenceList.getModel()).updateData(offenceList_average);
-			((TeamTableModel_DefenseFoul)tbl_defensefoulList.getModel()).updateData(defenseList_average,foulList_average);
-			((TeamTableModel_GeneralRatio)tbl_generalratioList.getModel()).updateData(ratioList_average,generalList_average);
+			((TeamTableModel_DefenseFoul)tbl_defensefoulList.getModel()).updateData(defenseList_average);
+			((TeamTableModel_GeneralRatio)tbl_generalratioList.getModel()).updateData(ratioList_average);
 			break;
 		case "TOTAL":
 			((TeamTableModel_Offence)tbl_offenceList.getModel()).updateData(offenceList_total);
-			((TeamTableModel_DefenseFoul)tbl_defensefoulList.getModel()).updateData(defenseList_total,foulList_total);
-			((TeamTableModel_GeneralRatio)tbl_generalratioList.getModel()).updateData(ratioList_total,generalList_total);
+			((TeamTableModel_DefenseFoul)tbl_defensefoulList.getModel()).updateData(defenseList_total);
+			((TeamTableModel_GeneralRatio)tbl_generalratioList.getModel()).updateData(ratioList_total);
 			break;
 		}
 	}

@@ -1,5 +1,10 @@
 package gui.util;
 
+import gui.MainFrame;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class ReturnButton extends JButton {
@@ -8,6 +13,13 @@ public class ReturnButton extends JButton {
 
 	public ReturnButton() {
 		this.setText("返回");
+		
+		this.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				MainFrame.mf.popPanel();
+			}
+		});
 	}
 
 }

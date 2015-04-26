@@ -55,8 +55,8 @@ public class MainFrame extends JFrame implements PanelRefreshable{
 	public static Season season;
 	private JPanel pnl_main;
 	private CardLayout cardlayout;
-	private JLabel lbl_season;
-	private JComboBox<Season> cbbx_season;
+	
+	private ArrayList<PanelRefreshable> refreshList = new ArrayList<PanelRefreshable>();
 
 	/**
 	 * Launch the application.
@@ -96,32 +96,8 @@ public class MainFrame extends JFrame implements PanelRefreshable{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JPanel pnl_season = new JPanel(new FlowLayout(FlowLayout.LEADING));
-		lbl_season = new JLabel();
-		pnl_season.add(lbl_season);
-		pnl_season.add(Box.createHorizontalStrut(20));
-		pnl_season.add(new JLabel("切换赛季："));
-		cbbx_season = new JComboBox<Season>();
-		cbbx_season.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				season = cbbx_season.getItemAt(cbbx_season.getSelectedIndex());
-				lbl_season.setText(season.toString());
-			}
-		});
-		pnl_season.add(cbbx_season);
-		MatchesBLService matchbl = new MatchesBL_new();
-		
-		try {
-			ArrayList<String> seasons = matchbl.getAvailableSeasons();
-			for(String s:seasons)
-				cbbx_season.addItem(new Season(s));
-			cbbx_season.setSelectedIndex(0);
-		} catch (StatsNotFound e) {
-			JOptionPane.showMessageDialog(this, "无可用数据！程序退出！");
-			dispose();
-		}
-		contentPane.add(pnl_season,BorderLayout.NORTH);
+		JPanel pnl_tools = new ToolsPanel();
+		contentPane.add(pnl_tools,BorderLayout.NORTH);
 		
 		pnl_main = new JPanel();
 		contentPane.add(pnl_main, BorderLayout.CENTER);
@@ -183,5 +159,13 @@ public class MainFrame extends JFrame implements PanelRefreshable{
 	public void refresh() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void pushPanel(PanelRefreshable pnl) {
+		refreshList.add(pnl);
+	}
+
+	public void popPanel() {
+		refreshList.remove(refreshList.size()-1);
 	}
 }
