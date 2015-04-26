@@ -6,14 +6,11 @@ import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
-import gui.enums.PanelType;
 import gui.team.TeamTableModel_DefenseFoul;
 import gui.team.TeamTableModel_GeneralRatio;
 import gui.team.TeamTableModel_Offence;
-import gui.util.ReturnButton;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -108,17 +105,6 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 		pane_lists.add("球队防守犯规数据",pane_defensefoulList);
 		pane_lists.add("球队综合比率数据",pane_generalratioList);
 		add(pane_lists);
-		
-		JPanel pnl_button = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		ReturnButton btn_return = new ReturnButton();
-		btn_return.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				MainFrame.mf.gotoPanel(PanelType.STATISTIC);
-			}
-		});
-		pnl_button.add(btn_return);
-		add(pnl_button, BorderLayout.SOUTH);
 		
 		JRadioButton rdibtn_average = new JRadioButton("平均");
 		rdibtn_average.setActionCommand("AVERAGE");
