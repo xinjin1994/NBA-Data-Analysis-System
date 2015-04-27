@@ -1,6 +1,4 @@
-package gui.team;
-
-import gui.util.GUIUtility;
+package gui.statistic;
 
 import java.util.ArrayList;
 
@@ -50,34 +48,34 @@ public class TeamTableModel_Offence extends AbstractTableModel {
 		Object result = null;
 		switch(col){
 		case 0:
-			result = t.getTeam().toString();
+			result = t.getTeam();
 			break;
 		case 1:
-			result = String.valueOf(t.getGames());
+			result = t.getGames();
 			break;
 		case 2:
-			result = GUIUtility.formatDouble(t.getPoints());
+			result = t.getPoints();
 			break;
 		case 3:
-			result = GUIUtility.formatDouble(t.getFieldGoalsMade());
+			result = t.getFieldGoalsMade();
 			break;
 		case 4:
-			result = GUIUtility.formatDouble(t.getFieldGoalsAttempted());
+			result = t.getFieldGoalsAttempted();
 			break;
 		case 5:
-			result = GUIUtility.formatDouble(t.getFreeThrowsMade());
+			result = t.getFreeThrowsMade();
 			break;
 		case 6:
-			result = GUIUtility.formatDouble(t.getFreeThrowsAttempted());
+			result = t.getFreeThrowsAttempted();
 			break;
 		case 7:
-			result = GUIUtility.formatDouble(t.getThreePointFieldGoalsMade());
+			result = t.getThreePointFieldGoalsMade();
 			break;
 		case 8:
-			result = GUIUtility.formatDouble(t.getThreePointFieldGoalsAttempted());
+			result = t.getThreePointFieldGoalsAttempted();
 			break;
 		case 9:
-			result = GUIUtility.formatDouble(t.getAssists());
+			result = t.getAssists();
 			break;
 		}
 		if(result == null)

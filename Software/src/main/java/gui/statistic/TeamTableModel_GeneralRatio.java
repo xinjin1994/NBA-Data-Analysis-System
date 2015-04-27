@@ -1,6 +1,4 @@
-package gui.team;
-
-import gui.util.GUIUtility;
+package gui.statistic;
 
 import java.util.ArrayList;
 
@@ -50,43 +48,43 @@ public class TeamTableModel_GeneralRatio extends AbstractTableModel {
 		Object result = null;
 		switch(col){
 		case 0:
-			result = vo.getTeam().toString();
+			result = vo.getTeam();
 			break;
 		case 1:
-			result = String.valueOf(vo.getGames());
+			result = vo.getGames();
 			break;
 		case 2:
-			result = GUIUtility.formatDouble(vo.getFieldGoalsPercentage());
+			result = vo.getFieldGoalsPercentage();
 			break;
 		case 3:
-			result = GUIUtility.formatDouble(vo.getThreePointFieldGoalsPercentage());
+			result = vo.getThreePointFieldGoalsPercentage();
 			break;
 		case 4:
-			result = GUIUtility.formatDouble(vo.getFreeThrowsPercentage());
+			result = vo.getFreeThrowsPercentage();
 			break;
 		case 5:
-			result = GUIUtility.formatDouble(vo.getWinningRating());
+			result = vo.getWinningRating();
 			break;
 		case 6:
-			result = GUIUtility.formatDouble(vo.getAssistsEfficiency());
+			result = vo.getAssistsEfficiency();
 			break;
 		case 7:
-			result = GUIUtility.formatDouble(vo.getOffensiveRounds());
+			result = vo.getOffensiveRounds();
 			break;
 		case 8:
-			result = GUIUtility.formatDouble(vo.getOffensiveEfficiency());
+			result = vo.getOffensiveEfficiency();
 			break;
 		case 9:
-			result = GUIUtility.formatDouble(vo.getDefensiveEfficiency());
+			result = vo.getDefensiveEfficiency();
 			break;
 		case 10:
-			result = GUIUtility.formatDouble(vo.getOffensiveReboundsEfficiency());
+			result = vo.getOffensiveReboundsEfficiency();
 			break;
 		case 11:
-			result = GUIUtility.formatDouble(vo.getDefensiveReboundsEfficiency());
+			result = vo.getDefensiveReboundsEfficiency();
 			break;
 		case 12:
-			result = GUIUtility.formatDouble(vo.getStealsEfficiency());
+			result = vo.getStealsEfficiency();
 			break;
 		}
 		if(result == null)
