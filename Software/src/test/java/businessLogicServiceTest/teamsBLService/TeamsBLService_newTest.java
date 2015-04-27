@@ -5,6 +5,8 @@ import helper.TypeTransform;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
+
 import vo.TeamDefensiveFoulsVO;
 import vo.TeamHotStatsVO;
 import vo.TeamOffensiveStatsVO;
@@ -12,6 +14,7 @@ import vo.TeamRatioGeneralVO;
 import vo.TeamVO;
 import businessLogic.teamsBL.TeamsBL_new;
 import businessLogicService.teamsBLService.TeamsBLService_new;
+import data.imageData.ImageData;
 import data.init.DataInit;
 import enums.Conference;
 import enums.Division;
@@ -134,6 +137,19 @@ public class TeamsBLService_newTest extends TestCase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void testGetTeamImage(){
+		long t1 = System.currentTimeMillis();
+		//ArrayList<TeamVO> teams = service.getAllTeamsInfo();
+		
+		Teams[] list = Teams.getAtlanticTeams();
+		for(int i=0; i<list.length; i++){
+			ImageIcon image = new ImageData().getTeamImage(list[i]);
+		}
+		
+		long t2 = System.currentTimeMillis();
+		System.out.println(t2-t1);
 	}
 
 }

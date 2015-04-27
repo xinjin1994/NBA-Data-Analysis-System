@@ -16,10 +16,14 @@ import enums.Teams;
 public class ImageData implements ImageService {
 	
 	static HashMap<String, ImageIcon> playerPortraitList;
+	static HashMap<Teams, ImageIcon> teamsImage;
 	
 	public ImageData(){
 		if(ImageData.playerPortraitList == null){
 			playerPortraitList = new HashMap<String, ImageIcon>();
+		}
+		if(ImageData.teamsImage == null){
+			teamsImage = new HashMap<Teams, ImageIcon>();
 		}
 	}
 
@@ -51,8 +55,13 @@ public class ImageData implements ImageService {
 
 	@Override
 	public ImageIcon getTeamImage(Teams team) {
+		ImageIcon image = teamsImage.get(team);
+		if(image != null){
+			return image;
+		}
+		
 		String filename = "teams/" + team.toAbbr() + ".png";
-		ImageIcon image = new ImageIcon(filename);
+		image = new ImageIcon(filename);
 		return image;
 	}
 	
