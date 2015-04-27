@@ -52,7 +52,7 @@ public class TeamSeasonStatsPanel extends TeamStatsPanel {
 				NamedLabel lbl_wins = new NamedLabel("获胜场数",ragevo_avg.getProperty(Terminology.GMWIN));
 				pnl_title.add(lbl_wins);
 				pnl_title.add(Box.createHorizontalStrut(10));
-				NamedLabel lbl_winr = new NamedLabel("胜率",ragevo_avg.getProperty(Terminology.WINR));
+				NamedLabel lbl_winr = new NamedLabel("胜率",ragevo_avg.getProperty(Terminology.WINR),"%");
 				pnl_title.add(lbl_winr);
 			} catch (TeamNotFound e) {
 				JOptionPane.showMessageDialog(MainFrame.currentFrame, e.toString());

@@ -25,7 +25,7 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 	private static final long serialVersionUID = -6276304921493888018L;
 	private static final String HAS_MATCH = "HAS_MATCH";
 	private static final String NO_MATCH = "NO_MATCH";
-	private static final String NO_MATCH_TODAY = "NO_MATCH_TODAY";
+	//private static final String NO_MATCH_TODAY = "NO_MATCH_TODAY";
 	private MatchesBLService matchbl = new ObjectCreator().matchesBLService();
 	private JPanel pnl_view;
 	private MatchItemPanel_Small pnl_item;
@@ -82,14 +82,16 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 		JLabel lbl_no_match = new JLabel("无比赛比赛信息");
 		lbl_no_match.setHorizontalAlignment(SwingConstants.CENTER);
 		pnl_view.add(lbl_no_match,NO_MATCH);
+		/*
 		JLabel lbl_no_match_today = new JLabel("今日该相关无比赛");
 		lbl_no_match_today.setHorizontalAlignment(SwingConstants.CENTER);
 		pnl_view.add(lbl_no_match_today,NO_MATCH_TODAY);
+		*/
 		try {
 			MatchVO vo = matchChanger.getMatch(matchbl,MainFrame.season.season, datelist[0].date);
 			pnl_item.setMatchVO(vo);
 		} catch (MatchNotFound e) {
-			((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
+			//((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
 			//matchChanger.noMatch();
 		}
 		
@@ -99,6 +101,7 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 		add(pnl_view);
 		
 		dateChange(availables.get(0));
+		matchChanger.setMatch(MainFrame.season.season, date);
 	}
 
 	@Override
@@ -110,7 +113,7 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 			((CardLayout)pnl_view.getLayout()).show(pnl_view, HAS_MATCH);
 			matchChanger.setMatch(MainFrame.season.season, date);
 		} catch (MatchNotFound e) {
-			((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
+			//((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
 			//matchChanger.noMatch();
 		}
 	}

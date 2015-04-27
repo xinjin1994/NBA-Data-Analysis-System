@@ -6,7 +6,6 @@ import exceptions.PlayerNotFound;
 import exceptions.TermNotFound;
 import gui.MainFrame;
 import gui.match.MatchChangeable;
-import gui.team.NamedTeamLabel;
 import gui.util.NamedLabel;
 
 import java.awt.BorderLayout;
@@ -85,10 +84,7 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 					if(term[i] == Terminology.FGP||term[i] == Terminology.TPP||term[i] == Terminology.FTP)
 						unit = "%";
 					NamedLabel labelPanel;
-					if(term[i] == Terminology.TEAM)
-						labelPanel = new NamedTeamLabel();
-					else
-						labelPanel = new NamedLabel(term[i].toString(),unit);
+					labelPanel = new NamedLabel(term[i].toString(),unit);
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = i%2;
 					gbc_labelPanel.gridy = i/2;

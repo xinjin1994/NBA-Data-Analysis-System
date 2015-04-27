@@ -2,9 +2,9 @@ package gui.team;
 
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import businessLogicService.teamsBLService.TeamsBLService_new;
 import vo.TeamVO;
 import data.init.DataInit;
@@ -15,6 +15,7 @@ import factory.ObjectCreator;
 
 import javax.swing.JLabel;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
@@ -25,18 +26,22 @@ public class DivisionPanel extends JPanel {
 	
 	public DivisionPanel(Conference conference, Division division) {
 		
-		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+		setLayout(new BorderLayout());
 		
-		JLabel lbl_division = new JLabel(division.toString());
-		lbl_division.setFont(new Font("宋体", Font.PLAIN, 30));
-		lbl_division.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lbl_division);
+		JLabel lbl_title = new JLabel(division.toString());
+		lbl_title.setFont(new Font("宋体", Font.BOLD, 35));
+		lbl_title.setAlignmentX(0.5f);
+		lbl_title.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lbl_title,BorderLayout.NORTH);
 
+		JPanel pnl_teams = new JPanel();
+		add(pnl_teams);
+		
 		service = new ObjectCreator().teamsBLService();
 		try {
 			ArrayList<TeamVO> teamList = service.getTeamsInfo(conference, division);
 			for(TeamVO team: teamList){
-				add(new TeamPortraitPanel(team));
+				pnl_teams.add(new TeamPortraitPanel(team));
 			}
 		} catch (TeamNotFound e) {
 			

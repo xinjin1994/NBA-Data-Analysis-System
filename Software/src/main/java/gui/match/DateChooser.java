@@ -33,8 +33,10 @@ public class DateChooser extends JPanel {
 			btn_prev.setEnabled(false);
 		this.add(btn_prev);
 		this.add(Box.createHorizontalGlue());
+		this.add(Box.createHorizontalStrut(40));
 		cbbx_date = new JComboBox<ShortDate>(dates);
 		this.add(cbbx_date);
+		this.add(Box.createHorizontalStrut(40));
 		this.add(Box.createHorizontalGlue());
 		btn_next = new JButton("▶");
 		btn_next.setEnabled(false);

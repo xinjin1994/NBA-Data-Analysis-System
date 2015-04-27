@@ -119,6 +119,7 @@ public class MatchStatsPanel extends JPanel{
 					pnl.setBorder(new LineBorder(Color.BLACK,3));
 				else
 					pnl.setBorder(new LineBorder(Color.BLACK,1));
+				pnl.setToolTipText("双击以查看球员详细信息");
 				return pnl;
 			}
 		});

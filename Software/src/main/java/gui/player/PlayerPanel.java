@@ -98,12 +98,12 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 			public Component getListCellRendererComponent(
 					JList<? extends PortraitPanel> list, PortraitPanel value,
 					int index, boolean isSelected, boolean cellHasFocus) {
+				value.setToolTipText("双击以查看球员详细信息");
 				return value;
 			}
 		});
 		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		list.setVisibleRowCount(-1);
-		list.setToolTipText("双击以查看详细信息");
 		JScrollPane pane_list = new JScrollPane(list);
 		pane_list.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_pane_list = new GridBagConstraints();

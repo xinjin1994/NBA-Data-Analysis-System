@@ -19,7 +19,7 @@ public class TeamDialog extends FrameRefreshable {
 		this.vo = vo;
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		refresh();
-		setSize(new Dimension(1000,760));
+		setSize(new Dimension(1200,740));
 		
 	}
 
