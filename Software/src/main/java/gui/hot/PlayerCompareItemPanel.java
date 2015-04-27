@@ -65,7 +65,10 @@ public class PlayerCompareItemPanel extends JPanel {
 		add(Box.createVerticalGlue());
 	}
 	public PlayerCompareItemPanel(int rank,String season,Date date,Terminology term,String name,Teams team,Position position) {
-		pnl_stats = new PlayerMatchStatsPanel(playerbl, name, season,date,term);
+		PlayerMatchStatsPanel pnl_matchStats = new PlayerMatchStatsPanel(playerbl, name,Terminology.getPlayerCompareBasic());
+		pnl_matchStats.setMatch(season, date);
+		pnl_stats = pnl_matchStats;
+		pnl_stats.setKeyTerm(term);
 		construct(rank,term,name,team,position);
 	}
 	public PlayerCompareItemPanel(int rank,String season,Terminology term,String name,Teams team,Position position){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import enums.Teams;
 import exceptions.ErrorData;
+import exceptions.TeamNotFound;
 import po.PlayerStatsPO;
 import sorter.data.DataSortByDate;
 
@@ -27,8 +28,13 @@ public class MatchPO implements DataSortByDate {
 		this.season = season;
 		date = arr1[0];
 		String[] teams = arr1[1].split("-");
-		homeTeam = Teams.toEnum(teams[0]);
-		guestTeam = Teams.toEnum(teams[1]);
+		try {
+			homeTeam = Teams.toEnum(teams[0]);
+			guestTeam = Teams.toEnum(teams[1]);
+		} catch (TeamNotFound e) {
+			System.out.println(e.getErrorMessage());
+			e.printStackTrace();
+		}
 		score = arr1[2];
 		
 		score1 = arr2[0];

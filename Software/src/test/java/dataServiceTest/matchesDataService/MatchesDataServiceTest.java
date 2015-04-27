@@ -18,7 +18,7 @@ public class MatchesDataServiceTest extends TestCase {
 		super.setUp();
 	}
 	
-	public void testGetMatch(){
+	public void testGetMatch() throws TeamNotFound{
 		String season = "13-14";
 		String date = "12-31";
 		Teams team1 = Teams.toEnum("TOR");
@@ -26,13 +26,13 @@ public class MatchesDataServiceTest extends TestCase {
 		
 		try {
 			MatchPO matchGet = service.getMatch(season, date, team1, team2);
-			
+			matchGet.print();
 		} catch (MatchNotFound e) {
 			assertTrue(false);
 		}
 	}
 	
-	public void testGetMatches(){
+	public void testGetMatches() throws TeamNotFound{
 		String season = null;
 		String date = null;
 		Teams team1 = Teams.toEnum("CHI");

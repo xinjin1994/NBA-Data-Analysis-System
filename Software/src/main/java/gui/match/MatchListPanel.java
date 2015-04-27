@@ -59,7 +59,7 @@ public class MatchListPanel extends JPanel implements DateChangeable{
 	}
 
 	@Override
-	public void DateChange(Date date) {
+	public void dateChange(Date date) {
 		try {
 			list.setListData(MatchList.toArray(matchbl.getMatchByDate(season, date)));
 		} catch (MatchNotFound e) {
@@ -69,7 +69,7 @@ public class MatchListPanel extends JPanel implements DateChangeable{
 	}
 
 	@Override
-	public void InvalidDate() {
+	public void invalidDate() {
 		JOptionPane.showMessageDialog(MainFrame.currentFrame, "InvalidDate");
 	}
 

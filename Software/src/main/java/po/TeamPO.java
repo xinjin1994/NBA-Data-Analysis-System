@@ -3,6 +3,7 @@ package po;
 import enums.Conference;
 import enums.Division;
 import enums.Teams;
+import exceptions.TeamNotFound;
 
 public class TeamPO {
 	Teams name;                            //队名
@@ -26,7 +27,12 @@ public class TeamPO {
 	
 	public TeamPO(String[] arr){
 		//此方法仅用于读文件
-		name = Teams.toEnum(arr[0]);
+		try{
+			name = Teams.toEnum(arr[0]);
+		} catch (TeamNotFound e) {
+			System.out.println(e.getErrorMessage());
+			e.printStackTrace();
+		}
 		abbreviationOfName = arr[1];
 		location = arr[2];
 		conference = Conference.toEnum(arr[3]);

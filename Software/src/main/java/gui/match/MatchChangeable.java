@@ -9,6 +9,6 @@ import vo.MatchVO;
 public interface MatchChangeable {
 
 	public void setMatch(String season, Date date);
-	public void noMatch();
+	//public void noMatch();
 	public MatchVO getMatch(MatchesBLService matchbl,String season, Date date) throws MatchNotFound;
 	}

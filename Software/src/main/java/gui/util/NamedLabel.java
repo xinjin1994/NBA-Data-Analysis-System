@@ -42,9 +42,7 @@ public class NamedLabel extends JLabel {
 		super.setText(name+value+unit);
 		this.value = value;
 	}
-	public String getvalue() {
-		return value;
-	}
+	
 	
 	public void setFontSize(int size){
 		this.setFont(new Font(this.getFont().getName(),Font.BOLD,size));

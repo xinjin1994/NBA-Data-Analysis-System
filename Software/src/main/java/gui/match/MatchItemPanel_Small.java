@@ -1,6 +1,7 @@
 package gui.match;
 
 import gui.MainFrame;
+import gui.team.TeamLabel;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -22,8 +23,8 @@ public class MatchItemPanel_Small extends JPanel {
 	private static final long serialVersionUID = 8710772911966562176L;
 	private MatchVO vo;
 	private JLabel lbl_date;
-	private JLabel lbl_host;
-	private JLabel lbl_guest;
+	private TeamLabel lbl_host;
+	private TeamLabel lbl_guest;
 	private JLabel lbl_host_score;
 	private JLabel lbl_guest_score;
 
@@ -49,10 +50,10 @@ public class MatchItemPanel_Small extends JPanel {
 		pnl_team.add(Box.createHorizontalGlue());
 		pnl_team.add(guestLabel);
 		
-		lbl_host = new JLabel();
+		lbl_host = new TeamLabel();
 		lbl_host.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_host.setFont(new Font(lbl_host.getFont().getName(),Font.BOLD,25));
-		lbl_guest = new JLabel();
+		lbl_guest = new TeamLabel();
 		lbl_guest.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_guest.setFont(new Font(lbl_guest.getFont().getName(),Font.BOLD,25));
 		pnl_team.add(lbl_host);
@@ -89,8 +90,8 @@ public class MatchItemPanel_Small extends JPanel {
 	public void setMatchVO(MatchVO vo){
 		this.vo = vo;
 		lbl_date.setText(new SimpleDateFormat("yyyy年MM月dd日").format(vo.getDay()));
-		lbl_host.setText(vo.getTeam1().toString());
-		lbl_guest.setText(vo.getTeam2().toString());
+		lbl_host.setText(vo.getTeam1());
+		lbl_guest.setText(vo.getTeam2());
 		String[] score = vo.getScore().split("-");
 		lbl_host_score.setText(score[0]);
 		lbl_guest_score.setText(score[1]);

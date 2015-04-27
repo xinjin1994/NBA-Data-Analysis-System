@@ -1,5 +1,7 @@
 package enums;
 
+import exceptions.TeamNotFound;
+
 public enum Teams {
 	ALL("All","ALL","全部"),
 	ATL("Hawks", "ATL","老鹰"), BKN("Nets", "BKN","篮网"), BOS("Celtics", "BOS","凯尔特人"), CHA("Hornets", "CHA","黄蜂"), 
@@ -45,14 +47,14 @@ public enum Teams {
 		}
 	}
 	
-	public static Teams toEnum(String n){
+	public static Teams toEnum(String n) throws TeamNotFound{
 		if(n.equals("NOH")){
 			return NOP;
 		}
 		for(Teams t : values())
-			if(n.equals(t.toAbbr()) || n.equals(t.toEnglish()))
+			if(n.equals(t.toAbbr()) || n.equals(t.toEnglish()) || n.equals(t.toString()))
 				return t;
-		return null;
+		throw new TeamNotFound(n);
 	}
 	
 	static public Teams[] getEasternTeams(){

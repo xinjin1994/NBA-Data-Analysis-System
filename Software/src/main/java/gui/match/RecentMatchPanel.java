@@ -30,13 +30,13 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 	private JPanel pnl_view;
 	private MatchItemPanel_Small pnl_item;
 	private MatchChangeable matchChanger;
-
+	private Date date;
 	/**
 	 * Create the panel.
 	 */
 	public RecentMatchPanel(ArrayList<Date> availables,MatchChangeable matchChanger) {
 		this.matchChanger = matchChanger;
-
+/*
 		ShortDate today = new ShortDate();
 		ShortDate day = new ShortDate(availables.get(0));
 		ShortDate[] datelist;
@@ -51,6 +51,10 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 			for(int i = 0;i < availables.size();i++)
 				datelist[i+1] = new ShortDate(availables.get(i));
 		}
+*/
+		ShortDate[] datelist = new ShortDate[availables.size()];
+		for(int i = 0;i < datelist.length;i++)
+			datelist[i] = new ShortDate(availables.get(i));
 		
 		this.setLayout(new BorderLayout());
 		
@@ -66,7 +70,11 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 		btn_match.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				try {
+					MainFrame.showDialog(new MatchDialog(matchChanger.getMatch(matchbl,MainFrame.season.season, date)));
+				} catch (MatchNotFound e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		pnl_view.add(pnl_match,HAS_MATCH);
@@ -82,17 +90,20 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 			pnl_item.setMatchVO(vo);
 		} catch (MatchNotFound e) {
 			((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
-			matchChanger.noMatch();
+			//matchChanger.noMatch();
 		}
 		
 		DateChooser pnl_date = new DateChooser(datelist, this);
 		
 		add(pnl_date,BorderLayout.NORTH);
 		add(pnl_view);
+		
+		dateChange(availables.get(0));
 	}
 
 	@Override
-	public void DateChange(Date date) {
+	public void dateChange(Date date) {
+		this.date = date;
 		try {
 			MatchVO vo = matchChanger.getMatch(matchbl,MainFrame.season.season, date);
 			pnl_item.setMatchVO(vo);
@@ -100,12 +111,12 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 			matchChanger.setMatch(MainFrame.season.season, date);
 		} catch (MatchNotFound e) {
 			((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
-			matchChanger.noMatch();
+			//matchChanger.noMatch();
 		}
 	}
 
 	@Override
-	public void InvalidDate() {
+	public void invalidDate() {
 		((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH);
 	}
 
