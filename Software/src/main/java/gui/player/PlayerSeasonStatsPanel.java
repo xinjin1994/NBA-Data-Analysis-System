@@ -28,23 +28,12 @@ import vo.PlayerBasicStatsVO;
 
 public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 	private static final long serialVersionUID = -1843553808115256738L;
-	private PlayersBLService_new playerService;
-	private String name;
 	private static final String AVERAGE = "AVERAGE";
 	private static final String TOTAL = "TOTAL";
-	private static final String BASIC = "BASIC";
-	private static final String ADVANCED = "ADVANCED";
-	private EnumMap<Terminology,NamedLabel> labelMap_basic;
-	private EnumMap<Terminology,NamedLabel> labelMap_advanced;
-	private JPanel pnl_stats;
-	private JRadioButton rdibtn_basic;
-	private JRadioButton rdibtn_advanced;
 
 	public PlayerSeasonStatsPanel(PlayersBLService_new playerService,String name) {
 		super(playerService,name);
 		
-		this.playerService = playerService;
-		this.name = name;
 		{
 			JPanel pnl_seaStats = new JPanel(new BorderLayout());
 			add(pnl_seaStats);
@@ -157,9 +146,9 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 		PlayerBasicStatsVO bs = null;
 		try {
 			if(type == AVERAGE)
-				bs = playerService.getBasicPlayerStatsAverage(MainFrame.season.season,name);
+				bs = playerbl.getBasicPlayerStatsAverage(MainFrame.season.season,name);
 			else if(type == TOTAL)
-				bs = playerService.getBasicPlayerStatsTotal(MainFrame.season.season,name);
+				bs = playerbl.getBasicPlayerStatsTotal(MainFrame.season.season,name);
 			
 			for(Terminology term:Terminology.getPlayerSeasonBasic()){
 				labelMap_basic.get(term).setText(bs.getProperty(term));
@@ -178,7 +167,7 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 	private void setAdvancedStats(){
 		PlayerAdvancedStatsVO bs;
 		try {
-			bs = playerService.getAdvancedPlayerStats(MainFrame.season.season,name);
+			bs = playerbl.getAdvancedPlayerStats(MainFrame.season.season,name);
 
 			for(Terminology term:Terminology.getPlayerAdvanced()){
 				labelMap_advanced.get(term).setText(bs.getProperty(term));

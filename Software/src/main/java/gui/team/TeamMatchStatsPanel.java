@@ -52,7 +52,6 @@ public class TeamMatchStatsPanel extends TeamStatsPanel implements MatchChangeab
 		lbl_nomatch.setHorizontalAlignment(SwingConstants.CENTER);
 		pnl_stats.add(lbl_nomatch, NO_MATCH);
 		
-		noMatch();
 	}
 
 	@Override
@@ -70,12 +69,12 @@ public class TeamMatchStatsPanel extends TeamStatsPanel implements MatchChangeab
 		
 		((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, DAY);
 	}
-
+	/*
 	@Override
 	public void noMatch() {
 		((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, NO_MATCH);
 	}
-
+	*/
 	@Override
 	public MatchVO getMatch(MatchesBLService matchbl, String season, Date date)
 			throws MatchNotFound {

@@ -293,6 +293,10 @@ public class PlayerBasicStatsVO implements StatsVO{
 			return GUIUtility.formatDouble(this.getThreePointFieldGoalsMade());
 		case FTM:
 			return GUIUtility.formatDouble(this.getFreeThrowsMade());
+		case POSITION:
+			return this.getPosition().toString();
+		case TEAM:
+			return this.getTeam().toString();
 		default:
 			throw new TermNotFound(term);
 		}

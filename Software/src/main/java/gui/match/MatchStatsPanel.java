@@ -1,5 +1,6 @@
 package gui.match;
 
+import enums.Terminology;
 import exceptions.PlayerNotFound;
 import exceptions.TermNotFound;
 import factory.ObjectCreator;
@@ -132,7 +133,10 @@ public class MatchStatsPanel extends JPanel{
 		JPanel pnl_stats = new JPanel(new CardLayout());
 		pnl_player.add(pnl_stats);
 		list.setSelectedIndex(0);
-		pnl_stats.add(new PlayerMatchStatsPanel(playerbl,list.getSelectedValue().getName(),season,date),"M");
+		PlayerMatchStatsPanel pnl_playerStats = new PlayerMatchStatsPanel(playerbl,list.getSelectedValue().getName()
+				,Terminology.getPlayerCompareBasic());
+		pnl_playerStats.setMatch(season, date);
+		pnl_stats.add(pnl_playerStats,"M");
 		
 		list.addMouseListener(new PlayerListListener(playerbl,list,pnl_stats));
 		return pnl_player;
@@ -150,7 +154,10 @@ public class MatchStatsPanel extends JPanel{
 		@Override
 		public void mouseClicked(MouseEvent me){
 			if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 1){
-				pnl.add(new PlayerMatchStatsPanel(playerbl,list.getSelectedValue().getName(),season,date),"M");
+				PlayerMatchStatsPanel pnl_playerStats = new PlayerMatchStatsPanel(playerbl,list.getSelectedValue().getName()
+						,Terminology.getPlayerCompareBasic());
+				pnl_playerStats.setMatch(season, date);
+				pnl.add(pnl_playerStats,"M");
 				((CardLayout)pnl.getLayout()).show(pnl, "M");
 			}
 			else if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 2){

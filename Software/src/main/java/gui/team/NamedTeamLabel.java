@@ -3,24 +3,20 @@ package gui.team;
 import enums.Teams;
 import exceptions.TeamNotFound;
 import gui.MainFrame;
+import gui.util.NamedLabel;
 
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
-
-public class TeamLabel extends JLabel {
+public class NamedTeamLabel extends NamedLabel {
 	private static final long serialVersionUID = -4521190206450643161L;
 	private Teams team;
 	
-	public TeamLabel(Teams team){
-		super("<html><u>"+team.toString()+"</u></html>");
-		this.team = team;
-	}
-	
-	public TeamLabel(){
+	public NamedTeamLabel(){
+		super("<html><u>队伍","</u></html>");
+		
 		setForeground(Color.BLUE);
 		
 		this.addMouseListener(new MouseAdapter(){
@@ -43,19 +39,18 @@ public class TeamLabel extends JLabel {
 			}
 		});
 	}
+	public NamedTeamLabel(Teams team){
+		super("<html><u>队伍",team.toString(),"</u></html>");
+		this.team = team;
+	}
 	
 	@Override
 	public void setText(String value){
-		super.setText("<html><u>"+value+"</u></html>");
+		super.setText(value);
 		try {
-			this.team = Teams.toEnum(value);
+			team = Teams.toEnum(value);
 		} catch (TeamNotFound e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void setText(Teams team){
-		this.team = team;
-		super.setText("<html><u>"+team.toString()+"</u></html>");
 	}
 }

@@ -10,6 +10,7 @@ import gui.match.MatchItemPanel_Small;
 import gui.match.RecentMatchPanel;
 import gui.team.TeamLabel;
 import gui.util.GUIUtility;
+import gui.util.NamedLabel;
 import gui.util.VerticalLabel;
 import gui.util.AdjustableTable.CheckComboBox;
 
@@ -61,7 +62,9 @@ public class TestFrame extends JFrame {
 		contentPane.setLayout(new FlowLayout());
 		setContentPane(contentPane);
 		
-		contentPane.add(new JLabel(GUIUtility.formatDouble(37.101d)));
+		NamedLabel nl = new NamedLabel("<html><u>yy</u></html>");
+		//nl.setText("<html><u>yy</u></html>");
+		contentPane.add(nl);
 	}
 
 }

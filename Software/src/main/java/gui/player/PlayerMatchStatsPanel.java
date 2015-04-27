@@ -6,11 +6,11 @@ import exceptions.PlayerNotFound;
 import exceptions.TermNotFound;
 import gui.MainFrame;
 import gui.match.MatchChangeable;
+import gui.team.NamedTeamLabel;
 import gui.util.NamedLabel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -24,8 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
-
 import vo.MatchVO;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
@@ -34,24 +32,18 @@ import businessLogicService.playersBLService.PlayersBLService_new;
 
 public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChangeable{
 	private static final long serialVersionUID = 6034767373557740775L;
-	private PlayersBLService_new playerService;
-	private String name;
-	private static final String BASIC = "BASIC";
-	private static final String ADVANCED = "ADVANCED";
-	private static final String NO_MATCH = "NO_MATCH";
-	protected EnumMap<Terminology,NamedLabel> labelMap_basic;
-	protected EnumMap<Terminology,NamedLabel> labelMap_advanced;
-	private JPanel pnl_stats;
+	//private static final String NO_MATCH = "NO_MATCH";
+	private Terminology[] term_basic;
 	private String season;
 	private Date date;
-	private JRadioButton rdibtn_basic;
-	private JRadioButton rdibtn_advanced;
 
 	public PlayerMatchStatsPanel(PlayersBLService_new playerService,String name) {
+		this(playerService,name,Terminology.getPlayerMatchBasic());
+	}
+	public PlayerMatchStatsPanel(PlayersBLService_new playerService,String name,Terminology[] term_basic) {
 		super(playerService,name);
+		this.term_basic = term_basic;
 		
-		this.playerService = playerService;
-		this.name = name;
 		{
 			JPanel pnl_seaStats = new JPanel(new BorderLayout());
 			add(pnl_seaStats);
@@ -88,18 +80,21 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 				
 				labelMap_basic = new EnumMap<Terminology,NamedLabel>(Terminology.class);
 				int i = 0;
-				for(Terminology[] term = Terminology.getPlayerMatchBasic();i < term.length;i++){
+				for(Terminology[] term = term_basic;i < term.length;i++){
 					String unit = "";
 					if(term[i] == Terminology.FGP||term[i] == Terminology.TPP||term[i] == Terminology.FTP)
 						unit = "%";
-					NamedLabel labelPanel = new NamedLabel(term[i].toString(),unit);
+					NamedLabel labelPanel;
+					if(term[i] == Terminology.TEAM)
+						labelPanel = new NamedTeamLabel();
+					else
+						labelPanel = new NamedLabel(term[i].toString(),unit);
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
 					gbc_labelPanel.gridx = i%2;
 					gbc_labelPanel.gridy = i/2;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
 					labelMap_basic.put(term[i], labelPanel);
 				}
-				
 			}
 			{
 				JPanel pnl_advanced = new JPanel();
@@ -118,39 +113,20 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 					labelMap_advanced.put(term[i], labelPanel);
 				}
 			}
+			/*
 			JLabel lbl_no_match = new JLabel("无比赛数据");
 			lbl_no_match.setHorizontalAlignment(SwingConstants.CENTER);
 			pnl_stats.add(lbl_no_match,NO_MATCH);
+			*/
 			
-			noMatch();
 		}
-	}
-	public PlayerMatchStatsPanel(PlayersBLService_new playerService,String name,String season, Date date) {
-		this(playerService,name);
-		setMatch(season,date);
-	}
-	public PlayerMatchStatsPanel(PlayersBLService_new playerService,String name,String season, Date date,Terminology term) {
-		this(playerService,name,season,date);
-		NamedLabel lbl = null;
-		if(labelMap_basic.containsKey(term)){
-			lbl = labelMap_basic.get(term);
-			rdibtn_basic.setEnabled(true);
-			((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, BASIC);
-		}
-		else if(labelMap_advanced.containsKey(term)){
-			lbl = labelMap_advanced.get(term);
-			rdibtn_advanced.setEnabled(true);
-			((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, ADVANCED);
-		}
-		else return;
-		lbl.setForeground(Color.RED);
 	}
 	
 	private void setBasicStats(){
 		try {
-			PlayerBasicStatsVO bs = playerService.getBasicStats(season, date, name);
+			PlayerBasicStatsVO bs = playerbl.getBasicStats(season, date, name);
 			
-			for(Terminology term:Terminology.getPlayerMatchBasic()){
+			for(Terminology term:term_basic){
 				labelMap_basic.get(term).setText(bs.getProperty(term));
 			}
 		} catch (PlayerNotFound e) {
@@ -165,7 +141,7 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 
 	private void setAdvancedStats(){
 		try {
-			PlayerAdvancedStatsVO bs = playerService.getAdvancedPlayerStats(MainFrame.season.season,name);
+			PlayerAdvancedStatsVO bs = playerbl.getAdvancedPlayerStats(MainFrame.season.season,name);
 
 			for(Terminology term:Terminology.getPlayerAdvanced()){
 				labelMap_advanced.get(term).setText(bs.getProperty(term));
@@ -185,7 +161,7 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 			((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, ae.getActionCommand());
 		}
 	}
-
+	
 	@Override
 	public void setMatch(String season, Date date){
 		this.season = season;
@@ -200,13 +176,14 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 		setBasicStats();
 		setAdvancedStats();
 	}
-
+	/*
 	@Override
 	public void noMatch() {
 		rdibtn_basic.setEnabled(false);
 		rdibtn_advanced.setEnabled(false);
 		((CardLayout)(pnl_stats.getLayout())).show(pnl_stats, NO_MATCH);
 	}
+	*/
 	@Override
 	public MatchVO getMatch(MatchesBLService matchbl, String season, Date date)
 			throws MatchNotFound {

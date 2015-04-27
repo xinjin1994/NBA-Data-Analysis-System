@@ -65,7 +65,7 @@ public class DateChooser extends JPanel {
 				break;
 			default:
 				if(cbbx_date.getSelectedIndex() == -1){
-					dc.InvalidDate();
+					dc.invalidDate();
 					return;
 				}
 			}
@@ -79,7 +79,7 @@ public class DateChooser extends JPanel {
 				btn_next.setEnabled(true);
 			
 			Date date = cbbx_date.getItemAt(cbbx_date.getSelectedIndex()).date;
-			dc.DateChange(date);
+			dc.dateChange(date);
 		}
 	}
 }
