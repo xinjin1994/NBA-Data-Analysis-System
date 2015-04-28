@@ -63,7 +63,7 @@ public class TeamDetailPanel extends JPanel {
 				ArrayList<Date> datelist = teambl.getAvailableDays(MainFrame.season.season, infovo.getTeam());
 				TeamMatchStatsPanel pnl_matchStats = new TeamMatchStatsPanel(teambl, infovo.getTeam());
 				JPanel boxPanel = new JPanel();
-				boxPanel.add(new RecentMatchPanel(datelist,pnl_matchStats));
+				boxPanel.add(new RecentMatchPanel(datelist,pnl_matchStats,infovo.getTeam()));
 				pnl_match.add(boxPanel);
 				pnl_match.add(pnl_matchStats);
 			}
