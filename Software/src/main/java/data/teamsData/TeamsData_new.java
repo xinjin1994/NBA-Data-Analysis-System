@@ -233,6 +233,9 @@ public class TeamsData_new implements TeamsDataService_new, TeamsDataForTest{
 		for(Teams_new t: teams){
 			if(t.team == team){
 				for(TeamStats_new s: t.stats){
+					if(!s.season.equals(season)){
+						continue;
+					}
 					if(!dates.contains(s.date)){
 						dates.add(s.date);
 					}
