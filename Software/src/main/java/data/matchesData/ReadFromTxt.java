@@ -26,7 +26,6 @@ public class ReadFromTxt implements ReadMatches{
 	
 	public MatchPO readFromOneFile(File file) {
 		if(file.exists()){
-			System.out.println("Read " + file);
 			try{
 				String season = file.getName().split("_")[0];           //读取赛季
 				
