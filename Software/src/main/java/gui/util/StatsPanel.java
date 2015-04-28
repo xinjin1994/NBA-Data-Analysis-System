@@ -1,5 +1,6 @@
 package gui.util;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Color;
 import java.awt.LayoutManager;
@@ -64,10 +65,11 @@ public class StatsPanel extends JPanel{
 	}
 	
 	public static StatsPanel buildStatsPanel(String title,Terminology[] terms,StatsVO vo,int col){
-		GridLayout gridlay = new GridLayout((int)Math.ceil(terms.length/(double)col)+1,col,10,10);
+		GridLayout gridlay = new GridLayout((int)Math.ceil(terms.length/(double)col)+1,col,10,5);
 		StatsPanel pnl_stats = new StatsPanel(gridlay);
 		
 		JLabel lbl_title = new JLabel(title);
+		lbl_title.setFont(new Font(lbl_title.getFont().getName(),Font.BOLD,13));
 		pnl_stats.add(lbl_title);
 		for(int i = 0;i < col-1;i++)
 			pnl_stats.add(Box.createHorizontalStrut(1));

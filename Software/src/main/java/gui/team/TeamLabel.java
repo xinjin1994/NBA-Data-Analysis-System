@@ -44,8 +44,8 @@ public class TeamLabel extends JLabel {
 		});
 	}
 	
-	@Override
-	public void setText(String value){
+
+	public void setValue(String value){
 		super.setText("<html><u>"+value+"</u></html>");
 		try {
 			this.team = Teams.toEnum(value);
@@ -54,7 +54,7 @@ public class TeamLabel extends JLabel {
 		}
 	}
 	
-	public void setText(Teams team){
+	public void setValue(Teams team){
 		this.team = team;
 		super.setText("<html><u>"+team.toString()+"</u></html>");
 	}

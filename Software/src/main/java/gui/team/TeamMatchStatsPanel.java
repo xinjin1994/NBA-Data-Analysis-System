@@ -27,7 +27,7 @@ import gui.util.StatsPanel;
 public class TeamMatchStatsPanel extends TeamStatsPanel implements MatchChangeable{
 	private static final long serialVersionUID = 9047422515279489625L;
 	private static final String DAY = "DAY";
-	private static final String NO_MATCH = "NO_MATCH";
+	//private static final String NO_MATCH = "NO_MATCH";
 	private JPanel pnl_stats;
 
 	public TeamMatchStatsPanel(TeamsBLService_new teambl, Teams team) {
@@ -40,8 +40,6 @@ public class TeamMatchStatsPanel extends TeamStatsPanel implements MatchChangeab
 			pnl_title.setLayout(new BoxLayout(pnl_title,BoxLayout.X_AXIS));
 			add(pnl_title,BorderLayout.NORTH);
 			
-			JLabel lbl_title = new JLabel("比赛数据:   ");
-			pnl_title.add(lbl_title);
 		}
 		
 		pnl_stats = new JPanel(new CardLayout());
@@ -50,7 +48,7 @@ public class TeamMatchStatsPanel extends TeamStatsPanel implements MatchChangeab
 		JLabel lbl_nomatch = new JLabel("今日球队无比赛");
 		lbl_nomatch.setAlignmentX(0.5f);
 		lbl_nomatch.setHorizontalAlignment(SwingConstants.CENTER);
-		pnl_stats.add(lbl_nomatch, NO_MATCH);
+		//pnl_stats.add(lbl_nomatch, NO_MATCH);
 		
 	}
 

@@ -34,6 +34,7 @@ public class NamedLabel extends JLabel {
 		this.unit = " "+unit;
 		super.setText(this.name+this.value+this.unit);
 		this.setAlignmentX(0);
+		this.setFont(new Font(this.getFont().getName(),Font.PLAIN,this.getFont().getSize()));
 		this.setHorizontalAlignment(SwingConstants.LEADING);
 	}
 	

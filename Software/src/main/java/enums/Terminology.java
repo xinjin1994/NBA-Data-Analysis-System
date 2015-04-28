@@ -152,23 +152,16 @@ public enum Terminology {
 	
 	static public String getUnit(Terminology term){
 		switch(term){
-		case ASTE:
 		case ASTP:
 		case BLKP:
-		case DREBDE:
 		case DREBP:
-		case DFE:
-		case FGE:
 		case FGP:
 		case FTP:
 		case GMSC:
 		case IMP:
-		case OFE:
-		case OREBDE:
 		case OREBP:
 		case PER:
 		case REBP:
-		case STLE:
 		case STLP:
 		case TOVP:
 		case TPP:

@@ -90,8 +90,8 @@ public class MatchItemPanel_Small extends JPanel {
 	public void setMatchVO(MatchVO vo){
 		this.vo = vo;
 		lbl_date.setText(new SimpleDateFormat("yyyy年MM月dd日").format(vo.getDay()));
-		lbl_host.setText(vo.getTeam1());
-		lbl_guest.setText(vo.getTeam2());
+		lbl_host.setValue(vo.getTeam1());
+		lbl_guest.setValue(vo.getTeam2());
 		String[] score = vo.getScore().split("-");
 		lbl_host_score.setText(score[0]);
 		lbl_guest_score.setText(score[1]);

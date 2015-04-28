@@ -6,9 +6,7 @@ import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.SelfAdjustPanel;
-import gui.team.TeamTableModel_DefenseFoul;
-import gui.team.TeamTableModel_GeneralRatio;
-import gui.team.TeamTableModel_Offence;
+import gui.util.LeftAlignTableRenderer;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -58,6 +56,10 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 		tbl_offenceList.setFillsViewportHeight(true);
 		tbl_offenceList.setAutoCreateRowSorter(true);
 		tbl_offenceList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbl_offenceList.setDefaultRenderer(int.class, new LeftAlignTableRenderer());
+		tbl_offenceList.setDefaultRenderer(Integer.class, new LeftAlignTableRenderer());
+		tbl_offenceList.setDefaultRenderer(Double.class, new LeftAlignTableRenderer());
+		tbl_offenceList.setDefaultRenderer(double.class, new LeftAlignTableRenderer());
 		tbl_offenceList.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -71,6 +73,10 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 		tbl_defensefoulList.setFillsViewportHeight(true);
 		tbl_defensefoulList.setAutoCreateRowSorter(true);
 		tbl_defensefoulList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbl_defensefoulList.setDefaultRenderer(int.class, new LeftAlignTableRenderer());
+		tbl_defensefoulList.setDefaultRenderer(Integer.class, new LeftAlignTableRenderer());
+		tbl_defensefoulList.setDefaultRenderer(Double.class, new LeftAlignTableRenderer());
+		tbl_defensefoulList.setDefaultRenderer(double.class, new LeftAlignTableRenderer());
 		tbl_defensefoulList.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -84,6 +90,10 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 		tbl_generalratioList.setFillsViewportHeight(true);
 		tbl_generalratioList.setAutoCreateRowSorter(true);
 		tbl_generalratioList.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbl_generalratioList.setDefaultRenderer(int.class, new LeftAlignTableRenderer());
+		tbl_generalratioList.setDefaultRenderer(Integer.class, new LeftAlignTableRenderer());
+		tbl_generalratioList.setDefaultRenderer(Double.class, new LeftAlignTableRenderer());
+		tbl_generalratioList.setDefaultRenderer(double.class, new LeftAlignTableRenderer());
 		tbl_generalratioList.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent me) {
