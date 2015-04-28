@@ -54,15 +54,15 @@ public class TeamRatioGeneralVO implements StatsVO{
 	}
 
 	public double getFieldGoalsPercentage() {
-		return fieldGoalsPercentage;
+		return fieldGoalsPercentage*100;
 	}
 
 	public double getFreeThrowsPercentage() {
-		return freeThrowsPercentage;
+		return freeThrowsPercentage*100;
 	}
 
 	public double getThreePointFieldGoalsPercentage() {
-		return threePointFieldGoalsPercentage;
+		return threePointFieldGoalsPercentage*100;
 	}
 
 	public double getWinningRating() {

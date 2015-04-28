@@ -19,6 +19,7 @@ import po.PlayerPO;
 import po.PlayerProgressPO;
 import po.TeamPO;
 import sorter.Sorter;
+import sorter.players.vo.SortPlayerVOByPosition;
 import data.matchesData.MatchesData_new;
 import data.teamsData.TeamsData_new;
 import dataService.imageService.ImageService;
@@ -467,7 +468,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 				po.getSteals(), po.getBlocks(), po.getTurnovers(), po.getPersonalFouls(), 
 				po.getPoints(), po.isDoubleDouble()==true?1:0, po.getFieldGoalsMade(), 
 						po.getFieldGoalsAttempted(), po.getThreePointFieldGoalsMade(), 
-						po.getThreePointFieldGoalsAttempted(), po.getFieldGoalsMade(), 
+						po.getThreePointFieldGoalsAttempted(), po.getFreeThrowsMade(), 
 						po.getFreeThrowsAttempted());		
 	}
 
@@ -985,6 +986,7 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 				PlayerVO vo = this.getPlayerInfo(name);
 				list.add(vo);
 			}
+			Collections.sort(list, new SortPlayerVOByPosition());
 			return list;
 		} catch (PlayerNotFound e) {
 			e.printStackTrace();
