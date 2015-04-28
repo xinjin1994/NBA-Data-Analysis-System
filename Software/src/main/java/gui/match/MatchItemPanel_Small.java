@@ -1,5 +1,6 @@
 package gui.match;
 
+import enums.Teams;
 import gui.MainFrame;
 import gui.team.TeamLabel;
 
@@ -19,7 +20,7 @@ import vo.MatchVO;
 
 import javax.swing.SwingConstants;
 
-public class MatchItemPanel_Small extends JPanel {
+public class MatchItemPanel_Small extends JPanel{
 	private static final long serialVersionUID = 8710772911966562176L;
 	private MatchVO vo;
 	private JLabel lbl_date;
@@ -27,8 +28,16 @@ public class MatchItemPanel_Small extends JPanel {
 	private TeamLabel lbl_guest;
 	private JLabel lbl_host_score;
 	private JLabel lbl_guest_score;
+	private Teams team = Teams.ALL;
 
 	public MatchItemPanel_Small(boolean displayDate) {
+		construct(displayDate);
+	}
+	public MatchItemPanel_Small(boolean displayDate,Teams team) {
+		construct(displayDate);
+		this.team = team;
+	}
+	private void construct(boolean displayDate){
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
 		lbl_date = new JLabel();
@@ -83,15 +92,20 @@ public class MatchItemPanel_Small extends JPanel {
 		});
 	}
 	public MatchItemPanel_Small(MatchVO vo,boolean displayDate){
-		this(displayDate);
+		construct(displayDate);
+		setMatchVO(vo);
+	}
+	public MatchItemPanel_Small(MatchVO vo,Teams team,boolean displayDate) {
+		this.team = team;
+		construct(displayDate);
 		setMatchVO(vo);
 	}
 	
 	public void setMatchVO(MatchVO vo){
 		this.vo = vo;
 		lbl_date.setText(new SimpleDateFormat("yyyy年MM月dd日").format(vo.getDay()));
-		lbl_host.setValue(vo.getTeam1());
-		lbl_guest.setValue(vo.getTeam2());
+		lbl_host.setValue(vo.getTeam1(),vo.getTeam1() != team);
+		lbl_guest.setValue(vo.getTeam2(),vo.getTeam2() != team);
 		String[] score = vo.getScore().split("-");
 		lbl_host_score.setText(score[0]);
 		lbl_guest_score.setText(score[1]);

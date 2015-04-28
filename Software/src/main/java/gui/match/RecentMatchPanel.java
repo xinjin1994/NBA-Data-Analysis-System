@@ -1,5 +1,6 @@
 package gui.match;
 
+import enums.Teams;
 import exceptions.MatchNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
@@ -35,6 +36,12 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 	 * Create the panel.
 	 */
 	public RecentMatchPanel(ArrayList<Date> availables,MatchChangeable matchChanger) {
+		construct(availables,matchChanger,new MatchItemPanel_Small(false));
+	}
+	public RecentMatchPanel(ArrayList<Date> availables,MatchChangeable matchChanger,Teams team) {
+		construct(availables,matchChanger,new MatchItemPanel_Small(false,team));
+	}
+	private void construct(ArrayList<Date> availables,MatchChangeable matchChanger,MatchItemPanel_Small pnl_item){
 		this.matchChanger = matchChanger;
 /*
 		ShortDate today = new ShortDate();
@@ -61,8 +68,8 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 		pnl_view = new JPanel(new CardLayout());
 		
 		JPanel pnl_match = new JPanel(new BorderLayout());
-		pnl_item = new MatchItemPanel_Small(false);
-		pnl_match.add(pnl_item);
+		this.pnl_item = pnl_item;
+		pnl_match.add(this.pnl_item);
 		JButton btn_match = new JButton("查看比赛");
 		JPanel pnl_btn = new JPanel();
 		pnl_btn.add(btn_match);
@@ -89,7 +96,7 @@ public class RecentMatchPanel extends JPanel implements DateChangeable{
 		*/
 		try {
 			MatchVO vo = matchChanger.getMatch(matchbl,MainFrame.season.season, datelist[0].date);
-			pnl_item.setMatchVO(vo);
+			this.pnl_item.setMatchVO(vo);
 		} catch (MatchNotFound e) {
 			//((CardLayout)pnl_view.getLayout()).show(pnl_view, NO_MATCH_TODAY);
 			//matchChanger.noMatch();
