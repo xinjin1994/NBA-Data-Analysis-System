@@ -94,7 +94,7 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 				ButtonGroup btngrp_type = new ButtonGroup();
 				btngrp_type.add(rdibtn_average);
 				btngrp_type.add(rdibtn_total);
-				btngrp_type.setSelected(rdibtn_total.getModel(), true);
+				btngrp_type.setSelected(rdibtn_average.getModel(), true);
 				
 				labelMap_basic = new EnumMap<Terminology,NamedLabel>(Terminology.class);
 				int i = 0;
