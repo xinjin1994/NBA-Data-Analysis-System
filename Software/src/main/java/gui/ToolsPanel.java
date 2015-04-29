@@ -43,7 +43,7 @@ public class ToolsPanel extends JPanel{
 	private JComboBox<Season> cbbx_season;
 	private ArrayList<PanelType> refreshList = new ArrayList<PanelType>();
 	private JButton btn_return;
-	
+	/*
 	@Override
     protected void paintComponent(Graphics g) {
         if (g instanceof Graphics2D) {
@@ -56,7 +56,7 @@ public class ToolsPanel extends JPanel{
             g2d.setPaint(p);
             g2d.fillRect(0, 0, getWidth(), getHeight());
         }
-    }
+    }*/
 	
 	public ToolsPanel(JPanel pnl_main){
 		this.pnl_main = pnl_main;
@@ -153,6 +153,10 @@ public class ToolsPanel extends JPanel{
 	}
 	
 	void showPanel(PanelType type){
+		if(type == PanelType.MENU)
+			setVisible(false);
+		else
+			setVisible(true);
 		lbl_title.setText(type.toString());
 		((CardLayout)pnl_main.getLayout()).show(pnl_main, type.toString());
 	}

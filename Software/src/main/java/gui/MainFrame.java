@@ -88,8 +88,6 @@ public class MainFrame extends FrameRefreshable{
 		//pnl_main.add(pnl_menu,PanelType.MENU.toString());
 
 		pnl_tools = new ToolsPanel(pnl_main);
-		//pnl_tools.setOpaque(false);
-		pnl_tools.setBackground(new Color(255,0,0));
 		
 		contentPane.add(pnl_tools,BorderLayout.NORTH);
 		gotoPanel(PanelType.MENU);
