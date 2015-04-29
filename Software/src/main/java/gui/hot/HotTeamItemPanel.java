@@ -1,6 +1,7 @@
 package gui.hot;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class HotTeamItemPanel extends JPanel {
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
 		NamedLabel lbl_stat = new NamedLabel(term,GUIUtility.formatDouble(teams.get(0).getStats()),true);
+		lbl_stat.setFont(new Font("宋体",Font.BOLD,12));
 		lbl_stat.setAlignmentX(0.5f);
 		add(lbl_stat);
 		

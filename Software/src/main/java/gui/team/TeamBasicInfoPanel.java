@@ -20,7 +20,7 @@ public class TeamBasicInfoPanel extends JPanel {
 		
 		labels.add(new JLabel(vo.getTeam().toString()));
 		labels.add(new JLabel(vo.getConference().toString()+"联盟  "+vo.getDivision().toString()+"   "+vo.getLocation()));
-		labels.add(new JLabel("球场：  "+vo.getHomeCourt()));
+		labels.add(new JLabel("主场：  "+vo.getHomeCourt()));
 		labels.add(new JLabel("创建时间："+vo.getYearOfEstablishment()));
 		
 		add(Box.createVerticalGlue());

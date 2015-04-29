@@ -2,8 +2,11 @@ package gui.player;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -12,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,20 +73,29 @@ public class PlayerDialog extends FrameRefreshable{
 			JPanel pnl_info = new JPanel();
 			pnl_info.setLayout(new BoxLayout(pnl_info,BoxLayout.X_AXIS));
 			pnl_info.add(new PlayerBasicInfoPanel(vo));
-			pnl_info.add(new PlayerSeasonStatsPanel(playerbl,vo.getName()));
+			pnl_info.add(Box.createHorizontalStrut(40));
+			PlayerSeasonStatsPanel pnl_season = new PlayerSeasonStatsPanel(playerbl,vo.getName());
+			pnl_season.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK),"赛季数据",TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION,new Font("黑体",Font.BOLD,20)));
+			pnl_info.add(pnl_season);
 			pnl_main.add(pnl_info);
 			
 			JPanel pnl_match = new JPanel();
+			pnl_main.add(pnl_match);
 			pnl_match.setLayout(new BoxLayout(pnl_match,BoxLayout.X_AXIS));
+			pnl_match.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK),"比赛数据",TitledBorder.DEFAULT_JUSTIFICATION,
+					TitledBorder.DEFAULT_POSITION,new Font("黑体",Font.BOLD,20)));
 			PlayerMatchStatsPanel pnl_match_stats = new PlayerMatchStatsPanel(playerbl, vo.getName());
+			//pnl_match_stats.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			try {
 				ArrayList<Date> dates = playerbl.getAvailableDays(MainFrame.season.season, vo.getName());
-				pnl_main.add(new RecentMatchPanel(dates, pnl_match_stats));
+				pnl_match.add(new RecentMatchPanel(dates, pnl_match_stats));
 			} catch (PlayerNotFound e) {
 				JOptionPane.showMessageDialog(this, e.toString());
 			}
-			pnl_main.add(pnl_match_stats);
-			pnl_main.add(pnl_match);
+			pnl_match.add(Box.createHorizontalStrut(20));
+			pnl_match.add(pnl_match_stats);
+			
 		}
 	}
 

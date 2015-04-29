@@ -1,6 +1,7 @@
 package gui.hot;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -40,6 +41,7 @@ public class HotPlayerItemPanel extends JPanel {
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
 		NamedLabel lbl_stat = new NamedLabel(term,GUIUtility.formatDouble(players.get(0).getStats()),average);
+		lbl_stat.setFont(new Font("宋体",Font.BOLD,13));
 		lbl_stat.setAlignmentX(0.5f);
 		add(lbl_stat);
 		

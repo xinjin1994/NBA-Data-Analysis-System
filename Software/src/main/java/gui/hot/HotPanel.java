@@ -14,7 +14,7 @@ public class HotPanel extends JPanel {
 		pnl_main.setLayout(new GridLayout(3, 0, 0, 0));
 		add(pnl_main);
 		
-		pnl_main.add(new HotPlayerPanel_today());
+		pnl_main.add(new HotPlayerPanel_OneDay());
 		
 		pnl_main.add(new ProgressPlayerPanel());
 		

@@ -1,6 +1,7 @@
 package gui.hot;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class ProgressPlayerItemPanel extends JPanel {
 		}
 		setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		
+		JLabel lbl_improv = new JLabel(term.toString()+"进步率:"+GUIUtility.formatDouble(players.get(0).getImprovement())+"%");
+		lbl_improv.setFont(new Font("宋体",Font.BOLD,13));
+		lbl_improv.setAlignmentX(0.5f);
+		add(lbl_improv);
 		
 		try {
 			PlayerVO vo = playerbl.getPlayerInfo(players.get(0).getName());
@@ -49,15 +54,12 @@ public class ProgressPlayerItemPanel extends JPanel {
 		add(lbl_team);
 		
 		ArrayList<Double> stats = players.get(0).getStats();
-		JLabel lbl_stats1 = new JLabel("近5场"+term.toString()+":"+GUIUtility.formatDouble(stats.get(0))+", "
+		JLabel lbl_stats1 = new JLabel("近5场数据:"+GUIUtility.formatDouble(stats.get(0))+", "
 				+GUIUtility.formatDouble(stats.get(1))+","+GUIUtility.formatDouble(stats.get(2))+", "
 				+GUIUtility.formatDouble(stats.get(3))+", "+GUIUtility.formatDouble(stats.get(4)));
 		lbl_stats1.setAlignmentX(0.5f);
+		lbl_stats1.setFont(new Font("宋体",Font.BOLD,13));
 		add(lbl_stats1);
-		
-		JLabel lbl_improv = new JLabel("提升:"+GUIUtility.formatDouble(players.get(0).getImprovement())+"%");
-		lbl_improv.setAlignmentX(0.5f);
-		add(lbl_improv);
 		
 		JButton btn_rank = new JButton("查看前5名");
 		btn_rank.setAlignmentX(0.5f);

@@ -11,18 +11,20 @@ import gui.util.NamedLabel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.EnumMap;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
 import vo.MatchVO;
 import vo.PlayerAdvancedStatsVO;
 import vo.PlayerBasicStatsVO;
@@ -37,9 +39,10 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 	private Date date;
 
 	public PlayerMatchStatsPanel(PlayersBLService_new playerService,String name) {
-		this(playerService,name,Terminology.getPlayerMatchBasic());
+		this(playerService,name,Terminology.getPlayerMatchBasic(),15,new Insets(2,5,2,5),new Insets(5,5,5,5));
 	}
-	public PlayerMatchStatsPanel(PlayersBLService_new playerService,String name,Terminology[] term_basic) {
+	public PlayerMatchStatsPanel(PlayersBLService_new playerService,String name,Terminology[] term_basic
+			,int fontSize,Insets insets_basic,Insets insets_advanced) {
 		super(playerService,name);
 		this.term_basic = term_basic;
 		
@@ -48,15 +51,17 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 			add(pnl_seaStats);
 			
 			JPanel pnl_seaTitle = new JPanel();
-			pnl_seaTitle.setLayout(new FlowLayout(FlowLayout.LEADING));
-			pnl_seaTitle.add(new JLabel("比赛数据"));
+			pnl_seaTitle.setLayout(new FlowLayout(FlowLayout.CENTER));
+			//pnl_seaTitle.add(new JLabel("比赛数据"));
 			
 			rdibtn_basic = new JRadioButton("基础数据");
+			rdibtn_basic.setFont(new Font("黑体",Font.BOLD,fontSize));
 			rdibtn_basic.setActionCommand(BASIC);
 			rdibtn_basic.addActionListener(new StatsRadioButtonListener());
 			pnl_seaTitle.add(rdibtn_basic);
 			
 			rdibtn_advanced = new JRadioButton("进阶数据");
+			rdibtn_advanced.setFont(new Font("黑体",Font.BOLD,fontSize));
 			rdibtn_advanced.setActionCommand(ADVANCED);
 			rdibtn_advanced.addActionListener(new StatsRadioButtonListener());
 			pnl_seaTitle.add(rdibtn_advanced);
@@ -80,12 +85,13 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 				labelMap_basic = new EnumMap<Terminology,NamedLabel>(Terminology.class);
 				int i = 0;
 				for(Terminology[] term = term_basic;i < term.length;i++){
-					String unit = "";
-					if(term[i] == Terminology.FGP||term[i] == Terminology.TPP||term[i] == Terminology.FTP)
-						unit = "%";
+					String unit = Terminology.getUnit(term[i]);
 					NamedLabel labelPanel;
 					labelPanel = new NamedLabel(term[i].toString(),unit);
+					labelPanel.setFont(new Font("黑体",Font.BOLD,fontSize));
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
+					gbc_labelPanel.anchor = GridBagConstraints.LINE_START;
+					gbc_labelPanel.insets = insets_basic;
 					gbc_labelPanel.gridx = i%2;
 					gbc_labelPanel.gridy = i/2;
 					pnl_basic.add(labelPanel, gbc_labelPanel);
@@ -101,8 +107,12 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 				labelMap_advanced = new EnumMap<Terminology,NamedLabel>(Terminology.class);
 				int i = 0;
 				for(Terminology[] term = Terminology.getPlayerAdvanced();i < term.length;i++){
-					NamedLabel labelPanel = new NamedLabel(term[i].toString(),"%");
+					String unit = Terminology.getUnit(term[i]);
+					NamedLabel labelPanel = new NamedLabel(term[i].toString(),unit);
+					labelPanel.setFont(new Font("黑体",Font.BOLD,fontSize-2));
 					GridBagConstraints gbc_labelPanel = new GridBagConstraints();
+					gbc_labelPanel.anchor = GridBagConstraints.LINE_START;
+					gbc_labelPanel.insets = insets_advanced;
 					gbc_labelPanel.gridx = i%2;
 					gbc_labelPanel.gridy = i/2;
 					pnl_advanced.add(labelPanel, gbc_labelPanel);

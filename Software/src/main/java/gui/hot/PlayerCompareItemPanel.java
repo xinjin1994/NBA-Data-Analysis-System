@@ -1,6 +1,7 @@
 package gui.hot;
 
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -20,8 +21,8 @@ import exceptions.PlayerNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
 import gui.player.PlayerDialog;
-import gui.player.PlayerMatchStatsPanel;
-import gui.player.PlayerSeasonStatsPanel;
+import gui.player.PlayerMatchComparePanel;
+import gui.player.PlayerSeasonComparePanel;
 import gui.player.PlayerStatsPanel;
 import gui.player.PortraitPanel;
 
@@ -65,14 +66,15 @@ public class PlayerCompareItemPanel extends JPanel {
 		add(Box.createVerticalGlue());
 	}
 	public PlayerCompareItemPanel(int rank,String season,Date date,Terminology term,String name,Teams team,Position position) {
-		PlayerMatchStatsPanel pnl_matchStats = new PlayerMatchStatsPanel(playerbl, name,Terminology.getPlayerCompareBasic());
+		PlayerMatchComparePanel pnl_matchStats = new PlayerMatchComparePanel(playerbl, name,Terminology.getPlayerCompareBasic()
+				,15,new Insets(2,0,2,0),new Insets(5,1,5,1));
 		pnl_matchStats.setMatch(season, date);
 		pnl_stats = pnl_matchStats;
 		pnl_stats.setKeyTerm(term);
 		construct(rank,term,name,team,position);
 	}
 	public PlayerCompareItemPanel(int rank,String season,Terminology term,String name,Teams team,Position position){
-		pnl_stats = new PlayerSeasonStatsPanel(playerbl, name,term);
+		pnl_stats = new PlayerSeasonComparePanel(playerbl, name,term,15,new Insets(2,0,2,0),new Insets(5,1,5,1));
 		construct(rank,term,name,team,position);
 	}
 

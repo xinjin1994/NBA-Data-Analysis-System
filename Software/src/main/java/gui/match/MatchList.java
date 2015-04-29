@@ -29,10 +29,7 @@ public class MatchList extends JList<MatchItemPanel_Large> {
 			public Component getListCellRendererComponent(
 					JList<? extends MatchItemPanel_Large> list, MatchItemPanel_Large value,
 					int index, boolean isSelected, boolean cellHasFocus) {
-				if(isSelected)
-					value.setBorder(new LineBorder(Color.BLACK,5));
-				else
-					value.setBorder(new LineBorder(Color.BLACK,1));
+				value.setBorder(new LineBorder(Color.BLACK,1));
 				return value;
 			}
 		});

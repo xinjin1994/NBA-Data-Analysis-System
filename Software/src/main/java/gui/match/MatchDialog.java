@@ -12,7 +12,7 @@ public class MatchDialog extends FrameRefreshable {
 	public MatchDialog(MatchVO vo){
 		super("比赛详情");
 		
-		setMinimumSize(new Dimension(1181,700));
+		setMinimumSize(new Dimension(1300,700));
 		setMaximumSize(new Dimension(1600,730));
 
 		this.setContentPane(new MatchStatsPanel(vo));

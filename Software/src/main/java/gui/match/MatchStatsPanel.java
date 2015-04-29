@@ -17,6 +17,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 import businessLogicService.playersBLService.PlayersBLService_new;
 import businessLogicService.teamsBLService.TeamsBLService_new;
@@ -69,6 +72,11 @@ public class MatchStatsPanel extends JPanel{
 				e.printStackTrace();
 			}
 		}
+		if(vo.getScoreExtra() != null){
+			NamedLabel lbl = new NamedLabel("加时比分",vo.getScoreExtra());
+			lbl.setFontSize(15);
+			pnl_score.add(lbl);
+		}
 		
 		TeamsBLService_new teambl = new ObjectCreator().teamsBLService();
 		TeamMatchStatsPanel pnl_hostStats = new TeamMatchStatsPanel(teambl,vo.getTeam1());
@@ -76,14 +84,16 @@ public class MatchStatsPanel extends JPanel{
 		JScrollPane scrp_host = new JScrollPane(pnl_hostStats);
 		pnl_stats.add(scrp_host);
 		scrp_host.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-		scrp_host.setBorder(BorderFactory.createTitledBorder("主队"));
+		scrp_host.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK),"主队",TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION,new Font("黑体",Font.BOLD,20)));
 
 		TeamMatchStatsPanel pnl_guestStats = new TeamMatchStatsPanel(teambl,vo.getTeam2());
 		pnl_guestStats.setMatch(season, date);
 		JScrollPane scrp_guest = new JScrollPane(pnl_guestStats);
 		pnl_stats.add(scrp_guest);
 		scrp_guest.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-		scrp_guest.setBorder(BorderFactory.createTitledBorder("客队"));
+		scrp_guest.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK),"客队",TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION,new Font("黑体",Font.BOLD,20)));
 		
 
 		JPanel list_host = createPlayerList(season,date,vo.getHomeTeamPlayers());
@@ -135,7 +145,7 @@ public class MatchStatsPanel extends JPanel{
 		pnl_player.add(pnl_stats);
 		list.setSelectedIndex(0);
 		PlayerMatchStatsPanel pnl_playerStats = new PlayerMatchStatsPanel(playerbl,list.getSelectedValue().getName()
-				,Terminology.getPlayerCompareBasic());
+				,Terminology.getPlayerCompareBasic(),13,new Insets(2,1,2,1),new Insets(5,1,5,1));
 		pnl_playerStats.setMatch(season, date);
 		pnl_stats.add(pnl_playerStats,"M");
 		
@@ -156,7 +166,7 @@ public class MatchStatsPanel extends JPanel{
 		public void mouseClicked(MouseEvent me){
 			if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 1){
 				PlayerMatchStatsPanel pnl_playerStats = new PlayerMatchStatsPanel(playerbl,list.getSelectedValue().getName()
-						,Terminology.getPlayerCompareBasic());
+						,Terminology.getPlayerCompareBasic(),13,new Insets(2,1,2,1),new Insets(5,1,5,1));
 				pnl_playerStats.setMatch(season, date);
 				pnl.add(pnl_playerStats,"M");
 				((CardLayout)pnl.getLayout()).show(pnl, "M");

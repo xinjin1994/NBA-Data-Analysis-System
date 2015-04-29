@@ -92,16 +92,16 @@ public enum Terminology {
 	
 	static public Terminology[] getPlayerSeasonBasic(){
 		//参赛场数、先发场数、篮板数、助攻数、在场时间、投篮命中率、三分命中率、罚球命中率、进攻数、防守数、抢断数、盖帽数、犯规数、失误数、得分
-		return new Terminology[]{ATTENDED,PREMIERE,REB,AST,MIN,FGP,TPP,FTP,OFR,DFR,STL,BLK,TOV,PF,PTS};
+		return new Terminology[]{ATTENDED,PREMIERE,MIN,PTS,FGP,TPP,FTP,REB,AST,OFR,DFR,STL,BLK,TOV,PF};
 	}
 	static public Terminology[] getPlayerMatchBasic(){
 		//队伍、位置、得分、投篮命中数、三分命中数、罚球命中数、篮板数、助攻数、在场时间、投篮命中率、三分命中率、罚球命中率、进攻数、防守数、抢断数、盖帽数、犯规数、失误数、
-		return new Terminology[]{TEAM,POSITION,PTS,FGM,TPM,FTM,REB,AST,MIN,FGP,TPP,FTP,OFR,DFR,STL,BLK,TOV,PF};
+		return new Terminology[]{TEAM,POSITION,MIN,PTS,FGM,TPM,FTM,FGP,TPP,FTP,REB,AST,OFR,DFR,STL,BLK,TOV,PF};
 	}
 	
 	static public Terminology[] getPlayerCompareBasic(){
 		//得分、投篮命中数、三分命中数、罚球命中数、篮板数、助攻数、在场时间、投篮命中率、三分命中率、罚球命中率、进攻数、防守数、抢断数、盖帽数、犯规数、失误数、
-		return new Terminology[]{PTS,FGM,TPM,FTM,REB,AST,MIN,FGP,TPP,FTP,OFR,DFR,STL,BLK,TOV,PF};
+		return new Terminology[]{MIN,PTS,FGM,TPM,FTM,FGP,TPP,FTP,REB,AST,OFR,DFR,STL,BLK,TOV,PF};
 	}
 
 	static public Terminology[] getPlayerAdvanced(){

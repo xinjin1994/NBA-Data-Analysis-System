@@ -40,11 +40,13 @@ public class MatchListPanel extends JPanel implements DateChangeable{
 			list.addMouseListener(new MouseAdapter(){
 				@Override
 				public void mouseClicked(MouseEvent me){
-					MatchItemPanel_Large pnl_item = list.getSelectedValue();
-					if(pnl_item != null)
-						changer.changeMatch(pnl_item.getMatch());
-					else
-						changer.noMatch();
+					if(me.getButton() == MouseEvent.BUTTON1 && me.getClickCount() == 2){
+						MatchItemPanel_Large pnl_item = list.getSelectedValue();
+						if(pnl_item != null)
+							changer.changeMatch(pnl_item.getMatch());
+						else
+							changer.noMatch();
+					}
 				}
 			});
 		} catch (StatsNotFound e) {

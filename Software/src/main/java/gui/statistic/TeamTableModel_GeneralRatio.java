@@ -33,7 +33,7 @@ public class TeamTableModel_GeneralRatio extends AbstractTableModel {
 	
 	@Override
 	public Class<?> getColumnClass(int col){
-		return Object.class; 
+		return getValueAt(0,col).getClass(); 
 	}
 	
 	public void updateData(ArrayList<TeamRatioGeneralVO> data){

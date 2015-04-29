@@ -1,9 +1,12 @@
 package gui.match;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
 import javax.swing.Box;
@@ -21,6 +24,7 @@ import javax.swing.SwingConstants;
 import exceptions.TeamNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
+import gui.team.TeamDialog;
 import businessLogicService.teamsBLService.TeamsBLService_new;
 
 public class MatchItemPanel_Large extends JPanel {
@@ -35,6 +39,8 @@ public class MatchItemPanel_Large extends JPanel {
 	private JLabel lbl_guest_icon;
 	private JLabel lbl_hostCon;
 	private JLabel lbl_guestCon;
+	private TeamVO hostvo;
+	private TeamVO guestvo;
 
 	public MatchItemPanel_Large(boolean displaydate) {
 		this.setLayout(new BorderLayout());
@@ -64,8 +70,38 @@ public class MatchItemPanel_Large extends JPanel {
 		
 		lbl_host_icon = new JLabel();
 		lbl_host_icon.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_host_icon.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e){
+				MainFrame.showDialog(new TeamDialog(hostvo));
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				setCursor(Cursor.getDefaultCursor());
+			}
+		});
 		lbl_guest_icon = new JLabel();
 		lbl_guest_icon.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_guest_icon.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e){
+				MainFrame.showDialog(new TeamDialog(hostvo));
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				setCursor(Cursor.getDefaultCursor());
+			}
+		});
 		add(lbl_host_icon,BorderLayout.WEST);
 		add(lbl_guest_icon,BorderLayout.EAST);
 		
@@ -113,8 +149,8 @@ public class MatchItemPanel_Large extends JPanel {
 		TeamsBLService_new teambl = new ObjectCreator().teamsBLService();
 		
 		try {
-			TeamVO hostvo = teambl.getTeamInfo(vo.getTeam1());
-			TeamVO guestvo = teambl.getTeamInfo(vo.getTeam2());
+			hostvo = teambl.getTeamInfo(vo.getTeam1());
+			guestvo = teambl.getTeamInfo(vo.getTeam2());
 			
 			lbl_host_icon.setIcon(new ImageIcon(hostvo.getImage().getImage().getScaledInstance(
 					150,150,Image.SCALE_SMOOTH)));
