@@ -123,8 +123,10 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 			@Override
 			public void mouseClicked(MouseEvent me){
 				if(me.getClickCount() == 2 && me.getButton() == MouseEvent.BUTTON1)
-					if(list.getSelectedValue()!=null)
+					if(list.getSelectedValue()!=null){
 						MainFrame.showDialog(new PlayerDialog(list.getSelectedValue().getName()));
+						playerService.favouritePlayers(list.getSelectedValue().getName());
+					}
 			}
 		});
 	}

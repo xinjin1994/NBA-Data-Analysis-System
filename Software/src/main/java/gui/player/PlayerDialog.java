@@ -36,7 +36,6 @@ public class PlayerDialog extends FrameRefreshable{
 	public PlayerDialog(String name) {
 		super("球员详情");
 		this.name = name;
-		playerbl.favouritePlayers(name);
 		
 		setTitle("球员详情");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
