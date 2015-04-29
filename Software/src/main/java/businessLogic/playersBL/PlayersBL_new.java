@@ -893,7 +893,6 @@ public class PlayersBL_new implements PlayersBLService_new, PlayersBLForTest {
 	@Override
 	public void favouritePlayers(String name) {
 		favourites.addPlayers(name);
-		System.out.println(favourites.getVisits("Kobe Bryant"));
 		saveFavourite();
 	}
 	

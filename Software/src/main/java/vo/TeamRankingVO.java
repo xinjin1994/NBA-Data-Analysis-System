@@ -1,16 +1,19 @@
 package vo;
 
+import enums.Conference;
 import enums.Teams;
 
 public class TeamRankingVO {
 	Teams team;
+	Conference conference;
 	int games;
 	int wins;
 	int loses;
 	int ranking;
 	
-	public TeamRankingVO(Teams team, int games, int wins){
+	public TeamRankingVO(Teams team, Conference conference, int games, int wins){
 		this.team = team;
+		this.conference = conference;
 		this.games = games;
 		this.wins = wins;
 		this.loses = games - loses;
@@ -23,6 +26,10 @@ public class TeamRankingVO {
 
 	public Teams getTeam() {
 		return team;
+	}
+	
+	public Conference getConference() {
+		return conference;
 	}
 
 	public int getGames() {
