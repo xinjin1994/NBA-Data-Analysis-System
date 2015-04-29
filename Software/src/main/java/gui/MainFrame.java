@@ -4,9 +4,14 @@ package gui;
 import gui.match.Season;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -56,6 +61,8 @@ public class MainFrame extends FrameRefreshable{
 		super("NBA数据查询系统");
 		new DataInit().init();
 		
+		setBackground(Color.RED);
+		
 		currentFrame = mf = this;
 		screen = new Dimension(1280,720);
 
@@ -81,8 +88,10 @@ public class MainFrame extends FrameRefreshable{
 		//pnl_main.add(pnl_menu,PanelType.MENU.toString());
 
 		pnl_tools = new ToolsPanel(pnl_main);
-		contentPane.add(pnl_tools,BorderLayout.NORTH);
+		//pnl_tools.setOpaque(false);
+		pnl_tools.setBackground(new Color(255,0,0));
 		
+		contentPane.add(pnl_tools,BorderLayout.NORTH);
 		gotoPanel(PanelType.MENU);
 		
 		this.addWindowListener(new WindowAdapter(){

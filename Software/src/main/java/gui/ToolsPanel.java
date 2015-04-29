@@ -11,8 +11,12 @@ import gui.statistic.StatisticPanel;
 import gui.team.TeamPanel;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -39,6 +43,20 @@ public class ToolsPanel extends JPanel{
 	private JComboBox<Season> cbbx_season;
 	private ArrayList<PanelType> refreshList = new ArrayList<PanelType>();
 	private JButton btn_return;
+	
+	@Override
+    protected void paintComponent(Graphics g) {
+        if (g instanceof Graphics2D) {
+            final int R = 240;
+            final int G = 240;
+            final int B = 240;
+
+            Paint p = new Color(R,G,B,10);
+            Graphics2D g2d = (Graphics2D)g;
+            g2d.setPaint(p);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+        }
+    }
 	
 	public ToolsPanel(JPanel pnl_main){
 		this.pnl_main = pnl_main;
