@@ -34,6 +34,14 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 
 	private static final long serialVersionUID = 9090035509234357424L;
 	private JList<PortraitPanel> list;
+	
+	final static int CDP = 1;
+	final static int NAME = 2;
+	int lastFilter = 0;
+	Conference con = Conference.NATIONAL;
+	Division div = Division.NATIONAL;
+	Position pos = Position.ALL;
+	String name = "";
 
 	private PlayersBLService_new playerService = new ObjectCreator().playersBLService();
 //	Image backgroundImage = null;
@@ -126,6 +134,7 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 					if(list.getSelectedValue()!=null){
 						MainFrame.showDialog(new PlayerDialog(list.getSelectedValue().getName()));
 						playerService.favouritePlayers(list.getSelectedValue().getName());
+						updateList();
 					}
 			}
 		});
@@ -133,6 +142,9 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 
 	@Override
 	public void buildList(Conference c, Division d, Position p) {
+		this.con = c;
+		this.div = d;
+		this.pos = p;
 		ArrayList<PlayerPortraitVO> volist = null;
 		try {
 			volist = playerService.getPlayersPortrait(c,d,p);
@@ -145,9 +157,11 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 			model.addElement(new PortraitPanel(volist.get(i)));
 		}
 		list.setModel(model);
+		lastFilter = CDP;
 	}
 	@Override
 	public void filterList(String name) {
+		this.name = name;
 		ArrayList<PlayerPortraitVO> volist = null;
 		try {
 			volist = playerService.getPlayerPortrait(name);
@@ -161,6 +175,35 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 			model.addElement(new PortraitPanel(volist.get(i)));
 		}
 		list.setModel(model);
+		lastFilter = NAME;
+	}
+	
+	
+	
+	
+	
+	private void updateList(){
+		try{
+			ArrayList<PlayerPortraitVO> playerList;
+			
+			if(lastFilter == CDP){
+				playerList = playerService.getPlayersPortrait(con, div, pos);
+			}else if(lastFilter == NAME){
+				playerList = playerService.getPlayerPortrait(name);
+			}else{
+				playerList = playerService.getPlayersPortrait(Conference.NATIONAL, Division.NATIONAL, Position.ALL);
+			}
+			
+			DefaultListModel<PortraitPanel> model = new DefaultListModel<PortraitPanel>();
+			for(int i = 0;i < playerList.size();i++){
+				model.addElement(new PortraitPanel(playerList.get(i)));
+			}
+			
+			list.setModel(model);
+			list.updateUI();
+		}catch(PlayerNotFound e){
+			JOptionPane.showMessageDialog(MainFrame.currentFrame, "Error!");
+		}
 	}
 
 }
