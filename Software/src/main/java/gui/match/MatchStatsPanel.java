@@ -18,6 +18,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +29,7 @@ import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -50,7 +54,18 @@ public class MatchStatsPanel extends JPanel{
 		date = TypeTransform.str_to_date(vo.getDate());
 		setLayout(new BorderLayout());
 		
-		JPanel pnl_match = new JPanel();
+		JPanel pnl_match = new JPanel(){
+			public void paintComponent(Graphics gs) {  
+		        Graphics2D g = (Graphics2D) gs;  
+		        super.paintComponent(g);  
+		        //画背景图片  
+		        String imagePath="image\\main_menu\\04.png";
+//		        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+		        ImageIcon img = new ImageIcon(imagePath);
+		        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+		        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+		    }
+		};
 		pnl_match.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 		add(pnl_match);
 		pnl_match.setLayout(new BorderLayout());

@@ -5,7 +5,11 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Paint;
 import java.util.ArrayList;
 
 import vo.TeamVO;
@@ -16,6 +20,7 @@ import gui.MainFrame;
 import businessLogicService.teamsBLService.TeamsBLService_new;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -42,12 +47,14 @@ public class TeamPanel extends JPanel {
 		JPanel pnl_title = new JPanel(new GridLayout(1,2));
 		add(pnl_title, BorderLayout.NORTH);
 		
-		JLabel lbl_east = new JLabel("东部");
+		ImageIcon lbl_east_pic=new ImageIcon("image/main_menu/lbl_east.png");
+		JLabel lbl_east = new JLabel(lbl_east_pic);
 		lbl_east.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_east.setFont(new Font("宋体", Font.PLAIN, 65));
 		pnl_title.add(lbl_east);
 		
-		JLabel lbl_west = new JLabel("西部");
+		ImageIcon lbl_west_pic=new ImageIcon("image/main_menu/lbl_west.png");
+		JLabel lbl_west = new JLabel(lbl_west_pic);
 		lbl_west.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_west.setFont(new Font("宋体", Font.PLAIN, 65));
 		pnl_title.add(lbl_west);
@@ -56,7 +63,18 @@ public class TeamPanel extends JPanel {
 		scrp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrp, BorderLayout.CENTER);
 		
-		JPanel pnl_teams = new JPanel();
+		JPanel pnl_teams = new JPanel(){
+			 public void paintComponent(Graphics gs) {  
+			        Graphics2D g = (Graphics2D) gs;  
+			        super.paintComponent(g);  
+			        //画背景图片  
+			        String imagePath="image\\main_menu\\01.jpg";
+//			        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+			        ImageIcon img = new ImageIcon(imagePath);
+			        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+			        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+			    }
+		};
 		pnl_teams.setPreferredSize(new Dimension(MainFrame.screen.width-500,1800));
 		scrp.setViewportView(pnl_teams);
 		pnl_teams.setLayout(new GridLayout(3,2));

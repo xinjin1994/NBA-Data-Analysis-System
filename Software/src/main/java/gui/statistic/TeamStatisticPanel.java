@@ -9,6 +9,10 @@ import gui.SelfAdjustPanel;
 import gui.util.LeftAlignTableRenderer;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,6 +20,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -23,6 +28,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
 
 import businessLogicService.teamsBLService.TeamsBLService_new;
 import vo.TeamDefensiveFoulsVO;
@@ -44,9 +50,22 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 	private ButtonGroup btngrp;
 	
 	private TeamsBLService_new teamService;
+	
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+        super.paintComponent(g);  
+        //画背景图片  
+        String imagePath="image\\main_menu\\01.jpg";
+//        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+        ImageIcon img = new ImageIcon(imagePath);
+        img.setImage(img.getImage().getScaledInstance(pWidth,pHeight,Image.SCALE_DEFAULT));
+        g.drawImage(img.getImage(), 0, 0,pWidth,pHeight, this);  
+    }
 
 	public TeamStatisticPanel() {
 		teamService = new ObjectCreator().teamsBLService();
+		
+		setBorder(new EmptyBorder(30,40,105,40));
 		
 		setLayout(new BorderLayout());
 		
@@ -117,9 +136,11 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 		add(pane_lists);
 		
 		JRadioButton rdibtn_average = new JRadioButton("平均");
+		rdibtn_average.setBackground(new Color(205,220,243,100));
 		rdibtn_average.setActionCommand("AVERAGE");
 		rdibtn_average.addActionListener(new RadioButtonListener());
 		JRadioButton rdibtn_total = new JRadioButton("总计");
+		rdibtn_total.setBackground(new Color(205,220,243,100));
 		rdibtn_total.setActionCommand("TOTAL");
 		rdibtn_total.addActionListener(new RadioButtonListener());
 		btngrp = new ButtonGroup();
@@ -127,7 +148,18 @@ public class TeamStatisticPanel extends SelfAdjustPanel{
 		btngrp.add(rdibtn_total);
 		rdibtn_average.setSelected(true);
 		
-		JPanel pnl_selection = new JPanel();
+		JPanel pnl_selection = new JPanel(){
+			 public void paintComponent(Graphics gs) {  
+			        Graphics2D g = (Graphics2D) gs;  
+			        super.paintComponent(g);  
+			        //画背景图片  
+			        String imagePath="image\\main_menu\\05.png";
+//			        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+			        ImageIcon img = new ImageIcon(imagePath);
+			        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+			        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+			    }
+		};
 		pnl_selection.add(rdibtn_average);
 		pnl_selection.add(rdibtn_total);
 		add(pnl_selection,BorderLayout.NORTH);

@@ -2,6 +2,9 @@ package gui.hot;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import vo.TeamDefensiveFoulsVO;
 import vo.TeamHotStatsVO;
 import vo.TeamOffensiveStatsVO;
@@ -32,6 +36,13 @@ public class TeamCompareItemPanel extends JPanel {
 	private static TeamsBLService_new teambl = new ObjectCreator().teamsBLService();
 	private TeamVO vo;
 
+//	public void paintComponent(Graphics gs) {  
+//        Graphics2D g = (Graphics2D) gs;  
+////        super.paintComponent(g);  
+//        Paint p = new Color(0,0,0,0);
+//        g.setPaint(p);
+//        g.fillRect(0, 0, getWidth(), getHeight());
+//	}
 	public TeamCompareItemPanel(int rank,String season,Terminology term,TeamHotStatsVO hotvo){
 		setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 		

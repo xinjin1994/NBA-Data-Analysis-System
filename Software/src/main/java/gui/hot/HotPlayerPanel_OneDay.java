@@ -4,10 +4,14 @@ import enums.Terminology;
 import exceptions.StatsNotFound;
 import factory.ObjectCreator;
 import gui.MainFrame;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -34,11 +38,26 @@ public class HotPlayerPanel_OneDay extends JPanel {
 	private JRadioButton rdibtn_season;
 	private ArrayList<Date> dates;
 
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+//        super.paintComponent(g);  
+        Paint p = new Color(0,0,0,0);
+        g.setPaint(p);
+        g.fillRect(0, 0, getWidth(), getHeight());
+	}
 	public HotPlayerPanel_OneDay() {
 		setLayout(new BorderLayout());
 		setBorder(new LineBorder(Color.BLACK));
 		{
-			JPanel pnl_choose = new JPanel();
+			JPanel pnl_choose = new JPanel(){
+				public void paintComponent(Graphics gs) {  
+			        Graphics2D g = (Graphics2D) gs;  
+//			        super.paintComponent(g);  
+			        Paint p = new Color(0,0,0,0);
+			        g.setPaint(p);
+			        g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			add(pnl_choose, BorderLayout.NORTH);
 			pnl_choose.setLayout(new BoxLayout(pnl_choose, BoxLayout.X_AXIS));
 			
@@ -56,12 +75,14 @@ public class HotPlayerPanel_OneDay extends JPanel {
 			}
 			
 			rdibtn_today = new JRadioButton("每日热点");
+			rdibtn_today.setBackground(new Color(210,225,244,100));
 			rdibtn_today.setActionCommand(TODAY);
 			rdibtn_today.setSelected(true);
 			rdibtn_today.addActionListener(new DateChangeListener());
 			pnl_choose.add(rdibtn_today);
 			
 			rdibtn_season = new JRadioButton("赛季热点");
+			rdibtn_season.setBackground(new Color(210,225,244,100));
 			rdibtn_season.setActionCommand(SEASON);
 			rdibtn_season.setSelected(false);
 			rdibtn_season.addActionListener(new DateChangeListener());
@@ -71,7 +92,15 @@ public class HotPlayerPanel_OneDay extends JPanel {
 
 		}
 		{
-			pnl_hot = new JPanel(new CardLayout());
+			pnl_hot = new JPanel(new CardLayout()){
+				public void paintComponent(Graphics gs) {  
+			        Graphics2D g = (Graphics2D) gs;  
+//			        super.paintComponent(g);  
+			        Paint p = new Color(0,0,0,0);
+			        g.setPaint(p);
+			        g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			add(pnl_hot);
 			
 			setTodayHot();
@@ -82,7 +111,15 @@ public class HotPlayerPanel_OneDay extends JPanel {
 	
 	private void setSeasonHot(){
 		Terminology[] terms = Terminology.getPlayerSeasonHot();
-		JPanel pnl_season = new JPanel();
+		JPanel pnl_season = new JPanel(){
+			public void paintComponent(Graphics gs) {  
+		        Graphics2D g = (Graphics2D) gs;  
+//		        super.paintComponent(g);  
+		        Paint p = new Color(0,0,0,0);
+		        g.setPaint(p);
+		        g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnl_season.setLayout(new BoxLayout(pnl_season,BoxLayout.X_AXIS));
 		for(Terminology term:terms){
 			pnl_season.add(Box.createHorizontalGlue());
@@ -93,7 +130,15 @@ public class HotPlayerPanel_OneDay extends JPanel {
 	}
 	private void setTodayHot(){
 		Terminology[] terms = Terminology.getPlayerTodayHot();
-		JPanel pnl_day = new JPanel();
+		JPanel pnl_day = new JPanel(){
+			public void paintComponent(Graphics gs) {  
+		        Graphics2D g = (Graphics2D) gs;  
+//		        super.paintComponent(g);  
+		        Paint p = new Color(0,0,0,0);
+		        g.setPaint(p);
+		        g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnl_day.setLayout(new BoxLayout(pnl_day,BoxLayout.X_AXIS));
 		for(Terminology term:terms){
 			pnl_day.add(Box.createHorizontalGlue());

@@ -1,11 +1,15 @@
 package gui.match;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,6 +27,16 @@ public class MatchListPanel extends JPanel implements DateChangeable{
 	private MatchList list = new MatchList();
 	private String season = MainFrame.season.season;
 
+	 public void paintComponent(Graphics gs) {  
+	        Graphics2D g = (Graphics2D) gs;  
+	        super.paintComponent(g);  
+	        //画背景图片  
+	        String imagePath="image\\main_menu\\04.png";
+//	        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+	        ImageIcon img = new ImageIcon(imagePath);
+	        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+	        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+	    }
 	public MatchListPanel(MatchVOChangeable changer) {
 		setLayout(new BorderLayout());
 		

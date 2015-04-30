@@ -1,8 +1,12 @@
 package gui.team;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Paint;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,7 +24,17 @@ public class TeamPortraitPanel extends JPanel {
 	private static final long serialVersionUID = -3815129792429001677L;
 	private TeamVO vo;
 	
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+//        super.paintComponent(g);  
+        Paint p = new Color(0,0,0,0);
+        g.setPaint(p);
+        g.fillRect(0, 0, getWidth(), getHeight());
+	}
+	
 	public TeamPortraitPanel(ImageIcon image, Teams team) {
+		
+		
 		
 		image.setImage(image.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
 		//this.setSize(150, 180);

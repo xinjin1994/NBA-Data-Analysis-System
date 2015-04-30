@@ -2,6 +2,7 @@ package gui.team;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,7 +17,12 @@ import factory.ObjectCreator;
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Paint;
 
 import javax.swing.SwingConstants;
 
@@ -24,6 +30,17 @@ public class DivisionPanel extends JPanel {
 	private static final long serialVersionUID = -8415790128985762866L;
 	TeamsBLService_new service;
 	
+	
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+        super.paintComponent(g);  
+        //画背景图片  
+        String imagePath="image\\main_menu\\tool_pic.jpg";
+//        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+        ImageIcon img = new ImageIcon(imagePath);
+        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+    }
 	public DivisionPanel(Conference conference, Division division) {
 		
 		setLayout(new BorderLayout());
@@ -34,7 +51,15 @@ public class DivisionPanel extends JPanel {
 		lbl_title.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lbl_title,BorderLayout.NORTH);
 
-		JPanel pnl_teams = new JPanel();
+		JPanel pnl_teams = new JPanel(){
+			public void paintComponent(Graphics gs) {  
+		        Graphics2D g = (Graphics2D) gs;  
+//		        super.paintComponent(g);  
+		        Paint p = new Color(0,0,0,0);
+		        g.setPaint(p);
+		        g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		add(pnl_teams);
 		
 		service = new ObjectCreator().teamsBLService();

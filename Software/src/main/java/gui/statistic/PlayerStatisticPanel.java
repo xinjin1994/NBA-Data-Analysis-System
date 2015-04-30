@@ -10,8 +10,13 @@ import gui.SelfAdjustPanel;
 import gui.player.PlayerSearch;
 import gui.player.SearchPlayerPanel;
 import gui.util.LeftAlignTableRenderer;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -20,6 +25,7 @@ import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultRowSorter;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -46,6 +52,16 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 	
 	private PlayersBLService_new playerService;
 
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+        super.paintComponent(g);  
+        //画背景图片  
+        String imagePath="image\\main_menu\\01.jpg";
+//        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+        ImageIcon img = new ImageIcon(imagePath);
+        img.setImage(img.getImage().getScaledInstance(pWidth,pHeight,Image.SCALE_DEFAULT));
+        g.drawImage(img.getImage(), 0, 0,pWidth,pHeight, this);  
+    }
 	public PlayerStatisticPanel() {
 		playerService = new ObjectCreator().playersBLService();
 		
@@ -114,9 +130,11 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		add(pnl_search, gbc_pnl_search);
 		
 		JRadioButton rdibtn_average = new JRadioButton("平均");
+		rdibtn_average.setBackground(new Color(214,226,242,100));
 		rdibtn_average.setActionCommand("AVERAGE");
 		rdibtn_average.addActionListener(new RadioButtonListener());
 		JRadioButton rdibtn_total = new JRadioButton("总计");
+		rdibtn_total.setBackground(new Color(214,226,242,100));
 		rdibtn_total.setActionCommand("TOTAL");
 		rdibtn_total.addActionListener(new RadioButtonListener());
 		btngrp = new ButtonGroup();
@@ -124,7 +142,18 @@ public class PlayerStatisticPanel extends SelfAdjustPanel implements PlayerSearc
 		btngrp.add(rdibtn_total);
 		rdibtn_average.setSelected(true);
 		
-		JPanel pnl_selection = new JPanel();
+		JPanel pnl_selection = new JPanel(){
+			public void paintComponent(Graphics gs) {  
+		        Graphics2D g = (Graphics2D) gs;  
+		        super.paintComponent(g);  
+		        //画背景图片  
+		        String imagePath="image\\main_menu\\05.png";
+//		        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+		        ImageIcon img = new ImageIcon(imagePath);
+		        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+		        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+		    }
+		};
 		GridBagConstraints gbc_pnl_selection = new GridBagConstraints();
 		gbc_pnl_selection.gridx = 1;
 		gbc_pnl_selection.gridy = 2;

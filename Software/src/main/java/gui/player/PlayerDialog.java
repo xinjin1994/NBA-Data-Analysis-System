@@ -3,7 +3,10 @@ package gui.player;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Paint;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -45,7 +48,18 @@ public class PlayerDialog extends FrameRefreshable{
 	}
 	@Override
 	public void refresh() {
-		JPanel contentPanel = new JPanel();
+		JPanel contentPanel = new JPanel(){
+			public void paintComponent(Graphics gs) {  
+		        Graphics2D g = (Graphics2D) gs;  
+		        super.paintComponent(g);  
+		        //画背景图片  
+		        String imagePath="image\\main_menu\\01.jpg";
+//		        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+		        ImageIcon img = new ImageIcon(imagePath);
+		        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+		        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+		    }
+		};
 		setContentPane(contentPanel);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -65,7 +79,15 @@ public class PlayerDialog extends FrameRefreshable{
 		lbl_photo.setBorder(new LineBorder(Color.BLACK,1));
 		contentPanel.add(lbl_photo,BorderLayout.WEST);
 		{
-			JPanel pnl_main = new JPanel();
+			JPanel pnl_main = new JPanel(){
+				public void paintComponent(Graphics gs) {  
+			        Graphics2D g = (Graphics2D) gs;  
+//			        super.paintComponent(g);  
+			        Paint p = new Color(0,0,0,0);
+			        g.setPaint(p);
+			        g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			pnl_main.setLayout(new BoxLayout(pnl_main,BoxLayout.Y_AXIS));
 			contentPanel.add(pnl_main);
 			

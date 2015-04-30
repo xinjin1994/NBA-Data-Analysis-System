@@ -3,10 +3,14 @@ package gui.player;
 import gui.util.GUIUtility;
 import gui.util.NamedLabel;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Paint;
 
 import javax.swing.JPanel;
 
@@ -15,6 +19,13 @@ import vo.PlayerVO;
 public class PlayerBasicInfoPanel extends JPanel {
 	private static final long serialVersionUID = -5971314502257552436L;
 
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+//        super.paintComponent(g);  
+        Paint p = new Color(0,0,0,0);
+        g.setPaint(p);
+        g.fillRect(0, 0, getWidth(), getHeight());
+	}
 	public PlayerBasicInfoPanel(PlayerVO vo) {
 		GridBagLayout gbl_pnl_basic = new GridBagLayout();
 		setLayout(gbl_pnl_basic);

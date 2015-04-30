@@ -1,10 +1,14 @@
 package gui.match;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Paint;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -42,10 +46,29 @@ public class MatchItemPanel_Large extends JPanel {
 	private TeamVO hostvo;
 	private TeamVO guestvo;
 
+	 public void paintComponent(Graphics gs) {  
+	        Graphics2D g = (Graphics2D) gs;  
+	        super.paintComponent(g);  
+	        //画背景图片  
+	        String imagePath="image\\main_menu\\04.png";
+//	        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+	        ImageIcon img = new ImageIcon(imagePath);
+	        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+	        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+	    }
+	 
 	public MatchItemPanel_Large(boolean displaydate) {
 		this.setLayout(new BorderLayout());
 		
-		JPanel pnl_match = new JPanel();
+		JPanel pnl_match = new JPanel(){
+			public void paintComponent(Graphics gs) {  
+		        Graphics2D g = (Graphics2D) gs;  
+//		        super.paintComponent(g);  
+		        Paint p = new Color(0,0,0,0);
+		        g.setPaint(p);
+		        g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
 		pnl_match.setLayout(new BoxLayout(pnl_match,BoxLayout.Y_AXIS));
 		add(pnl_match);
 		
@@ -56,7 +79,16 @@ public class MatchItemPanel_Large extends JPanel {
 			add(lbl_date,BorderLayout.NORTH);
 		
 		
-		JPanel pnl_team = new JPanel();
+		JPanel pnl_team = new JPanel(){
+			public void paintComponent(Graphics gs) {  
+		        Graphics2D g = (Graphics2D) gs;  
+//		        super.paintComponent(g);  
+		        Paint p = new Color(0,0,0,0);
+		        g.setPaint(p);
+		        g.fillRect(0, 0, getWidth(), getHeight());
+			}
+		};
+		
 		pnl_team.setLayout(new GridLayout(5,3));
 		pnl_match.add(pnl_team);
 		

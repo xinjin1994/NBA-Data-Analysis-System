@@ -10,6 +10,7 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -60,11 +61,11 @@ public class MainFrame extends FrameRefreshable{
 	public MainFrame() {
 		super("NBA数据查询系统");
 		new DataInit().init();
-		
+//		this.setUndecorated(true);
 		setBackground(Color.RED);
 		
 		currentFrame = mf = this;
-		screen = new Dimension(1280,720);
+		screen = Toolkit.getDefaultToolkit().getScreenSize();
 
 		//和屏幕一样大
 		this.setSize(screen);//固定窗口大小

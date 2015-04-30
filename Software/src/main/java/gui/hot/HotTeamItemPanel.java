@@ -1,7 +1,11 @@
 package gui.hot;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -29,6 +33,13 @@ public class HotTeamItemPanel extends JPanel {
 	private static TeamsBLService_new teambl = new ObjectCreator().teamsBLService();
 	private ArrayList<TeamHotStatsVO> teams;
 
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+//        super.paintComponent(g);  
+        Paint p = new Color(0,0,0,0);
+        g.setPaint(p);
+        g.fillRect(0, 0, getWidth(), getHeight());
+	}
 	public HotTeamItemPanel(Terminology term) {
 		teams = teambl.getHotTeams(MainFrame.season.season, term, RANK_NUMBER);
 		

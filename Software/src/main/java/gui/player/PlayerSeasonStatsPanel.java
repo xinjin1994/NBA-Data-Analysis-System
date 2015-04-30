@@ -11,9 +11,12 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.EnumMap;
@@ -32,13 +35,28 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 	private static final String AVERAGE = "AVERAGE";
 	private static final String TOTAL = "TOTAL";
 
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+//        super.paintComponent(g);  
+        Paint p = new Color(0,0,0,0);
+        g.setPaint(p);
+        g.fillRect(0, 0, getWidth(), getHeight());
+	}
 	public PlayerSeasonStatsPanel(PlayersBLService_new playerService,String name) {
 		this(playerService,name,15,new Insets(2,5,2,5),new Insets(5,5,5,5));
 	}
 	private PlayerSeasonStatsPanel(PlayersBLService_new playerService,String name,int fontSize,Insets insets_basic,Insets insets_advanced){
 		super(playerService,name);
 		{
-			JPanel pnl_seaStats = new JPanel(new BorderLayout());
+			JPanel pnl_seaStats = new JPanel(new BorderLayout()){
+				public void paintComponent(Graphics gs) {  
+			        Graphics2D g = (Graphics2D) gs;  
+//			        super.paintComponent(g);  
+			        Paint p = new Color(0,0,0,0);
+			        g.setPaint(p);
+			        g.fillRect(0, 0, getWidth(), getHeight());
+				}
+			};
 			add(pnl_seaStats);
 			
 			JPanel pnl_seaTitle = new JPanel();
@@ -46,12 +64,14 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 			//pnl_seaTitle.add(new JLabel("赛季数据"));
 			
 			rdibtn_basic = new JRadioButton("基础数据");
+//			rdibtn_basic.setBackground(new Color(212,223,243,100));
 			rdibtn_basic.setFont(new Font("黑体",Font.BOLD,fontSize));
 			rdibtn_basic.setActionCommand(BASIC);
 			rdibtn_basic.addActionListener(new StatsRadioButtonListener());
 			pnl_seaTitle.add(rdibtn_basic);
 			
 			rdibtn_advanced = new JRadioButton("进阶数据");
+//			rdibtn_advanced.setBackground(new Color(212,223,243,100));
 			rdibtn_advanced.setFont(new Font("黑体",Font.BOLD,fontSize));
 			rdibtn_advanced.setActionCommand(ADVANCED);
 			rdibtn_advanced.addActionListener(new StatsRadioButtonListener());
@@ -74,6 +94,7 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 				pnl_basic.setLayout(gbl_pnl_tech);
 				
 				JRadioButton rdibtn_average = new JRadioButton("平均");
+//				rdibtn_average.setBackground(new Color(212,223,243,100));
 				rdibtn_average.setFont(new Font("黑体",Font.BOLD,15));
 				rdibtn_average.setActionCommand(AVERAGE);
 				rdibtn_average.addActionListener(new TypeRadioButtonListener());
@@ -83,6 +104,7 @@ public class PlayerSeasonStatsPanel extends PlayerStatsPanel {
 				pnl_basic.add(rdibtn_average,gbc_rdibtn_average);
 				
 				JRadioButton rdibtn_total = new JRadioButton("总计");
+//				rdibtn_total.setBackground(new Color(212,223,243,100));
 				rdibtn_total.setFont(new Font("黑体",Font.BOLD,15));
 				rdibtn_total.setActionCommand(TOTAL);
 				rdibtn_total.addActionListener(new TypeRadioButtonListener());

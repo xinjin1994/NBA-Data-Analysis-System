@@ -1,7 +1,11 @@
 package gui.hot;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -33,6 +37,13 @@ public class HotPlayerItemPanel extends JPanel {
 	private String season;
 	private Date date;
 
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+//        super.paintComponent(g);  
+        Paint p = new Color(0,0,0,0);
+        g.setPaint(p);
+        g.fillRect(0, 0, getWidth(), getHeight());
+	}
 	private void construct(Terminology term,boolean average) {
 		if(players.size() == 0){
 			setLayout(new BorderLayout());

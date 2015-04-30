@@ -16,6 +16,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -57,6 +59,17 @@ public class ToolsPanel extends JPanel{
             g2d.fillRect(0, 0, getWidth(), getHeight());
         }
     }*/
+	
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+        super.paintComponent(g);  
+        //画背景图片  
+        String imagePath="image\\main_menu\\tool_pic.jpg";
+//        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
+        ImageIcon img = new ImageIcon(imagePath);
+        img.setImage(img.getImage().getScaledInstance(getWidth(),getHeight(),Image.SCALE_DEFAULT));
+        g.drawImage(img.getImage(), 0, 0,getWidth(),getHeight(), this);  
+    }
 	
 	public ToolsPanel(JPanel pnl_main){
 		this.pnl_main = pnl_main;

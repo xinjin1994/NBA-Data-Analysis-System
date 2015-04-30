@@ -10,11 +10,15 @@ import gui.util.NamedLabel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -38,6 +42,7 @@ public class PlayerMatchStatsPanel extends PlayerStatsPanel implements MatchChan
 	private String season;
 	private Date date;
 
+	
 	public PlayerMatchStatsPanel(PlayersBLService_new playerService,String name) {
 		this(playerService,name,Terminology.getPlayerMatchBasic(),15,new Insets(2,5,2,5),new Insets(5,5,5,5));
 	}

@@ -1,6 +1,7 @@
 package gui.player;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -10,9 +11,14 @@ import enums.Conference;
 import enums.Division;
 import enums.Position;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,6 +32,14 @@ public class SearchPlayerPanel extends JPanel {
 	private JComboBox<Position> cbbx_position;
 	private JComboBox<Division> cbbx_division;
 
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+//        super.paintComponent(g);  
+        Paint p = new Color(0,0,0,0);
+        g.setPaint(p);
+        g.fillRect(0, 0, getWidth(), getHeight());
+	}
+	
 	public SearchPlayerPanel(PlayerSearch playerPanel) {
 		this.playerPanel = playerPanel;
 		//this.table = table;

@@ -2,6 +2,11 @@ package gui.match;
 
 import gui.util.ShortDate;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -22,6 +27,14 @@ public class DateChooser extends JPanel {
 	private JButton btn_prev;
 	private JButton btn_next;
 	private DateChangeable dc;
+	
+	public void paintComponent(Graphics gs) {  
+        Graphics2D g = (Graphics2D) gs;  
+//        super.paintComponent(g);  
+        Paint p = new Color(0,0,0,0);
+        g.setPaint(p);
+        g.fillRect(0, 0, getWidth(), getHeight());
+	}
 	
 	public DateChooser(ShortDate[] dates,DateChangeable dc){
 		this.dc = dc;
@@ -53,6 +66,7 @@ public class DateChooser extends JPanel {
 		btn_next.addActionListener(new DateChangeListener());
 		
 		cbbx_date.setSelectedIndex(0);
+		cbbx_date.setMaximumSize(new Dimension(10,20));
 	}
 	
 	private class DateChangeListener implements ActionListener{

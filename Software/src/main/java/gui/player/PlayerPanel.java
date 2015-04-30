@@ -72,7 +72,7 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 	        Graphics2D g = (Graphics2D) gs;  
 	        super.paintComponent(g);  
 	        //画背景图片  
-	        String imagePath="image\\background01.jpg";
+	        String imagePath="image\\main_menu\\01.jpg";
 //	        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource(imagePath));  
 	        ImageIcon img = new ImageIcon(imagePath);
 	        img.setImage(img.getImage().getScaledInstance(pWidth,pHeight,Image.SCALE_DEFAULT));
@@ -82,7 +82,7 @@ public class PlayerPanel extends SelfAdjustPanel implements PlayerSearch{
 	 
 	public PlayerPanel() {
 		GridBagLayout gbl_pnl_menu = new GridBagLayout();
-		gbl_pnl_menu.columnWidths = new int[]{pWidth/10, (int) (pWidth/(10/8.0)), pWidth/10};
+		gbl_pnl_menu.columnWidths = new int[]{pWidth/8, (int) (pWidth/(10/7.5)), pWidth/8};
 		gbl_pnl_menu.rowHeights = new int[]{pHeight/10,pHeight/10, pHeight/10, (int) (pHeight*(6/10.0)), pHeight/10};
 		gbl_pnl_menu.columnWeights = new double[]{1,1,1};
 		gbl_pnl_menu.rowWeights = new double[]{1,1,1,1,1};
